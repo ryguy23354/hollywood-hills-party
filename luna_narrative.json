@@ -2,29 +2,27 @@
   "scene_luna_00_intro": {
     "id": "scene_luna_00_intro",
     "image": "scene_luna_00_intro.jpg",
-    "text": "Luna stands near a velvet-draped lounge alcove, the soft light tracing the contours of her posture. She watches you approach with calm intensity, her expression unreadable but inviting.\n\n\"You found the quiet corner,\" she murmurs, voice low and smooth. \"Most people here avoid silence like it's dangerous. I like that you don't.\"",
+    "text": "Luna stands near a velvet-draped lounge alcove, the soft light tracing her silhouette. She watches you approach with quiet intensity. \"You found the calm part of the party,\" she says, voice low. \"Most people here fear stillness. You don\u2019t.\"",
     "choices": {
       "soft_approach": "scene_luna_soft_01",
       "intense_energy": "scene_luna_intense_01",
       "return_to_party": "scene_00_intro"
     }
-  }
-}
-{
+  },
   "scene_luna_soft_01": {
     "id": "scene_luna_soft_01",
     "image": "scene_luna_soft_01.jpg",
-    "text": "A soft and slower moment unfolds with Luna.",
+    "text": "A softer moment unfolds with Luna as she leans closer, her voice quiet but warm.",
     "choices": {
-      "return": "scene_00_intro"
+      "return_to_party": "scene_00_intro"
     }
   },
   "scene_luna_intense_01": {
     "id": "scene_luna_intense_01",
     "image": "scene_luna_intense_01.jpg",
-    "text": "Luna steps closer, intensity in her eyes.",
+    "text": "Luna steps closer, her gaze burning with sudden intensity.",
     "choices": {
-      "return": "scene_00_intro"
+      "return_to_party": "scene_00_intro"
     }
   }
 }
