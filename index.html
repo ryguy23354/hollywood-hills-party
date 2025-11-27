@@ -55,11 +55,66 @@
       margin-top: 15px;
       font-weight: bold;
     }
-  </style>
+    .top-btn {
+      float: right;
+      margin-top: -5px;
+      padding: 6px 12px;
+      background: #444;
+      color: #fff;
+      border: 1px solid #666;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .top-btn:hover { background:#555; }
+
+    .card {
+      background:#1b1b1b;
+      border:1px solid #333;
+      border-radius:12px;
+      padding:15px;
+      margin-bottom:20px;
+      box-shadow:0 0 10px rgba(0,0,0,0.4);
+      transition:transform .3s ease, background .3s ease;
+    }
+    .card:hover { transform:scale(1.02); background:#222; }
+
+    .fade {
+      opacity:0;
+      transition:opacity .4s ease;
+    }
+    .fade.show {
+      opacity:1;
+    }
+    /* Profile Card Styling */
+  .card {
+    background:#1b1b1b;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:20px;
+    box-shadow:0 0 10px rgba(0,0,0,0.4);
+    transition:transform .3s ease, background .3s ease;
+  }
+  .card:hover { transform:scale(1.02); background:#222; }
+
+  /* Scene fade transition */
+  #story-container.fade {
+    opacity:0;
+    transition:opacity .4s ease;
+  }
+  #story-container.fade.show {
+    opacity:1;
+  }
+
+</style>
 </head>
 
 <body>
-  <header>Interactive Story Engine</header>
+  <header>
+  Interactive Story Engine
+  <button class="top-btn" onclick="showCharacterProfiles()">Meet the Characters</button>
+  <button class="top-btn" onclick="showCharacterProfiles()">Meet the Characters</button>
+</header>
 
   <div id="story-container">
     <h2 id="scene-title"></h2>
@@ -98,6 +153,19 @@
     }
 
     function renderScene(id) {
+      const container = document.getElementById('story-container');
+      container.classList.remove('show');
+      void container.offsetWidth;
+      container.classList.add('show');
+
+      if (id === "__show_profiles__") { showCharacterProfiles(); return; }(id) {
+      if (id === "__show_profiles__") { showCharacterProfiles(); return; }
+
+      const container = document.getElementById('story-container');
+      container.classList.remove('show');
+      setTimeout(()=>container.classList.add('show'),10);
+
+(id) {
       clearError();
 
       const scene = storyData[id];
@@ -166,6 +234,10 @@
       }
 
       renderScene('scene_00_intro');
+      if (!storyData['scene_00_intro'].choices['meet_characters']) {
+        storyData['scene_00_intro'].choices['meet_characters'] = '__show_profiles__';
+      }
+      storyData['scene_00_intro'].choices["meet_the_characters"] = "__show_profiles__";
     }
 
     init();
@@ -197,7 +269,7 @@
       sceneTitle.textContent = "Meet the Characters";
       sceneImage.style.display = "none";
 
-      let html = "";
+      let html = "<!-- profile cards will render here -->"; "";
       for (const key in profiles) {
         const c = profiles[key];
         html += `
