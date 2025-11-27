@@ -1,375 +1,193 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Story Engine</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #eee;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hollywood Hills Party — Interactive Story</title>
 
-    header {
-      background: #222;
-      padding: 15px;
-      font-size: 1.4em;
-      text-align: center;
-      border-bottom: 1px solid #444;
-    }
-
-    #story-container {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    #choices {
-      margin-top: 20px;
-    }
-
-    .choice-btn {
-      display: block;
-      width: 100%;
-      margin: 8px 0;
-      padding: 12px;
-      background: #333;
-      color: #fff;
-      border: 1px solid #555;
-      cursor: pointer;
-      font-size: 1em;
-      border-radius: 4px;
-    }
-    .choice-btn:hover {
-      background: #444;
-    }
-
-    .error {
-      color: #ff6b6b;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    .top-btn {
-      float: right;
-      margin-top: -5px;
-      padding: 6px 12px;
-      background: #444;
-      color: #fff;
-      border: 1px solid #666;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .top-btn:hover { background:#555; }
-
-    .card {
-      background:#1b1b1b;
-      border:1px solid #333;
-      border-radius:12px;
-      padding:15px;
-      margin-bottom:20px;
-      box-shadow:0 0 10px rgba(0,0,0,0.4);
-      transition:transform .3s ease, background .3s ease;
-    }
-    .card:hover { transform:scale(1.02); background:#222; }
-
-    .fade {
-      opacity:0;
-      transition:opacity .4s ease;
-    }
-    .fade.show {
-      opacity:1;
-    }
-    /* Profile Card Styling */
-  .card {
-    background:#1b1b1b;
-    border:1px solid #333;
-    border-radius:12px;
-    padding:15px;
-    margin-bottom:20px;
-    box-shadow:0 0 10px rgba(0,0,0,0.4);
-    transition:transform .3s ease, background .3s ease;
-  }
-  .card:hover { transform:scale(1.02); background:#222; }
-
-  /* Scene fade transition */
-  #story-container.fade {
-    opacity:0;
-    transition:opacity .4s ease;
-  }
-  #story-container.fade.show {
-    opacity:1;
-  }
-
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#111;
+  color:#eee;
+}
+header {
+  background:#222;
+  padding:15px;
+  font-size:1.4em;
+  border-bottom:1px solid #444;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.top-btn {
+  background:#444;
+  border:1px solid #666;
+  padding:8px 14px;
+  border-radius:6px;
+  color:#fff;
+  cursor:pointer;
+}
+#story-container {
+  padding:20px;
+}
+.choice-btn {
+  display:block;
+  background:#333;
+  padding:10px;
+  margin:8px 0;
+  color:#fff;
+  border:1px solid #555;
+  cursor:pointer;
+  border-radius:4px;
+}
+.choice-btn:hover {
+  background:#555;
+}
+#error-box {
+  color:#ff6b6b;
+  margin-top:15px;
+}
+.profile-card {
+  background:#222;
+  padding:20px;
+  border-radius:8px;
+  margin-bottom:20px;
+}
 </style>
 </head>
 
-<header>
-  <div class="header-left">
-    <button class="top-btn" onclick="showCharacterProfiles()">Meet the Characters</button>
-  </div>
+<body>
 
-  <div class="header-title">
-    Interactive Story Engine
-  </div>
+<header>
+  <div>Interactive Story Engine</div>
+  <button class="top-btn" onclick="showCharacterProfiles()">Meet the Characters</button>
 </header>
 
-  <div id="story-container">
-    <h2 id="scene-title"></h2>
-    <img id="scene-image" src="" alt="" style="max-width: 100%; display:none; margin-top:10px; border-radius:6px;" />
-    <p id="scene-text"></p>
+<div id="story-container">
+  <h2 id="scene-title"></h2>
+  <img id="scene-image" style="max-width:100%;display:none;margin-bottom:10px;border-radius:6px;" />
+  <p id="scene-text"></p>
+  <div id="choices"></div>
+  <div id="error-box"></div>
+</div>
 
-    <div id="choices"></div>
-    <div id="error-box" class="error"></div>
-  </div>
+<script>
+let storyData = {};
+let profiles = {};
 
-  <script>
-    const errorBox = document.getElementById('error-box');
-    const sceneTitle = document.getElementById('scene-title');
-    const sceneText = document.getElementById('scene-text');
-    const sceneImage = document.getElementById('scene-image');
-    const choicesBox = document.getElementById('choices');
+async function loadJSON(path){
+  try {
+    const r = await fetch(path);
+    if(!r.ok) throw new Error(path + " failed to load (" + r.status + ")");
+    return await r.json();
+  } catch(e){
+    document.getElementById("error-box").textContent = e.message;
+    return null;
+  }
+}
 
-    let storyData = {};
+function renderScene(id){
+  const box = document.getElementById("error-box");
+  box.textContent = "";
 
-    async function loadJSON(path) {
-      try {
-        const res = await fetch(path);
-        if (!res.ok) throw new Error(`Failed to load ${path} (status ${res.status})`);
-        return await res.json();
-      } catch (err) {
-        showError(`JSON Load Error: ${err.message}`);
-        return null;
-      }
-    }
-
-    function showError(message) {
-      errorBox.textContent = message;
-    }
-    function clearError() {
-      errorBox.textContent = '';
-    }
-
-    function renderScene(id) {
-      const container = document.getElementById('story-container');
-      container.classList.remove('show');
-      void container.offsetWidth;
-      container.classList.add('show');
-
-      if (id === "__show_profiles__") { showCharacterProfiles(); return; }(id) {
-      if (id === "__show_profiles__") { showCharacterProfiles(); return; }
-
-      const container = document.getElementById('story-container');
-      container.classList.remove('show');
-      setTimeout(()=>container.classList.add('show'),10);
-
-(id) {
-      clearError();
-
-      const scene = storyData[id];
-      if (!scene) {
-        showError(`Scene "${id}" not found.`);
-        return;
-      }
-
-      sceneTitle.textContent = scene.id || '(Untitled Scene)';
-      sceneText.textContent = scene.text || '(Missing text)';
-
-      if (scene.image) {
-        sceneImage.src = `images/${scene.image}`;
-        sceneImage.style.display = "block";
-      } else {
-        sceneImage.style.display = "none";
-      }
-
-      choicesBox.innerHTML = '';
-
-      if (!scene.choices) {
-        showError(`Scene "${id}" has no choices.`);
-        return;
-      }
-
-      for (const [label, nextScene] of Object.entries(scene.choices)) {
-        const btn = document.createElement('button');
-        btn.className = 'choice-btn';
-        btn.textContent = label.replace(/_/g, ' ');
-        btn.onclick = () => renderScene(nextScene);
-        choicesBox.appendChild(btn);
-      }
-    }
-
-    async function init() {
-      clearError();
-
-      const openings = await loadJSON('shared_openings_fixed.json');
-      const intros   = await loadJSON('characters_intro_fixed.json');
-      const endings  = await loadJSON('shared_endings.json');
-      const harper   = await loadJSON('harper_narrative.json');
-      const luna     = await loadJSON('luna_narrative.json');
-      const mara     = await loadJSON('mara_narrative.json');
-      const riley    = await loadJSON('riley_narrative.json');
-      const sienna   = await loadJSON('sienna_narrative_fixed.json');
-
-      if (!openings || !intros || !endings) {
-        showError('Required base JSON files failed to load.');
-        return;
-      }
-
-      storyData = {
-        ...openings,
-        ...intros,
-        ...endings,
-        ...harper,
-        ...luna,
-        ...mara,
-        ...riley,
-        ...sienna
-      };
-
-      if (!storyData['scene_00_intro']) {
-        showError('Missing starting scene: "scene_00_intro"');
-        return;
-      }
-
-      renderScene('scene_00_intro');
-      if (!storyData['scene_00_intro'].choices['meet_characters']) {
-        storyData['scene_00_intro'].choices['meet_characters'] = '__show_profiles__';
-      }
-      storyData['scene_00_intro'].choices["meet_the_characters"] = "__show_profiles__";
-    }
-
-    init();
-  
-    // --- Load character profiles
-    let profiles = {};
-
-    async function init() {
-      clearError();
-
-      const main = await loadJSON('main_story.json');
-      const intros = await loadJSON('characters_intro.json');
-      const openings = await loadJSON('shared_openings.json');
-      const endings = await loadJSON('shared_endings.json');
-      profiles = await loadJSON('character_profiles.json');
-
-      if (!main || !intros || !openings || !endings || !profiles) {
-        showError('One or more JSON files failed to load — cannot start story.');
-        return;
-      }
-
-      storyData = { ...main, ...intros, ...openings, ...endings };
-
-      renderScene('scene_00_intro');
-    }
-
-    function showCharacterProfiles() {
-      clearError();
-      sceneTitle.textContent = "Meet the Characters";
-      sceneImage.style.display = "none";
-
-      let html = "<!-- profile cards will render here -->"; "";
-      for (const key in profiles) {
-        const c = profiles[key];
-        html += `
-          <div style="margin-bottom:20px; border-bottom:1px solid #333; padding-bottom:10px;">
-            <h3>${c.name}</h3>
-            <img src="images/${c.image}" style="max-width:150px; border-radius:6px;">
-            <p><strong>Profession:</strong> ${c.profession}</p>
-            <p><strong>Personality:</strong> ${c.tone}</p>
-            <p>${c.description}</p>
-          </div>
-        `;
-      }
-
-      sceneText.innerHTML = html;
-
-      choicesBox.innerHTML = `
-        <button class="choice-btn" onclick="renderScene('scene_00_intro')">
-          Return to Party
-        </button>
-      `;
-    }
-
-// ---------- Ensure header button works and is robust ----------
-(function () {
-  // Expose the function globally (safe even if defined later)
-  if (typeof window.showCharacterProfiles !== 'function') {
-    // If the function isn't defined yet, create a safe placeholder that will be replaced later.
-    window.showCharacterProfiles = function () {
-      console.warn('showCharacterProfiles() called before it was defined.');
-      // If profiles exist, try to call the real function name if available
-      if (typeof window._realShowCharacterProfiles === 'function') {
-        return window._realShowCharacterProfiles();
-      }
-      // fallback UX: open the intro scene instead of doing nothing
-      try { renderScene('scene_00_intro'); } catch (e) { console.warn(e); }
-    };
-  } else {
-    // If it exists, also copy to a private name so we can reference reliably
-    window._realShowCharacterProfiles = window.showCharacterProfiles;
+  if(id === "__show_profiles__"){
+    showCharacterProfiles();
+    return;
   }
 
-  // Wait for DOM ready to attach the event safely
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.querySelector('.top-btn');
-    if (!btn) {
-      console.warn('Top header button (.top-btn) not found in DOM.');
-      return;
+  const scene = storyData[id];
+  if(!scene){
+    box.textContent = "Scene not found: " + id;
+    return;
+  }
+
+  document.getElementById("scene-title").textContent = scene.id || "";
+  document.getElementById("scene-text").textContent = scene.text || "";
+
+  const img = document.getElementById("scene-image");
+  if(scene.image){
+    img.src = "images/" + scene.image;
+    img.style.display = "block";
+  } else {
+    img.style.display = "none";
+  }
+
+  const cbox = document.getElementById("choices");
+  cbox.innerHTML = "";
+  if(scene.choices){
+    for(const label in scene.choices){
+      const next = scene.choices[label];
+      const b = document.createElement("button");
+      b.className = "choice-btn";
+      b.textContent = label.replace(/_/g, " ");
+      b.onclick = () => renderScene(next);
+      cbox.appendChild(b);
     }
+  }
+}
 
-    // Remove existing click handlers and attach a single robust one
-    btn.replaceWith(btn.cloneNode(true)); // clears inline handlers that might be broken
-    const newBtn = document.querySelector('.top-btn');
+function showCharacterProfiles(){
+  const container = document.getElementById("story-container");
+  container.innerHTML = "<h2>Meet the Characters</h2>";
 
-    newBtn.addEventListener('click', async (e) => {
-      console.log('Meet the Characters button clicked');
-      // ensure profiles are loaded
-      if (!window.profiles) {
-        console.warn('Profiles not loaded yet. Attempting to load character_profiles.json now...');
-        try {
-          const res = await fetch('character_profiles.json');
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          window.profiles = await res.json();
-          console.log('Profiles loaded successfully.');
-        } catch (err) {
-          console.error('Failed to load character_profiles.json:', err);
-          alert('Could not load character profiles. See console for details.');
-          return;
-        }
-      }
+  if(!profiles.characters){
+    container.innerHTML += "<p>Error: character profile data missing.</p>";
+    return;
+  }
 
-      // If the real function has been saved under _realShowCharacterProfiles, call it
-      if (typeof window._realShowCharacterProfiles === 'function') {
-        try {
-          window._realShowCharacterProfiles();
-        } catch (err) {
-          console.error('showCharacterProfiles threw an error:', err);
-          alert('An error occurred opening character profiles. Check console.');
-        }
-      } else if (typeof window.showCharacterProfiles === 'function') {
-        // fallback to showCharacterProfiles
-        try {
-          window.showCharacterProfiles();
-        } catch (err) {
-          console.error('showCharacterProfiles threw an error:', err);
-          alert('An error occurred opening character profiles. Check console.');
-        }
-      } else {
-        console.warn('No profile UI function found; falling back to scene view.');
-        renderScene('scene_00_intro');
-      }
-    });
+  profiles.characters.forEach(c => {
+    container.innerHTML += `
+      <div class="profile-card">
+        <h3>${c.name}</h3>
+        <p><b>Profession:</b> ${c.profession}</p>
+        <p>${c.description}</p>
+        <button class="choice-btn" onclick="renderScene('${c.start_scene}')">
+          Go to ${c.name}'s Intro
+        </button>
+      </div>
+    `;
+  });
 
-    console.log('Meet the Characters button handler attached.');
-  }, { once: true });
-})();
+  container.innerHTML += `
+    <button class="choice-btn" onclick="renderScene('scene_00_intro')">
+      Return to Party
+    </button>
+  `;
+}
 
+async function init(){
+  const files = [
+    "shared_openings.json",
+    "characters_intro.json",
+    "shared_endings.json",
+    "harper_narrative.json",
+    "luna_narrative.json",
+    "mara_narrative.json",
+    "riley_narrative.json",
+    "sienna_narrative.json",
+    "character_profiles.json"
+  ];
 
-  </script>
+  for(const f of files){
+    const data = await loadJSON(f);
+    if(!data) return;
+    if(f === "character_profiles.json") profiles = data;
+    else Object.assign(storyData, data);
+  }
+
+  if(!storyData["scene_00_intro"]){
+    document.getElementById("error-box").textContent = "Missing starting scene: scene_00_intro";
+    return;
+  }
+
+  renderScene("scene_00_intro");
+}
+
+init();
+</script>
+
 </body>
 </html>
