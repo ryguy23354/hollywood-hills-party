@@ -293,6 +293,81 @@
       `;
     }
 
+// ---------- Ensure header button works and is robust ----------
+(function () {
+  // Expose the function globally (safe even if defined later)
+  if (typeof window.showCharacterProfiles !== 'function') {
+    // If the function isn't defined yet, create a safe placeholder that will be replaced later.
+    window.showCharacterProfiles = function () {
+      console.warn('showCharacterProfiles() called before it was defined.');
+      // If profiles exist, try to call the real function name if available
+      if (typeof window._realShowCharacterProfiles === 'function') {
+        return window._realShowCharacterProfiles();
+      }
+      // fallback UX: open the intro scene instead of doing nothing
+      try { renderScene('scene_00_intro'); } catch (e) { console.warn(e); }
+    };
+  } else {
+    // If it exists, also copy to a private name so we can reference reliably
+    window._realShowCharacterProfiles = window.showCharacterProfiles;
+  }
+
+  // Wait for DOM ready to attach the event safely
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.querySelector('.top-btn');
+    if (!btn) {
+      console.warn('Top header button (.top-btn) not found in DOM.');
+      return;
+    }
+
+    // Remove existing click handlers and attach a single robust one
+    btn.replaceWith(btn.cloneNode(true)); // clears inline handlers that might be broken
+    const newBtn = document.querySelector('.top-btn');
+
+    newBtn.addEventListener('click', async (e) => {
+      console.log('Meet the Characters button clicked');
+      // ensure profiles are loaded
+      if (!window.profiles) {
+        console.warn('Profiles not loaded yet. Attempting to load character_profiles.json now...');
+        try {
+          const res = await fetch('character_profiles.json');
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          window.profiles = await res.json();
+          console.log('Profiles loaded successfully.');
+        } catch (err) {
+          console.error('Failed to load character_profiles.json:', err);
+          alert('Could not load character profiles. See console for details.');
+          return;
+        }
+      }
+
+      // If the real function has been saved under _realShowCharacterProfiles, call it
+      if (typeof window._realShowCharacterProfiles === 'function') {
+        try {
+          window._realShowCharacterProfiles();
+        } catch (err) {
+          console.error('showCharacterProfiles threw an error:', err);
+          alert('An error occurred opening character profiles. Check console.');
+        }
+      } else if (typeof window.showCharacterProfiles === 'function') {
+        // fallback to showCharacterProfiles
+        try {
+          window.showCharacterProfiles();
+        } catch (err) {
+          console.error('showCharacterProfiles threw an error:', err);
+          alert('An error occurred opening character profiles. Check console.');
+        }
+      } else {
+        console.warn('No profile UI function found; falling back to scene view.');
+        renderScene('scene_00_intro');
+      }
+    });
+
+    console.log('Meet the Characters button handler attached.');
+  }, { once: true });
+})();
+
+
   </script>
 </body>
 </html>
