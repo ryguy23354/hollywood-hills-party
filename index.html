@@ -110,8 +110,8 @@
       sceneText.textContent = scene.text || '(Missing text)';
 
       if (scene.image) {
-        sceneImage.src = "images/" + scene.image;
-        sceneImage.style.display = "block"; // image loaded from images folder
+        sceneImage.src = `images/${scene.image}`;
+        sceneImage.style.display = "block";
       } else {
         sceneImage.style.display = "none";
       }
@@ -119,11 +119,7 @@
       choicesBox.innerHTML = '';
 
       if (!scene.choices) {
-        const btn = document.createElement('button');
-        btn.className = 'choice-btn';
-        btn.textContent = 'Return to Start';
-        btn.onclick = () => renderScene('scene_00_intro');
-        choicesBox.appendChild(btn);
+        showError(`Scene "${id}" has no choices.`);
         return;
       }
 
@@ -139,25 +135,30 @@
     async function init() {
       clearError();
 
-      const files = [
-        'shared_openings.json',
-        'shared_endings.json',
-        'characters_intro.json',
-        'harper_narrative.json',
-        'luna_narrative.json',
-        'mara_narrative.json',
-        'riley_narrative.json',
-        'sienna_narrative.json'
-      ];
+      const openings = await loadJSON('shared_openings_fixed.json');
+      const intros   = await loadJSON('characters_intro_fixed.json');
+      const endings  = await loadJSON('shared_endings.json');
+      const harper   = await loadJSON('harper_narrative.json');
+      const luna     = await loadJSON('luna_narrative.json');
+      const mara     = await loadJSON('mara_narrative.json');
+      const riley    = await loadJSON('riley_narrative.json');
+      const sienna   = await loadJSON('sienna_narrative_fixed.json');
 
-      const loaded = await Promise.all(files.map(f => loadJSON(f)));
-
-      if (loaded.some(x => x === null)) {
-        showError('One or more JSON files failed to load — cannot start story.');
+      if (!openings || !intros || !endings) {
+        showError('Required base JSON files failed to load.');
         return;
       }
 
-      loaded.forEach(obj => Object.assign(storyData, obj));
+      storyData = {
+        ...openings,
+        ...intros,
+        ...endings,
+        ...harper,
+        ...luna,
+        ...mara,
+        ...riley,
+        ...sienna
+      };
 
       if (!storyData['scene_00_intro']) {
         showError('Missing starting scene: "scene_00_intro"');

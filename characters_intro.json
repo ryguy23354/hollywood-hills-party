@@ -28,7 +28,8 @@
     "choices": {
       "soft_approach": "scene_luna_soft_01",
       "intense_energy": "scene_luna_intense_01",
-      "return_to_party": "scene_00_intro"
+      "return_to_party": "scene_00_intro",
+      "tame_option": "scene_luna_tame_01"
     }
   },
   "scene_mara_00_intro": {
@@ -47,8 +48,9 @@
     "image": "scene_riley_00_intro.jpg",
     "text": "Riley finishes a fluid sequence beside the observatory railing and wipes her brow, flashing a quick, warm grin at you.",
     "choices": {
-      "compliment_skill": "scene_riley_01_convo",
-      "light_tease": "scene_riley_01_tease",
+      "compliment_skill": "riley_A",
+      "light_tease": "riley_B",
+      "tame_chat": "riley_C",
       "return_to_party": "scene_00_intro"
     }
   }
