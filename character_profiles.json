@@ -3,8 +3,8 @@
     {
       "name": "Harper Vale",
       "profession": "Actress",
-      "description": "A magnetic, sharp-witted A\u2011list actress whose confidence borders on intoxicating.",
-      "tone": "seductive, direct, playful edge",
+      "description": "A rising Hollywood star known for sharp wit, magnetic screen presence, and an effortlessly flirtatious confidence. Harper enjoys playful banter and people who can keep up with her energy.",
+      "tone": "bold, teasing, high-confidence seduction",
       "first_encounter_location": "Bar Area",
       "start_scene": "scene_harper_00_intro",
       "image": "harper_profile.jpg"
@@ -12,26 +12,26 @@
     {
       "name": "Sienna Brooks",
       "profession": "Singer",
-      "description": "A sultry, emotionally intense vocalist with a voice that could melt glass.",
-      "tone": "slow-burn passion, emotional depth",
-      "first_encounter_location": "Poolside",
+      "description": "A chart-topping pop vocalist with a wild streak and a warm, disarming charisma. Sienna gravitates toward authenticity \u2014 she connects fast and deeply, wearing her emotions openly.",
+      "tone": "fiery, emotional, impulsive seduction",
+      "first_encounter_location": "Pool Area",
       "start_scene": "scene_sienna_00_intro",
       "image": "sienna_profile.jpg"
     },
     {
-      "name": "Luna Devereaux",
-      "profession": "Actress",
-      "description": "A mysterious, velvet-voiced actress known for method roles and unreadable expressions.",
-      "tone": "artistic, enigmatic, hypnotic",
+      "name": "Luna Devreaux",
+      "profession": "Model",
+      "description": "A high-fashion model known for her ethereal beauty and quiet intensity. Luna communicates more through glances and subtle gestures than through words, inviting people to lean closer.",
+      "tone": "slow-burning, elegant, intimate seduction",
       "first_encounter_location": "Lounge",
       "start_scene": "scene_luna_00_intro",
       "image": "luna_profile.jpg"
     },
     {
       "name": "Mara Quinn",
-      "profession": "Model",
-      "description": "A striking fashion model with a strangely gentle presence and intense eye contact.",
-      "tone": "whisper-soft seduction, intimate stillness",
+      "profession": "Actress",
+      "description": "A critically acclaimed film actress with a soft voice, thoughtful presence, and simmering undercurrent of mischief. Mara is intelligent, observant, and deeply sensual in a restrained way.",
+      "tone": "intellectual, soft-voiced, curiosity-driven seduction",
       "first_encounter_location": "Observatory Terrace",
       "start_scene": "scene_mara_00_intro",
       "image": "mara_profile.jpg"
@@ -39,9 +39,9 @@
     {
       "name": "Riley Storm",
       "profession": "Gymnast",
-      "description": "A world-class gymnast with explosive energy, physical confidence, and a daredevil grin.",
-      "tone": "high-energy, teasing, physically bold",
-      "first_encounter_location": "Poolside",
+      "description": "A world-class gymnast with explosive energy and fierce confidence. Riley\u2019s charm comes from her physicality \u2014 she expresses emotion through motion, proximity, and daring closeness.",
+      "tone": "intense, physical, momentum-based seduction",
+      "first_encounter_location": "Observatory Interior",
       "start_scene": "scene_riley_00_intro",
       "image": "riley_profile.jpg"
     }
