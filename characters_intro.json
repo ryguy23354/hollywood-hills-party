@@ -2,25 +2,54 @@
   "scene_harper_00_intro": {
     "id": "scene_harper_00_intro",
     "image": "scene_harper_00_intro.jpg",
-    "text": "Harper stands at the bar, turning as you approach with a knowing smile.",
+    "text": "Harper stands at the bar, turning as you approach with a knowing smile. Her presence fills the corner with a cinematic hush.",
     "choices": {
-      "continue": "scene_00_intro"
+      "soft_flirt": "scene_harper_soft_01",
+      "intense_energy": "scene_harper_spicy_01",
+      "tame_chat": "scene_harper_tame_01",
+      "return_to_party": "scene_00_intro"
     }
   },
-  "scene_riley_00_intro": {
-    "id": "scene_riley_00_intro",
-    "image": "scene_riley_00_intro.jpg",
-    "text": "Riley stretches gracefully in the observatory light, giving you a playful nod.",
+  "scene_sienna_00_intro": {
+    "id": "scene_sienna_00_intro",
+    "image": "scene_sienna_00_intro.jpg",
+    "text": "Sienna lounges at the edge of the pool, legs dangling in the water, grin playful and teasing as she splashes a bit in your direction.",
     "choices": {
-      "continue": "scene_00_intro"
+      "flirt_back": "scene_sienna_flirt_01",
+      "tease_her": "scene_sienna_tease_01",
+      "stay_cool": "scene_sienna_cool_01",
+      "return_to_party": "scene_00_intro"
+    }
+  },
+  "scene_luna_00_intro": {
+    "id": "scene_luna_00_intro",
+    "image": "scene_luna_00_intro.jpg",
+    "text": "Luna stands near a velvet-draped lounge alcove, watching the painting with an unreadable expression. When you approach, she inclines her head with measured interest.",
+    "choices": {
+      "soft_approach": "scene_luna_soft_01",
+      "intense_energy": "scene_luna_intense_01",
+      "return_to_party": "scene_00_intro"
     }
   },
   "scene_mara_00_intro": {
     "id": "scene_mara_00_intro",
     "image": "scene_mara_00_intro.jpg",
-    "text": "Mara turns from the balcony view, her eyes warm and inviting.",
+    "text": "Mara stands beside a brass telescope on the balcony, the skyline reflected in her eyes. She smiles and gestures to the view.",
     "choices": {
-      "continue": "scene_00_intro"
+      "step_closer": "mara_A_branch",
+      "ask_lens": "mara_B_branch",
+      "polite_distance": "mara_C_branch",
+      "return_to_party": "scene_00_intro"
+    }
+  },
+  "scene_riley_00_intro": {
+    "id": "scene_riley_00_intro",
+    "image": "scene_riley_00_intro.jpg",
+    "text": "Riley finishes a fluid sequence beside the observatory railing and wipes her brow, flashing a quick, warm grin at you.",
+    "choices": {
+      "compliment_skill": "scene_riley_01_convo",
+      "light_tease": "scene_riley_01_tease",
+      "return_to_party": "scene_00_intro"
     }
   }
 }
