@@ -1,263 +1,58 @@
 {
-  "main_party_entry": {
-    "id": "scene_00_intro",
-    "image": "scene_00_intro.jpg",
-    "text": "You arrive at a sprawling Hollywood Hills mansion. Warm light spills from tall windows, bass thrums under your ribs, and laughter floats on the night air. A valet closes the door behind you as the party unfolds in every direction.",
+  "scene_success_end": {
+    "id": "scene_success_end",
+    "image": "scene_success_end.jpg",
+    "text": "The night winds down, leaving you with the warm afterglow of a connection that could become something more. As the music fades into the early hours, you take one last look at the party before deciding your next move.",
     "choices": {
-      "bar_area": "scene_bar_01",
-      "pool_area": "scene_pool_01",
-      "lounge_area": "scene_lounge_01",
-      "balcony_area": "scene_balcony_01",
-      "observatory_area": "scene_observatory_01"
+      "return_to_start": "scene_00_intro"
     }
   },
-  "scene_bar_01": {
-    "id": "scene_bar_01",
-    "image": "scene_bar_01.jpg",
-    "text": "A marble bar glows with shifting neon hues. The bartender polishes a glass while guests flirt shamelessly. Harper\u2019s unmistakable silhouette leans against the counter, tossing a smirk your way the moment she notices you looking.",
+  "scene_go_home": {
+    "id": "scene_go_home",
+    "image": "scene_go_home.jpg",
+    "text": "You leave the mansion behind, the cool night air wrapping around you as you descend the hill. Maybe tonight wasn\u2019t the night\u2014but the city always has more stories waiting.",
     "choices": {
-      "approach_harper": "scene_harper_00_intro",
-      "order_drink": "scene_bar_drink_01",
-      "return": "scene_00_intro"
+      "return_to_start": "scene_00_intro"
     }
   },
-  "scene_bar_drink_01": {
-    "id": "scene_bar_drink_01",
-    "image": "scene_bar_drink_01.jpg",
-    "text": "You order a drink. The bartender raises a brow. \"Big night ahead?\" he asks. A pair of partygoers nearby whisper about celebrity sightings.",
+  "scene_shared_success_harper": {
+    "id": "scene_shared_success_harper",
+    "image": "scene_shared_success_harper.jpg",
+    "text": "Harper leads you to a quiet, hidden balcony overlooking the city. The noise of the party becomes a distant hum. She turns towards you, and the moment feels private and real.",
     "choices": {
-      "strike_conversation": "scene_bar_convo_01",
-      "return": "scene_00_intro"
+      "return_to_start": "scene_00_intro"
     }
   },
-  "scene_pool_01": {
-    "id": "scene_pool_01",
-    "image": "scene_pool_01.jpg",
-    "text": "The pool glows electric blue beneath draped string lights. Sienna lounges at the edge, toes in the water, humming a melody under her breath. A splash erupts as Riley surfaces from a seamless dive, flipping her wet hair back with a grin aimed right at you.",
+  "scene_shared_success_luna": {
+    "id": "scene_shared_success_luna",
+    "image": "scene_shared_success_luna.jpg",
+    "text": "Luna guides you to a dim corridor lined with framed film stills. The hush is comforting. She smiles, a slow, knowing smile, and the conversation settles into something deeper.",
     "choices": {
-      "approach_sienna": "scene_sienna_00_intro",
-      "approach_riley": "scene_riley_00_intro",
-      "grab_drink": "scene_pool_drink_01",
-      "return": "scene_00_intro"
+      "return_to_start": "scene_00_intro"
     }
   },
-  "scene_pool_drink_01": {
-    "id": "scene_pool_drink_01",
-    "image": "scene_pool_drink_01.jpg",
-    "text": "A server passes by with a tray of colorful cocktails. You grab one and take in the surreal view of the glowing water. Conversations float in from all sides\u2014soft laughter, flirtatious splashes.",
+  "scene_shared_success_mara": {
+    "id": "scene_shared_success_mara",
+    "image": "scene_shared_success_mara.jpg",
+    "text": "Mara leads you out to a private side balcony where the view is spectacular. The air is cool and intimate. She offers a graceful toast\u2014quiet, close, and sincere.",
     "choices": {
-      "observe_riley": "scene_riley_00_intro",
-      "observe_sienna": "scene_sienna_00_intro",
-      "return": "scene_00_intro"
+      "return_to_start": "scene_00_intro"
     }
   },
-  "scene_lounge_01": {
-    "id": "scene_lounge_01",
-    "image": "scene_lounge_01.jpg",
-    "text": "The lounge is dim, draped in velvet and shadows. Soft jazz threads through the space. Luna stands near an abstract painting, arms crossed loosely, eyes scanning every detail. When your footsteps approach, she flicks a glance your way\u2014slow, assessing.",
+  "scene_shared_success_riley": {
+    "id": "scene_shared_success_riley",
+    "image": "scene_shared_success_riley.jpg",
+    "text": "Riley drags you to the observatory railing where the stars feel close enough to touch. Laughing softly, she squeezes your hand; the energy between you is electric and playful.",
     "choices": {
-      "approach_luna": "scene_luna_00_intro",
-      "inspect_art": "scene_lounge_art_01",
-      "return": "scene_00_intro"
+      "return_to_start": "scene_00_intro"
     }
   },
-  "scene_lounge_art_01": {
-    "id": "scene_lounge_art_01",
-    "image": "scene_lounge_art_01.jpg",
-    "text": "The painting is a swirl of reds and blacks. The longer you stare, the more it seems to pulse. Luna watches you from the corner of her eye, as though evaluating your reaction.",
+  "scene_shared_success_sienna": {
+    "id": "scene_shared_success_sienna",
+    "image": "scene_shared_success_sienna.jpg",
+    "text": "Sienna pulls you into a secluded cabana lit by lanterns. The music muffles and your conversation becomes a private duet of jokes and confessions.",
     "choices": {
-      "comment_to_luna": "scene_luna_00_intro",
-      "return": "scene_00_intro"
-    }
-  },
-  "scene_balcony_01": {
-    "id": "scene_balcony_01",
-    "image": "scene_balcony_01.jpg",
-    "text": "The balcony stretches over the cliffside, giving a sweeping view of glittering LA. Cool air brushes your skin. Mara leans elegantly against the railing, posture perfect, gaze fixed on the horizon until she hears you step closer.",
-    "choices": {
-      "approach_mara": "scene_mara_00_intro",
-      "take_in_view": "scene_balcony_view_01",
-      "return": "scene_00_intro"
-    }
-  },
-  "scene_balcony_view_01": {
-    "id": "scene_balcony_view_01",
-    "image": "scene_balcony_view_01.jpg",
-    "text": "LA sprawls beneath you like a galaxy come to rest. The wind ruffles your clothes. Someone behind you murmurs, \"Hell of a view, huh?\"",
-    "choices": {
-      "engage_mara": "scene_mara_00_intro",
-      "return": "scene_00_intro"
-    }
-  },
-  "scene_observatory_01": {
-    "id": "scene_observatory_01",
-    "image": "scene_observatory_01.jpg",
-    "text": "The observatory dome sits apart from the main house, lit by soft gold sconces. Inside, the ceiling curves overhead like a dark sky. A massive telescope points outward. The room is quiet\u2014reverent. A few guests whisper about constellations.",
-    "choices": {
-      "explore_telescope": "scene_observatory_scope_01",
-      "listen_to_conversation": "scene_observatory_listen_01",
-      "return": "scene_00_intro"
-    }
-  },
-  "scene_observatory_scope_01": {
-    "id": "scene_observatory_scope_01",
-    "image": "scene_observatory_scope_01.jpg",
-    "text": "You look through the telescope and see a razor-sharp view of Saturn\u2019s rings. A soft voice behind you whispers, \"Beautiful, isn't it?\" The speaker stays just out of view, inviting curiosity.",
-    "choices": {
-      "respond": "scene_observatory_listen_01",
-      "return": "scene_00_intro"
-    }
-  },
-  "scene_observatory_listen_01": {
-    "id": "scene_observatory_listen_01",
-    "image": "scene_observatory_listen_01.jpg",
-    "text": "Two guests nearby discuss the symbolism of stargazing. Their words drift through the air: \"The sky makes everything feel small\u2026 but in a good way.\" You feel the stillness of the room settle warmly around you.",
-    "choices": {
-      "return": "scene_00_intro"
-    }
-  },
-  "character": "Mara Quinn",
-  "setting": "Observatory Terrace",
-  "opening": {
-    "id": "mara_00_intro",
-    "text": "Mara stands beside a brass telescope, lanternlight flickering across her features.",
-    "dialogue": [
-      {
-        "speaker": "Mara",
-        "line": "There you are\u2026 I was beginning to think you\u2019d vanished into some cosmic anomaly. Come look\u2014Saturn\u2019s rings are showing beautifully tonight."
-      }
-    ],
-    "choices": {
-      "A": "mara_A_branch",
-      "B": "mara_B_branch",
-      "C": "mara_C_branch"
-    }
-  },
-  "branches": {
-    "A": {
-      "id": "mara_A_branch",
-      "text": "You step close beside her, shoulders brushing.",
-      "choices": {
-        "A1": "mara_success",
-        "A2": "mara_success",
-        "A3": "mara_fail"
-      }
-    },
-    "B": {
-      "id": "mara_B_branch",
-      "text": "She guides your hand over the lens adjustment.",
-      "choices": {
-        "B1": "mara_success",
-        "B2": "mara_success",
-        "B3": "mara_fail"
-      }
-    },
-    "C": {
-      "id": "mara_C_branch",
-      "text": "You admire the view from a polite distance.",
-      "choices": {
-        "C1": "mara_success_tame",
-        "C2": "mara_success_tame",
-        "C3": "mara_fail"
-      }
-    }
-  },
-  "outcomes": {
-    "success": {
-      "id": "mara_success",
-      "text": "Mara invites you to a private balcony.",
-      "options": {
-        "proceed": "shared_success_mara",
-        "restart": "scene_00_intro"
-      }
-    },
-    "success_tame": {
-      "id": "mara_success_tame",
-      "text": "You share a peaceful moment discussing astronomy.",
-      "options": {
-        "proceed": "shared_success_mara",
-        "restart": "scene_00_intro"
-      }
-    },
-    "fail": {
-      "id": "mara_fail",
-      "text": "Mara smiles politely, the moment fading.",
-      "options": {
-        "return_party": "scene_00_intro",
-        "go_home": "scene_end_home"
-      }
-    }
-  },
-  "scene_harper_00_intro": {
-    "id": "scene_harper_00_intro",
-    "image": "scene_harper_00_intro.jpg",
-    "text": "Harper stands at the bar, turning as you approach with a knowing smile.",
-    "choices": {
-      "continue": "scene_00_intro"
-    }
-  },
-  "scene_riley_00_intro": {
-    "id": "scene_riley_00_intro",
-    "image": "scene_riley_00_intro.jpg",
-    "text": "Riley stretches gracefully in the observatory light, giving you a playful nod.",
-    "choices": {
-      "continue": "scene_00_intro"
-    }
-  },
-  "scene_mara_00_intro": {
-    "id": "scene_mara_00_intro",
-    "image": "scene_mara_00_intro.jpg",
-    "text": "Mara turns from the balcony view, her eyes warm and inviting.",
-    "choices": {
-      "continue": "scene_00_intro"
-    }
-  },
-  "scene_luna_soft_01": {
-    "id": "scene_luna_soft_01",
-    "image": "scene_luna_soft_01.jpg",
-    "text": "A soft and slower moment unfolds with Luna.",
-    "choices": {
-      "return": "scene_00_intro"
-    }
-  },
-  "scene_luna_intense_01": {
-    "id": "scene_luna_intense_01",
-    "image": "scene_luna_intense_01.jpg",
-    "text": "Luna steps closer, intensity in her eyes.",
-    "choices": {
-      "return": "scene_00_intro"
-    }
-  },
-  "scene_return_00": {
-    "id": "scene_return_00",
-    "image": "scene_return_00.jpg",
-    "text": "You return to the party's main flow.",
-    "choices": {
-      "return": "scene_00_intro"
-    }
-  },
-  "mara_A_branch": {
-    "id": "mara_A_branch",
-    "image": "mara_A_branch.jpg",
-    "text": "Mara\u2019s A-branch path unfolds here.",
-    "choices": {
-      "return": "scene_00_intro"
-    }
-  },
-  "mara_B_branch": {
-    "id": "mara_B_branch",
-    "image": "mara_B_branch.jpg",
-    "text": "Mara\u2019s B-branch path unfolds here.",
-    "choices": {
-      "return": "scene_00_intro"
-    }
-  },
-  "mara_C_branch": {
-    "id": "mara_C_branch",
-    "image": "mara_C_branch.jpg",
-    "text": "Mara\u2019s C-branch path unfolds here.",
-    "choices": {
-      "return": "scene_00_intro"
+      "return_to_start": "scene_00_intro"
     }
   }
 }
