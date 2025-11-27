@@ -2,33 +2,72 @@
   "scene_mara_00_intro": {
     "id": "scene_mara_00_intro",
     "image": "scene_mara_00_intro.jpg",
-    "text": "Mara turns from the balcony view, her eyes warm and inviting.",
+    "text": "Mara stands beside a brass telescope, hair glowing in starlight. \"You\u2019re just in time,\" she says, adjusting the lens. \"The sky is performing for us tonight.\"",
     "choices": {
-      "continue": "scene_00_intro"
+      "close_in": "mara_A",
+      "ask_about_telescope": "mara_B",
+      "tame_talk": "mara_C",
+      "step_away": "mara_fail"
     }
   },
-  "mara_A_branch": {
-    "id": "mara_A_branch",
-    "image": "mara_A_branch.jpg",
-    "text": "Mara\u2019s A-branch path unfolds here.",
+  "mara_A": {
+    "id": "mara_A",
+    "image": "mara_A.jpg",
+    "text": "You move close, shoulders brushing. Mara inhales softly. \"Intense.\" Her smile curves. \"I like intense.\"",
     "choices": {
-      "return": "scene_00_intro"
+      "push_forward": "mara_success_1",
+      "ease_off": "mara_fail"
     }
   },
-  "mara_B_branch": {
-    "id": "mara_B_branch",
-    "image": "mara_B_branch.jpg",
-    "text": "Mara\u2019s B-branch path unfolds here.",
+  "mara_B": {
+    "id": "mara_B",
+    "image": "mara_B.jpg",
+    "text": "She guides your hands on the telescope controls, fingers sliding over yours. \"Like this,\" she murmurs. \"Feel it?\"",
     "choices": {
-      "return": "scene_00_intro"
+      "turn_toward_her": "mara_success_2",
+      "step_back": "mara_fail"
     }
   },
-  "mara_C_branch": {
-    "id": "mara_C_branch",
-    "image": "mara_C_branch.jpg",
-    "text": "Mara\u2019s C-branch path unfolds here.",
+  "mara_C": {
+    "id": "mara_C",
+    "image": "mara_C.jpg",
+    "text": "You compliment her passion for astronomy. She beams. \"People forget I care about things beyond red carpets.\"",
     "choices": {
-      "return": "scene_00_intro"
+      "stay_with_her": "mara_success_tame",
+      "step_back": "mara_fail"
+    }
+  },
+  "mara_fail": {
+    "id": "mara_fail",
+    "image": "mara_fail.jpg",
+    "text": "Mara gives you a graceful nod, smile dimming. \"Maybe next time.\"",
+    "choices": {
+      "return_to_party": "scene_00_intro",
+      "go_home": "scene_go_home"
+    }
+  },
+  "mara_success_1": {
+    "id": "mara_success_1",
+    "image": "mara_success_1.jpg",
+    "text": "She steps closer, voice dropping. \"Come with me. I want to show you something the others never notice.\"",
+    "choices": {
+      "continue": "scene_shared_success_mara"
+    }
+  },
+  "mara_success_2": {
+    "id": "mara_success_2",
+    "image": "mara_success_2.jpg",
+    "text": "Her eyes lock on yours. \"You're distracting,\" she whispers. \"In a good way.\"",
+    "choices": {
+      "continue": "scene_shared_success_mara"
+    }
+  },
+  "mara_success_tame": {
+    "id": "mara_success_tame",
+    "image": "mara_success_tame.jpg",
+    "text": "She links her arm with yours. \"Walk with me? I could use a break from talking about myself.\"",
+    "choices": {
+      "continue": "scene_shared_success_mara"
     }
   }
 }

@@ -2,27 +2,72 @@
   "scene_luna_00_intro": {
     "id": "scene_luna_00_intro",
     "image": "scene_luna_00_intro.jpg",
-    "text": "Luna stands near a velvet-draped lounge alcove, the soft light tracing her silhouette. She watches you approach with quiet intensity. \"You found the calm part of the party,\" she says, voice low. \"Most people here fear stillness. You don\u2019t.\"",
+    "text": "Luna watches you approach with a slow, assessing gaze\u2014like she's reading a page no one else can see. Her voice is low and velvety. \"You carry a strange gravity. Sit with me a moment.\"",
     "choices": {
       "soft_approach": "scene_luna_soft_01",
       "intense_energy": "scene_luna_intense_01",
-      "return_to_party": "scene_00_intro"
+      "tame_option": "scene_luna_tame_01",
+      "step_away": "scene_luna_fail_01"
     }
   },
   "scene_luna_soft_01": {
     "id": "scene_luna_soft_01",
     "image": "scene_luna_soft_01.jpg",
-    "text": "A softer moment unfolds with Luna as she leans closer, her voice quiet but warm.",
+    "text": "You draw closer carefully. Luna's eyes soften, but the intensity remains. \"Good\u2026 you understand quiet.\" Her fingers brush yours\u2014barely\u2014testing you.",
     "choices": {
-      "return_to_party": "scene_00_intro"
+      "lean_in": "scene_luna_success_01",
+      "hold_back": "scene_luna_fail_01"
     }
   },
   "scene_luna_intense_01": {
     "id": "scene_luna_intense_01",
     "image": "scene_luna_intense_01.jpg",
-    "text": "Luna steps closer, her gaze burning with sudden intensity.",
+    "text": "You meet her stare with equal force. Her breath catches\u2014almost imperceptibly. \"Bold,\" she whispers. \"Finally, someone who doesn\u2019t flinch.\"",
     "choices": {
-      "return_to_party": "scene_00_intro"
+      "press_forward": "scene_luna_success_02",
+      "break_tension": "scene_luna_fail_01"
+    }
+  },
+  "scene_luna_tame_01": {
+    "id": "scene_luna_tame_01",
+    "image": "scene_luna_tame_01.jpg",
+    "text": "You compliment her work softly. To your surprise, she brightens\u2014subtle but real. \"People rarely talk to me about my films without wanting something.\"",
+    "choices": {
+      "stay_with_her": "scene_luna_success_tame",
+      "step_away": "scene_luna_fail_01"
+    }
+  },
+  "scene_luna_fail_01": {
+    "id": "scene_luna_fail_01",
+    "image": "scene_luna_fail_01.jpg",
+    "text": "Luna's expression cools. \"Perhaps another night.\" She looks past you, the moment gone.",
+    "choices": {
+      "return_to_party": "scene_00_intro",
+      "go_home": "scene_go_home"
+    }
+  },
+  "scene_luna_success_01": {
+    "id": "scene_luna_success_01",
+    "image": "scene_luna_success_01.jpg",
+    "text": "She threads her fingers between yours. \"Come,\" she says, voice almost a whisper. \"Somewhere quieter.\"",
+    "choices": {
+      "continue": "scene_shared_success_luna"
+    }
+  },
+  "scene_luna_success_02": {
+    "id": "scene_luna_success_02",
+    "image": "scene_luna_success_02.jpg",
+    "text": "Luna steps into your space, letting the tension build. \"Let\u2019s not waste this.\" Her tone is molten.",
+    "choices": {
+      "continue": "scene_shared_success_luna"
+    }
+  },
+  "scene_luna_success_tame": {
+    "id": "scene_luna_success_tame",
+    "image": "scene_luna_success_tame.jpg",
+    "text": "She smiles\u2014rare, warm. \"Walk with me? Just\u2026 while it\u2019s quiet.\"",
+    "choices": {
+      "continue": "scene_shared_success_luna"
     }
   }
 }

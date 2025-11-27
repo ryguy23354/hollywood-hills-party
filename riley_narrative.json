@@ -2,9 +2,72 @@
   "scene_riley_00_intro": {
     "id": "scene_riley_00_intro",
     "image": "scene_riley_00_intro.jpg",
-    "text": "Riley stretches gracefully in the observatory light, giving you a playful nod.",
+    "text": "Riley finishes a sharp, fluid gymnastic pivot and laughs breathlessly. \"Didn\u2019t see you there. Enjoying the show?\"",
     "choices": {
-      "continue": "scene_00_intro"
+      "flirty_praise": "riley_A",
+      "match_energy": "riley_B",
+      "tame_chat": "riley_C",
+      "step_away": "riley_fail"
+    }
+  },
+  "riley_A": {
+    "id": "riley_A",
+    "image": "riley_A.jpg",
+    "text": "You praise her skill, leaning in. Riley grins wickedly. \"Careful. Compliments make me competitive.\"",
+    "choices": {
+      "keep_teasing": "riley_success_1",
+      "back_off": "riley_fail"
+    }
+  },
+  "riley_B": {
+    "id": "riley_B",
+    "image": "riley_B.jpg",
+    "text": "You mirror her energy with a playful challenge. \"Oh?\" Her eyes spark. \"Game on.\"",
+    "choices": {
+      "lean_forward": "riley_success_2",
+      "break_flow": "riley_fail"
+    }
+  },
+  "riley_C": {
+    "id": "riley_C",
+    "image": "riley_C.jpg",
+    "text": "You talk about her training. She softens. \"Most people only care about the medals.\"",
+    "choices": {
+      "stay_with_her": "riley_success_tame",
+      "step_back": "riley_fail"
+    }
+  },
+  "riley_fail": {
+    "id": "riley_fail",
+    "image": "riley_fail.jpg",
+    "text": "Riley shrugs playfully. \"Maybe another night.\" She bounces away, already distracted.",
+    "choices": {
+      "return_to_party": "scene_00_intro",
+      "go_home": "scene_go_home"
+    }
+  },
+  "riley_success_1": {
+    "id": "riley_success_1",
+    "image": "riley_success_1.jpg",
+    "text": "\"Come on,\" she whispers. \"Let\u2019s find somewhere we can actually breathe.\"",
+    "choices": {
+      "continue": "scene_shared_success_riley"
+    }
+  },
+  "riley_success_2": {
+    "id": "riley_success_2",
+    "image": "riley_success_2.jpg",
+    "text": "She steps close, energy electric. \"This intensity? I like it.\"",
+    "choices": {
+      "continue": "scene_shared_success_riley"
+    }
+  },
+  "riley_success_tame": {
+    "id": "riley_success_tame",
+    "image": "riley_success_tame.jpg",
+    "text": "She smiles warmly. \"Walk with me? I want to cool down somewhere quiet.\"",
+    "choices": {
+      "continue": "scene_shared_success_riley"
     }
   }
 }
