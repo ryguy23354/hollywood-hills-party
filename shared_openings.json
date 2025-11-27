@@ -1,0 +1,204 @@
+{
+  "main_party_entry": {
+    "id": "scene_00_intro",
+    "image": "scene_00_intro.jpg",
+    "text": "You arrive at a sprawling Hollywood Hills mansion. Music, laughter, and the clink of glasses fill the air. The party stretches in all directions.",
+    "choices": {
+      "bar_area": "scene_bar_01",
+      "pool_area": "scene_pool_01",
+      "lounge_area": "scene_lounge_01",
+      "balcony_area": "scene_balcony_01",
+      "observatory_area": "scene_observatory_01"
+    }
+  },
+  "scene_bar_01": {
+    "id": "scene_bar_01",
+    "image": "scene_bar_01.jpg",
+    "text": "A long marble bar with a neon backlight. Guests lean in across the counter. One figure catches your eye.",
+    "choices": {
+      "approach_harper": "scene_harper_00_intro",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_pool_01": {
+    "id": "scene_pool_01",
+    "image": "scene_pool_01.jpg",
+    "text": "The pool shimmers under string lights. Laughter and splashes come from clusters of people. Someone dives with effortless grace.",
+    "choices": {
+      "approach_sienna": "scene_sienna_00_intro",
+      "approach_riley": "scene_riley_00_intro",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_lounge_01": {
+    "id": "scene_lounge_01",
+    "image": "scene_lounge_01.jpg",
+    "text": "Velvet sofas and low tables\u2014an intimate corner of the party. A lone figure studies a painting nearby.",
+    "choices": {
+      "approach_luna": "scene_luna_00_intro",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_balcony_01": {
+    "id": "scene_balcony_01",
+    "image": "scene_balcony_01.jpg",
+    "text": "The balcony looks out over the city lights. Music turns distant here\u2014an ideal spot for private conversation.",
+    "choices": {
+      "approach_mara": "scene_mara_00_intro",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_observatory_01": {
+    "id": "scene_observatory_01",
+    "image": "scene_observatory_01.jpg",
+    "text": "A private observatory dome lined with telescopes and cushions. A figure practices an elegant stretch near the rail.",
+    "choices": {
+      "approach_riley": "scene_riley_00_intro",
+      "return": "scene_00_intro"
+    }
+  },
+  "character": "Mara Quinn",
+  "setting": "Observatory Terrace",
+  "opening": {
+    "id": "mara_00_intro",
+    "text": "Mara stands beside a brass telescope, lanternlight flickering across her features.",
+    "dialogue": [
+      {
+        "speaker": "Mara",
+        "line": "There you are\u2026 I was beginning to think you\u2019d vanished into some cosmic anomaly. Come look\u2014Saturn\u2019s rings are showing beautifully tonight."
+      }
+    ],
+    "choices": {
+      "A": "mara_A_branch",
+      "B": "mara_B_branch",
+      "C": "mara_C_branch"
+    }
+  },
+  "branches": {
+    "A": {
+      "id": "mara_A_branch",
+      "text": "You step close beside her, shoulders brushing.",
+      "choices": {
+        "A1": "mara_success",
+        "A2": "mara_success",
+        "A3": "mara_fail"
+      }
+    },
+    "B": {
+      "id": "mara_B_branch",
+      "text": "She guides your hand over the lens adjustment.",
+      "choices": {
+        "B1": "mara_success",
+        "B2": "mara_success",
+        "B3": "mara_fail"
+      }
+    },
+    "C": {
+      "id": "mara_C_branch",
+      "text": "You admire the view from a polite distance.",
+      "choices": {
+        "C1": "mara_success_tame",
+        "C2": "mara_success_tame",
+        "C3": "mara_fail"
+      }
+    }
+  },
+  "outcomes": {
+    "success": {
+      "id": "mara_success",
+      "text": "Mara invites you to a private balcony.",
+      "options": {
+        "proceed": "shared_success_mara",
+        "restart": "scene_00_intro"
+      }
+    },
+    "success_tame": {
+      "id": "mara_success_tame",
+      "text": "You share a peaceful moment discussing astronomy.",
+      "options": {
+        "proceed": "shared_success_mara",
+        "restart": "scene_00_intro"
+      }
+    },
+    "fail": {
+      "id": "mara_fail",
+      "text": "Mara smiles politely, the moment fading.",
+      "options": {
+        "return_party": "scene_00_intro",
+        "go_home": "scene_end_home"
+      }
+    }
+  },
+  "scene_harper_00_intro": {
+    "id": "scene_harper_00_intro",
+    "image": "scene_harper_00_intro.jpg",
+    "text": "Harper stands at the bar, turning as you approach with a knowing smile.",
+    "choices": {
+      "continue": "scene_00_intro"
+    }
+  },
+  "scene_riley_00_intro": {
+    "id": "scene_riley_00_intro",
+    "image": "scene_riley_00_intro.jpg",
+    "text": "Riley stretches gracefully in the observatory light, giving you a playful nod.",
+    "choices": {
+      "continue": "scene_00_intro"
+    }
+  },
+  "scene_mara_00_intro": {
+    "id": "scene_mara_00_intro",
+    "image": "scene_mara_00_intro.jpg",
+    "text": "Mara turns from the balcony view, her eyes warm and inviting.",
+    "choices": {
+      "continue": "scene_00_intro"
+    }
+  },
+  "scene_luna_soft_01": {
+    "id": "scene_luna_soft_01",
+    "image": "scene_luna_soft_01.jpg",
+    "text": "A soft and slower moment unfolds with Luna.",
+    "choices": {
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_luna_intense_01": {
+    "id": "scene_luna_intense_01",
+    "image": "scene_luna_intense_01.jpg",
+    "text": "Luna steps closer, intensity in her eyes.",
+    "choices": {
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_return_00": {
+    "id": "scene_return_00",
+    "image": "scene_return_00.jpg",
+    "text": "You return to the party's main flow.",
+    "choices": {
+      "return": "scene_00_intro"
+    }
+  },
+  "mara_A_branch": {
+    "id": "mara_A_branch",
+    "image": "mara_A_branch.jpg",
+    "text": "Mara\u2019s A-branch path unfolds here.",
+    "choices": {
+      "return": "scene_00_intro"
+    }
+  },
+  "mara_B_branch": {
+    "id": "mara_B_branch",
+    "image": "mara_B_branch.jpg",
+    "text": "Mara\u2019s B-branch path unfolds here.",
+    "choices": {
+      "return": "scene_00_intro"
+    }
+  },
+  "mara_C_branch": {
+    "id": "mara_C_branch",
+    "image": "mara_C_branch.jpg",
+    "text": "Mara\u2019s C-branch path unfolds here.",
+    "choices": {
+      "return": "scene_00_intro"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "scene_mara_00_intro": {
+    "id": "scene_mara_00_intro",
+    "image": "scene_mara_00_intro.jpg",
+    "text": "Mara turns from the balcony view, her eyes warm and inviting.",
+    "choices": {
+      "continue": "scene_00_intro"
+    }
+  },
+  "mara_A_branch": {
+    "id": "mara_A_branch",
+    "image": "mara_A_branch.jpg",
+    "text": "Mara\u2019s A-branch path unfolds here.",
+    "choices": {
+      "return": "scene_00_intro"
+    }
+  },
+  "mara_B_branch": {
+    "id": "mara_B_branch",
+    "image": "mara_B_branch.jpg",
+    "text": "Mara\u2019s B-branch path unfolds here.",
+    "choices": {
+      "return": "scene_00_intro"
+    }
+  },
+  "mara_C_branch": {
+    "id": "mara_C_branch",
+    "image": "mara_C_branch.jpg",
+    "text": "Mara\u2019s C-branch path unfolds here.",
+    "choices": {
+      "return": "scene_00_intro"
+    }
+  }
+}

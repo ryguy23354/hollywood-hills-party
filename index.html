@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Story Engine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background: #222;
+      padding: 15px;
+      font-size: 1.4em;
+      text-align: center;
+      border-bottom: 1px solid #444;
+    }
+
+    #story-container {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    #choices {
+      margin-top: 20px;
+    }
+
+    .choice-btn {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+      cursor: pointer;
+      font-size: 1em;
+      border-radius: 4px;
+    }
+    .choice-btn:hover {
+      background: #444;
+    }
+
+    .error {
+      color: #ff6b6b;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <header>Interactive Story Engine</header>
+
+  <div id="story-container">
+    <h2 id="scene-title"></h2>
+    <img id="scene-image" src="" alt="" style="max-width: 100%; display:none; margin-top:10px; border-radius:6px;" />
+    <p id="scene-text"></p>
+
+    <div id="choices"></div>
+    <div id="error-box" class="error"></div>
+  </div>
+
+  <script>
+    const errorBox = document.getElementById('error-box');
+    const sceneTitle = document.getElementById('scene-title');
+    const sceneText = document.getElementById('scene-text');
+    const sceneImage = document.getElementById('scene-image');
+    const choicesBox = document.getElementById('choices');
+
+    let storyData = {};
+
+    async function loadJSON(path) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(`Failed to load ${path} (status ${res.status})`);
+        return await res.json();
+      } catch (err) {
+        showError(`JSON Load Error: ${err.message}`);
+        return null;
+      }
+    }
+
+    function showError(message) {
+      errorBox.textContent = message;
+    }
+    function clearError() {
+      errorBox.textContent = '';
+    }
+
+    function renderScene(id) {
+      clearError();
+
+      const scene = storyData[id];
+      if (!scene) {
+        showError(`Scene "${id}" not found.`);
+        return;
+      }
+
+      sceneTitle.textContent = scene.id || '(Untitled Scene)';
+      sceneText.textContent = scene.text || '(Missing text)';
+
+      if (scene.image) {
+        sceneImage.src = "images/" + scene.image;
+        sceneImage.style.display = "block"; // image loaded from images folder
+      } else {
+        sceneImage.style.display = "none";
+      }
+
+      choicesBox.innerHTML = '';
+
+      if (!scene.choices) {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = 'Return to Start';
+        btn.onclick = () => renderScene('scene_00_intro');
+        choicesBox.appendChild(btn);
+        return;
+      }
+
+      for (const [label, nextScene] of Object.entries(scene.choices)) {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = label.replace(/_/g, ' ');
+        btn.onclick = () => renderScene(nextScene);
+        choicesBox.appendChild(btn);
+      }
+    }
+
+    async function init() {
+      clearError();
+
+      const files = [
+        'shared_openings.json',
+        'shared_endings.json',
+        'characters_intro.json',
+        'harper_narrative.json',
+        'luna_narrative.json',
+        'mara_narrative.json',
+        'riley_narrative.json',
+        'sienna_narrative.json'
+      ];
+
+      const loaded = await Promise.all(files.map(f => loadJSON(f)));
+
+      if (loaded.some(x => x === null)) {
+        showError('One or more JSON files failed to load — cannot start story.');
+        return;
+      }
+
+      loaded.forEach(obj => Object.assign(storyData, obj));
+
+      if (!storyData['scene_00_intro']) {
+        showError('Missing starting scene: "scene_00_intro"');
+        return;
+      }
+
+      renderScene('scene_00_intro');
+    }
+
+    init();
+  </script>
+</body>
+</html>

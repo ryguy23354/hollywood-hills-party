@@ -1,0 +1,132 @@
+{
+  "scene_sienna_00_intro": {
+    "id": "scene_sienna_00_intro",
+    "image": "scene_sienna_00_intro.jpg",
+    "text": "Sienna lounges at the edge of the pool, legs kicking lazily in the glowing water. When she spots you watching, she splashes playfully and lifts one brow, grin wide and wicked.",
+    "choices": {
+      "flirt_back": "scene_sienna_flirt_01",
+      "tease_her": "scene_sienna_tease_01",
+      "stay_cool": "scene_sienna_cool_01",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_sienna_flirt_01": {
+    "id": "scene_sienna_flirt_01",
+    "image": "scene_sienna_flirt_01.jpg",
+    "text": "You step closer and flirt back. Sienna pats the pool edge beside her. \"Bold move,\" she murmurs. \"I like bold.\"",
+    "choices": {
+      "sit_beside_her": "scene_sienna_flirt_02",
+      "offer_hand": "scene_sienna_flirt_03",
+      "deflect_lightly": "scene_sienna_cool_01",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_sienna_flirt_02": {
+    "id": "scene_sienna_flirt_02",
+    "image": "scene_sienna_flirt_02.jpg",
+    "text": "You sit beside her, legs dangling. Sienna leans in close, voice low: \"So what's your game? Trouble? Fun? Someone worth a song?\" Her tone is all invitation.",
+    "choices": {
+      "admit_interest": "scene_sienna_spicy_01",
+      "playfully_challenge": "scene_sienna_tease_01",
+      "keep_it_tame": "scene_sienna_tame_01",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_sienna_flirt_03": {
+    "id": "scene_sienna_flirt_03",
+    "image": "scene_sienna_flirt_03.jpg",
+    "text": "You offer your hand and she takes it, slipping her fingers through yours with a quick, electric tug. Water beads on her skin, catching the lights.",
+    "choices": {
+      "pull_her_closer": "scene_sienna_spicy_01",
+      "keep_gentle": "scene_sienna_tame_01",
+      "step_back": "scene_sienna_fail_01",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_sienna_tease_01": {
+    "id": "scene_sienna_tease_01",
+    "image": "scene_sienna_tease_01.jpg",
+    "text": "You tease her; she splashes water at your shirt and laughs. \"Come on, play with me,\" she says, tugging you lightly by the wrist.",
+    "choices": {
+      "lean_in": "scene_sienna_spicy_01",
+      "joke_back": "scene_sienna_tease_02",
+      "stand_your_ground": "scene_sienna_cool_01",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_sienna_tease_02": {
+    "id": "scene_sienna_tease_02",
+    "image": "scene_sienna_tease_02.jpg",
+    "text": "\"You're trouble,\" you say. She smirks. \"Baby, I *am* trouble,\" she replies, looping a finger under your collar. \"But you look like you can handle it.\"",
+    "choices": {
+      "accept_the_challenge": "scene_sienna_spicy_01",
+      "play_shy": "scene_sienna_tame_01",
+      "back_off": "scene_sienna_fail_01",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_sienna_cool_01": {
+    "id": "scene_sienna_cool_01",
+    "image": "scene_sienna_cool_01.jpg",
+    "text": "You stay composed. Sienna hums a soft melody, amused. \"A slow-burn, huh? I can do slow-burns too,\" she teases, eyes warm with curiosity.",
+    "choices": {
+      "open_up": "scene_sienna_tame_01",
+      "shift_to_flirt": "scene_sienna_flirt_01",
+      "let_moment_pass": "scene_sienna_fail_01",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_sienna_spicy_01": {
+    "id": "scene_sienna_spicy_01",
+    "image": "scene_sienna_spicy_01.jpg",
+    "text": "Sienna slips her arm around your waist and guides you away from the crowd. \"There's a cabana that's mostly empty,\" she whispers. \"Come on.\"",
+    "choices": {
+      "follow_to_cabana": "scene_sienna_spicy_02",
+      "hesitate": "scene_sienna_fail_01",
+      "return": "scene_00_intro"
+    }
+  },
+  "scene_sienna_spicy_02": {
+    "id": "scene_sienna_spicy_02",
+    "image": "scene_sienna_spicy_02.jpg",
+    "text": "Palm fronds shade the cabana and the music softens. Sienna's hand finds your chest; her touch is light but deliberate. \"I like the way you look at me,\" she whispers.",
+    "choices": {
+      "let_it_progress": "scene_sienna_spicy_03",
+      "keep_it_tender": "scene_sienna_tame_01",
+      "pull_away": "scene_sienna_return_party"
+    }
+  },
+  "scene_sienna_spicy_03": {
+    "id": "scene_sienna_spicy_03",
+    "image": "scene_sienna_spicy_03.jpg",
+    "text": "Heat pools between you. Sienna's breath brushes your lips; the world narrows to a single, charged beat. The encounter becomes intensely private and fades to black\u2014consensual, intimate, and electric.",
+    "choices": {
+      "end": "scene_success_end"
+    }
+  },
+  "scene_sienna_tame_01": {
+    "id": "scene_sienna_tame_01",
+    "image": "scene_sienna_tame_01.jpg",
+    "text": "She softens noticeably, humming a gentle melody as she leans back. You share a slow, mellow conversation about music and life\u2014warm, sincere, and unexpectedly tender.",
+    "choices": {
+      "end": "scene_success_end"
+    }
+  },
+  "scene_sienna_fail_01": {
+    "id": "scene_sienna_fail_01",
+    "image": "scene_sienna_fail_01.jpg",
+    "text": "Sienna's smile fades politely. \"Not tonight,\" she says, stepping away. The playful spark dulls as she slips back into the throng.",
+    "choices": {
+      "return_to_party": "scene_00_intro",
+      "go_home": "scene_go_home"
+    }
+  },
+  "scene_sienna_return_party": {
+    "id": "scene_sienna_return_party",
+    "image": "scene_sienna_return_party.jpg",
+    "text": "You step away and rejoin the main party. The music swallows the private tension as the night goes on.",
+    "choices": {
+      "back_to_party": "scene_00_intro"
+    }
+  }
+}
