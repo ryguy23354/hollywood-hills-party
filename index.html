@@ -169,6 +169,57 @@
     }
 
     init();
+  
+    // --- Load character profiles
+    let profiles = {};
+
+    async function init() {
+      clearError();
+
+      const main = await loadJSON('main_story.json');
+      const intros = await loadJSON('characters_intro.json');
+      const openings = await loadJSON('shared_openings.json');
+      const endings = await loadJSON('shared_endings.json');
+      profiles = await loadJSON('character_profiles.json');
+
+      if (!main || !intros || !openings || !endings || !profiles) {
+        showError('One or more JSON files failed to load — cannot start story.');
+        return;
+      }
+
+      storyData = { ...main, ...intros, ...openings, ...endings };
+
+      renderScene('scene_00_intro');
+    }
+
+    function showCharacterProfiles() {
+      clearError();
+      sceneTitle.textContent = "Meet the Characters";
+      sceneImage.style.display = "none";
+
+      let html = "";
+      for (const key in profiles) {
+        const c = profiles[key];
+        html += `
+          <div style="margin-bottom:20px; border-bottom:1px solid #333; padding-bottom:10px;">
+            <h3>${c.name}</h3>
+            <img src="images/${c.image}" style="max-width:150px; border-radius:6px;">
+            <p><strong>Profession:</strong> ${c.profession}</p>
+            <p><strong>Personality:</strong> ${c.tone}</p>
+            <p>${c.description}</p>
+          </div>
+        `;
+      }
+
+      sceneText.innerHTML = html;
+
+      choicesBox.innerHTML = `
+        <button class="choice-btn" onclick="renderScene('scene_00_intro')">
+          Return to Party
+        </button>
+      `;
+    }
+
   </script>
 </body>
 </html>

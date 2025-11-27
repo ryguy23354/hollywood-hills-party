@@ -47,7 +47,7 @@
     "text": "Harper gives you a polite, warm smile — but the spark doesn’t quite catch.\n\n\"It’s alright,\" she says softly. \"Not every scene needs a dramatic payoff. Enjoy the party, okay?\" She touches your arm gently, then slips back into the crowd.",
     "choices": {
       "return_to_party": "scene_00_intro",
-      "go_home": "scene_end_go_home"
+      "go_home": "scene_go_home"
     }
   },
 
