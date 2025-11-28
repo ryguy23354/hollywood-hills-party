@@ -1,64 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hollywood Hills Party — Interactive Story</title>
-
+<title>Interactive Story Engine</title>
 <style>
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#111;
-  color:#eee;
-}
-header {
-  background:#222;
-  padding:15px;
-  font-size:1.4em;
-  border-bottom:1px solid #444;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.top-btn {
-  background:#444;
-  border:1px solid #666;
-  padding:8px 14px;
-  border-radius:6px;
-  color:#fff;
-  cursor:pointer;
-}
-#story-container {
-  padding:20px;
-}
-.choice-btn {
-  display:block;
-  background:#333;
-  padding:10px;
-  margin:8px 0;
-  color:#fff;
-  border:1px solid #555;
-  cursor:pointer;
-  border-radius:4px;
-}
-.choice-btn:hover {
-  background:#555;
-}
-#error-box {
-  color:#ff6b6b;
-  margin-top:15px;
-}
-.profile-card {
-  background:#222;
-  padding:20px;
-  border-radius:8px;
-  margin-bottom:20px;
-}
+body { margin:0; font-family:Arial; background:#111; color:#eee; }
+header { background:#222; padding:15px; font-size:1.4em; border-bottom:1px solid #444;
+         display:flex; justify-content:space-between; align-items:center; }
+.top-btn { background:#444; border:1px solid #666; padding:8px 14px; border-radius:6px; color:#fff; cursor:pointer; }
+#story-container { padding:20px; }
+.choice-btn { display:block; background:#333; padding:10px; margin:8px 0; color:#fff;
+              border:1px solid #555; cursor:pointer; border-radius:4px; }
+.choice-btn:hover { background:#555; }
+#error-box { color:#ff6b6b; margin-top:15px; }
+.profile-card { background:#222; padding:15px; border-radius:8px; }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -104,19 +62,22 @@ function renderScene(id){
     return;
   }
 
-  document.getElementById("scene-title").textContent = scene.id || "";
-  document.getElementById("scene-text").textContent = scene.text || "";
+  const sceneTitle = document.getElementById("scene-title");
+  const sceneText = document.getElementById("scene-text");
+  const sceneImage = document.getElementById("scene-image");
+  const choicesBox = document.getElementById("choices");
 
-  const img = document.getElementById("scene-image");
+  sceneTitle.textContent = scene.id || "";
+  sceneText.textContent = scene.text || "";
+
   if(scene.image){
-    img.src = "images/" + scene.image;
-    img.style.display = "block";
+    sceneImage.src = "images/" + scene.image;
+    sceneImage.style.display = "block";
   } else {
-    img.style.display = "none";
+    sceneImage.style.display = "none";
   }
 
-  const cbox = document.getElementById("choices");
-  cbox.innerHTML = "";
+  choicesBox.innerHTML = "";
   if(scene.choices){
     for(const label in scene.choices){
       const next = scene.choices[label];
@@ -124,22 +85,33 @@ function renderScene(id){
       b.className = "choice-btn";
       b.textContent = label.replace(/_/g, " ");
       b.onclick = () => renderScene(next);
-      cbox.appendChild(b);
+      choicesBox.appendChild(b);
     }
   }
 }
 
 function showCharacterProfiles(){
-  const container = document.getElementById("story-container");
-  container.innerHTML = "<h2>Meet the Characters</h2>";
+  const box = document.getElementById("error-box");
+  box.textContent = "";
+
+  const sceneTitle = document.getElementById("scene-title");
+  const sceneText = document.getElementById("scene-text");
+  const sceneImage = document.getElementById("scene-image");
+  const choicesBox = document.getElementById("choices");
+
+  sceneTitle.textContent = "Meet the Characters";
+  sceneImage.style.display = "none";
 
   if(!profiles.characters){
-    container.innerHTML += "<p>Error: character profile data missing.</p>";
+    sceneText.innerHTML = "<p>Error: character profile data missing.</p>";
+    choicesBox.innerHTML = '<button class="choice-btn" onclick="renderScene(\'scene_00_intro\')">Return to Party</button>';
     return;
   }
 
+  let html = '<div style="display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));">';
+
   profiles.characters.forEach(c => {
-    container.innerHTML += `
+    html += `
       <div class="profile-card">
         <h3>${c.name}</h3>
         <p><b>Profession:</b> ${c.profession}</p>
@@ -151,7 +123,11 @@ function showCharacterProfiles(){
     `;
   });
 
-  container.innerHTML += `
+  html += "</div>";
+
+  sceneText.innerHTML = html;
+
+  choicesBox.innerHTML = `
     <button class="choice-btn" onclick="renderScene('scene_00_intro')">
       Return to Party
     </button>
