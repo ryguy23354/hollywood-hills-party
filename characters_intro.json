@@ -1,57 +1,252 @@
 {
-  "scene_harper_00_intro": {
-    "id": "scene_harper_00_intro",
-    "image": "scene_harper_00_intro.jpg",
-    "text": "Harper stands at the bar, turning as you approach with a knowing smile. Her presence fills the corner with a cinematic hush.",
-    "choices": {
-      "soft_flirt": "scene_harper_soft_01",
-      "intense_energy": "scene_harper_spicy_01",
-      "tame_chat": "scene_harper_tame_01",
-      "return_to_party": "scene_00_intro"
+    "scene_harper_intro_bar": {
+        "id": "scene_harper_intro_bar",
+        "image": "scene_harper_intro_bar.jpg",
+        "text": "PLACEHOLDER: Intro scene for Harper at the bar. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_harper_intro_bar_A",
+            "Option_B": "scene_harper_intro_bar_B",
+            "Option_C_Tame": "scene_harper_intro_bar_C"
+        }
+    },
+    "scene_harper_intro_pool": {
+        "id": "scene_harper_intro_pool",
+        "image": "scene_harper_intro_pool.jpg",
+        "text": "PLACEHOLDER: Intro scene for Harper at the pool. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_harper_intro_pool_A",
+            "Option_B": "scene_harper_intro_pool_B",
+            "Option_C_Tame": "scene_harper_intro_pool_C"
+        }
+    },
+    "scene_harper_intro_lounge": {
+        "id": "scene_harper_intro_lounge",
+        "image": "scene_harper_intro_lounge.jpg",
+        "text": "PLACEHOLDER: Intro scene for Harper at the lounge. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_harper_intro_lounge_A",
+            "Option_B": "scene_harper_intro_lounge_B",
+            "Option_C_Tame": "scene_harper_intro_lounge_C"
+        }
+    },
+    "scene_harper_intro_balcony": {
+        "id": "scene_harper_intro_balcony",
+        "image": "scene_harper_intro_balcony.jpg",
+        "text": "PLACEHOLDER: Intro scene for Harper at the balcony. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_harper_intro_balcony_A",
+            "Option_B": "scene_harper_intro_balcony_B",
+            "Option_C_Tame": "scene_harper_intro_balcony_C"
+        }
+    },
+    "scene_harper_intro_game_loft": {
+        "id": "scene_harper_intro_game_loft",
+        "image": "scene_harper_intro_game_loft.jpg",
+        "text": "PLACEHOLDER: Intro scene for Harper at the game loft. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_harper_intro_game_loft_A",
+            "Option_B": "scene_harper_intro_game_loft_B",
+            "Option_C_Tame": "scene_harper_intro_game_loft_C"
+        }
+    },
+    "scene_sienna_intro_bar": {
+        "id": "scene_sienna_intro_bar",
+        "image": "scene_sienna_intro_bar.jpg",
+        "text": "PLACEHOLDER: Intro scene for Sienna at the bar. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_sienna_intro_bar_A",
+            "Option_B": "scene_sienna_intro_bar_B",
+            "Option_C_Tame": "scene_sienna_intro_bar_C"
+        }
+    },
+    "scene_sienna_intro_pool": {
+        "id": "scene_sienna_intro_pool",
+        "image": "scene_sienna_intro_pool.jpg",
+        "text": "PLACEHOLDER: Intro scene for Sienna at the pool. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_sienna_intro_pool_A",
+            "Option_B": "scene_sienna_intro_pool_B",
+            "Option_C_Tame": "scene_sienna_intro_pool_C"
+        }
+    },
+    "scene_sienna_intro_lounge": {
+        "id": "scene_sienna_intro_lounge",
+        "image": "scene_sienna_intro_lounge.jpg",
+        "text": "PLACEHOLDER: Intro scene for Sienna at the lounge. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_sienna_intro_lounge_A",
+            "Option_B": "scene_sienna_intro_lounge_B",
+            "Option_C_Tame": "scene_sienna_intro_lounge_C"
+        }
+    },
+    "scene_sienna_intro_balcony": {
+        "id": "scene_sienna_intro_balcony",
+        "image": "scene_sienna_intro_balcony.jpg",
+        "text": "PLACEHOLDER: Intro scene for Sienna at the balcony. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_sienna_intro_balcony_A",
+            "Option_B": "scene_sienna_intro_balcony_B",
+            "Option_C_Tame": "scene_sienna_intro_balcony_C"
+        }
+    },
+    "scene_sienna_intro_game_loft": {
+        "id": "scene_sienna_intro_game_loft",
+        "image": "scene_sienna_intro_game_loft.jpg",
+        "text": "PLACEHOLDER: Intro scene for Sienna at the game loft. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_sienna_intro_game_loft_A",
+            "Option_B": "scene_sienna_intro_game_loft_B",
+            "Option_C_Tame": "scene_sienna_intro_game_loft_C"
+        }
+    },
+    "scene_luna_intro_bar": {
+        "id": "scene_luna_intro_bar",
+        "image": "scene_luna_intro_bar.jpg",
+        "text": "PLACEHOLDER: Intro scene for Luna at the bar. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_luna_intro_bar_A",
+            "Option_B": "scene_luna_intro_bar_B",
+            "Option_C_Tame": "scene_luna_intro_bar_C"
+        }
+    },
+    "scene_luna_intro_pool": {
+        "id": "scene_luna_intro_pool",
+        "image": "scene_luna_intro_pool.jpg",
+        "text": "PLACEHOLDER: Intro scene for Luna at the pool. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_luna_intro_pool_A",
+            "Option_B": "scene_luna_intro_pool_B",
+            "Option_C_Tame": "scene_luna_intro_pool_C"
+        }
+    },
+    "scene_luna_intro_lounge": {
+        "id": "scene_luna_intro_lounge",
+        "image": "scene_luna_intro_lounge.jpg",
+        "text": "PLACEHOLDER: Intro scene for Luna at the lounge. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_luna_intro_lounge_A",
+            "Option_B": "scene_luna_intro_lounge_B",
+            "Option_C_Tame": "scene_luna_intro_lounge_C"
+        }
+    },
+    "scene_luna_intro_balcony": {
+        "id": "scene_luna_intro_balcony",
+        "image": "scene_luna_intro_balcony.jpg",
+        "text": "PLACEHOLDER: Intro scene for Luna at the balcony. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_luna_intro_balcony_A",
+            "Option_B": "scene_luna_intro_balcony_B",
+            "Option_C_Tame": "scene_luna_intro_balcony_C"
+        }
+    },
+    "scene_luna_intro_game_loft": {
+        "id": "scene_luna_intro_game_loft",
+        "image": "scene_luna_intro_game_loft.jpg",
+        "text": "PLACEHOLDER: Intro scene for Luna at the game loft. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_luna_intro_game_loft_A",
+            "Option_B": "scene_luna_intro_game_loft_B",
+            "Option_C_Tame": "scene_luna_intro_game_loft_C"
+        }
+    },
+    "scene_riley_intro_bar": {
+        "id": "scene_riley_intro_bar",
+        "image": "scene_riley_intro_bar.jpg",
+        "text": "PLACEHOLDER: Intro scene for Riley at the bar. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_riley_intro_bar_A",
+            "Option_B": "scene_riley_intro_bar_B",
+            "Option_C_Tame": "scene_riley_intro_bar_C"
+        }
+    },
+    "scene_riley_intro_pool": {
+        "id": "scene_riley_intro_pool",
+        "image": "scene_riley_intro_pool.jpg",
+        "text": "PLACEHOLDER: Intro scene for Riley at the pool. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_riley_intro_pool_A",
+            "Option_B": "scene_riley_intro_pool_B",
+            "Option_C_Tame": "scene_riley_intro_pool_C"
+        }
+    },
+    "scene_riley_intro_lounge": {
+        "id": "scene_riley_intro_lounge",
+        "image": "scene_riley_intro_lounge.jpg",
+        "text": "PLACEHOLDER: Intro scene for Riley at the lounge. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_riley_intro_lounge_A",
+            "Option_B": "scene_riley_intro_lounge_B",
+            "Option_C_Tame": "scene_riley_intro_lounge_C"
+        }
+    },
+    "scene_riley_intro_balcony": {
+        "id": "scene_riley_intro_balcony",
+        "image": "scene_riley_intro_balcony.jpg",
+        "text": "PLACEHOLDER: Intro scene for Riley at the balcony. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_riley_intro_balcony_A",
+            "Option_B": "scene_riley_intro_balcony_B",
+            "Option_C_Tame": "scene_riley_intro_balcony_C"
+        }
+    },
+    "scene_riley_intro_game_loft": {
+        "id": "scene_riley_intro_game_loft",
+        "image": "scene_riley_intro_game_loft.jpg",
+        "text": "PLACEHOLDER: Intro scene for Riley at the game loft. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_riley_intro_game_loft_A",
+            "Option_B": "scene_riley_intro_game_loft_B",
+            "Option_C_Tame": "scene_riley_intro_game_loft_C"
+        }
+    },
+    "scene_mara_intro_bar": {
+        "id": "scene_mara_intro_bar",
+        "image": "scene_mara_intro_bar.jpg",
+        "text": "PLACEHOLDER: Intro scene for Mara at the bar. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_mara_intro_bar_A",
+            "Option_B": "scene_mara_intro_bar_B",
+            "Option_C_Tame": "scene_mara_intro_bar_C"
+        }
+    },
+    "scene_mara_intro_pool": {
+        "id": "scene_mara_intro_pool",
+        "image": "scene_mara_intro_pool.jpg",
+        "text": "PLACEHOLDER: Intro scene for Mara at the pool. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_mara_intro_pool_A",
+            "Option_B": "scene_mara_intro_pool_B",
+            "Option_C_Tame": "scene_mara_intro_pool_C"
+        }
+    },
+    "scene_mara_intro_lounge": {
+        "id": "scene_mara_intro_lounge",
+        "image": "scene_mara_intro_lounge.jpg",
+        "text": "PLACEHOLDER: Intro scene for Mara at the lounge. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_mara_intro_lounge_A",
+            "Option_B": "scene_mara_intro_lounge_B",
+            "Option_C_Tame": "scene_mara_intro_lounge_C"
+        }
+    },
+    "scene_mara_intro_balcony": {
+        "id": "scene_mara_intro_balcony",
+        "image": "scene_mara_intro_balcony.jpg",
+        "text": "PLACEHOLDER: Intro scene for Mara at the balcony. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_mara_intro_balcony_A",
+            "Option_B": "scene_mara_intro_balcony_B",
+            "Option_C_Tame": "scene_mara_intro_balcony_C"
+        }
+    },
+    "scene_mara_intro_game_loft": {
+        "id": "scene_mara_intro_game_loft",
+        "image": "scene_mara_intro_game_loft.jpg",
+        "text": "PLACEHOLDER: Intro scene for Mara at the game loft. (Full expanded dialog will be inserted here.)",
+        "choices": {
+            "Option_A": "scene_mara_intro_game_loft_A",
+            "Option_B": "scene_mara_intro_game_loft_B",
+            "Option_C_Tame": "scene_mara_intro_game_loft_C"
+        }
     }
-  },
-  "scene_sienna_00_intro": {
-    "id": "scene_sienna_00_intro",
-    "image": "scene_sienna_00_intro.jpg",
-    "text": "Sienna lounges at the edge of the pool, legs dangling in the water, grin playful and teasing as she splashes a bit in your direction.",
-    "choices": {
-      "flirt_back": "scene_sienna_flirt_01",
-      "tease_her": "scene_sienna_tease_01",
-      "stay_cool": "scene_sienna_cool_01",
-      "return_to_party": "scene_00_intro"
-    }
-  },
-  "scene_luna_00_intro": {
-    "id": "scene_luna_00_intro",
-    "image": "scene_luna_00_intro.jpg",
-    "text": "Luna stands near a velvet-draped lounge alcove, watching the painting with an unreadable expression. When you approach, she inclines her head with measured interest.",
-    "choices": {
-      "soft_approach": "scene_luna_soft_01",
-      "intense_energy": "scene_luna_intense_01",
-      "return_to_party": "scene_00_intro",
-      "tame_option": "scene_luna_tame_01"
-    }
-  },
-  "scene_mara_00_intro": {
-    "id": "scene_mara_00_intro",
-    "image": "scene_mara_00_intro.jpg",
-    "text": "Mara stands beside a brass telescope on the balcony, the skyline reflected in her eyes. She smiles and gestures to the view.",
-    "choices": {
-      "step_closer": "mara_A_branch",
-      "ask_lens": "mara_B_branch",
-      "polite_distance": "mara_C_branch",
-      "return_to_party": "scene_00_intro"
-    }
-  },
-  "scene_riley_00_intro": {
-    "id": "scene_riley_00_intro",
-    "image": "scene_riley_00_intro.jpg",
-    "text": "Riley finishes a fluid sequence beside the observatory railing and wipes her brow, flashing a quick, warm grin at you.",
-    "choices": {
-      "compliment_skill": "riley_A",
-      "light_tease": "riley_B",
-      "tame_chat": "riley_C",
-      "return_to_party": "scene_00_intro"
-    }
-  }
 }

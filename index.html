@@ -1,169 +1,663 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Story Engine</title>
-<style>
-body { margin:0; font-family:Arial; background:#111; color:#eee; }
-header { background:#222; padding:15px; font-size:1.4em; border-bottom:1px solid #444;
-         display:flex; justify-content:space-between; align-items:center; }
-.top-btn { background:#444; border:1px solid #666; padding:8px 14px; border-radius:6px; color:#fff; cursor:pointer; }
-#story-container { padding:20px; }
-.choice-btn { display:block; background:#333; padding:10px; margin:8px 0; color:#fff;
-              border:1px solid #555; cursor:pointer; border-radius:4px; }
-.choice-btn:hover { background:#555; }
-#error-box { color:#ff6b6b; margin-top:15px; }
-.profile-card { background:#222; padding:15px; border-radius:8px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hollywood Hills Interactive Story</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: #ffffff;
+      background: #000000;
+      overflow-x: hidden;
+    }
+
+    #background {
+      position: fixed;
+      inset: 0;
+      background: url("images/background_placeholder.jpg") center center / cover no-repeat;
+      filter: blur(10px) brightness(0.35);
+      z-index: -2;
+    }
+
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.1), transparent 50%),
+                  radial-gradient(circle at bottom, rgba(0,0,0,0.8), #000);
+      z-index: -1;
+    }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      z-index: 10000;
+      animation: loaderPulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes loaderPulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      z-index: 20;
+    }
+
+    header .title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .header-btn {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .header-btn:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.08));
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+    }
+
+    #story-container {
+      position: relative;
+      max-width: 980px;
+      margin: 90px auto 30px;
+      padding: 22px 22px 26px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.7);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: storyFadeIn 0.8s ease forwards;
+      animation-delay: 0.4s;
+    }
+
+    @keyframes storyFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #scene-title {
+      margin: 0 0 6px;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    #scene-subtitle {
+      margin: 0 0 14px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(255,255,255,0.7);
+    }
+
+    #scene-image {
+      display: none;
+      width: 100%;
+      border-radius: 14px;
+      margin: 10px 0 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    #scene-text {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    #choices {
+      margin-top: 10px;
+    }
+
+    .choice-btn {
+      width: 100%;
+      padding: 12px 14px;
+      margin: 8px 0;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
+      color: #ffffff;
+      font-size: 0.98rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .choice-btn:hover {
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.6);
+    }
+
+    #char-select-panel {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .char-card {
+      border-radius: 16px;
+      background: rgba(10,10,10,0.8);
+      border: 1px solid rgba(255,255,255,0.16);
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+      transform: translateY(8px);
+      opacity: 0;
+      animation: cardIn 0.5s ease forwards;
+    }
+
+    .char-card:nth-child(1) { animation-delay: 0.05s; }
+    .char-card:nth-child(2) { animation-delay: 0.12s; }
+    .char-card:nth-child(3) { animation-delay: 0.18s; }
+    .char-card:nth-child(4) { animation-delay: 0.24s; }
+    .char-card:nth-child(5) { animation-delay: 0.30s; }
+
+    @keyframes cardIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .char-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .char-body {
+      padding: 10px 12px 14px;
+    }
+
+    .char-name {
+      margin: 0 0 4px;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .char-prof {
+      margin: 0 0 8px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .char-desc {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .char-cta {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.24);
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.08));
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .char-cta:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.16));
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    }
+
+    #error-box {
+      margin-top: 12px;
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      min-height: 1.2em;
+    }
+
+    @media (max-width: 700px) {
+      #story-container {
+        margin: 80px 12px 24px;
+        padding: 18px 14px 18px;
+      }
+      #scene-title {
+        font-size: 1.35rem;
+      }
+      .char-card {
+        height: auto;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div id="background"></div>
+  <div id="overlay"></div>
+  <div id="loader">Loading…</div>
 
-<header>
-  <div>Interactive Story Engine</div>
-  <button class="top-btn" onclick="showCharacterProfiles()">Meet the Characters</button>
-</header>
+  <header>
+    <div class="title">Hollywood Hills Story</div>
+    <button class="header-btn" onclick="showCharacterProfiles()">Meet the Characters</button>
+  </header>
 
-<div id="story-container">
-  <h2 id="scene-title"></h2>
-  <img id="scene-image" style="max-width:100%;display:none;margin-bottom:10px;border-radius:6px;" />
-  <p id="scene-text"></p>
-  <div id="choices"></div>
-  <div id="error-box"></div>
-</div>
+  <div id="story-container">
+    <h2 id="scene-title"></h2>
+    <div id="scene-subtitle"></div>
+    <img id="scene-image" alt="" />
+    <p id="scene-text"></p>
 
-<script>
-let storyData = {};
-let profiles = {};
+    <div id="char-select-panel"></div>
+    <div id="choices"></div>
+    <div id="error-box"></div>
+  </div>
 
-async function loadJSON(path){
-  try {
-    const r = await fetch(path);
-    if(!r.ok) throw new Error(path + " failed to load (" + r.status + ")");
-    return await r.json();
-  } catch(e){
-    document.getElementById("error-box").textContent = e.message;
-    return null;
-  }
-}
+  <script>
+    const errorBox = document.getElementById('error-box');
+    const sceneTitle = document.getElementById('scene-title');
+    const sceneSubtitle = document.getElementById('scene-subtitle');
+    const sceneText = document.getElementById('scene-text');
+    const sceneImage = document.getElementById('scene-image');
+    const choicesBox = document.getElementById('choices');
+    const charSelectPanel = document.getElementById('char-select-panel');
+    const loader = document.getElementById('loader');
 
-function renderScene(id){
-  const box = document.getElementById("error-box");
-  box.textContent = "";
+    let storyData = {};
+    let characterProfiles = {};
+    let CHAR_ASSIGN = {};
+    let currentLocationKey = null;
 
-  if(id === "__show_profiles__"){
-    showCharacterProfiles();
-    return;
-  }
-
-  const scene = storyData[id];
-  if(!scene){
-    box.textContent = "Scene not found: " + id;
-    return;
-  }
-
-  const sceneTitle = document.getElementById("scene-title");
-  const sceneText = document.getElementById("scene-text");
-  const sceneImage = document.getElementById("scene-image");
-  const choicesBox = document.getElementById("choices");
-
-  sceneTitle.textContent = scene.id || "";
-  sceneText.textContent = scene.text || "";
-
-  if(scene.image){
-    sceneImage.src = "images/" + scene.image;
-    sceneImage.style.display = "block";
-  } else {
-    sceneImage.style.display = "none";
-  }
-
-  choicesBox.innerHTML = "";
-  if(scene.choices){
-    for(const label in scene.choices){
-      const next = scene.choices[label];
-      const b = document.createElement("button");
-      b.className = "choice-btn";
-      b.textContent = label.replace(/_/g, " ");
-      b.onclick = () => renderScene(next);
-      choicesBox.appendChild(b);
+    const LOCATION_KEYS = ['bar', 'pool', 'lounge', 'balcony', 'game_loft'];
+    const LOCATION_SCENES = {
+      bar: 'scene_bar_01',
+      pool: 'scene_pool_01',
+      lounge: 'scene_lounge_01',
+      balcony: 'scene_balcony_01',
+      game_loft: 'scene_observatory_01'
+    };
+    const SCENE_TO_LOCATION = {};
+    for (const [locKey, sceneId] of Object.entries(LOCATION_SCENES)) {
+      SCENE_TO_LOCATION[sceneId] = locKey;
     }
-  }
-}
 
-function showCharacterProfiles(){
-  const box = document.getElementById("error-box");
-  box.textContent = "";
+    async function loadJSON(path) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(path + ' failed to load (' + res.status + ')');
+        return await res.json();
+      } catch (err) {
+        showError('JSON load error: ' + err.message);
+        return null;
+      }
+    }
 
-  const sceneTitle = document.getElementById("scene-title");
-  const sceneText = document.getElementById("scene-text");
-  const sceneImage = document.getElementById("scene-image");
-  const choicesBox = document.getElementById("choices");
+    function showError(msg) {
+      errorBox.textContent = msg || '';
+      console.error(msg);
+    }
 
-  sceneTitle.textContent = "Meet the Characters";
-  sceneImage.style.display = "none";
+    function clearError() {
+      errorBox.textContent = '';
+    }
 
-  if(!profiles.characters){
-    sceneText.innerHTML = "<p>Error: character profile data missing.</p>";
-    choicesBox.innerHTML = '<button class="choice-btn" onclick="renderScene(\'scene_00_intro\')">Return to Party</button>';
-    return;
-  }
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
 
-  let html = '<div style="display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));">';
+    function generateCharacterAssignments() {
+      // keys from character_profiles.json
+      const ids = Object.keys(characterProfiles);
+      // require exactly 5 known IDs for the deck logic
+      const expected = ['harper_vale','sienna_brooks','luna_devreaux','mara_quinn','riley_storm'];
+      const deck = [];
+      expected.forEach(id => {
+        if (ids.includes(id)) {
+          deck.push(id, id);
+        }
+      });
+      if (deck.length !== 10) {
+        showError('Character deck mismatch: expected 10 entries, got ' + deck.length);
+        return;
+      }
+      shuffle(deck);
+      CHAR_ASSIGN = {
+        bar:      [deck[0], deck[1]],
+        pool:     [deck[2], deck[3]],
+        lounge:   [deck[4], deck[5]],
+        balcony:  [deck[6], deck[7]],
+        game_loft:[deck[8], deck[9]]
+      };
+      console.log('CHAR_ASSIGN', CHAR_ASSIGN);
+    }
 
-  profiles.characters.forEach(c => {
-    html += `
-      <div class="profile-card">
-        <h3>${c.name}</h3>
-        <p><b>Profession:</b> ${c.profession}</p>
-        <p>${c.description}</p>
-        <button class="choice-btn" onclick="renderScene('${c.start_scene}')">
-          Go to ${c.name}'s Intro
-        </button>
-      </div>
-    `;
-  });
+    function renderScene(id) {
+      clearError();
+      charSelectPanel.style.display = 'none';
+      charSelectPanel.innerHTML = '';
 
-  html += "</div>";
+      const scene = storyData[id];
+      if (!scene) {
+        showError('Scene not found: ' + id);
+        return;
+      }
 
-  sceneText.innerHTML = html;
+      if (SCENE_TO_LOCATION[id]) {
+        currentLocationKey = SCENE_TO_LOCATION[id];
+        renderLocationScene(id, currentLocationKey);
+        return;
+      } else {
+        currentLocationKey = null;
+      }
 
-  choicesBox.innerHTML = `
-    <button class="choice-btn" onclick="renderScene('scene_00_intro')">
-      Return to Party
-    </button>
-  `;
-}
+      sceneTitle.textContent = scene.id || '';
+      sceneSubtitle.textContent = '';
+      sceneText.textContent = scene.text || '';
 
-async function init(){
-  const files = [
-    "shared_openings.json",
-    "characters_intro.json",
-    "shared_endings.json",
-    "harper_narrative.json",
-    "luna_narrative.json",
-    "mara_narrative.json",
-    "riley_narrative.json",
-    "sienna_narrative.json",
-    "character_profiles.json"
-  ];
+      if (scene.image) {
+        sceneImage.src = 'images/' + scene.image;
+        sceneImage.style.display = 'block';
+      } else {
+        sceneImage.style.display = 'none';
+      }
 
-  for(const f of files){
-    const data = await loadJSON(f);
-    if(!data) return;
-    if(f === "character_profiles.json") profiles = data;
-    else Object.assign(storyData, data);
-  }
+      choicesBox.innerHTML = '';
+      if (scene.choices) {
+        for (const [label, nextId] of Object.entries(scene.choices)) {
+          const btn = document.createElement('button');
+          btn.className = 'choice-btn';
+          btn.textContent = label.replace(/_/g, ' ');
+          btn.onclick = () => renderScene(nextId);
+          choicesBox.appendChild(btn);
+        }
+      }
+    }
 
-  if(!storyData["scene_00_intro"]){
-    document.getElementById("error-box").textContent = "Missing starting scene: scene_00_intro";
-    return;
-  }
+    function renderLocationScene(sceneId, locKey) {
+      const scene = storyData[sceneId];
+      if (!scene) {
+        showError('Location scene missing: ' + sceneId);
+        return;
+      }
 
-  renderScene("scene_00_intro");
-}
+      sceneTitle.textContent = scene.id || '';
+      const prettyLoc = locKey.replace('_', ' ');
+      sceneSubtitle.textContent = prettyLoc.toUpperCase();
+      sceneText.textContent = scene.text || '';
 
-init();
-</script>
+      if (scene.image) {
+        sceneImage.src = 'images/' + scene.image;
+        sceneImage.style.display = 'block';
+      } else {
+        sceneImage.style.display = 'none';
+      }
 
+      choicesBox.innerHTML = '';
+
+      const chars = CHAR_ASSIGN[locKey] || [];
+      if (!chars.length) {
+        showError('No characters assigned to location: ' + locKey);
+        return;
+      }
+
+      charSelectPanel.style.display = 'block';
+      const grid = document.createElement('div');
+      grid.className = 'char-grid';
+
+      chars.forEach(charId => {
+        const prof = characterProfiles[charId];
+        if (!prof) return;
+
+        const card = document.createElement('div');
+        card.className = 'char-card';
+
+        if (prof.image) {
+          const img = document.createElement('img');
+          img.className = 'char-image';
+          img.src = 'images/' + prof.image;
+          img.alt = prof.name || '';
+          card.appendChild(img);
+        }
+
+        const body = document.createElement('div');
+        body.className = 'char-body';
+
+        const nameEl = document.createElement('h3');
+        nameEl.className = 'char-name';
+        nameEl.textContent = prof.name || '';
+        body.appendChild(nameEl);
+
+        if (prof.profession) {
+          const pProf = document.createElement('div');
+          pProf.className = 'char-prof';
+          pProf.textContent = prof.profession.toUpperCase();
+          body.appendChild(pProf);
+        }
+
+        if (prof.description) {
+          const pDesc = document.createElement('div');
+          pDesc.className = 'char-desc';
+          pDesc.textContent = prof.description;
+          body.appendChild(pDesc);
+        }
+
+        const cta = document.createElement('button');
+        cta.className = 'char-cta';
+        cta.textContent = 'Approach ' + (prof.name || '');
+        const introSceneId = prof.intro_scene || '';
+        cta.onclick = () => {
+          if (introSceneId && storyData[introSceneId]) {
+            renderScene(introSceneId);
+          } else {
+            showError('Intro scene not found for ' + (prof.name || charId));
+          }
+        };
+        body.appendChild(cta);
+
+        card.appendChild(body);
+        grid.appendChild(card);
+      });
+
+      charSelectPanel.innerHTML = '';
+      charSelectPanel.appendChild(grid);
+
+      const backBtn = document.createElement('button');
+      backBtn.className = 'choice-btn';
+      backBtn.textContent = 'Return to Main Party';
+      backBtn.onclick = () => renderScene('scene_00_intro');
+      choicesBox.appendChild(backBtn);
+    }
+
+    function showCharacterProfiles() {
+      clearError();
+      charSelectPanel.style.display = 'block';
+      choicesBox.innerHTML = '';
+
+      sceneTitle.textContent = 'Meet the Characters';
+      sceneSubtitle.textContent = 'Overview';
+      sceneText.textContent = 'Five women, five stories, one unforgettable night. Choose who you want to find—or let the party bring them to you.';
+
+      const grid = document.createElement('div');
+      grid.className = 'char-grid';
+
+      for (const [id, prof] of Object.entries(characterProfiles)) {
+        const card = document.createElement('div');
+        card.className = 'char-card';
+
+        if (prof.image) {
+          const img = document.createElement('img');
+          img.className = 'char-image';
+          img.src = 'images/' + prof.image;
+          img.alt = prof.name || '';
+          card.appendChild(img);
+        }
+
+        const body = document.createElement('div');
+        body.className = 'char-body';
+
+        const nameEl = document.createElement('h3');
+        nameEl.className = 'char-name';
+        nameEl.textContent = prof.name || '';
+        body.appendChild(nameEl);
+
+        if (prof.profession) {
+          const pProf = document.createElement('div');
+          pProf.className = 'char-prof';
+          pProf.textContent = prof.profession.toUpperCase();
+          body.appendChild(pProf);
+        }
+
+        if (prof.description) {
+          const pDesc = document.createElement('div');
+          pDesc.className = 'char-desc';
+          pDesc.textContent = prof.description;
+          body.appendChild(pDesc);
+        }
+
+        const cta = document.createElement('button');
+        cta.className = 'char-cta';
+        cta.textContent = 'Go to ' + (prof.name || 'Intro');
+        const introSceneId = prof.intro_scene || '';
+        cta.onclick = () => {
+          if (introSceneId && storyData[introSceneId]) {
+            renderScene(introSceneId);
+          } else {
+            showError('Intro scene not found for ' + (prof.name || id));
+          }
+        };
+        body.appendChild(cta);
+
+        card.appendChild(body);
+        grid.appendChild(card);
+      }
+
+      charSelectPanel.innerHTML = '';
+      charSelectPanel.appendChild(grid);
+
+      const backBtn = document.createElement('button');
+      backBtn.className = 'choice-btn';
+      backBtn.textContent = 'Return to Main Party';
+      backBtn.onclick = () => renderScene('scene_00_intro');
+      choicesBox.appendChild(backBtn);
+    }
+
+    async function init() {
+      const files = [
+        'main_story.json',
+        'shared_openings.json',
+        'shared_endings.json',
+        'characters_intro.json',
+        'harper_narrative.json',
+        'luna_narrative.json',
+        'sienna_narrative.json',
+        'mara_narrative.json',
+        'riley_narrative.json'
+      ];
+
+      const loaded = await Promise.all(files.map(loadJSON));
+      if (loaded.some(x => !x)) {
+        showError('One or more JSON files failed to load — cannot start story.');
+      } else {
+        const [
+          main,
+          openings,
+          endings,
+          intros,
+          harper,
+          luna,
+          sienna,
+          mara,
+          riley
+        ] = loaded;
+
+        storyData = {
+          ...main,
+          ...openings,
+          ...endings,
+          ...intros,
+          ...harper,
+          ...luna,
+          ...sienna,
+          ...mara,
+          ...riley
+        };
+      }
+
+      const profiles = await loadJSON('character_profiles.json');
+      if (!profiles) {
+        showError('Failed to load character_profiles.json');
+      } else {
+        characterProfiles = profiles;
+      }
+
+      if (!storyData['scene_00_intro']) {
+        showError('Missing starting scene: "scene_00_intro"');
+      } else if (Object.keys(characterProfiles).length === 0) {
+        showError('No character profiles found.');
+      } else {
+        generateCharacterAssignments();
+        renderScene('scene_00_intro');
+      }
+
+      // Hide loader after init
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 400);
+    }
+
+    init();
+  </script>
 </body>
 </html>
