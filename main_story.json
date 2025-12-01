@@ -8,10 +8,9 @@
       "go_to_pool": "scene_pool_01",
       "go_to_lounge": "scene_lounge_01",
       "go_to_balcony": "scene_balcony_01",
-      "go_to_observatory": "scene_observatory_01"
+      "go_to_observatory": "scene_game_loft_01"
     }
   },
-
   "scene_bar_01": {
     "id": "scene_bar_01",
     "image": "scene_bar_01.jpg",
@@ -21,7 +20,6 @@
       "return_to_party": "scene_00_intro"
     }
   },
-
   "scene_pool_01": {
     "id": "scene_pool_01",
     "image": "scene_pool_01.jpg",
@@ -32,7 +30,6 @@
       "return_to_party": "scene_00_intro"
     }
   },
-
   "scene_lounge_01": {
     "id": "scene_lounge_01",
     "image": "scene_lounge_01.jpg",
@@ -42,7 +39,6 @@
       "return_to_party": "scene_00_intro"
     }
   },
-
   "scene_balcony_01": {
     "id": "scene_balcony_01",
     "image": "scene_balcony_01.jpg",
@@ -52,11 +48,10 @@
       "return_to_party": "scene_00_intro"
     }
   },
-
-  "scene_observatory_01": {
-    "id": "scene_observatory_01",
-    "image": "scene_observatory_01.jpg",
-    "text": "The private observatory glows with low ambient lighting. A massive telescope is pointed toward the stars. Someone nearby turns toward you, her silhouette framed by starlight.",
+  "scene_game_loft_01": {
+    "id": "scene_game_loft_01",
+    "image": "scene_game_loft_01.jpg",
+    "text": "The game loft glows with warm ambient lighting\u2014part lounge, part entertainment den tucked above the main party floor. Sleek game tables, a retro pinball machine, and a modern arcade cabinet cast soft neon reflections across plush sectional seating. It feels like a private hideaway, perfect for playful challenges and close conversation away from the main party.",
     "choices": {
       "approach_riley": "scene_riley_00_intro",
       "return_to_party": "scene_00_intro"
