@@ -8,7 +8,7 @@
       "pool_area": "scene_pool_01",
       "lounge_area": "scene_lounge_01",
       "balcony_area": "scene_balcony_01",
-      "observatory_area": "scene_game loft_01"
+      "game_loft_area": "scene_game_loft_01"
     }
   },
   "scene_bar_01": {
