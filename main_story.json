@@ -1,4 +1,5 @@
 {
+  version_marker": "THIS IS THE NEW FILE",
   "scene_00_intro": {
     "id": "scene_00_intro",
     "image": "scene_00_intro.jpg",
