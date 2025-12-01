@@ -370,11 +370,6 @@
         return;
       }
 
-      // We want:
-      // - 5 locations
-      // - 5 characters
-      // - each location: exactly 2 different characters
-      // - each character: appears in exactly 2 locations
       const locations = LOCATION_SCENES.slice();
 
       function buildMapping() {
@@ -385,7 +380,6 @@
 
         let attempts = 0;
         while (true) {
-          // Reset all slots and remaining counts
           locations.forEach(loc => { locationSlots[loc] = []; });
           characters.forEach(c => { remaining[c] = 2; });
 
@@ -436,6 +430,17 @@
       CHAR_ASSIGN = mapping;
       console.log('CHAR_ASSIGN', CHAR_ASSIGN);
     }
+
+    function resetAssignmentsAndReturn() {
+      CHAR_ASSIGN = {};
+      generateCharacterAssignments();
+      if (Object.keys(CHAR_ASSIGN).length === LOCATION_SCENES.length) {
+        renderScene('scene_00_intro');
+      } else {
+        showError('Failed to reset character assignments.');
+      }
+    }
+
 function renderScene(id) {
       clearError();
       charSelectPanel.style.display = 'none';
@@ -468,13 +473,28 @@ function renderScene(id) {
 
       choicesBox.innerHTML = '';
       if (scene.choices) {
+        
         for (const [label, nextId] of Object.entries(scene.choices)) {
           const btn = document.createElement('button');
           btn.className = 'choice-btn';
-          btn.textContent = label.replace(/_/g, ' ');
-          btn.onclick = () => renderScene(nextId);
+
+          // Special label for generic returns
+          if (label === 'return') {
+            btn.textContent = 'Look Around Elsewhere';
+          } else {
+            btn.textContent = label.replace(/_/g, ' ');
+          }
+
+          // Support special reset action hook for future use
+          if (nextId === 'action_reset_party') {
+            btn.onclick = () => resetAssignmentsAndReturn();
+          } else {
+            btn.onclick = () => renderScene(nextId);
+          }
+
           choicesBox.appendChild(btn);
         }
+
       }
     }
 
@@ -505,7 +525,7 @@ function renderScene(id) {
         showError('No characters assigned to location scene: ' + sceneId);
         const backBtn = document.createElement('button');
         backBtn.className = 'choice-btn';
-        backBtn.textContent = 'Return to Main Party';
+        backBtn.textContent = 'Look Around Elsewhere';
         backBtn.onclick = () => renderScene('scene_00_intro');
         choicesBox.appendChild(backBtn);
         return;
@@ -574,7 +594,7 @@ function renderScene(id) {
 
       const backBtn = document.createElement('button');
       backBtn.className = 'choice-btn';
-      backBtn.textContent = 'Return to Main Party';
+      backBtn.textContent = 'Look Around Elsewhere';
       backBtn.onclick = () => renderScene('scene_00_intro');
       choicesBox.appendChild(backBtn);
     }
@@ -647,7 +667,7 @@ function renderScene(id) {
 
       const backBtn = document.createElement('button');
       backBtn.className = 'choice-btn';
-      backBtn.textContent = 'Return to Main Party';
+      backBtn.textContent = 'Look Around Elsewhere';
       backBtn.onclick = () => renderScene('scene_00_intro');
       choicesBox.appendChild(backBtn);
     }
