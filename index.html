@@ -319,7 +319,7 @@
       'scene_pool_01',
       'scene_lounge_01',
       'scene_balcony_01',
-      'scene_game_loft_01' // game loft (formerly game loft)
+      'scene_game_loft_01' // game loft (formerly observatory)
     ];
 
     function isLocationScene(id) {
@@ -354,6 +354,7 @@
       return arr;
     }
 
+    
     function generateCharacterAssignments() {
       const expectedIds = [
         'harper_vale',
@@ -363,33 +364,84 @@
         'riley_storm'
       ];
 
-      const deck = [];
-      expectedIds.forEach(id => {
-        if (characterProfiles[id]) {
-          deck.push(id, id);
-        }
-      });
-
-      if (deck.length !== 10) {
-        showError('Character deck mismatch — expected 10 entries (5 chars × 2), got ' + deck.length + '. Check character_profiles.json.');
+      const characters = expectedIds.filter(id => characterProfiles[id]);
+      if (characters.length !== expectedIds.length) {
+        showError('Character deck mismatch — one or more profiles missing in character_profiles.json.');
         return;
       }
 
-      shuffle(deck);
+      const locations = LOCATION_SCENES.slice();
 
-      // 5 locations × 2 slots = 10 positions
-      CHAR_ASSIGN = {
-        'scene_bar_01':        [deck[0], deck[1]],
-        'scene_pool_01':       [deck[2], deck[3]],
-        'scene_lounge_01':     [deck[4], deck[5]],
-        'scene_balcony_01':    [deck[6], deck[7]],
-        'scene_game_loft_01':[deck[8], deck[9]]
-      };
+      function buildMapping() {
+        const locationSlots = {};
+        const remaining = {};
+        locations.forEach(loc => { locationSlots[loc] = []; });
+        characters.forEach(c => { remaining[c] = 2; });
 
+        let attempts = 0;
+        while (true) {
+          locations.forEach(loc => { locationSlots[loc] = []; });
+          characters.forEach(c => { remaining[c] = 2; });
+
+          let valid = true;
+
+          for (const loc of locations) {
+            const picks = [];
+
+            for (let i = 0; i < 2; i++) {
+              const candidates = characters.filter(c =>
+                remaining[c] > 0 && !picks.includes(c)
+              );
+
+              if (!candidates.length) {
+                valid = false;
+                break;
+              }
+
+              const pick = candidates[Math.floor(Math.random() * candidates.length)];
+              picks.push(pick);
+              remaining[pick] -= 1;
+            }
+
+            if (!valid) break;
+            locationSlots[loc] = picks;
+          }
+
+          const allBalanced = Object.values(remaining).every(v => v === 0);
+
+          if (valid && allBalanced) {
+            return locationSlots;
+          }
+
+          attempts += 1;
+          if (attempts > 1000) {
+            console.error('Failed to build balanced character-location mapping after many attempts.');
+            return null;
+          }
+        }
+      }
+
+      const mapping = buildMapping();
+      if (!mapping) {
+        showError('Failed to assign characters to locations. Please check character configuration.');
+        return;
+      }
+
+      CHAR_ASSIGN = mapping;
       console.log('CHAR_ASSIGN', CHAR_ASSIGN);
     }
 
-    function renderScene(id) {
+    function resetAssignmentsAndReturn() {
+      CHAR_ASSIGN = {};
+      generateCharacterAssignments();
+      if (Object.keys(CHAR_ASSIGN).length === LOCATION_SCENES.length) {
+        renderScene('scene_00_intro');
+      } else {
+        showError('Failed to reset character assignments.');
+      }
+    }
+
+function renderScene(id) {
       clearError();
       charSelectPanel.style.display = 'none';
       charSelectPanel.innerHTML = '';
@@ -421,13 +473,28 @@
 
       choicesBox.innerHTML = '';
       if (scene.choices) {
+        
         for (const [label, nextId] of Object.entries(scene.choices)) {
           const btn = document.createElement('button');
           btn.className = 'choice-btn';
-          btn.textContent = label.replace(/_/g, ' ');
-          btn.onclick = () => renderScene(nextId);
+
+          // Special label for generic returns
+          if (label === 'return') {
+            btn.textContent = 'Look Around Elsewhere';
+          } else {
+            btn.textContent = label.replace(/_/g, ' ');
+          }
+
+          // Support special reset action hook for future use
+          if (nextId === 'action_reset_party') {
+            btn.onclick = () => resetAssignmentsAndReturn();
+          } else {
+            btn.onclick = () => renderScene(nextId);
+          }
+
           choicesBox.appendChild(btn);
         }
+
       }
     }
 
@@ -458,7 +525,7 @@
         showError('No characters assigned to location scene: ' + sceneId);
         const backBtn = document.createElement('button');
         backBtn.className = 'choice-btn';
-        backBtn.textContent = 'Return to Main Party';
+        backBtn.textContent = 'Look Around Elsewhere';
         backBtn.onclick = () => renderScene('scene_00_intro');
         choicesBox.appendChild(backBtn);
         return;
@@ -527,7 +594,7 @@
 
       const backBtn = document.createElement('button');
       backBtn.className = 'choice-btn';
-      backBtn.textContent = 'Return to Main Party';
+      backBtn.textContent = 'Look Around Elsewhere';
       backBtn.onclick = () => renderScene('scene_00_intro');
       choicesBox.appendChild(backBtn);
     }
@@ -600,7 +667,7 @@
 
       const backBtn = document.createElement('button');
       backBtn.className = 'choice-btn';
-      backBtn.textContent = 'Return to Main Party';
+      backBtn.textContent = 'Look Around Elsewhere';
       backBtn.onclick = () => renderScene('scene_00_intro');
       choicesBox.appendChild(backBtn);
     }
