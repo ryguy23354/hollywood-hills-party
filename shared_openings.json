@@ -8,7 +8,7 @@
       "pool_area": "scene_pool_01",
       "lounge_area": "scene_lounge_01",
       "balcony_area": "scene_balcony_01",
-      "observatory_area": "scene_observatory_01"
+      "observatory_area": "scene_game loft_01"
     }
   },
   "scene_bar_01": {
@@ -49,9 +49,9 @@
     }
   },
   "scene_observatory_01": {
-    "id": "scene_observatory_01",
-    "image": "scene_observatory_01.jpg",
-    "text": "A private observatory dome lined with telescopes and cushions. A figure practices an elegant stretch near the rail.",
+    "id": "scene_game loft_01",
+    "image": "scene_game loft_01.jpg",
+    "text": "A private game loft dome lined with telescopes and cushions. A figure practices an elegant stretch near the rail.",
     "choices": {
       "approach_riley": "scene_riley_00_intro",
       "return": "scene_00_intro"
@@ -68,7 +68,7 @@
   "scene_riley_00_intro": {
     "id": "scene_riley_00_intro",
     "image": "scene_riley_00_intro.jpg",
-    "text": "Riley stretches gracefully in the observatory light, giving you a playful nod.",
+    "text": "Riley stretches gracefully in the game loft light, giving you a playful nod.",
     "choices": {
       "continue": "scene_00_intro"
     }
