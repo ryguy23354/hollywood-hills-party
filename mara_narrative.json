@@ -2,7 +2,7 @@
   "scene_mara_00_intro": {
     "id": "scene_mara_00_intro",
     "image": "scene_mara_00_intro.jpg",
-    "text": "Mara stands beside a brass telescope, hair glowing in starlight. \"You\u2019re just in time,\" she says, adjusting the lens. \"The sky is performing for us tonight.\"",
+    "text": "Mara stands near a tall loft window, hair glowing softly in the city light. A quiet two-person table sits nearby with an untouched game laid out between the chairs. \"You\u2019re just in time,\" she says, nodding toward the view. \"The city puts on its best performance after midnight.\"",
     "choices": {
       "close_in": "mara_A",
       "ask_about_telescope": "mara_B",

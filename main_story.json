@@ -2,7 +2,7 @@
   "scene_00_intro": {
     "id": "scene_00_intro",
     "image": "scene_00_intro.jpg",
-    "text": "You arrive at a sprawling Hollywood Hills mansion. Music pulses through the open windows, and warm amber lights glow across the terrace. Guests drift between the bar, the pool, the lounge, the balcony, and the softly glowing observatory above.",
+    "text": "You arrive at a sprawling Hollywood Hills mansion. Music pulses through the open windows, and warm amber lights glow across the terrace. Guests drift between the bar, the pool, the lounge, the balcony, and the warm, tucked-away game loft above.",
     "choices": {
       "go_to_bar": "scene_bar_01",
       "go_to_pool": "scene_pool_01",
@@ -51,7 +51,7 @@
   "scene_game_loft_01": {
     "id": "scene_game_loft_01",
     "image": "scene_game_loft_01.jpg",
-    "text": "The game loft glows with warm ambient lighting\u2014part lounge, part entertainment den tucked above the main party floor. Sleek game tables, a retro pinball machine, and a modern arcade cabinet cast soft neon reflections across plush sectional seating. It feels like a private hideaway, perfect for playful challenges and close conversation away from the main party.",
+    "text": "The game loft feels like a private upper-level retreat above the main party. Wide windows look out over the city while warm, indirect lighting softens the space. A few elegant game tables and a quietly humming arcade cabinet sit off to the side, leaving most of the room open for low-voiced conversation and stolen glances away from the crowd.",
     "choices": {
       "approach_riley": "scene_riley_00_intro",
       "return_to_party": "scene_00_intro"

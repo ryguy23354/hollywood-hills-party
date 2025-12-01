@@ -42,7 +42,7 @@
   "scene_shared_success_riley": {
     "id": "scene_shared_success_riley",
     "image": "scene_shared_success_riley.jpg",
-    "text": "Riley drags you to the observatory railing where the stars feel close enough to touch. Laughing softly, she squeezes your hand; the energy between you is electric and playful.",
+    "text": "Riley tugs you up to the game loft, steering you toward a stretch of window where the city lights spill in like a second sky. She laces her fingers through yours, laughter soft and breathless; the energy between you is bright, electric, and impossible to ignore.",
     "choices": {
       "return_to_start": "scene_00_intro"
     }
