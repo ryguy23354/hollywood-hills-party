@@ -275,7 +275,94 @@
         font-size: 1.35rem;
       }
     }
-  </style>
+  
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .char-modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      z-index: 40;
+    }
+
+    .char-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .char-modal-backdrop {
+      position: absolute;
+      inset: 0;
+    }
+
+    .char-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      max-height: 90vh;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.08), rgba(5,5,5,0.95));
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.85);
+      padding: 24px 28px 28px;
+      overflow-y: auto;
+      transform: translateY(16px);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .char-modal.open .char-modal-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .char-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .char-modal-title {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .char-modal-close {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .char-modal-close:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .char-modal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 8px;
+    }
+</style>
 </head>
 <body>
   <div id="background"></div>
@@ -284,8 +371,21 @@
 
   <header>
     <div class="title">Hollywood Hills Story</div>
-    <button class="header-btn" onclick="showCharacterProfiles()">Meet the Characters</button>
+    <button id="characters-toggle-btn" class="header-btn" onclick="showCharacterProfiles()">Meet the Characters</button>
   </header>
+  <div id="character-modal" class="char-modal">
+    <div class="char-modal-backdrop" onclick="closeCharacterModal()"></div>
+    <div class="char-modal-content">
+      <div class="char-modal-header">
+        <h2 class="char-modal-title">Meet the Characters</h2>
+        <button class="char-modal-close" type="button" onclick="closeCharacterModal()">✕ Close</button>
+      </div>
+      <div id="character-modal-grid" class="char-modal-grid">
+        <!-- character cards injected here -->
+      </div>
+    </div>
+  </div>
+
 
   <div id="story-container">
     <h2 id="scene-title"></h2>
@@ -441,7 +541,8 @@
       }
     }
 
-function renderScene(id) {
+    function renderScene(id) {
+
       clearError();
       charSelectPanel.style.display = 'none';
       charSelectPanel.innerHTML = '';
@@ -473,19 +574,16 @@ function renderScene(id) {
 
       choicesBox.innerHTML = '';
       if (scene.choices) {
-        
         for (const [label, nextId] of Object.entries(scene.choices)) {
           const btn = document.createElement('button');
           btn.className = 'choice-btn';
 
-          // Special label for generic returns
           if (label === 'return') {
             btn.textContent = 'Look Around Elsewhere';
           } else {
             btn.textContent = label.replace(/_/g, ' ');
           }
 
-          // Support special reset action hook for future use
           if (nextId === 'action_reset_party') {
             btn.onclick = () => resetAssignmentsAndReturn();
           } else {
@@ -494,7 +592,6 @@ function renderScene(id) {
 
           choicesBox.appendChild(btn);
         }
-
       }
     }
 
@@ -599,29 +696,27 @@ function renderScene(id) {
       choicesBox.appendChild(backBtn);
     }
 
-    function showCharacterProfiles() {
-      clearError();
-      charSelectPanel.style.display = 'block';
-      choicesBox.innerHTML = '';
+    
+    const characterModal = document.getElementById('character-modal');
+    const characterModalGrid = document.getElementById('character-modal-grid');
+    let charactersModalOpen = false;
 
-      sceneTitle.textContent = 'Meet the Characters';
-      sceneSubtitle.textContent = 'Overview';
-      sceneText.textContent = 'Five women, five stories, one Hollywood Hills night. Learn who they are before you decide who to find.';
-
-      const grid = document.createElement('div');
-      grid.className = 'char-grid';
+    function buildCharacterModalContent() {
+      if (!characterProfiles || Object.keys(characterProfiles).length === 0) {
+        characterModalGrid.innerHTML = '<p style="opacity:0.8">Character data not loaded yet.</p>';
+        return;
+      }
+      characterModalGrid.innerHTML = '';
 
       for (const [id, prof] of Object.entries(characterProfiles)) {
         const card = document.createElement('div');
         card.className = 'char-card';
 
-        if (prof.image) {
-          const img = document.createElement('img');
-          img.className = 'char-image';
-          img.src = 'images/' + prof.image;
-          img.alt = prof.name || '';
-          card.appendChild(img);
-        }
+        const img = document.createElement('img');
+        img.className = 'char-image';
+        img.src = 'images/' + id + '_profile.jpg';
+        img.alt = prof.name || '';
+        card.appendChild(img);
 
         const body = document.createElement('div');
         body.className = 'char-body';
@@ -631,13 +726,6 @@ function renderScene(id) {
         nameEl.textContent = prof.name || '';
         body.appendChild(nameEl);
 
-        if (prof.profession) {
-          const pProf = document.createElement('div');
-          pProf.className = 'char-prof';
-          pProf.textContent = prof.profession.toUpperCase();
-          body.appendChild(pProf);
-        }
-
         if (prof.description) {
           const pDesc = document.createElement('div');
           pDesc.className = 'char-desc';
@@ -645,34 +733,38 @@ function renderScene(id) {
           body.appendChild(pDesc);
         }
 
-        const cta = document.createElement('button');
-          cta.className = 'char-cta';
-          cta.textContent = 'Go to ' + (prof.name || 'Intro');
-          const introId = prof.intro_scene || '';
-          cta.onclick = () => {
-            if (introId && storyData[introId]) {
-              renderScene(introId);
-            } else {
-              showError('Intro scene not found for ' + (prof.name || id) + '. Expected id: ' + introId);
-            }
-          };
-          body.appendChild(cta);
-
         card.appendChild(body);
-        grid.appendChild(card);
+        characterModalGrid.appendChild(card);
       }
-
-      charSelectPanel.innerHTML = '';
-      charSelectPanel.appendChild(grid);
-
-      const backBtn = document.createElement('button');
-      backBtn.className = 'choice-btn';
-      backBtn.textContent = 'Look Around Elsewhere';
-      backBtn.onclick = () => renderScene('scene_00_intro');
-      choicesBox.appendChild(backBtn);
     }
 
-    async function init() {
+    function openCharacterModal() {
+      clearError();
+      buildCharacterModalContent();
+      characterModal.classList.add('open');
+      document.body.classList.add('modal-open');
+      const headerBtn = document.getElementById('characters-toggle-btn');
+      if (headerBtn) headerBtn.textContent = '✕ Close';
+      charactersModalOpen = true;
+    }
+
+    function closeCharacterModal() {
+      characterModal.classList.remove('open');
+      document.body.classList.remove('modal-open');
+      const headerBtn = document.getElementById('characters-toggle-btn');
+      if (headerBtn) headerBtn.textContent = 'Meet the Characters';
+      charactersModalOpen = false;
+    }
+
+    function showCharacterProfiles() {
+      if (charactersModalOpen) {
+        closeCharacterModal();
+      } else {
+        openCharacterModal();
+      }
+    }
+
+async function init() {
       const storyFiles = [
         'main_story.json',
         'shared_openings.json',
