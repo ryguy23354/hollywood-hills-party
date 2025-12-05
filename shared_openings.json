@@ -8,7 +8,7 @@
       "pool_area": "scene_pool_01",
       "lounge_area": "scene_lounge_01",
       "balcony_area": "scene_balcony_01",
-      "game_loft_area": "scene_game_loft_01"
+      "gameloft_area": "scene_gameloft_01"
     }
   },
   "scene_bar_01": {
@@ -48,9 +48,9 @@
       "return": "scene_00_intro"
     }
   },
-  "scene_game_loft_01": {
-    "id": "scene_game_loft_01",
-    "image": "scene_game_loft_01.jpg",
+  "scene_gameloft_01": {
+    "id": "scene_gameloft_01",
+    "image": "scene_gameloft_01.jpg",
     "text": "A private game loft filled with neon-lit arcade cabinets, a sleek pool table, and a panoramic window overlooking the glowing cityscape. A figure practices an elegant stretch near the railing.",
     "choices": {
         "approach_riley": "scene_riley_00_intro",
