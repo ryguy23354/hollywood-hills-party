@@ -131,6 +131,105 @@
       font-size: 11px;
       color: #8a8aa5;
     }
+
+    /* === CHARACTER MODAL === */
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(6px);
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .character-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      width: 420px;
+      max-height: 80vh;
+      background: #1c1c1c;
+      color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      z-index: 1100;
+      opacity: 0;
+      overflow-y: auto;
+      box-shadow: 0 0 18px rgba(0,0,0,0.5);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .character-modal h2 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .character-profiles {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .character-card {
+      display: flex;
+      background: #2b2b2b;
+      padding: 12px;
+      border-radius: 10px;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .character-card img {
+      width: 70px;
+      height: 70px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .character-card .char-info {
+      flex: 1;
+    }
+
+    .char-info h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .char-info p {
+      margin: 0;
+      opacity: 0.85;
+      line-height: 1.3;
+      font-size: 0.95rem;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 1.3rem;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+    .modal-close:hover {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -140,10 +239,20 @@
       <div class="sub">Dynamic character placement • Simple story UI</div>
     </div>
     <div class="header-right">
-      <button class="btn" onclick="showCharactersQuickView()">Meet the Characters</button>
+      <button class="btn" onclick="showCharacterProfiles()">Meet the Characters</button>
       <button class="btn" onclick="restartNight()">Restart Night</button>
     </div>
   </header>
+
+  <!-- CHARACTER MODAL OVERLAY -->
+  <div id="character-modal-overlay" class="modal-overlay hidden"></div>
+
+  <!-- CHARACTER MODAL -->
+  <div id="character-modal" class="character-modal hidden">
+    <button class="modal-close" onclick="closeCharacterProfiles()">✕</button>
+    <h2>Meet the Characters</h2>
+    <div id="character-profiles-container" class="character-profiles"></div>
+  </div>
 
   <div id="story-container">
     <h2 id="scene-title">Hollywood Party</h2>
@@ -160,7 +269,8 @@ Where do you want to wander first?
 
   <footer>
     JSON used:
-    <code>characters_intro.json</code> • <code>images_manifest.json</code> • Random assignment: 2 characters per location, each character appears in 2 locations.
+    <code>characters_intro.json</code> • <code>images_manifest.json</code> • <code>character_profiles.json</code> (for the modal).
+    Random assignment: 2 characters per location, each character appears in 2 locations.
   </footer>
 
   <script>
@@ -175,23 +285,15 @@ Where do you want to wander first?
     // --- Data structures ---
     const LOCATIONS = ["bar", "lounge", "balcony", "pool", "gameloft"];
 
-    // Raw intro JSON
-    let introScenesRaw = {};          // { sceneId: sceneObj }
+    let introScenesRaw = {};          // characters_intro.json
+    let scenesById = {};              // id -> scene
+    let scenesByCharLoc = {};         // charSlug -> { loc: sceneId }
+    let characterDisplayNames = {};   // charSlug -> display name
+    let charactersSet = new Set();    // all character slugs
 
-    // Indexed lookup
-    let scenesById = {};              // { sceneId: sceneObj }
-    let scenesByCharLoc = {};         // { charSlug: { loc: sceneId } }
-    let characterDisplayNames = {};   // { charSlug: "Harper Vale" }
-    let charactersSet = new Set();    // all charSlugs
-
-    // Images manifest
-    let imagesManifest = {};          // loaded from images_manifest.json
-
-    // Random assignments of chars → locations
-    let locationAssignments = {};     // { loc: [charSlug1, charSlug2] }
-
-    // Track whether we've already shown the "intro image" for (char,loc)
-    const seenIntroImage = {};       // key: `${charSlug}|${loc}` -> boolean
+    let imagesManifest = {};          // images_manifest.json
+    let locationAssignments = {};     // loc -> [charSlug1, charSlug2]
+    const seenIntroImage = {};        // `${charSlug}|${loc}` -> boolean
 
     // --- Helpers ---
 
@@ -251,11 +353,10 @@ Where do you want to wander first?
         const s = scene || {};
         const id = s.id || sceneId;
 
-        // Try to get character slug
+        // Character slug
         let charSlug =
           (s.character || s.character_key || "").toString().toLowerCase();
         if (!charSlug) {
-          // Fallback: try to parse from sceneId, assuming scene_<char>_intro_<loc>
           const parts = sceneId.split("_");
           if (parts.length >= 4) {
             charSlug = parts[1].toLowerCase();
@@ -264,7 +365,7 @@ Where do you want to wander first?
           }
         }
 
-        // Try to get location
+        // Location
         let loc = normalizeLocation(s.location || "");
         if (!loc) {
           const parts = sceneId.split("_");
@@ -278,15 +379,14 @@ Where do you want to wander first?
         if (!scenesByCharLoc[charSlug]) {
           scenesByCharLoc[charSlug] = {};
         }
-        if (!loc) {
-          console.warn("Intro scene missing location:", id);
-        } else {
+        if (loc) {
           scenesByCharLoc[charSlug][loc] = id;
+        } else {
+          console.warn("Intro scene missing location:", id);
         }
 
         charactersSet.add(charSlug);
 
-        // Derive display name
         const displayName =
           s.character_name ||
           s.name ||
@@ -298,8 +398,7 @@ Where do you want to wander first?
       }
     }
 
-    // Create random mapping: each location gets 2 distinct characters,
-    // and each character appears in exactly 2 locations.
+    // Random mapping: each location gets 2 chars, each char appears in 2 locations
     function buildRandomAssignments() {
       locationAssignments = {};
 
@@ -308,20 +407,13 @@ Where do you want to wander first?
         showError("No character intro scenes found.");
         return;
       }
-      if (charList.length * 2 !== LOCATIONS.length * 2) {
-        // We expect exactly 5 characters and 5 locations (2 slots each).
-        console.warn(
-          "Character count vs location count may not be balanced for 2x2 assignment."
-        );
-      }
 
-      // Duplicate each char twice
       const pool = [];
       for (const slug of charList) {
         pool.push(slug, slug);
       }
 
-      // Shuffle
+      // Shuffle pool
       for (let i = pool.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -359,15 +451,12 @@ Where do you want to wander first?
     }
 
     // --- Image logic ---
-
-    // For subsequent clicks, use manifest images if available
     function pickImageFromManifest(charSlug, loc) {
       if (!imagesManifest) return null;
 
       const base = firstNameSlug(charSlug);
       let charBlock = imagesManifest[base];
       if (!charBlock) {
-        // also try the whole slug
         charBlock = imagesManifest[charSlug];
       }
       if (!charBlock) return null;
@@ -385,7 +474,6 @@ Where do you want to wander first?
       clearError();
       sceneTitleEl.textContent = "Hollywood Party";
 
-      // If you have a specific intro image, update this path.
       sceneImageEl.src = "images/scene_00_intro.jpg";
       sceneImageEl.style.display = "block";
 
@@ -415,6 +503,7 @@ Where do you want to wander first?
       const name1 = characterDisplayNames[char1] || niceNameFromSlug(char1);
       const name2 = characterDisplayNames[char2] || niceNameFromSlug(char2);
 
+      // header shows location when no character selected
       sceneTitleEl.textContent = prettyLocation(loc);
       sceneImageEl.style.display = "none";
 
@@ -453,23 +542,19 @@ Where do you want to wander first?
       const displayName =
         characterDisplayNames[charSlug] || niceNameFromSlug(charSlug);
 
-      // Header: once we're talking to a character, show just their name
+      // header shows character name once in conversation
       sceneTitleEl.textContent = displayName;
 
-      // Image selection:
       const introKey = `${charSlug}|${normLoc}`;
       let imagePath = null;
 
       if (!seenIntroImage[introKey]) {
-        // First time: use images/<character>_<location>_01.jpg
         const base = firstNameSlug(charSlug);
         imagePath = `images/${base}_${normLoc}_01.jpg`;
         seenIntroImage[introKey] = true;
       } else {
-        // Subsequent: random from manifest
         imagePath = pickImageFromManifest(charSlug, normLoc);
         if (!imagePath) {
-          // Fallback to intro-style path
           const base = firstNameSlug(charSlug);
           imagePath = `images/${base}_${normLoc}_01.jpg`;
         }
@@ -482,7 +567,6 @@ Where do you want to wander first?
         sceneImageEl.style.display = "none";
       }
 
-      // Text
       const mainText =
         scene.text ||
         scene.body ||
@@ -496,10 +580,8 @@ Where do you want to wander first?
       metaBits.push(`Location: ${prettyLocation(normLoc)}`);
       metaLineEl.textContent = metaBits.join(" • ");
 
-      // Choices
       choicesEl.innerHTML = "";
       addChoiceButton("Say something clever (new reaction)", () => {
-        // Re-show same character & location, which may pick a new image
         showCharacterAtLocation(charSlug, normLoc);
       });
       addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
@@ -508,45 +590,79 @@ Where do you want to wander first?
       addChoiceButton("Slip away to the main party", renderArrivalScene);
     }
 
-    function showCharactersQuickView() {
+    // === MEET THE CHARACTERS MODAL ===
+
+    async function showCharacterProfiles() {
       clearError();
 
-      sceneTitleEl.textContent = "Meet the Guests";
-      sceneImageEl.style.display = "none";
+      const modal = document.getElementById("character-modal");
+      const overlay = document.getElementById("character-modal-overlay");
+      const container = document.getElementById("character-profiles-container");
 
-      const chars = Array.from(charactersSet);
-      if (!chars.length) {
-        sceneTextEl.textContent = "No character intro data loaded.";
-        metaLineEl.textContent = "";
-        choicesEl.innerHTML = "";
-        addChoiceButton("Back to the mansion", renderArrivalScene);
-        return;
+      container.innerHTML = "";
+
+      const profiles = await loadJSON("character_profiles.json");
+
+      if (!profiles) {
+        container.innerHTML = "<p>Error loading character profiles.</p>";
+      } else {
+        for (const key in profiles) {
+          const c = profiles[key];
+          const card = document.createElement("div");
+          card.className = "character-card";
+
+          const img = document.createElement("img");
+          if (c.image) {
+            // if JSON already includes "harper_profile.jpg" etc.
+            img.src = c.image.startsWith("images/")
+              ? c.image
+              : `images/${c.image}`;
+          } else {
+            img.src = "images/placeholder.jpg";
+          }
+
+          const info = document.createElement("div");
+          info.className = "char-info";
+
+          const name = document.createElement("h3");
+          name.textContent = c.name || niceNameFromSlug(key);
+
+          const desc = document.createElement("p");
+          desc.textContent = c.description || "";
+
+          info.appendChild(name);
+          info.appendChild(desc);
+
+          card.appendChild(img);
+          card.appendChild(info);
+          container.appendChild(card);
+        }
       }
 
-      let lines = [];
-      for (const slug of chars) {
-        const name = characterDisplayNames[slug] || niceNameFromSlug(slug);
+      overlay.classList.remove("hidden");
+      modal.classList.remove("hidden");
 
-        // Try to pull one representative scene for extra flavor
-        const locMap = scenesByCharLoc[slug] || {};
-        const firstLoc = Object.keys(locMap)[0];
-        const sampleSceneId = firstLoc ? locMap[firstLoc] : null;
-        const sampleScene = sampleSceneId ? scenesById[sampleSceneId] : null;
+      requestAnimationFrame(() => {
+        overlay.style.opacity = "1";
+        modal.style.opacity = "1";
+        modal.style.transform = "translate(-50%, -50%) scale(1)";
+      });
 
-        const role = sampleScene && sampleScene.profession ? sampleScene.profession : "";
-        const desc = sampleScene && sampleScene.description ? sampleScene.description : "";
+      overlay.onclick = () => closeCharacterProfiles();
+    }
 
-        let line = `${name}`;
-        if (role) line += ` — ${role}`;
-        if (desc) line += `\n${desc}`;
-        lines.push(line);
-      }
+    function closeCharacterProfiles() {
+      const modal = document.getElementById("character-modal");
+      const overlay = document.getElementById("character-modal-overlay");
 
-      sceneTextEl.textContent = lines.join("\n\n");
-      metaLineEl.textContent = "Profiles inferred from characters_intro.json.";
+      overlay.style.opacity = "0";
+      modal.style.opacity = "0";
+      modal.style.transform = "translate(-50%, -50%) scale(0.95)";
 
-      choicesEl.innerHTML = "";
-      addChoiceButton("Back to the mansion", renderArrivalScene);
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+      }, 250);
     }
 
     function restartNight() {
