@@ -1,0 +1,116 @@
+{
+    "sienna": {
+        "bar": [
+            "images/sienna_bar_01.jpg",
+            "images/sienna_bar_02.jpg",
+            "images/sienna_bar_03.jpg"
+        ],
+        "balcony": [
+            "images/sienna_balcony_01.jpg",
+            "images/sienna_balcony_02.jpg",
+            "images/sienna_balcony_03.jpg"
+        ],
+        "lounge": [
+            "images/sienna_lounge_01.jpg",
+            "images/sienna_lounge_02.jpg",
+            "images/sienna_lounge_03.jpg"
+        ],
+        "gameloft": [
+            "images/sienna_gameloft_01.jpg",
+            "images/sienna_gameloft_02.jpg",
+            "images/sienna_gameloft_03.jpg"
+        ]
+    },
+
+    "harper": {
+        "bar": [
+            "images/harper_bar_01.jpg",
+            "images/harper_bar_02.jpg",
+            "images/harper_bar_03.jpg"
+        ],
+        "balcony": [
+            "images/harper_balcony_01.jpg",
+            "images/harper_balcony_02.jpg",
+            "images/harper_balcony_03.jpg"
+        ],
+        "lounge": [
+            "images/harper_lounge_01.jpg",
+            "images/harper_lounge_02.jpg",
+            "images/harper_lounge_03.jpg"
+        ],
+        "gameloft": [
+            "images/harper_gameloft_01.jpg",
+            "images/harper_gameloft_02.jpg",
+            "images/harper_gameloft_03.jpg"
+        ]
+    },
+
+    "luna": {
+        "bar": [
+            "images/luna_bar_01.jpg",
+            "images/luna_bar_02.jpg",
+            "images/luna_bar_03.jpg"
+        ],
+        "balcony": [
+            "images/luna_balcony_01.jpg",
+            "images/luna_balcony_02.jpg",
+            "images/luna_balcony_03.jpg"
+        ],
+        "lounge": [
+            "images/luna_lounge_01.jpg",
+            "images/luna_lounge_02.jpg",
+            "images/luna_lounge_03.jpg"
+        ],
+        "gameloft": [
+            "images/luna_gameloft_01.jpg",
+            "images/luna_gameloft_02.jpg",
+            "images/luna_gameloft_03.jpg"
+        ]
+    },
+
+    "mara": {
+        "bar": [
+            "images/mara_bar_01.jpg",
+            "images/mara_bar_02.jpg",
+            "images/mara_bar_03.jpg"
+        ],
+        "balcony": [
+            "images/mara_balcony_01.jpg",
+            "images/mara_balcony_02.jpg",
+            "images/mara_balcony_03.jpg"
+        ],
+        "lounge": [
+            "images/mara_lounge_01.jpg",
+            "images/mara_lounge_02.jpg",
+            "images/mara_lounge_03.jpg"
+        ],
+        "gameloft": [
+            "images/mara_gameloft_01.jpg",
+            "images/mara_gameloft_02.jpg",
+            "images/mara_gameloft_03.jpg"
+        ]
+    },
+
+    "riley": {
+        "bar": [
+            "images/riley_bar_01.jpg",
+            "images/riley_bar_02.jpg",
+            "images/riley_bar_03.jpg"
+        ],
+        "balcony": [
+            "images/riley_balcony_01.jpg",
+            "images/riley_balcony_02.jpg",
+            "images/riley_balcony_03.jpg"
+        ],
+        "lounge": [
+            "images/riley_lounge_01.jpg",
+            "images/riley_lounge_02.jpg",
+            "images/riley_lounge_03.jpg"
+        ],
+        "gameloft": [
+            "images/riley_gameloft_01.jpg",
+            "images/riley_gameloft_02.jpg",
+            "images/riley_gameloft_03.jpg"
+        ]
+    }
+}
