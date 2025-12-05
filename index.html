@@ -1,761 +1,474 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Hollywood Hills Party — Interactive Story</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-    :root {
-        --bg: #050509;
-        --bg-elevated: #12121b;
-        --accent: #ff4f81;
-        --accent-soft: rgba(255,79,129,0.2);
-        --accent-strong: #ff7aa5;
-        --text-main: #f5f5ff;
-        --text-muted: #9b9bb5;
-        --border-subtle: #25253a;
-        --card-radius: 18px;
-        --transition-fast: 0.18s ease-out;
-    }
+  <meta charset="UTF-8" />
+  <title>Hollywood Hills Party</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
     * { box-sizing: border-box; }
     body {
-        margin: 0;
-        padding: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: radial-gradient(circle at top, #1c1c32 0, #050509 55%);
-        color: var(--text-main);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050509;
+      color: #f3f3f3;
     }
     header {
-        padding: 18px 24px;
-        border-bottom: 1px solid var(--border-subtle);
-        background: linear-gradient(to right, rgba(5,5,9,0.96), rgba(30,16,42,0.96));
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        backdrop-filter: blur(14px);
+      background: #111119;
+      padding: 12px 18px;
+      border-bottom: 1px solid #262636;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
     }
-    .brand-block {
-        display: flex;
-        align-items: center;
-        gap: 12px;
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
     }
-    .brand-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 12px;
-        background: radial-gradient(circle at 30% 20%, #ffe082, #ff4f81 52%, #4a148c 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-weight: 700;
-        font-size: 18px;
-        box-shadow: 0 0 18px rgba(255,79,129,0.5);
+    header .sub {
+      font-size: 12px;
+      color: #aaaacc;
     }
-    .brand-title {
-        display: flex;
-        flex-direction: column;
+    .header-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
     }
-    .brand-title span:first-child {
-        font-weight: 650;
-        letter-spacing: 0.04em;
-        font-size: 15px;
-        text-transform: uppercase;
+    button {
+      font-family: inherit;
     }
-    .brand-title span:last-child {
-        font-size: 12px;
-        color: var(--text-muted);
+    .btn {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid #44445a;
+      background: #181826;
+      color: #f3f3f3;
+      font-size: 13px;
+      cursor: pointer;
     }
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+    .btn:active {
+      transform: translateY(1px);
     }
-    .pill-indicator {
-        font-size: 12px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.07);
-        color: var(--text-muted);
+    #story-container {
+      max-width: 780px;
+      margin: 18px auto 24px;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #29293c;
+      background: #0b0b14;
     }
-    .primary-btn {
-        padding: 9px 16px;
-        border-radius: 999px;
-        border: none;
-        cursor: pointer;
-        background: radial-gradient(circle at 20% 0, #ffe082, #ff4f81 50%, #7b1fa2 100%);
-        color: #080712;
-        font-weight: 600;
-        font-size: 13px;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: 0 0 22px rgba(255,79,129,0.55);
-        transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+    #scene-title {
+      margin: 0 0 8px;
+      font-size: 20px;
+      font-weight: 600;
     }
-    .primary-btn:hover {
-        transform: translateY(-1px);
-        filter: brightness(1.04);
-        box-shadow: 0 0 26px rgba(255,79,129,0.75);
+    #scene-image {
+      max-width: 100%;
+      margin: 8px 0;
+      border-radius: 10px;
+      display: none;
     }
-    .primary-btn span.icon {
-        font-size: 16px;
+    #scene-text {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #f3f3f3;
+      white-space: pre-wrap;
     }
-    .ghost-btn {
-        padding: 8px 14px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.14);
-        background: rgba(255,255,255,0.02);
-        cursor: pointer;
-        color: var(--text-main);
-        font-size: 13px;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    #meta-line {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #a0a0c9;
     }
-    .ghost-btn:hover {
-        background: rgba(255,255,255,0.07);
-        border-color: rgba(255,255,255,0.3);
-        transform: translateY(-0.5px);
-    }
-    main {
-        flex: 1;
-        width: 100%;
-        max-width: 1120px;
-        margin: 0 auto;
-        padding: 18px 16px 28px;
-        display: grid;
-        grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.5fr);
-        gap: 18px;
-    }
-    @media (max-width: 900px) {
-        main {
-            grid-template-columns: minmax(0, 1fr);
-        }
-    }
-    .panel {
-        background: radial-gradient(circle at top left, rgba(255,255,255,0.02), rgba(0,0,0,0.9));
-        border-radius: var(--card-radius);
-        border: 1px solid var(--border-subtle);
-        padding: 16px 16px 18px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.65);
-        position: relative;
-        overflow: hidden;
-    }
-    .panel::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 55%);
-        opacity: 0.7;
-        pointer-events: none;
-    }
-    .panel-inner {
-        position: relative;
-        z-index: 1;
-    }
-    .panel-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 12px;
-    }
-    .panel-title {
-        font-size: 17px;
-        font-weight: 600;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-    }
-    .panel-tag {
-        font-size: 11px;
-        padding: 4px 9px;
-        border-radius: 999px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.09);
-        color: var(--text-muted);
-    }
-    .location-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-    @media (max-width: 600px) {
-        .location-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-    .location-card {
-        background: linear-gradient(145deg, rgba(22,22,38,0.96), rgba(7,7,16,0.98));
-        border-radius: 14px;
-        padding: 10px 11px;
-        border: 1px solid rgba(255,255,255,0.06);
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        position: relative;
-        overflow: hidden;
-        transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
-    }
-    .location-card::before {
-        content: "";
-        position: absolute;
-        inset: -40%;
-        background: conic-gradient(from 180deg at 50% 50%, rgba(255,79,129,0.0), rgba(255,79,129,0.16), rgba(255,255,255,0), rgba(255,79,129,0));
-        opacity: 0;
-        transition: opacity 0.28s ease-out;
-        pointer-events: none;
-    }
-    .location-card:hover {
-        border-color: var(--accent-strong);
-        transform: translateY(-1px);
-        background: linear-gradient(145deg, rgba(32,18,44,0.98), rgba(7,7,16,0.98));
-        box-shadow: 0 18px 55px rgba(0,0,0,0.75);
-    }
-    .location-card:hover::before {
-        opacity: 1;
-    }
-    .location-name {
-        font-size: 15px;
-        font-weight: 600;
-    }
-    .location-sub {
-        font-size: 11px;
-        color: var(--text-muted);
-    }
-    .location-meta {
-        display: flex;
-        gap: 6px;
-        margin-top: 5px;
-        font-size: 11px;
-        color: var(--text-muted);
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 999px;
-        background: var(--accent);
-        box-shadow: 0 0 10px rgba(255,79,129,0.7);
-    }
-    .pill {
-        padding: 3px 8px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.1);
-        background: rgba(255,255,255,0.02);
-    }
-    #storyImage {
-        width: 100%;
-        border-radius: 14px;
-        display: none;
-        margin-bottom: 10px;
-        background: #000;
-    }
-    #storyText {
-        font-size: 14px;
-        line-height: 1.6;
-        color: var(--text-main);
-        margin-bottom: 8px;
-        min-height: 80px;
-    }
-    #characterMeta {
-        font-size: 12px;
-        color: var(--text-muted);
-        margin-bottom: 10px;
-    }
-    #choiceButtons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+    #choices {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
     .choice-btn {
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.1);
-        background: rgba(255,255,255,0.03);
-        padding: 7px 13px;
-        cursor: pointer;
-        color: var(--text-main);
-        font-size: 13px;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid #3c3c52;
+      background: #171722;
+      color: #f3f3f3;
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
     }
-    .choice-btn:hover {
-        background: var(--accent-soft);
-        border-color: var(--accent-strong);
-        transform: translateY(-0.5px);
+    .choice-btn:active {
+      transform: translateY(1px);
     }
-    #errorBanner {
-        position: fixed;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #b3002f;
-        color: #fff;
-        padding: 9px 14px;
-        border-radius: 999px;
-        font-size: 12px;
-        display: none;
-        box-shadow: 0 16px 40px rgba(0,0,0,0.8);
-        z-index: 50;
+    #error-box {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #ff6b6b;
+      min-height: 14px;
     }
     footer {
-        text-align: center;
-        padding: 8px 0 14px;
-        font-size: 11px;
-        color: var(--text-muted);
+      text-align: center;
+      margin: 12px 0 20px;
+      font-size: 11px;
+      color: #8a8aa5;
     }
-
-    /* Character profiles overlay */
-
-    .overlay {
-        position: fixed;
-        inset: 0;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 40;
-    }
-    .overlay.visible {
-        display: flex;
-    }
-    .overlay-backdrop {
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top, rgba(0,0,0,0.85), rgba(0,0,0,0.96));
-        backdrop-filter: blur(14px);
-    }
-    .overlay-panel {
-        position: relative;
-        max-width: 900px;
-        width: 100%;
-        background: #090712;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.12);
-        padding: 16px 18px 16px;
-        box-shadow: 0 30px 80px rgba(0,0,0,0.9);
-        z-index: 1;
-    }
-    .overlay-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    .overlay-title {
-        font-size: 16px;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-    }
-    .overlay-sub {
-        font-size: 11px;
-        color: var(--text-muted);
-    }
-    .overlay-close {
-        border: none;
-        border-radius: 999px;
-        background: rgba(255,255,255,0.06);
-        color: var(--text-main);
-        padding: 5px 9px;
-        cursor: pointer;
-        font-size: 12px;
-    }
-    .profiles-grid {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 10px;
-    }
-    @media (max-width: 900px) {
-        .profiles-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-    }
-    @media (max-width: 600px) {
-        .profiles-grid {
-            grid-template-columns: minmax(0, 1fr);
-        }
-    }
-    .profile-card {
-        background: linear-gradient(145deg, rgba(20,18,38,0.96), rgba(7,7,16,0.98));
-        border-radius: 14px;
-        border: 1px solid rgba(255,255,255,0.08);
-        padding: 10px;
-        font-size: 12px;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-    .profile-name {
-        font-weight: 600;
-        font-size: 13px;
-    }
-    .profile-role {
-        color: var(--text-muted);
-        font-size: 11px;
-    }
-    .profile-desc {
-        color: var(--text-main);
-        font-size: 11px;
-    }
-    .profile-tone {
-        color: var(--accent-strong);
-        font-size: 10px;
-    }
-    .profile-location {
-        font-size: 10px;
-        color: var(--text-muted);
-    }
-</style>
+  </style>
 </head>
 <body>
-
-<header>
-    <div class="brand-block">
-        <div class="brand-icon">HH</div>
-        <div class="brand-title">
-            <span>Hollywood Hills Party</span>
-            <span>Dynamic Character Story Engine</span>
-        </div>
+  <header>
+    <div>
+      <h1>Hollywood Hills Party</h1>
+      <div class="sub">Dynamic character placement • Simple story UI</div>
     </div>
-    <div class="header-actions">
-        <button class="ghost-btn" onclick="openProfiles()">
-            <span>★</span> Meet the Characters
-        </button>
-        <div class="pill-indicator">Random layout each run</div>
-        <button class="primary-btn" onclick="restartStory()">
-            <span class="icon">↻</span>
-            Restart Night
-        </button>
+    <div class="header-right">
+      <button class="btn" onclick="showCharactersQuickView()">Meet the Characters</button>
+      <button class="btn" onclick="restartNight()">Restart Night</button>
     </div>
-</header>
+  </header>
 
-<main>
-    <!-- LEFT: Locations & summary -->
-    <section class="panel">
-        <div class="panel-inner">
-            <div class="panel-header">
-                <div class="panel-title">Choose a Location</div>
-                <div class="panel-tag">2 guests per room</div>
-            </div>
-            <p style="font-size:13px; color:var(--text-muted); margin-top:0; margin-bottom:12px;">
-                Guests drift between the <b>Bar</b>, <b>Balcony</b>, <b>Lounge</b>, and <b>Game Loft</b>. Each restart shuffles who you can find where.
-            </p>
-            <div class="location-grid">
-                <div class="location-card" onclick="enterLocation('bar')">
-                    <div class="location-name">Bar</div>
-                    <div class="location-sub">Marble counter • neon glows • curated cocktails</div>
-                    <div class="location-meta">
-                        <span class="dot"></span>
-                        <span class="pill">High energy</span>
-                        <span>2 random guests</span>
-                    </div>
-                </div>
-                <div class="location-card" onclick="enterLocation('balcony')">
-                    <div class="location-name">Balcony</div>
-                    <div class="location-sub">City lights below • cooler air • quieter moments</div>
-                    <div class="location-meta">
-                        <span class="dot"></span>
-                        <span class="pill">Intimate</span>
-                        <span>2 random guests</span>
-                    </div>
-                </div>
-                <div class="location-card" onclick="enterLocation('lounge')">
-                    <div class="location-name">Lounge</div>
-                    <div class="location-sub">Velvet sofas • low tables • slow-burn conversation</div>
-                    <div class="location-meta">
-                        <span class="dot"></span>
-                        <span class="pill">Soft focus</span>
-                        <span>2 random guests</span>
-                    </div>
-                </div>
-                <div class="location-card" onclick="enterLocation('gameloft')">
-                    <div class="location-name">Game Loft</div>
-                    <div class="location-sub">Arcade cabinet glow • music upstairs • competitive sparks</div>
-                    <div class="location-meta">
-                        <span class="dot"></span>
-                        <span class="pill">Playful</span>
-                        <span>2 random guests</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div id="story-container">
+    <h2 id="scene-title">Arrival</h2>
+    <img id="scene-image" src="" alt="Scene image" />
+    <p id="scene-text">
+You arrive at a sprawling Hollywood Hills mansion. Music spills out through open glass doors, warm light washing over polished stone. Somewhere inside, five very different women are already in motion.
 
-    <!-- RIGHT: Story viewport -->
-    <section class="panel">
-        <div class="panel-inner">
-            <div class="panel-header">
-                <div class="panel-title">Tonight's Moment</div>
-                <div class="panel-tag" id="panelTag">Free roaming</div>
-            </div>
-            <img id="storyImage" src="" alt="Current scene image">
-            <div id="storyText">
-                You arrive at a sprawling glass-and-concrete mansion tucked into the Hollywood Hills. Music hums through the walls, and warm light spills across polished stone floors. Somewhere inside, five very different women are already in motion.
-            </div>
-            <div id="characterMeta"></div>
-            <div id="choiceButtons"></div>
-        </div>
-    </section>
-</main>
+Where do you want to wander first?
+    </p>
+    <div id="meta-line"></div>
+    <div id="choices"></div>
+    <div id="error-box"></div>
+  </div>
 
-<div id="errorBanner"></div>
+  <footer>
+    JSON used:
+    <code>characters_intro.json</code> • <code>images_manifest.json</code> • Random assignment: 2 characters per location.
+  </footer>
 
-<!-- Character profiles overlay -->
-<div id="profilesOverlay" class="overlay">
-    <div class="overlay-backdrop" onclick="closeProfiles()"></div>
-    <div class="overlay-panel">
-        <div class="overlay-header">
-            <div>
-                <div class="overlay-title">Meet the Characters</div>
-                <div class="overlay-sub">Pulled from <code>character_profiles.json</code></div>
-            </div>
-            <button class="overlay-close" onclick="closeProfiles()">Close</button>
-        </div>
-        <div id="profilesGrid" class="profiles-grid"></div>
-    </div>
-</div>
+  <script>
+    const errorBox = document.getElementById("error-box");
+    const sceneTitleEl = document.getElementById("scene-title");
+    const sceneTextEl = document.getElementById("scene-text");
+    const sceneImageEl = document.getElementById("scene-image");
+    const metaLineEl = document.getElementById("meta-line");
+    const choicesEl = document.getElementById("choices");
 
-<footer>
-    Night reshuffles every reload • Images driven by <code>images_manifest.json</code> • Character intros from <code>characters_intro.json</code>
-</footer>
+    // Data from JSON
+    let characterIntroData = {};   // from characters_intro.json
+    let imagesManifest = {};       // from images_manifest.json
 
-<script>
-let characterData = {};
-let imageManifest = {};
-let characterProfiles = {};
-let locationAssignments = {};
-let imageCycleIndex = {};
+    // Random placement: each location → 2 chars, each char appears in 2 locations
+    const LOCATIONS = ["bar", "lounge", "balcony", "gameloft", "pool"];
+    let locationAssignments = {};  // { bar: [charKey1, charKey2], ... }
 
-const LOCATIONS = ["bar","balcony","lounge","gameloft"];
+    // Track if we've already shown the "pure intro image" for a character at location
+    const seenIntroImage = {}; // key: charKey|loc → boolean
 
-function showError(msg) {
-    const banner = document.getElementById("errorBanner");
-    banner.style.display = "block";
-    banner.textContent = "Error: " + msg;
-    console.error(msg);
-    setTimeout(() => { banner.style.display = "none"; }, 5000);
-}
-
-async function loadJSON(path) {
-    try {
-        const res = await fetch(path);
-        if (!res.ok) throw new Error(\`Failed to load \${path} (status \${res.status})\`);
-        return await res.json();
-    } catch (err) {
-        showError(err.message);
-        return null;
+    // Helper to show errors
+    function showError(msg) {
+      console.error(msg);
+      errorBox.textContent = msg;
     }
-}
+    function clearError() {
+      errorBox.textContent = "";
+    }
 
-async function initializeStory() {
-    characterData = await loadJSON("characters_intro.json");
-    imageManifest = await loadJSON("images_manifest.json");
-    characterProfiles = await loadJSON("character_profiles.json");
+    async function loadJSON(path) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) {
+          throw new Error(`Failed to load ${path} (status ${res.status})`);
+        }
+        return await res.json();
+      } catch (e) {
+        showError(e.message);
+        return null;
+      }
+    }
 
-    if (!characterData || !imageManifest) {
+    // Initialize: load JSON and build random assignments
+    async function init() {
+      clearError();
+      characterIntroData = await loadJSON("characters_intro.json");
+      imagesManifest = await loadJSON("images_manifest.json");
+
+      if (!characterIntroData || !imagesManifest) {
         showError("One or more JSON files failed to load.");
         return;
-    }
-    generateRandomAssignments();
-    buildProfilesOverlay();
-    console.log("Location assignments:", locationAssignments);
-}
-initializeStory();
+      }
 
-function restartStory() {
-    imageCycleIndex = {};
-    generateRandomAssignments();
-    const img = document.getElementById("storyImage");
-    img.style.display = "none";
-    document.getElementById("storyText").textContent =
-        "You arrive at a sprawling glass-and-concrete mansion tucked into the Hollywood Hills. Music hums through the walls, and warm light spills across polished stone floors. Somewhere inside, five very different women are already in motion.";
-    document.getElementById("characterMeta").textContent = "";
-    document.getElementById("choiceButtons").innerHTML = "";
-    document.getElementById("panelTag").textContent = "Free roaming";
-}
-
-function generateRandomAssignments() {
-    const chars = Object.keys(characterData); // e.g. sienna, harper, luna, mara, riley
-    if (!chars.length) {
-        showError("No characters found in characters_intro.json");
-        return;
+      buildRandomAssignments();
+      renderIntroScene();
     }
-    const shuffled = [...chars].sort(() => Math.random() - 0.5);
-    locationAssignments = { bar: [], balcony: [], lounge: [], gameloft: [] };
-    let index = 0;
-    for (const loc of LOCATIONS) {
+
+    // Create random mapping: each location gets 2 chars; each char appears exactly twice
+    function buildRandomAssignments() {
+      locationAssignments = {};
+      const charKeys = Object.keys(characterIntroData);
+      if (charKeys.length < 3) {
+        showError("Expected at least 3 characters in characters_intro.json.");
+      }
+
+      // We want each character to appear in exactly 2 locations.
+      // That gives 2 * N slots. We only have 5 locations, 2 per location => 10 slots.
+      // With 5 characters, that fits perfectly (5 * 2 = 10).
+      let pool = [];
+      charKeys.forEach(k => {
+        pool.push(k, k); // push two copies of each
+      });
+
+      // Shuffle pool
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+
+      // Assign 2 per location
+      let idx = 0;
+      LOCATIONS.forEach(loc => {
         locationAssignments[loc] = [
-            shuffled[index % shuffled.length],
-            shuffled[(index + 1) % shuffled.length]
+          pool[idx % pool.length],
+          pool[(idx + 1) % pool.length]
         ];
-        index += 2;
-    }
-}
+        idx += 2;
+      });
 
-function enterLocation(loc) {
-    const chars = locationAssignments[loc];
-    if (!chars || chars.length !== 2) {
-        showError(\`Location "\${loc}" does not have exactly 2 characters assigned.\`);
+      // Reset intro flags
+      for (const loc of LOCATIONS) {
+        for (const ch of locationAssignments[loc]) {
+          const key = `${ch}|${loc}`;
+          seenIntroImage[key] = false;
+        }
+      }
+    }
+
+    // Intro scene: the one with 5 buttons for areas
+    function renderIntroScene() {
+      clearError();
+      sceneTitleEl.textContent = "Hollywood Hills Mansion — Party Night";
+
+      // If you have a dedicated intro image, put it here:
+      // e.g. sceneImageEl.src = "images/scene_00_intro.jpg";
+      sceneImageEl.src = "images/scene_00_intro.jpg";
+      sceneImageEl.style.display = "block";
+
+      sceneTextEl.textContent =
+        "You arrive at a sprawling Hollywood Hills mansion. Music, laughter, and the clink of glasses fill the air. From here, you can drift toward the bar, the lounge, the balcony, the pool, or the game loft. Each space carries its own energy—and its own possibilities.\n\nWhere do you want to go first?";
+
+      metaLineEl.textContent = "Each location will have 2 randomly assigned guests for this run.";
+      choicesEl.innerHTML = "";
+
+      addChoiceButton("Head to the Bar", () => enterLocation("bar"));
+      addChoiceButton("Check out the Lounge", () => enterLocation("lounge"));
+      addChoiceButton("Step onto the Balcony", () => enterLocation("balcony"));
+      addChoiceButton("Walk down to the Pool", () => enterLocation("pool"));
+      addChoiceButton("Climb up to the Game Loft", () => enterLocation("gameloft"));
+    }
+
+    function addChoiceButton(label, handler) {
+      const btn = document.createElement("button");
+      btn.className = "choice-btn";
+      btn.textContent = label;
+      btn.onclick = handler;
+      choicesEl.appendChild(btn);
+    }
+
+    function prettyLocation(loc) {
+      if (loc === "gameloft") return "Game Loft";
+      return loc.charAt(0).toUpperCase() + loc.slice(1);
+    }
+
+    function humanNameFromKey(charKey, meta) {
+      // If JSON has a "name" field, use that.
+      if (meta && meta.name) return meta.name;
+      // Otherwise, derive from key (e.g. "sienna_brooks" -> "Sienna Brooks")
+      return charKey
+        .split(/[_\s]+/)
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ");
+    }
+
+    // Enter a location: show its 2 characters
+    function enterLocation(loc) {
+      clearError();
+      const assigned = locationAssignments[loc];
+      if (!assigned || assigned.length !== 2) {
+        showError(`No characters assigned to location: ${loc}`);
         return;
+      }
+
+      sceneTitleEl.textContent = prettyLocation(loc);
+      sceneImageEl.style.display = "none";
+
+      const [c1, c2] = assigned;
+      const m1 = characterIntroData[c1];
+      const m2 = characterIntroData[c2];
+
+      const name1 = humanNameFromKey(c1, m1);
+      const name2 = humanNameFromKey(c2, m2);
+
+      sceneTextEl.textContent =
+        `You drift into the ${prettyLocation(loc).toLowerCase()}. Two familiar figures stand out from the blur of guests:\n\n` +
+        `• ${name1}\n` +
+        `• ${name2}\n\n` +
+        `Who do you want to approach?`;
+
+      metaLineEl.textContent =
+        "Characters are randomly assigned each time you restart the night.";
+
+      choicesEl.innerHTML = "";
+      addChoiceButton(`Approach ${name1}`, () => showCharacterAtLocation(c1, loc));
+      addChoiceButton(`Approach ${name2}`, () => showCharacterAtLocation(c2, loc));
+      addChoiceButton("Return to the main party", renderIntroScene);
     }
-    document.getElementById("panelTag").textContent =
-        loc === "gameloft" ? "Game Loft" : loc.charAt(0).toUpperCase() + loc.slice(1);
 
-    const prettyName = (id) => {
-        const meta = characterData[id];
-        return meta && meta.name ? meta.name : id.charAt(0).toUpperCase() + id.slice(1);
-    };
+    // Helper: choose an image from manifest given charKey and loc
+    function pickImageFromManifest(charKey, loc) {
+      if (!imagesManifest) return null;
 
-    const storyText = document.getElementById("storyText");
-    const characterMeta = document.getElementById("characterMeta");
-    const buttons = document.getElementById("choiceButtons");
+      // Try exact key
+      let lists = imagesManifest[charKey];
 
-    storyText.textContent =
-        "You drift into the " +
-        (loc === "gameloft" ? "game loft" : loc) +
-        ". Two familiar figures catch your eye, each sending a different kind of charge through the air.";
-    characterMeta.textContent = "Who do you want to approach?";
+      // If not found, try first-name form: e.g. "sienna_brooks" → "sienna"
+      if (!lists && charKey.includes("_")) {
+        const first = charKey.split("_")[0];
+        lists = imagesManifest[first];
+      }
 
-    buttons.innerHTML = "";
-    chars.forEach(id => {
-        const btn = document.createElement("button");
-        btn.className = "choice-btn";
-        btn.textContent = prettyName(id);
-        btn.onclick = () => showCharacter(id, loc);
-        buttons.appendChild(btn);
-    });
-}
+      // If still not found, try lowercasing entire key
+      if (!lists) {
+        lists = imagesManifest[charKey.toLowerCase()];
+      }
 
-function showCharacter(charId, loc) {
-    const meta = characterData[charId];
-    if (!meta) {
-        showError(\`No character intro data for '\${charId}'.\`);
+      if (!lists) return null;
+      const locList = lists[loc];
+      if (!locList || !locList.length) return null;
+
+      // Random choice each time
+      const idx = Math.floor(Math.random() * locList.length);
+      return locList[idx];
+    }
+
+    // Show a character at a given location
+    function showCharacterAtLocation(charKey, loc) {
+      clearError();
+      const meta = characterIntroData[charKey];
+      if (!meta) {
+        showError(`No intro data found for character key: ${charKey}`);
+      }
+
+      const name = humanNameFromKey(charKey, meta);
+      const prettyLoc = prettyLocation(loc);
+
+      sceneTitleEl.textContent = `${name} — ${prettyLoc}`;
+
+      // Mixed behaviour:
+      //  - first time at (char,loc): show intro image defined in characters_intro.json (if any)
+      //  - subsequent times: random image from images_manifest.json
+      const introKey = `${charKey}|${loc}`;
+      let imageToUse = null;
+
+      if (!seenIntroImage[introKey]) {
+        // First time
+        if (meta && meta.images && meta.images[loc]) {
+          imageToUse = meta.images[loc]; // if you stored per-location image
+        } else if (meta && meta.image) {
+          imageToUse = meta.image;
+        }
+        seenIntroImage[introKey] = true;
+      } else {
+        // Subsequent visits / dialog choices: use manifest
+        imageToUse = pickImageFromManifest(charKey, loc);
+        if (!imageToUse) {
+          // Fall back to intro image if no manifest entry
+          if (meta && meta.images && meta.images[loc]) {
+            imageToUse = meta.images[loc];
+          } else if (meta && meta.image) {
+            imageToUse = meta.image;
+          }
+        }
+      }
+
+      if (imageToUse) {
+        // If image path doesn't already include "images/", prepend it (optional).
+        if (!imageToUse.startsWith("images/")) {
+          imageToUse = "images/" + imageToUse;
+        }
+        sceneImageEl.src = imageToUse;
+        sceneImageEl.style.display = "block";
+      } else {
+        sceneImageEl.style.display = "none";
+      }
+
+      // Intro text
+      let introText = "";
+      if (meta && meta.intro_text) {
+        introText = meta.intro_text;
+      } else if (meta && meta.description) {
+        introText = meta.description;
+      } else {
+        introText = `${name} notices you and lets a slow smile curl at the corner of their mouth.`;
+      }
+
+      sceneTextEl.textContent = introText;
+
+      let metaBits = [];
+      if (meta && meta.profession) metaBits.push(meta.profession);
+      if (meta && meta.tone) metaBits.push(meta.tone);
+      metaBits.push(`Location: ${prettyLoc}`);
+      metaLineEl.textContent = metaBits.join(" • ");
+
+      // Choices: one that keeps "talking" (and thus can randomize image again), one to go back to location, one to main party.
+      choicesEl.innerHTML = "";
+      addChoiceButton("Say something clever (new reaction)", () => {
+        // This will rerun showCharacterAtLocation and thus may pick a new image from manifest
+        showCharacterAtLocation(charKey, loc);
+      });
+      addChoiceButton(`Glance around ${prettyLoc} again`, () => enterLocation(loc));
+      addChoiceButton("Slip away to the main party", renderIntroScene);
+    }
+
+    // Very simple "meet the characters" quick view in the story text
+    function showCharactersQuickView() {
+      clearError();
+      sceneTitleEl.textContent = "Meet the Guests";
+
+      sceneImageEl.style.display = "none";
+
+      const keys = Object.keys(characterIntroData);
+      if (!keys.length) {
+        sceneTextEl.textContent = "No character intro data loaded.";
+        metaLineEl.textContent = "";
+        choicesEl.innerHTML = "";
+        addChoiceButton("Back to the mansion", renderIntroScene);
         return;
+      }
+
+      let lines = [];
+      for (const k of keys) {
+        const meta = characterIntroData[k];
+        const name = humanNameFromKey(k, meta);
+        const role = meta && meta.profession ? meta.profession : "";
+        const desc = meta && meta.description ? meta.description : "";
+        lines.push(`${name} — ${role}\n${desc}\n`);
+      }
+
+      sceneTextEl.textContent = lines.join("\n");
+      metaLineEl.textContent = "These profiles come from characters_intro.json.";
+
+      choicesEl.innerHTML = "";
+      addChoiceButton("Back to the mansion", renderIntroScene);
     }
 
-    const imgList = imageManifest?.[charId]?.[loc];
-    if (!imgList || !imgList.length) {
-        showError(\`No images configured for \${charId} at \${loc} in images_manifest.json.\`);
+    function restartNight() {
+      clearError();
+      buildRandomAssignments();
+      renderIntroScene();
     }
 
-    const key = \`\${charId}_\${loc}\`;
-    if (!(key in imageCycleIndex)) {
-        imageCycleIndex[key] = 0;
-    }
-    const availableList = imgList && imgList.length ? imgList : [];
-    let imgPath = "";
-    if (availableList.length) {
-        const idx = imageCycleIndex[key];
-        imgPath = availableList[idx];
-        imageCycleIndex[key] = (idx + 1) % availableList.length;
-    }
-
-    const imgEl = document.getElementById("storyImage");
-    if (imgPath) {
-        imgEl.src = imgPath;
-        imgEl.style.display = "block";
-    } else {
-        imgEl.style.display = "none";
-    }
-
-    const storyText = document.getElementById("storyText");
-    const characterMeta = document.getElementById("characterMeta");
-    const buttons = document.getElementById("choiceButtons");
-
-    const introText = meta.intro_text || meta.description || "They notice you and smile.";
-    storyText.textContent = introText;
-
-    const locationLabel = loc === "gameloft" ? "Game Loft" : loc.charAt(0).toUpperCase() + loc.slice(1);
-    const tone = meta.tone || "";
-
-    characterMeta.textContent =
-        `${meta.name || charId} • ${meta.profession || ""}`.trim() +
-        (tone ? ` • ${tone}` : "") +
-        ` • Location: ${locationLabel}`;
-
-    buttons.innerHTML = "";
-
-    const backBtn = document.createElement("button");
-    backBtn.className = "choice-btn";
-    backBtn.textContent = "Back to locations";
-    backBtn.onclick = () => {
-        document.getElementById("characterMeta").textContent = "Pick another location or guest.";
-        document.getElementById("choiceButtons").innerHTML = "";
-        document.getElementById("storyText").textContent =
-            "Where do you want to wander next? The party is still going.";
-        document.getElementById("storyImage").style.display = "none";
-        document.getElementById("panelTag").textContent = "Free roaming";
-    };
-    buttons.appendChild(backBtn);
-}
-
-/* ---------- Character Profiles Overlay ---------- */
-
-function buildProfilesOverlay() {
-    const grid = document.getElementById("profilesGrid");
-    if (!grid || !characterProfiles) return;
-
-    grid.innerHTML = "";
-
-    const keys = Object.keys(characterProfiles);
-    if (!keys.length) {
-        const empty = document.createElement("div");
-        empty.textContent = "No character profile data found in character_profiles.json.";
-        empty.style.fontSize = "12px";
-        empty.style.color = "#ccc";
-        grid.appendChild(empty);
-        return;
-    }
-
-    keys.forEach(k => {
-        const p = characterProfiles[k];
-        const card = document.createElement("div");
-        card.className = "profile-card";
-
-        const name = p.name || k;
-        const role = p.profession || "";
-        const desc = p.description || "";
-        const tone = p.tone || "";
-        const loc = p.first_encounter_location || "";
-
-        card.innerHTML = `
-            <div class="profile-name">${name}</div>
-            <div class="profile-role">${role}</div>
-            <div class="profile-desc">${desc}</div>
-            <div class="profile-tone">${tone}</div>
-            <div class="profile-location">${loc}</div>
-        `;
-
-        grid.appendChild(card);
-    });
-}
-
-function openProfiles() {
-    const overlay = document.getElementById("profilesOverlay");
-    if (!characterProfiles || !Object.keys(characterProfiles).length) {
-        showError("Character profiles not loaded or empty.");
-        return;
-    }
-    overlay.classList.add("visible");
-}
-
-function closeProfiles() {
-    const overlay = document.getElementById("profilesOverlay");
-    overlay.classList.remove("visible");
-}
-</script>
+    // Kick things off
+    init();
+  </script>
 </body>
 </html>
