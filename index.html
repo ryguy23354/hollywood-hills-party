@@ -508,35 +508,39 @@ Where do you want to wander first?
     }
 
     function enterLocation(loc) {
-      clearError();
+	  clearError();
 
-      const assigned = locationAssignments[loc];
-      if (!assigned || assigned.length !== 2) {
-        showError(`No characters assigned to location: ${loc}`);
-        return;
-      }
+	  const assigned = locationAssignments[loc];
+	  if (!assigned || assigned.length !== 2) {
+		showError(`No characters assigned to location: ${loc}`);
+		return;
+	  }
 
-      const [char1, char2] = assigned;
-      const name1 = characterDisplayNames[char1] || niceNameFromSlug(char1);
-      const name2 = characterDisplayNames[char2] || niceNameFromSlug(char2);
+	  const [char1, char2] = assigned;
+	  const name1 = characterDisplayNames[char1] || niceNameFromSlug(char1);
+	  const name2 = characterDisplayNames[char2] || niceNameFromSlug(char2);
 
-      sceneTitleEl.textContent = prettyLocation(loc);
-      sceneImageEl.style.display = 'none';
+	  sceneTitleEl.textContent = prettyLocation(loc);
 
-      sceneTextEl.textContent =
-        `You drift into the ${prettyLocation(loc).toLowerCase()}. Two familiar figures stand out from the blur of guests:\n\n` +
-        `• ${name1}\n` +
-        `• ${name2}\n\n` +
-        `Who do you want to approach?`;
+	  // --- NEW: show generic location image ---
+	  const genericImage = `images/${loc}.jpg`;
+	  sceneImageEl.src = genericImage;
+	  sceneImageEl.style.display = 'block';
 
-      metaLineEl.textContent =
-        'Characters are randomly assigned each time you restart the night.';
+	  sceneTextEl.textContent =
+		`You drift into the ${prettyLocation(loc).toLowerCase()}. Two familiar figures stand out from the blur of guests:\n\n` +
+		`• ${name1}\n` +
+		`• ${name2}\n\n` +
+		`Who do you want to approach?`;
 
-      choicesEl.innerHTML = '';
-      addChoiceButton(`Approach ${name1}`, () => showCharacterAtLocation(char1, loc));
-      addChoiceButton(`Approach ${name2}`, () => showCharacterAtLocation(char2, loc));
-      addChoiceButton('Return to the main party', renderArrivalScene);
-    }
+	  metaLineEl.textContent =
+		'Characters are randomly assigned each time you restart the night.';
+
+	  choicesEl.innerHTML = '';
+	  addChoiceButton(`Approach ${name1}`, () => showCharacterAtLocation(char1, loc));
+	  addChoiceButton(`Approach ${name2}`, () => showCharacterAtLocation(char2, loc));
+	  addChoiceButton('Return to the main party', renderArrivalScene);
+}
 
     function showCharacterAtLocation(charSlug, loc) {
       clearError();
