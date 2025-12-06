@@ -57,6 +57,9 @@
       font-size: 13px;
       cursor: pointer;
     }
+    .btn:hover {
+      background: #222238;
+    }
     .btn:active {
       transform: translateY(1px);
     }
@@ -65,6 +68,7 @@
       max-width: 780px;
       margin: 18px auto 24px;
       padding: 16px;
+      overflow: hidden;
       border-radius: 12px;
       border: 1px solid #29293c;
       background: #0b0b14;
@@ -114,6 +118,10 @@
       text-align: left;
       cursor: pointer;
     }
+    .choice-btn:hover {
+      background: #232338;
+      border-color: #4b4b66;
+    }
     .choice-btn:active {
       transform: translateY(1px);
     }
@@ -136,7 +144,7 @@
       display: none;
     }
 
-    /* === CHARACTER MODAL (RESPONSIVE GRID) === */
+    /* === CHARACTER MODAL (RESPONSIVE GRID, BIG PORTRAITS) === */
 
     .modal-overlay {
       position: fixed;
@@ -157,12 +165,12 @@
       left: 50%;
       transform: translate(-50%, -50%) scale(0.95);
       width: 90vw;
-      max-width: 1100px;
-      max-height: 80vh;
+      max-width: 90vw;    /* <— allow it to breathe on 4K */
+      max-height: 90vh;
       background: #1c1c1c;
       color: white;
       border-radius: 12px;
-      padding: 20px;
+      padding: 24px;
       z-index: 1100;
       opacity: 0;
       overflow-y: auto;
@@ -173,40 +181,40 @@
     .character-modal h2 {
       text-align: center;
       margin: 0 0 20px;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       font-weight: 600;
     }
 
     .character-profiles-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
       padding-bottom: 10px;
     }
 
-    /* On very small screens, single column is fine by default (auto-fit+minmax handles it) */
-
-    /* On very large / 4K screens, force 5 columns so all characters can be in one row */
-    @media (min-width: 3000px) {
+    /* On very large / 4K screens, force 5 columns so all characters sit in one row */
+    @media (min-width: 2600px) {
       .character-profiles-grid {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(5, minmax(260px, 1fr));
       }
     }
 
     .character-card {
       background: #2a2a2a;
       border-radius: 10px;
-      padding: 12px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
+    /* IMPORTANT: no cropping for your tall 1024x1536 portraits */
     .character-card img {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
+      height: auto;           /* scale but don’t crop */
+      object-fit: contain;    /* keep entire portrait visible */
       border-radius: 8px;
+      background: #000;       /* adds a nice frame when aspect doesn’t fill */
     }
 
     .character-card h3 {
@@ -217,7 +225,7 @@
 
     .character-card p {
       margin: 0;
-      opacity: 0.85;
+      opacity: 0.9;
       line-height: 1.35;
       font-size: 0.9rem;
     }
@@ -238,6 +246,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <div>
@@ -275,21 +284,21 @@ Where do you want to wander first?
 
   <footer>
     JSON used:
-    <code>characters_intro.json</code> • <code>images_manifest.json</code> • <code>character_profiles.json</code> (for the modal).
+    <code>characters_intro.json</code> • <code>images_manifest.json</code> • <code>character_profiles.json</code>.
     Random assignment: 2 characters per location, each character appears in 2 locations.
   </footer>
 
   <script>
     // --- DOM references ---
-    const errorBox = document.getElementById("error-box");
-    const sceneTitleEl = document.getElementById("scene-title");
-    const sceneTextEl = document.getElementById("scene-text");
-    const sceneImageEl = document.getElementById("scene-image");
-    const metaLineEl = document.getElementById("meta-line");
-    const choicesEl = document.getElementById("choices");
+    const errorBox = document.getElementById('error-box');
+    const sceneTitleEl = document.getElementById('scene-title');
+    const sceneTextEl = document.getElementById('scene-text');
+    const sceneImageEl = document.getElementById('scene-image');
+    const metaLineEl = document.getElementById('meta-line');
+    const choicesEl = document.getElementById('choices');
 
-    // --- Data structures ---
-    const LOCATIONS = ["bar", "lounge", "balcony", "pool", "gameloft"];
+    // --- Constants & state ---
+    const LOCATIONS = ['bar', 'lounge', 'balcony', 'pool', 'gameloft'];
 
     let introScenesRaw = {};          // characters_intro.json
     let scenesById = {};              // id -> scene
@@ -298,18 +307,19 @@ Where do you want to wander first?
     let charactersSet = new Set();    // all character slugs
 
     let imagesManifest = {};          // images_manifest.json
+    let characterProfiles = {};       // character_profiles.json
+
     let locationAssignments = {};     // loc -> [charSlug1, charSlug2]
     const seenIntroImage = {};        // `${charSlug}|${loc}` -> boolean
 
     // --- Helpers ---
-
     function clearError() {
-      errorBox.textContent = "";
+      errorBox.textContent = '';
     }
 
-    function showError(msg) {
-      console.error(msg);
-      errorBox.textContent = msg;
+    function showError(message) {
+      console.error(message);
+      errorBox.textContent = message;
     }
 
     async function loadJSON(path) {
@@ -319,36 +329,36 @@ Where do you want to wander first?
           throw new Error(`Failed to load ${path} (status ${res.status})`);
         }
         return await res.json();
-      } catch (e) {
-        showError(e.message);
+      } catch (err) {
+        showError(`JSON Load Error: ${err.message}`);
         return null;
       }
     }
 
     function capitalizeWord(w) {
-      return w ? w.charAt(0).toUpperCase() + w.slice(1) : "";
+      return w ? w.charAt(0).toUpperCase() + w.slice(1) : '';
     }
 
     function niceNameFromSlug(slug) {
       return slug
         .split(/[_\s]+/)
         .map(capitalizeWord)
-        .join(" ");
+        .join(' ');
     }
 
     function normalizeLocation(loc) {
-      if (!loc) return "";
-      let s = String(loc).toLowerCase().replace(/\s+/g, "");
-      if (s === "game_loft" || s === "gameloft") return "gameloft";
+      if (!loc) return '';
+      let s = String(loc).toLowerCase().replace(/\s+/g, '');
+      if (s === 'game_loft' || s === 'gameloft') return 'gameloft';
       return s;
     }
 
     function firstNameSlug(charSlug) {
-      if (!charSlug) return "";
+      if (!charSlug) return '';
       return charSlug.split(/[_\s]+/)[0].toLowerCase();
     }
 
-    // Build indices from characters_intro.json
+    // --- Index intro data ---
     function indexIntroData() {
       scenesById = {};
       scenesByCharLoc = {};
@@ -360,10 +370,9 @@ Where do you want to wander first?
         const id = s.id || sceneId;
 
         // Character slug
-        let charSlug =
-          (s.character || s.character_key || "").toString().toLowerCase();
+        let charSlug = (s.character || s.character_key || '').toString().toLowerCase();
         if (!charSlug) {
-          const parts = sceneId.split("_");
+          const parts = sceneId.split('_');
           if (parts.length >= 4) {
             charSlug = parts[1].toLowerCase();
           } else {
@@ -372,15 +381,19 @@ Where do you want to wander first?
         }
 
         // Location
-        let loc = normalizeLocation(s.location || "");
+        let loc = normalizeLocation(s.location || '');
         if (!loc) {
-          const parts = sceneId.split("_");
+          const parts = sceneId.split('_');
           if (parts.length >= 4) {
             loc = normalizeLocation(parts[parts.length - 1]);
           }
         }
 
-        scenesById[id] = Object.assign({}, s, { id, characterSlug: charSlug, location: loc });
+        scenesById[id] = Object.assign({}, s, {
+          id,
+          characterSlug: charSlug,
+          location: loc
+        });
 
         if (!scenesByCharLoc[charSlug]) {
           scenesByCharLoc[charSlug] = {};
@@ -388,7 +401,7 @@ Where do you want to wander first?
         if (loc) {
           scenesByCharLoc[charSlug][loc] = id;
         } else {
-          console.warn("Intro scene missing location:", id);
+          console.warn('Intro scene missing location:', id);
         }
 
         charactersSet.add(charSlug);
@@ -404,19 +417,19 @@ Where do you want to wander first?
       }
     }
 
-    // Random mapping: each location gets 2 chars, each char appears in 2 locations
+    // --- Random mapping: each location gets 2 chars, each char appears in 2 locations ---
     function buildRandomAssignments() {
       locationAssignments = {};
 
       const charList = Array.from(charactersSet);
       if (charList.length === 0) {
-        showError("No character intro scenes found.");
+        showError('No character intro scenes found.');
         return;
       }
 
       const pool = [];
       for (const slug of charList) {
-        pool.push(slug, slug);
+        pool.push(slug, slug); // each char appears twice
       }
 
       // Shuffle pool
@@ -425,7 +438,6 @@ Where do you want to wander first?
         [pool[i], pool[j]] = [pool[j], pool[i]];
       }
 
-      // Assign 2 per location
       let idx = 0;
       for (const loc of LOCATIONS) {
         const c1 = pool[idx % pool.length];
@@ -444,15 +456,15 @@ Where do you want to wander first?
     }
 
     function addChoiceButton(label, handler) {
-      const btn = document.createElement("button");
-      btn.className = "choice-btn";
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
       btn.textContent = label;
       btn.onclick = handler;
       choicesEl.appendChild(btn);
     }
 
     function prettyLocation(loc) {
-      if (loc === "gameloft") return "Game Loft";
+      if (loc === 'gameloft') return 'Game Loft';
       return capitalizeWord(loc);
     }
 
@@ -475,25 +487,24 @@ Where do you want to wander first?
     }
 
     // --- Scene rendering ---
-
     function renderArrivalScene() {
       clearError();
-      sceneTitleEl.textContent = "Hollywood Party";
+      sceneTitleEl.textContent = 'Hollywood Party';
 
-      sceneImageEl.src = "images/scene_00_intro.jpg";
-      sceneImageEl.style.display = "block";
+      sceneImageEl.src = 'images/scene_00_intro.jpg';
+      sceneImageEl.style.display = 'block';
 
       sceneTextEl.textContent =
-        "You arrive at a sprawling Hollywood Hills mansion. Music spills out through open glass doors, warm light washing over polished stone. Somewhere inside, five very different women are already in motion.\n\nWhere do you want to wander first?";
+        'You arrive at a sprawling Hollywood Hills mansion. Music spills out through open glass doors, warm light washing over polished stone. Somewhere inside, five very different women are already in motion.\n\nWhere do you want to wander first?';
 
-      metaLineEl.textContent = "Each location has two randomly assigned guests for this run.";
+      metaLineEl.textContent = 'Each location has two randomly assigned guests for this run.';
 
-      choicesEl.innerHTML = "";
-      addChoiceButton("Head to the Bar", () => enterLocation("bar"));
-      addChoiceButton("Check out the Lounge", () => enterLocation("lounge"));
-      addChoiceButton("Step onto the Balcony", () => enterLocation("balcony"));
-      addChoiceButton("Walk down to the Pool", () => enterLocation("pool"));
-      addChoiceButton("Climb up to the Game Loft", () => enterLocation("gameloft"));
+      choicesEl.innerHTML = '';
+      addChoiceButton('Head to the Bar', () => enterLocation('bar'));
+      addChoiceButton('Check out the Lounge', () => enterLocation('lounge'));
+      addChoiceButton('Step onto the Balcony', () => enterLocation('balcony'));
+      addChoiceButton('Walk down to the Pool', () => enterLocation('pool'));
+      addChoiceButton('Climb up to the Game Loft', () => enterLocation('gameloft'));
     }
 
     function enterLocation(loc) {
@@ -509,9 +520,8 @@ Where do you want to wander first?
       const name1 = characterDisplayNames[char1] || niceNameFromSlug(char1);
       const name2 = characterDisplayNames[char2] || niceNameFromSlug(char2);
 
-      // header shows location when no character selected
       sceneTitleEl.textContent = prettyLocation(loc);
-      sceneImageEl.style.display = "none";
+      sceneImageEl.style.display = 'none';
 
       sceneTextEl.textContent =
         `You drift into the ${prettyLocation(loc).toLowerCase()}. Two familiar figures stand out from the blur of guests:\n\n` +
@@ -520,12 +530,12 @@ Where do you want to wander first?
         `Who do you want to approach?`;
 
       metaLineEl.textContent =
-        "Characters are randomly assigned each time you restart the night.";
+        'Characters are randomly assigned each time you restart the night.';
 
-      choicesEl.innerHTML = "";
+      choicesEl.innerHTML = '';
       addChoiceButton(`Approach ${name1}`, () => showCharacterAtLocation(char1, loc));
       addChoiceButton(`Approach ${name2}`, () => showCharacterAtLocation(char2, loc));
-      addChoiceButton("Return to the main party", renderArrivalScene);
+      addChoiceButton('Return to the main party', renderArrivalScene);
     }
 
     function showCharacterAtLocation(charSlug, loc) {
@@ -568,9 +578,9 @@ Where do you want to wander first?
 
       if (imagePath) {
         sceneImageEl.src = imagePath;
-        sceneImageEl.style.display = "block";
+        sceneImageEl.style.display = 'block';
       } else {
-        sceneImageEl.style.display = "none";
+        sceneImageEl.style.display = 'none';
       }
 
       const mainText =
@@ -584,52 +594,56 @@ Where do you want to wander first?
       if (scene.profession) metaBits.push(scene.profession);
       if (scene.tone) metaBits.push(scene.tone);
       metaBits.push(`Location: ${prettyLocation(normLoc)}`);
-      metaLineEl.textContent = metaBits.join(" • ");
+      metaLineEl.textContent = metaBits.join(' • ');
 
-      choicesEl.innerHTML = "";
-      addChoiceButton("Say something clever (new reaction)", () => {
+      choicesEl.innerHTML = '';
+      addChoiceButton('Say something clever (new reaction)', () => {
         showCharacterAtLocation(charSlug, normLoc);
       });
       addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
         enterLocation(normLoc);
       });
-      addChoiceButton("Slip away to the main party", renderArrivalScene);
+      addChoiceButton('Slip away to the main party', renderArrivalScene);
     }
 
     // === MEET THE CHARACTERS MODAL ===
-
     async function showCharacterProfiles() {
       clearError();
 
-      const modal = document.getElementById("character-modal");
-      const overlay = document.getElementById("character-modal-overlay");
-      const container = document.getElementById("character-profiles-container");
+      const modal = document.getElementById('character-modal');
+      const overlay = document.getElementById('character-modal-overlay');
+      const container = document.getElementById('character-profiles-container');
 
-      container.innerHTML = "";
+      container.innerHTML = '';
 
-      const profiles = await loadJSON("character_profiles.json");
+      if (!Object.keys(characterProfiles).length) {
+        const profiles = await loadJSON('character_profiles.json');
+        if (!profiles) {
+          container.innerHTML = '<p>Error loading character profiles.</p>';
+        } else {
+          characterProfiles = profiles;
+        }
+      }
 
-      if (!profiles) {
-        container.innerHTML = "<p>Error loading character profiles.</p>";
-      } else {
-        Object.entries(profiles).forEach(([slug, data]) => {
-          const card = document.createElement("div");
-          card.className = "character-card";
+      if (Object.keys(characterProfiles).length) {
+        Object.entries(characterProfiles).forEach(([slug, data]) => {
+          const card = document.createElement('div');
+          card.className = 'character-card';
 
-          const img = document.createElement("img");
+          const img = document.createElement('img');
           if (data.image) {
-            img.src = data.image.startsWith("images/")
+            img.src = data.image.startsWith('images/')
               ? data.image
               : `images/${data.image}`;
           } else {
-            img.src = "images/placeholder.jpg";
+            img.src = 'images/placeholder.jpg';
           }
 
-          const name = document.createElement("h3");
+          const name = document.createElement('h3');
           name.textContent = data.name || niceNameFromSlug(slug);
 
-          const desc = document.createElement("p");
-          desc.textContent = data.short_description || data.description || "";
+          const desc = document.createElement('p');
+          desc.textContent = data.short_description || data.description || '';
 
           card.appendChild(img);
           card.appendChild(name);
@@ -639,29 +653,29 @@ Where do you want to wander first?
         });
       }
 
-      overlay.classList.remove("hidden");
-      modal.classList.remove("hidden");
+      overlay.classList.remove('hidden');
+      modal.classList.remove('hidden');
 
       requestAnimationFrame(() => {
-        overlay.style.opacity = "1";
-        modal.style.opacity = "1";
-        modal.style.transform = "translate(-50%, -50%) scale(1)";
+        overlay.style.opacity = '1';
+        modal.style.opacity = '1';
+        modal.style.transform = 'translate(-50%, -50%) scale(1)';
       });
 
       overlay.onclick = () => closeCharacterProfiles();
     }
 
     function closeCharacterProfiles() {
-      const modal = document.getElementById("character-modal");
-      const overlay = document.getElementById("character-modal-overlay");
+      const modal = document.getElementById('character-modal');
+      const overlay = document.getElementById('character-modal-overlay');
 
-      overlay.style.opacity = "0";
-      modal.style.opacity = "0";
-      modal.style.transform = "translate(-50%, -50%) scale(0.95)";
+      overlay.style.opacity = '0';
+      modal.style.opacity = '0';
+      modal.style.transform = 'translate(-50%, -50%) scale(0.95)';
 
       setTimeout(() => {
-        modal.classList.add("hidden");
-        overlay.classList.add("hidden");
+        modal.classList.add('hidden');
+        overlay.classList.add('hidden');
       }, 250);
     }
 
@@ -672,17 +686,16 @@ Where do you want to wander first?
     }
 
     // --- Initialization ---
-
     async function init() {
       clearError();
 
       const [introData, manifestData] = await Promise.all([
-        loadJSON("characters_intro.json"),
-        loadJSON("images_manifest.json")
+        loadJSON('characters_intro.json'),
+        loadJSON('images_manifest.json')
       ]);
 
       if (!introData || !manifestData) {
-        showError("One or more JSON files failed to load.");
+        showError('One or more JSON files failed to load.');
         return;
       }
 
