@@ -132,7 +132,11 @@
       color: #8a8aa5;
     }
 
-    /* === CHARACTER MODAL === */
+    .hidden {
+      display: none;
+    }
+
+    /* === CHARACTER MODAL (RESPONSIVE GRID) === */
 
     .modal-overlay {
       position: fixed;
@@ -141,10 +145,10 @@
       width: 100%;
       height: 100%;
       backdrop-filter: blur(6px);
-      background: rgba(0,0,0,0.6);
+      background: rgba(0, 0, 0, 0.6);
       z-index: 1000;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.25s ease;
     }
 
     .character-modal {
@@ -152,80 +156,82 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0.95);
-      width: 420px;
+      width: 90vw;
+      max-width: 1100px;
       max-height: 80vh;
       background: #1c1c1c;
-      color: #fff;
+      color: white;
       border-radius: 12px;
       padding: 20px;
       z-index: 1100;
       opacity: 0;
       overflow-y: auto;
-      box-shadow: 0 0 18px rgba(0,0,0,0.5);
+      box-shadow: 0 0 18px rgba(0,0,0,0.6);
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
     .character-modal h2 {
       text-align: center;
-      margin-top: 0;
-      margin-bottom: 18px;
-      font-size: 1.3rem;
+      margin: 0 0 20px;
+      font-size: 1.4rem;
       font-weight: 600;
     }
 
-    .hidden {
-      display: none;
+    .character-profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      padding-bottom: 10px;
     }
 
-    .character-profiles {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+    /* On very small screens, single column is fine by default (auto-fit+minmax handles it) */
+
+    /* On very large / 4K screens, force 5 columns so all characters can be in one row */
+    @media (min-width: 3000px) {
+      .character-profiles-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
     }
 
     .character-card {
-      display: flex;
-      background: #2b2b2b;
-      padding: 12px;
+      background: #2a2a2a;
       border-radius: 10px;
-      gap: 12px;
-      align-items: flex-start;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .character-card img {
-      width: 70px;
-      height: 70px;
-      border-radius: 8px;
+      width: 100%;
+      height: 180px;
       object-fit: cover;
+      border-radius: 8px;
     }
 
-    .character-card .char-info {
-      flex: 1;
-    }
-
-    .char-info h3 {
+    .character-card h3 {
       margin: 0;
       font-size: 1.1rem;
-      margin-bottom: 6px;
+      font-weight: 600;
     }
 
-    .char-info p {
+    .character-card p {
       margin: 0;
       opacity: 0.85;
-      line-height: 1.3;
-      font-size: 0.95rem;
+      line-height: 1.35;
+      font-size: 0.9rem;
     }
 
     .modal-close {
       position: absolute;
       top: 10px;
-      right: 12px;
-      font-size: 1.3rem;
-      color: #fff;
+      right: 14px;
+      font-size: 1.4rem;
       background: none;
       border: none;
+      color: white;
       cursor: pointer;
-      opacity: 0.8;
+      opacity: 0.75;
     }
     .modal-close:hover {
       opacity: 1;
@@ -251,7 +257,7 @@
   <div id="character-modal" class="character-modal hidden">
     <button class="modal-close" onclick="closeCharacterProfiles()">✕</button>
     <h2>Meet the Characters</h2>
-    <div id="character-profiles-container" class="character-profiles"></div>
+    <div id="character-profiles-container" class="character-profiles-grid"></div>
   </div>
 
   <div id="story-container">
@@ -606,37 +612,31 @@ Where do you want to wander first?
       if (!profiles) {
         container.innerHTML = "<p>Error loading character profiles.</p>";
       } else {
-        for (const key in profiles) {
-          const c = profiles[key];
+        Object.entries(profiles).forEach(([slug, data]) => {
           const card = document.createElement("div");
           card.className = "character-card";
 
           const img = document.createElement("img");
-          if (c.image) {
-            // if JSON already includes "harper_profile.jpg" etc.
-            img.src = c.image.startsWith("images/")
-              ? c.image
-              : `images/${c.image}`;
+          if (data.image) {
+            img.src = data.image.startsWith("images/")
+              ? data.image
+              : `images/${data.image}`;
           } else {
             img.src = "images/placeholder.jpg";
           }
 
-          const info = document.createElement("div");
-          info.className = "char-info";
-
           const name = document.createElement("h3");
-          name.textContent = c.name || niceNameFromSlug(key);
+          name.textContent = data.name || niceNameFromSlug(slug);
 
           const desc = document.createElement("p");
-          desc.textContent = c.description || "";
-
-          info.appendChild(name);
-          info.appendChild(desc);
+          desc.textContent = data.short_description || data.description || "";
 
           card.appendChild(img);
-          card.appendChild(info);
+          card.appendChild(name);
+          card.appendChild(desc);
+
           container.appendChild(card);
-        }
+        });
       }
 
       overlay.classList.remove("hidden");
