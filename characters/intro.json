@@ -1,252 +1,72 @@
 {
-  "scene_harper_intro_bar": {
-    "id": "scene_harper_intro_bar",
-    "image": "scene_harper_intro_bar.jpg",
-    "text": "Harper leans against the marble bar like it\u2019s a movie set, golden hair catching the neon backlight. She swirls her Old Fashioned with lazy confidence, eyes scanning the room until they lock on you. \"You look like someone who knows how to order something interesting,\" she teases, a smirk already forming.",
+  "scene_sienna_00_intro": {
+    "id": "scene_sienna_00_intro",
+    "character": "sienna",
+    "character_name": "Sienna Brooks",
+    "location": "",
+    "image": "scene_sienna_00_intro.jpg",
+    "text": "Sienna lounges at the edge of the pool, legs kicking lazily in the glowing water. When she spots you watching, she splashes playfully and lifts one brow, grin wide and wicked.",
     "choices": {
-      "Option_A": "scene_harper_intro_bar_A",
-      "Option_B": "scene_harper_intro_bar_B",
-      "Option_C_Tame": "scene_harper_intro_bar_C"
+      "flirt_back": "scene_sienna_flirt_01",
+      "tease_her": "scene_sienna_tease_01",
+      "stay_cool": "scene_sienna_cool_01",
+      "return": "scene_00_intro"
     }
   },
-  "scene_harper_intro_pool": {
-    "id": "scene_harper_intro_pool",
-    "image": "scene_harper_intro_pool.jpg",
-    "text": "Out by the glowing pool, Harper has claimed a dry lounger like it\u2019s a private interview set. She\u2019s barefoot, heels hooked on a nearby chair, dress still impossibly immaculate. When you approach, she tilts her head. \"Risking chlorine and gossip to come say hi?\" Her grin says she approves.",
+  "scene_riley_00_intro": {
+    "id": "scene_riley_00_intro",
+    "character": "riley",
+    "character_name": "Riley Storm",
+    "location": "",
+    "image": "scene_riley_00_intro.jpg",
+    "text": "Riley finishes a sharp, fluid gymnastic pivot and laughs breathlessly. \"Didn’t see you there. Enjoying the show?\"",
     "choices": {
-      "Option_A": "scene_harper_intro_pool_A",
-      "Option_B": "scene_harper_intro_pool_B",
-      "Option_C_Tame": "scene_harper_intro_pool_C"
+      "flirty_praise": "riley_A",
+      "match_energy": "riley_B",
+      "tame_chat": "riley_C",
+      "step_away": "riley_fail"
     }
   },
-  "scene_harper_intro_lounge": {
-    "id": "scene_harper_intro_lounge",
-    "image": "scene_harper_intro_lounge.jpg",
-    "text": "In the velvet hush of the lounge, Harper lounges across a low sofa like she owns it. Soft lamplight turns her into a perfect still from an awards-season film. \"Careful,\" she says as you approach, voice low and amused. \"Sit here and people will assume we\u2019re plotting something scandalous.\"",
+  "scene_luna_00_intro": {
+    "id": "scene_luna_00_intro",
+    "character": "luna",
+    "character_name": "Luna Devreaux",
+    "location": "",
+    "image": "scene_luna_00_intro.jpg",
+    "text": "Luna watches you approach with a slow, assessing gaze—like she's reading a page no one else can see. Her voice is low and velvety. \"You carry a strange gravity. Sit with me a moment.\"",
     "choices": {
-      "Option_A": "scene_harper_intro_lounge_A",
-      "Option_B": "scene_harper_intro_lounge_B",
-      "Option_C_Tame": "scene_harper_intro_lounge_C"
+      "soft_approach": "scene_luna_soft_01",
+      "intense_energy": "scene_luna_intense_01",
+      "tame_option": "scene_luna_tame_01",
+      "step_away": "scene_luna_fail_01"
     }
   },
-  "scene_harper_intro_balcony": {
-    "id": "scene_harper_intro_balcony",
-    "image": "scene_harper_intro_balcony.jpg",
-    "text": "On the balcony, Harper stands framed by city lights, one hand on the rail, the other resting on her hip. The night wind toys with her hair as she looks back over her shoulder at you. \"Great lighting out here,\" she murmurs. \"For a meet-cute. Don\u2019t waste it.\"",
+  "scene_harper_00_intro": {
+    "id": "scene_harper_00_intro",
+    "character": "harper",
+    "character_name": "Harper Vale",
+    "location": "",
+    "image": "scene_harper_00_intro.jpg",
+    "text": "Harper Vale — instantly recognizable, magnetic in person — stands in a warm halo of lanternlight near a wide loft window, the city sprawled in glittering layers below. She swirls her drink, watching reflections glide across the glass and polished game tables nearby.\n\n\"You look like someone with better stories than half the people here,\" she says with a sly, cinematic smile.\n\nHer voice is low, velvet-smooth — the kind of tone that makes everything sound like a line delivered perfectly on the first take.",
     "choices": {
-      "Option_A": "scene_harper_intro_balcony_A",
-      "Option_B": "scene_harper_intro_balcony_B",
-      "Option_C_Tame": "scene_harper_intro_balcony_C"
+      "soft_flirt": "scene_harper_soft_01",
+      "intense_energy": "scene_harper_spicy_01",
+      "tame_chat": "scene_harper_tame_01",
+      "play_it_safe": "scene_harper_fail_01"
     }
   },
-  "scene_harper_intro_gameloft": {
-    "id": "scene_harper_intro_gameloft",
-    "image": "scene_harper_intro_gameloft.jpg",
-    "text": "Up in the game loft, Harper leans over a sleek card table, idly shuffling a deck like she\u2019s done this a thousand times on camera. Neon from the arcade cabinet paints soft color along her cheekbones. \"Finally,\" she says when she notices you. \"Someone who looks like a worthy co-star. Sit\u2014let\u2019s see if you bluff as well as you flirt.\"",
+  "scene_mara_00_intro": {
+    "id": "scene_mara_00_intro",
+    "character": "mara",
+    "character_name": "Mara Quinn",
+    "location": "",
+    "image": "scene_mara_00_intro.jpg",
+    "text": "Mara stands near a tall loft window, hair glowing softly in the city light. A quiet two-person table sits nearby with an untouched game laid out between the chairs. \"You’re just in time,\" she says, nodding toward the view. \"The city puts on its best performance after midnight.\"",
     "choices": {
-      "Option_A": "scene_harper_intro_gameloft_A",
-      "Option_B": "scene_harper_intro_gameloft_B",
-      "Option_C_Tame": "scene_harper_intro_gameloft_C"
-    }
-  },
-  "scene_sienna_intro_bar": {
-    "id": "scene_sienna_intro_bar",
-    "image": "scene_sienna_intro_bar.jpg",
-    "text": "Sienna is mid-laugh at the bar, red hair spilling over one bare shoulder as she tells a story big enough to make the bartender grin. Her emerald dress catches every stray light in the room. When she notices you, her smile sharpens with interest. \"Hey, stranger,\" she calls. \"You look like trouble in exactly my key.\"",
-    "choices": {
-      "Option_A": "scene_sienna_intro_bar_A",
-      "Option_B": "scene_sienna_intro_bar_B",
-      "Option_C_Tame": "scene_sienna_intro_bar_C"
-    }
-  },
-  "scene_sienna_intro_pool": {
-    "id": "scene_sienna_intro_pool",
-    "image": "scene_sienna_intro_pool.jpg",
-    "text": "By the shimmering pool, Sienna sits at the edge with her legs skimming the surface, dress hitched just enough to be dangerous. Colored lights glide over her skin as she hums a few bars of something familiar. She spots you watching, splashes a little water your way, and grins wide. \"Come on,\" she laughs. \"Don\u2019t just stare\u2014play with me.\"",
-    "choices": {
-      "Option_A": "scene_sienna_intro_pool_A",
-      "Option_B": "scene_sienna_intro_pool_B",
-      "Option_C_Tame": "scene_sienna_intro_pool_C"
-    }
-  },
-  "scene_sienna_intro_lounge": {
-    "id": "scene_sienna_intro_lounge",
-    "image": "scene_sienna_intro_lounge.jpg",
-    "text": "In the lounge, Sienna has claimed a corner of the sofa, shoes off, curls loose, nursing the end of a melody under her breath. Her eyes flick up as you enter, bright and quick. \"You look like you need a softer soundtrack,\" she teases. \"Sit. I promise I only cause the good kind of chaos.\"",
-    "choices": {
-      "Option_A": "scene_sienna_intro_lounge_A",
-      "Option_B": "scene_sienna_intro_lounge_B",
-      "Option_C_Tame": "scene_sienna_intro_lounge_C"
-    }
-  },
-  "scene_sienna_intro_balcony": {
-    "id": "scene_sienna_intro_balcony",
-    "image": "scene_sienna_intro_balcony.jpg",
-    "text": "Out on the balcony, Sienna leans against the rail, city lights reflected in her green eyes. She\u2019s mid-story, gesturing big with her hands, laughing at something she just confessed. When you step closer, she turns the full force of her attention on you. \"Perfect timing,\" she says. \"I was just getting to the juicy part.\"",
-    "choices": {
-      "Option_A": "scene_sienna_intro_balcony_A",
-      "Option_B": "scene_sienna_intro_balcony_B",
-      "Option_C_Tame": "scene_sienna_intro_balcony_C"
-    }
-  },
-  "scene_sienna_intro_gameloft": {
-    "id": "scene_sienna_intro_gameloft",
-    "image": "scene_sienna_intro_gameloft.jpg",
-    "text": "In the game loft, Sienna leans over a pinball machine, red hair tumbling forward as she chases the last flashing bonus. She slams the button, wins, and throws both hands up with a victorious shout. Then she clocks you watching and grins. \"You here to cheer me on,\" she asks, \"or to see if you can beat me?\"",
-    "choices": {
-      "Option_A": "scene_sienna_intro_gameloft_A",
-      "Option_B": "scene_sienna_intro_gameloft_B",
-      "Option_C_Tame": "scene_sienna_intro_gameloft_C"
-    }
-  },
-  "scene_luna_intro_bar": {
-    "id": "scene_luna_intro_bar",
-    "image": "scene_luna_intro_bar.jpg",
-    "text": "Luna stands slightly apart from the bar crowd, a pale lavender glow catching on her silver dress. She cradles a simple glass in both hands, watching the bottles like they\u2019re constellations. When your reflection appears beside hers in the mirrored back wall, she glances over with a small, curious smile. \"You feel\u2026different,\" she says softly.",
-    "choices": {
-      "Option_A": "scene_luna_intro_bar_A",
-      "Option_B": "scene_luna_intro_bar_B",
-      "Option_C_Tame": "scene_luna_intro_bar_C"
-    }
-  },
-  "scene_luna_intro_pool": {
-    "id": "scene_luna_intro_pool",
-    "image": "scene_luna_intro_pool.jpg",
-    "text": "By the pool, Luna sits just beyond the splash zone, silver dress untouched by the water, fingers tracing the edge of a lantern. The reflections turn her storm-gray eyes into something unreal. She notices you standing there and tilts her head, studying you like a quiet question. \"You don\u2019t seem here for the noise,\" she murmurs.",
-    "choices": {
-      "Option_A": "scene_luna_intro_pool_A",
-      "Option_B": "scene_luna_intro_pool_B",
-      "Option_C_Tame": "scene_luna_intro_pool_C"
-    }
-  },
-  "scene_luna_intro_lounge": {
-    "id": "scene_luna_intro_lounge",
-    "image": "scene_luna_intro_lounge.jpg",
-    "text": "In the lounge, Luna stands very still before a large abstract painting, head tilted just slightly. Soft light dusts her features, making her look like part of the artwork. When you join her, she doesn\u2019t look away from the canvas. \"What do you see?\" she asks, voice low and velvety\u2014like the answer matters more than small talk.",
-    "choices": {
-      "Option_A": "scene_luna_intro_lounge_A",
-      "Option_B": "scene_luna_intro_lounge_B",
-      "Option_C_Tame": "scene_luna_intro_lounge_C"
-    }
-  },
-  "scene_luna_intro_balcony": {
-    "id": "scene_luna_intro_balcony",
-    "image": "scene_luna_intro_balcony.jpg",
-    "text": "On the balcony, Luna rests her elbows lightly on the rail, gaze unfocused on the glittering city below. The breeze brushes her hair back from her face, revealing the smallest, private half-smile. She senses you approaching before you speak. \"The sky feels closer here,\" she murmurs. \"You do too.\"",
-    "choices": {
-      "Option_A": "scene_luna_intro_balcony_A",
-      "Option_B": "scene_luna_intro_balcony_B",
-      "Option_C_Tame": "scene_luna_intro_balcony_C"
-    }
-  },
-  "scene_luna_intro_gameloft": {
-    "id": "scene_luna_intro_gameloft",
-    "image": "scene_luna_intro_gameloft.jpg",
-    "text": "In the game loft, Luna sits on the arm of a sofa, watching the shifting neon reflections from the arcade machines play across the ceiling. She absently rolls a game token between her fingers, lost in thought. When you step into her orbit, she offers the token out to you. \"Your move,\" she says softly, eyes searching your face.",
-    "choices": {
-      "Option_A": "scene_luna_intro_gameloft_A",
-      "Option_B": "scene_luna_intro_gameloft_B",
-      "Option_C_Tame": "scene_luna_intro_gameloft_C"
-    }
-  },
-  "scene_riley_intro_bar": {
-    "id": "scene_riley_intro_bar",
-    "image": "scene_riley_intro_bar.jpg",
-    "text": "At the bar, Riley is half-perched on a stool, one knee up, posture loose and athletic even at rest. She laughs with the bartender over something, then spins slightly as you approach. \"Finally,\" she grins. \"Someone who looks like they can handle more than small talk and weak drinks.\"",
-    "choices": {
-      "Option_A": "scene_riley_intro_bar_A",
-      "Option_B": "scene_riley_intro_bar_B",
-      "Option_C_Tame": "scene_riley_intro_bar_C"
-    }
-  },
-  "scene_riley_intro_pool": {
-    "id": "scene_riley_intro_pool",
-    "image": "scene_riley_intro_pool.jpg",
-    "text": "By the pool, Riley is barefoot on the tiles, stretching in a way that looks half warm-up, half performance. She finishes a spin and lands with playful precision, then flashes you a bright, challenging grin. \"You watching the party,\" she asks, \"or watching me? I\u2019ll try not to take it personally if it\u2019s both.\"",
-    "choices": {
-      "Option_A": "scene_riley_intro_pool_A",
-      "Option_B": "scene_riley_intro_pool_B",
-      "Option_C_Tame": "scene_riley_intro_pool_C"
-    }
-  },
-  "scene_riley_intro_lounge": {
-    "id": "scene_riley_intro_lounge",
-    "image": "scene_riley_intro_lounge.jpg",
-    "text": "In the lounge, Riley has turned a low table into an impromptu space for a card game with a few party guests. She wins the hand with a triumphant laugh and a cocky shrug. When she notices you nearby, she taps the empty space beside her. \"Sit,\" she says. \"Let\u2019s see how you handle a little friendly competition.\"",
-    "choices": {
-      "Option_A": "scene_riley_intro_lounge_A",
-      "Option_B": "scene_riley_intro_lounge_B",
-      "Option_C_Tame": "scene_riley_intro_lounge_C"
-    }
-  },
-  "scene_riley_intro_balcony": {
-    "id": "scene_riley_intro_balcony",
-    "image": "scene_riley_intro_balcony.jpg",
-    "text": "On the balcony, Riley bounces lightly on her heels, like she can\u2019t quite stay still, even with the city spread out below. She leans back against the rail and gives you a once-over that\u2019s blatantly assessing but friendly. \"So,\" she says, smirking, \"are you more of a jump-right-in type, or a watch-from-a-distance type?\"",
-    "choices": {
-      "Option_A": "scene_riley_intro_balcony_A",
-      "Option_B": "scene_riley_intro_balcony_B",
-      "Option_C_Tame": "scene_riley_intro_balcony_C"
-    }
-  },
-  "scene_riley_intro_gameloft": {
-    "id": "scene_riley_intro_gameloft",
-    "image": "scene_riley_intro_gameloft.jpg",
-    "text": "In the game loft, Riley is mid\u2013button-mash at the arcade cabinet, laughing as the screen explodes in bright colors. She loses by a sliver, throws her head back with a groan, then spots you and brightens instantly. \"Perfect timing,\" she says. \"I need a rematch partner. You in, or are you scared to lose?\"",
-    "choices": {
-      "Option_A": "scene_riley_intro_gameloft_A",
-      "Option_B": "scene_riley_intro_gameloft_B",
-      "Option_C_Tame": "scene_riley_intro_gameloft_C"
-    }
-  },
-  "scene_mara_intro_bar": {
-    "id": "scene_mara_intro_bar",
-    "image": "scene_mara_intro_bar.jpg",
-    "text": "Mara stands at the bar with a glass of white wine, listening more than she speaks as a cluster of guests vie for her attention. Her gaze drifts past them and lands on you, curious and a little relieved. \"You look like you might actually ask something real,\" she says softly, inviting you closer.",
-    "choices": {
-      "Option_A": "scene_mara_intro_bar_A",
-      "Option_B": "scene_mara_intro_bar_B",
-      "Option_C_Tame": "scene_mara_intro_bar_C"
-    }
-  },
-  "scene_mara_intro_pool": {
-    "id": "scene_mara_intro_pool",
-    "image": "scene_mara_intro_pool.jpg",
-    "text": "Near the pool, Mara has found a quieter stretch of railing, away from the splashing and shouting. Lanternlight paints a gentle glow along her sapphire dress as she watches the water with an almost thoughtful frown. When you step up beside her, she turns with a small, warm smile. \"Hiding from the chaos too?\"",
-    "choices": {
-      "Option_A": "scene_mara_intro_pool_A",
-      "Option_B": "scene_mara_intro_pool_B",
-      "Option_C_Tame": "scene_mara_intro_pool_C"
-    }
-  },
-  "scene_mara_intro_lounge": {
-    "id": "scene_mara_intro_lounge",
-    "image": "scene_mara_intro_lounge.jpg",
-    "text": "In the lounge, Mara sits with one leg tucked beneath her, swirling her wine as she listens to a guest ramble about themselves. Her polite smile doesn\u2019t quite reach her eyes\u2014until you appear in her line of sight. She excuses herself with practiced grace and approaches you instead. \"Please tell me you\u2019re more interesting than starlet gossip.\"",
-    "choices": {
-      "Option_A": "scene_mara_intro_lounge_A",
-      "Option_B": "scene_mara_intro_lounge_B",
-      "Option_C_Tame": "scene_mara_intro_lounge_C"
-    }
-  },
-  "scene_mara_intro_balcony": {
-    "id": "scene_mara_intro_balcony",
-    "image": "scene_mara_intro_balcony.jpg",
-    "text": "On the balcony, Mara leans against the rail, sky and city reflecting in her eyes. She takes a slow sip of wine, clearly lost in thought, until she senses you and straightens with a soft laugh. \"I was just wondering if anyone else escaped out here to breathe,\" she says. \"Glad I\u2019m not alone.\"",
-    "choices": {
-      "Option_A": "scene_mara_intro_balcony_A",
-      "Option_B": "scene_mara_intro_balcony_B",
-      "Option_C_Tame": "scene_mara_intro_balcony_C"
-    }
-  },
-  "scene_mara_intro_gameloft": {
-    "id": "scene_mara_intro_gameloft",
-    "image": "scene_mara_intro_gameloft.jpg",
-    "text": "In the game loft, Mara stands near a vintage-looking board game laid out but not yet played, tracing one fingertip along the edge of the box. She looks up as you approach, eyes bright with quiet mischief. \"I was just thinking how much more fun this would be with the right partner,\" she says. \"Interested in a little strategy?\"",
-    "choices": {
-      "Option_A": "scene_mara_intro_gameloft_A",
-      "Option_B": "scene_mara_intro_gameloft_B",
-      "Option_C_Tame": "scene_mara_intro_gameloft_C"
+      "close_in": "mara_A",
+      "ask_about_telescope": "mara_B",
+      "tame_talk": "mara_C",
+      "step_away": "mara_fail"
     }
   }
 }
