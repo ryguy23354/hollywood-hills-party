@@ -2,7 +2,7 @@
   "scene_harper_00_intro": {
     "id": "scene_harper_00_intro",
     "image": "scene_harper_00_intro.jpg",
-    "text": "Harper Carlisle \u2014 instantly recognizable, magnetic in person \u2014 stands in a warm halo of lanternlight near a wide loft window, the city sprawled in glittering layers below. She swirls her drink, watching reflections glide across the glass and polished game tables nearby.\n\n\"You look like someone with better stories than half the people here,\" she says with a sly, cinematic smile.\n\nHer voice is low, velvet-smooth \u2014 the kind of tone that makes everything sound like a line delivered perfectly on the first take.",
+    "text": "Harper Vale \u2014 instantly recognizable, magnetic in person \u2014 stands in a warm halo of lanternlight near a wide loft window, the city sprawled in glittering layers below. She swirls her drink, watching reflections glide across the glass and polished game tables nearby.\n\n\"You look like someone with better stories than half the people here,\" she says with a sly, cinematic smile.\n\nHer voice is low, velvet-smooth \u2014 the kind of tone that makes everything sound like a line delivered perfectly on the first take.",
     "choices": {
       "soft_flirt": "scene_harper_soft_01",
       "intense_energy": "scene_harper_spicy_01",
