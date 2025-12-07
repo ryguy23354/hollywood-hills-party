@@ -99,7 +99,7 @@
   "scene_sienna_spicy_03": {
     "id": "scene_sienna_spicy_03",
     "image": "scene_sienna_spicy_03.jpg",
-    "text": "Heat pools between you. Sienna's breath brushes your lips; the world narrows to a single, charged beat. The encounter becomes intensely private and fades to black\u2014consensual, intimate, and electric.",
+    "text": "Heat pools between you. Sienna's breath brushes your lips; the world narrows to a single, charged beat. The encounter becomes intensely private and fades to black—consensual, intimate, and electric.",
     "choices": {
       "end": "scene_shared_success_sienna"
     }
@@ -107,7 +107,7 @@
   "scene_sienna_tame_01": {
     "id": "scene_sienna_tame_01",
     "image": "scene_sienna_tame_01.jpg",
-    "text": "She softens noticeably, humming a gentle melody as she leans back. You share a slow, mellow conversation about music and life\u2014warm, sincere, and unexpectedly tender.",
+    "text": "She softens noticeably, humming a gentle melody as she leans back. You share a slow, mellow conversation about music and life—warm, sincere, and unexpectedly tender.",
     "choices": {
       "end": "scene_shared_success_sienna"
     }
