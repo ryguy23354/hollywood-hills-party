@@ -526,6 +526,11 @@ Where do you want to wander first?
       sceneTitleEl.textContent = prettyLocation(loc);
       sceneImageEl.style.display = 'none';
 
+	  // Show generic location background image
+	  const genericImg = `images/${loc}.jpg`;
+	  sceneImageEl.src = genericImg;
+	  sceneImageEl.style.display = 'block';
+
       sceneTextEl.textContent =
         `You drift into the ${prettyLocation(loc).toLowerCase()}. Two familiar figures stand out from the blur of guests:\n\n` +
         `• ${name1}\n` +
