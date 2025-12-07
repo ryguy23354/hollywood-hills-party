@@ -284,7 +284,7 @@ Where do you want to wander first?
 
   <footer>
     JSON used:
-    <code>characters_intro.json</code> • <code>images_manifest.json</code> • <code>character_profiles.json</code>.
+    <code>characters/intro.json</code> • <code>images_manifest.json</code> • <code>characters/shared_openings.json</code>.
     Random assignment: 2 characters per location, each character appears in 2 locations.
   </footer>
 
@@ -301,6 +301,8 @@ Where do you want to wander first?
     const LOCATIONS = ['bar', 'lounge', 'balcony', 'pool', 'gameloft'];
 
     let introScenesRaw = {};          // characters_intro.json
+    let sharedOpenings = {};           // characters/shared_openings.json
+    let sharedEndings = {};            // characters/shared_endings.json
     let scenesById = {};              // id -> scene
     let scenesByCharLoc = {};         // charSlug -> { loc: sceneId }
     let characterDisplayNames = {};   // charSlug -> display name
@@ -382,6 +384,7 @@ Where do you want to wander first?
 
         // Location
         let loc = normalizeLocation(s.location || '');
+        if (!loc) loc = 'any';
         if (!loc) {
           const parts = sceneId.split('_');
           if (parts.length >= 4) {
@@ -543,12 +546,23 @@ Where do you want to wander first?
 
       const normLoc = normalizeLocation(loc);
       const charScenes = scenesByCharLoc[charSlug];
-      if (!charScenes || !charScenes[normLoc]) {
-        showError(`No intro scene found for ${charSlug} at ${normLoc}.`);
+
+      if (!charScenes) {
+        showError(`No intro scenes found for ${charSlug}.`);
         return;
       }
 
-      const sceneId = charScenes[normLoc];
+      let sceneId = charScenes[normLoc];
+      if (!sceneId) {
+        // Fallback: use any available scene for this character
+        const anyKey = Object.keys(charScenes)[0];
+        sceneId = charScenes[anyKey];
+      }
+
+      if (!sceneId) {
+        showError(`No intro scene found for ${charSlug} at ${normLoc}.`);
+        return;
+      }
       const scene = scenesById[sceneId];
       if (!scene) {
         showError(`Scene "${sceneId}" not found.`);
@@ -689,18 +703,22 @@ Where do you want to wander first?
     async function init() {
       clearError();
 
-      const [introData, manifestData] = await Promise.all([
-        loadJSON('characters_intro.json'),
-        loadJSON('images_manifest.json')
+      const [introData, manifestData, sharedOpenData, sharedEndData] = await Promise.all([
+        loadJSON('characters/intro.json'),
+        loadJSON('images_manifest.json'),
+        loadJSON('characters/shared_openings.json'),
+        loadJSON('characters/shared_endings.json')
       ]);
 
-      if (!introData || !manifestData) {
+      if (!introData || !manifestData || !sharedOpenData || !sharedEndData) {
         showError('One or more JSON files failed to load.');
         return;
       }
 
       introScenesRaw = introData;
       imagesManifest = manifestData;
+      sharedOpenings = sharedOpenData || {};
+      sharedEndings = sharedEndData || {};
 
       indexIntroData();
       buildRandomAssignments();
