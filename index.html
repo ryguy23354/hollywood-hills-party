@@ -2,895 +2,941 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Hollywood Hills Party</title>
+  <title>Hollywood Party</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --bg: #050509;
+      --card-bg: #101018;
+      --card-border: #252538;
+      --accent: #f5a623;
+      --accent-soft: rgba(245, 166, 35, 0.18);
+      --accent-strong: rgba(245, 166, 35, 0.95);
+      --text: #f7f7ff;
+      --text-soft: #b7b8d9;
+      --danger: #ff4f6a;
+      --muted: #6e6f8f;
+      --btn-bg: #19192a;
+      --btn-bg-hover: #23233a;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 26px 60px rgba(0, 0, 0, 0.7);
+      --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.55);
+      --transition-fast: 150ms ease-out;
+      --transition-med: 220ms ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #050509;
-      color: #f3f3f3;
+      padding: 24px 24px 32px;
+      background: radial-gradient(circle at top, #1c1c28 0, #050509 55%);
+      min-height: 100vh;
+      color: var(--text);
+      font-family: var(--font-main);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
-    header {
-      background: #111119;
-      padding: 12px 18px;
-      border-bottom: 1px solid #262636;
+    .app-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    header.app-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    header h1 {
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title-block h1 {
       margin: 0;
-      font-size: 18px;
+      font-size: 28px;
+      letter-spacing: 0.03em;
+    }
+
+    .title-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(245, 166, 35, 0.14);
+      color: var(--accent-strong);
+      font-size: 11px;
       font-weight: 600;
     }
 
-    header .sub {
-      font-size: 12px;
-      color: #aaaacc;
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #33ff99;
+      box-shadow: 0 0 12px rgba(51, 255, 153, 0.75);
     }
 
-    .header-right {
-      display: flex;
-      gap: 8px;
+    .header-actions {
+      display: inline-flex;
+      gap: 10px;
       align-items: center;
-      flex-wrap: wrap;
     }
 
     button {
+      border: none;
+      cursor: pointer;
       font-family: inherit;
     }
 
-    .btn {
-      padding: 7px 12px;
-      border-radius: 999px;
-      border: 1px solid #44445a;
-      background: #181826;
-      color: #f3f3f3;
-      font-size: 13px;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background: #222238;
-    }
-    .btn:active {
-      transform: translateY(1px);
-    }
-
-    #story-container {
-      max-width: 780px;
-      margin: 18px auto 24px;
-      padding: 16px;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1px solid #29293c;
-      background: #0b0b14;
-    }
-
-    #scene-title {
-      margin: 0 0 8px;
-      font-size: 22px;
-      font-weight: 600;
-    }
-
-    #scene-image {
-      max-width: 100%;
-      margin: 8px 0;
-      border-radius: 10px;
-      display: none;
-    }
-
-    #scene-text {
-      margin-top: 8px;
+    .button-pill {
+      border-radius: var(--radius-pill);
+      padding: 8px 16px;
       font-size: 14px;
-      line-height: 1.6;
-      color: #f3f3f3;
-      white-space: pre-wrap;
+      background: var(--btn-bg);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-subtle);
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
     }
 
-    #meta-line {
-      margin-top: 4px;
-      font-size: 12px;
-      color: #a0a0c9;
+    .button-pill.primary {
+      background: linear-gradient(135deg, #f5a623, #ff6b3d);
+      color: #050509;
+      border-color: transparent;
+      box-shadow: 0 10px 25px rgba(255, 119, 51, 0.55);
     }
 
-    #choices {
-      margin-top: 16px;
+    .button-pill:hover {
+      background: var(--btn-bg-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .button-pill.primary:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px) translateZ(0);
+    }
+
+    .button-pill:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    main {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 16px;
     }
 
-    .choice-btn {
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid #3c3c52;
-      background: #171722;
-      color: #f3f3f3;
-      font-size: 14px;
-      text-align: left;
-      cursor: pointer;
-    }
-    .choice-btn:hover {
-      background: #232338;
-      border-color: #4b4b66;
-    }
-    .choice-btn:active {
-      transform: translateY(1px);
+    .scene-card {
+      background: radial-gradient(circle at top left, #1e1e33 0, #090914 55%);
+      border-radius: 24px;
+      padding: 24px 24px 22px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
     }
 
-    #error-box {
-      margin-top: 12px;
-      font-size: 12px;
-      color: #ff6b6b;
-      min-height: 14px;
+    .scene-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(245, 166, 35, 0.14) 0, transparent 55%);
+      opacity: 0.85;
+      pointer-events: none;
     }
 
-    footer {
-      text-align: center;
-      margin: 12px 0 20px;
-      font-size: 11px;
-      color: #8a8aa5;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* === CHARACTER MODAL (RESPONSIVE GRID, BIG PORTRAITS) === */
-
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      backdrop-filter: blur(6px);
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 1000;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .character-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.95);
-      width: 90vw;
-      max-width: 90vw;    /* <— allow it to breathe on 4K */
-      max-height: 90vh;
-      background: #1c1c1c;
-      color: white;
-      border-radius: 12px;
-      padding: 24px;
-      z-index: 1100;
-      opacity: 0;
-      overflow-y: auto;
-      box-shadow: 0 0 18px rgba(0,0,0,0.6);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .character-modal h2 {
-      text-align: center;
-      margin: 0 0 20px;
-      font-size: 1.6rem;
-      font-weight: 600;
-    }
-
-    .character-profiles-grid {
+    .scene-inner {
+      position: relative;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      padding-bottom: 10px;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+      gap: 22px;
+      align-items: stretch;
     }
 
-    /* On very large / 4K screens, force 5 columns so all characters sit in one row */
-    @media (min-width: 2600px) {
-      .character-profiles-grid {
-        grid-template-columns: repeat(5, minmax(260px, 1fr));
+    @media (max-width: 900px) {
+      .scene-inner {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
 
-    .character-card {
-      background: #2a2a2a;
-      border-radius: 10px;
-      padding: 14px;
+    .scene-main {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .scene-title-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .scene-title {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.02em;
+    }
+
+    .scene-location {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .scene-body-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-soft);
+      white-space: pre-wrap;
+    }
+
+    .choice-list {
+      margin-top: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    /* IMPORTANT: no cropping for your tall 1024x1536 portraits */
-    .character-card img {
+    .choice-button {
       width: 100%;
-      height: auto;           /* scale but don’t crop */
-      object-fit: contain;    /* keep entire portrait visible */
-      border-radius: 8px;
-      background: #000;       /* adds a nice frame when aspect doesn’t fill */
+      text-align: left;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(15, 15, 30, 0.9);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .choice-button span.label {
+      flex: 1;
+    }
+
+    .choice-button span.chevron {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .choice-button:hover {
+      background: rgba(35, 35, 60, 0.98);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.75);
+      border-color: rgba(245, 166, 35, 0.5);
+    }
+
+    .choice-button:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .scene-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .scene-right {
+      border-radius: 18px;
+      background: rgba(5, 5, 15, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .scene-image-wrap {
+      position: relative;
+      padding-top: 66%;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #303050 0, #050509 60%);
+    }
+
+    .scene-image-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .scene-image-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      padding: 8px;
+    }
+
+    .scene-image-placeholder span.icon {
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+
+    .scene-right-footer {
+      padding: 9px 12px 11px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .json-status-ok {
+      color: #7fffd4;
+    }
+
+    .json-status-error {
+      color: var(--danger);
+    }
+
+    footer.app-footer {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-json {
+      opacity: 0.9;
+    }
+
+    .footer-json span.file {
+      color: var(--text-soft);
+    }
+
+    .footer-json span.failed {
+      color: var(--danger);
+    }
+
+    .footer-hint {
+      opacity: 0.7;
+    }
+
+    /* Modal */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+
+    .modal-backdrop.visible {
+      display: flex;
+    }
+
+    .modal {
+      width: min(900px, 100% - 32px);
+      max-height: calc(100vh - 80px);
+      background: radial-gradient(circle at top left, #2a253b 0, #090712 60%);
+      border-radius: 24px;
+      padding: 18px 20px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .modal-close {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(10, 10, 20, 0.9);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-soft);
+      font-size: 14px;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .modal-close:hover {
+      background: rgba(35, 35, 60, 0.98);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-subtle);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .modal-body {
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .character-card {
+      background: rgba(9, 9, 20, 0.94);
+      border-radius: 16px;
+      padding: 10px 11px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     .character-card h3 {
       margin: 0;
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 15px;
     }
 
-    .character-card p {
-      margin: 0;
-      opacity: 0.9;
-      line-height: 1.35;
-      font-size: 0.9rem;
+    .character-tagline {
+      font-size: 12px;
+      color: var(--muted);
     }
 
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 14px;
-      font-size: 1.4rem;
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      opacity: 0.75;
+    .character-actions {
+      margin-top: 4px;
+      display: flex;
+      justify-content: flex-end;
     }
-    .modal-close:hover {
-      opacity: 1;
+
+    .character-actions button {
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(245, 166, 35, 0.12);
+      color: var(--accent-strong);
+      border: 1px solid rgba(245, 166, 35, 0.65);
+      box-shadow: var(--shadow-subtle);
     }
+
+    .character-actions button:hover {
+      filter: brightness(1.05);
+    }
+
+    .error-banner {
+      border-radius: 10px;
+      border: 1px solid rgba(255, 79, 106, 0.65);
+      background: rgba(80, 12, 24, 0.92);
+      color: #ffd5df;
+      padding: 6px 10px;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
   </style>
 </head>
-
 <body>
-  <header>
-    <div>
-      <h1>Hollywood Party</h1>
-      <div class="sub">Dynamic character placement • Simple story UI</div>
-    </div>
-    <div class="header-right">
-      <button class="btn" onclick="showCharacterProfiles()">Meet the Characters</button>
-      <button class="btn" onclick="restartNight()">Restart Night</button>
-    </div>
-  </header>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="title-block">
+        <h1>Hollywood Party</h1>
+        <div class="title-sub">
+          <span>Dynamic character placement</span>
+          <span>&bull;</span>
+          <span>Simple story UI</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="meetCharactersBtn" class="button-pill">Meet the Characters</button>
+        <button id="restartBtn" class="button-pill primary">Restart Night</button>
+      </div>
+    </header>
 
-  <!-- CHARACTER MODAL OVERLAY -->
-  <div id="character-modal-overlay" class="modal-overlay hidden"></div>
+    <main>
+      <section class="scene-card">
+        <div class="scene-inner">
+          <div class="scene-main">
+            <div class="scene-title-row">
+              <h2 id="sceneTitle" class="scene-title">Hollywood Party</h2>
+              <div id="sceneLocation" class="scene-location"></div>
+            </div>
+            <div id="sceneText" class="scene-body-text">
+              Loading story data…
+            </div>
+            <div id="choiceList" class="choice-list"></div>
+            <div id="sceneMeta" class="scene-meta"></div>
+            <div id="sceneError" class="error-banner" style="display:none;"></div>
+          </div>
 
-  <!-- CHARACTER MODAL -->
-  <div id="character-modal" class="character-modal hidden">
-    <button class="modal-close" onclick="closeCharacterProfiles()">✕</button>
-    <h2>Meet the Characters</h2>
-    <div id="character-profiles-container" class="character-profiles-grid"></div>
+          <aside class="scene-right">
+            <div class="scene-image-wrap">
+              <img id="sceneImage" alt="Scene image" style="display:none;" />
+              <div id="sceneImagePlaceholder" class="scene-image-placeholder">
+                <span class="icon">🎬</span>
+                <div>Scene image will appear here</div>
+              </div>
+            </div>
+            <div class="scene-right-footer">
+              <div>JSON status: <span id="jsonStatus" class="json-status-ok">loading…</span></div>
+              <div id="sceneTag" class="json-status-ok"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-json" id="footerJson"></div>
+      <div class="footer-hint">Tip: use “Restart Night” to return to the main party intro.</div>
+    </footer>
   </div>
 
-  <div id="story-container">
-    <h2 id="scene-title">Hollywood Party</h2>
-    <img id="scene-image" src="" alt="Scene image" />
-    <p id="scene-text">
-You arrive at a sprawling Hollywood Hills mansion. Music spills out through open glass doors, warm light washing over polished stone. Somewhere inside, five very different women are already in motion.
-
-Where do you want to wander first?
-    </p>
-    <div id="meta-line"></div>
-    <div id="choices"></div>
-    <div id="error-box"></div>
+  <!-- Meet the Characters Modal -->
+  <div id="charactersModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="badge"><span class="badge-dot"></span><span>Party Roster</span></div>
+          <h2>Meet the Characters</h2>
+        </div>
+        <button class="modal-close" id="closeCharactersModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="characterGrid" class="character-grid"></div>
+      </div>
+    </div>
   </div>
-
-  <footer>
-    JSON used:
-    <code>characters/intro.json</code> • <code>images_manifest.json</code> • <code>characters/shared_openings.json</code> • <code>characters/shared_endings.json</code>.
-    Random assignment: 2 characters per location, each character appears in 2 locations.
-  </footer>
 
   <script>
-    // --- DOM references ---
-    const errorBox = document.getElementById('error-box');
-    const sceneTitleEl = document.getElementById('scene-title');
-    const sceneTextEl = document.getElementById('scene-text');
-    const sceneImageEl = document.getElementById('scene-image');
-    const metaLineEl = document.getElementById('meta-line');
-    const choicesEl = document.getElementById('choices');
+    // === CONFIG ===
+    const JSON_FILES = [
+      "shared_openings.json",
+      "main_story.json",
+      "shared_endings.json",
+      "characters/intro.json",
+      "characters/harper/narrative.json",
+      "characters/sienna/narrative.json",
+      "characters/riley/narrative.json",
+      "characters/luna/narrative.json",
+      "characters/mara/narrative.json"
+    ];
 
-    // --- Constants & state ---
-    const LOCATIONS = ['bar', 'lounge', 'balcony', 'pool', 'gameloft'];
+    const FALLBACK_JSON_FILES = [
+      // if you are testing locally with a different layout, these will be tried when the primary path fails
+      "intro.json",
+      "harper_narrative.json",
+      "sienna_narrative.json",
+      "riley_narrative.json",
+      "luna_narrative.json",
+      "mara_narrative.json"
+    ];
 
-    let introScenesRaw = {};          // characters/intro.json
-    let scenesById = {};              // id -> scene
-    let scenesByCharLoc = {};         // charSlug -> { loc: sceneId }
-    let characterDisplayNames = {};   // charSlug -> display name
-    let charactersSet = new Set();    // all character slugs
+    const START_SCENE_ID = "scene_00_intro";
 
-    let imagesManifest = {};          // images_manifest.json
-    let sharedOpenings = {};         // characters/shared_openings.json
-    let sharedEndings = {};          // characters/shared_endings.json
-    let characterProfiles = {};       // (optional) hardcoded for modal
+    // simple mapping from snake_case choice keys to nicer labels
+    const CHOICE_LABEL_OVERRIDES = {
+      go_to_bar: "Head to the bar",
+      go_to_pool: "Check out the pool",
+      go_to_lounge: "Slide into the lounge",
+      go_to_balcony: "Step out onto the balcony",
+      go_to_gameloft: "Climb to the game loft",
+      bar_area: "Head to the bar",
+      pool_area: "Check out the pool",
+      lounge_area: "Slide into the lounge",
+      balcony_area: "Step out onto the balcony",
+      gameloft_area: "Climb to the game loft",
+      approach_harper: "Approach Harper",
+      approach_sienna: "Approach Sienna",
+      approach_riley: "Approach Riley",
+      approach_luna: "Approach Luna",
+      approach_mara: "Approach Mara",
+      return_to_party: "Return to the main party",
+      return: "Slip away to the main party",
+      go_home: "Call it a night",
+      continue: "Continue…"
+    };
 
-    let locationAssignments = {};     // loc -> [charSlug1, charSlug2]
-    const seenIntroImage = {};        // `${charSlug}|${loc}` -> boolean
+    // optional taglines for Meet the Characters
+    const CHARACTER_TAGLINES = {
+      sienna: "Fiery pop star, emotional and electric.",
+      riley: "Athletic firecracker with playful intensity.",
+      luna: "Ethereal model with quiet, hypnotic charm.",
+      harper: "Movie-star charisma and teasing confidence.",
+      mara: "Soft-voiced actress with gentle sensuality."
+    };
 
-    let affinity = {};                // charSlug -> numeric relationship score
-    let romanceData = {};             // charSlug -> loaded romance JSON
-    let usedRomanceBeats = {};        // charSlug -> Set of used beat ids
+    // === STATE ===
+    const scenes = {};
+    const jsonLoadResults = [];
+    let currentSceneId = START_SCENE_ID;
+    const characterIntros = {}; // slug -> scene object
 
-    // --- Helpers ---
-    function clearError() {
-      errorBox.textContent = '';
+    // === DOM ===
+    const sceneTitleEl = document.getElementById("sceneTitle");
+    const sceneLocationEl = document.getElementById("sceneLocation");
+    const sceneTextEl = document.getElementById("sceneText");
+    const choiceListEl = document.getElementById("choiceList");
+    const sceneMetaEl = document.getElementById("sceneMeta");
+    const sceneErrorEl = document.getElementById("sceneError");
+    const sceneImageEl = document.getElementById("sceneImage");
+    const sceneImagePlaceholderEl = document.getElementById("sceneImagePlaceholder");
+    const jsonStatusEl = document.getElementById("jsonStatus");
+    const sceneTagEl = document.getElementById("sceneTag");
+    const footerJsonEl = document.getElementById("footerJson");
+
+    const meetCharactersBtn = document.getElementById("meetCharactersBtn");
+    const restartBtn = document.getElementById("restartBtn");
+
+    const charactersModal = document.getElementById("charactersModal");
+    const closeCharactersModalBtn = document.getElementById("closeCharactersModal");
+    const characterGridEl = document.getElementById("characterGrid");
+
+    // === UTILS ===
+    function prettyChoiceLabel(key) {
+      if (CHOICE_LABEL_OVERRIDES[key]) return CHOICE_LABEL_OVERRIDES[key];
+
+      // heuristic: split on underscores, capitalise
+      return key
+        .replace(/_/g, " ")
+        .replace(/\\b\\w/g, (m) => m.toUpperCase());
     }
 
-    function showError(message) {
-      console.error(message);
-      errorBox.textContent = message;
+    function imagePathFromScene(scene) {
+      if (!scene || !scene.image) return null;
+      // assume everything lives in images/ folder
+      return "images/" + scene.image;
     }
 
-    async function loadJSON(path) {
+    function inferLocationFromScene(sceneId) {
+      if (!sceneId) return "";
+      if (sceneId.includes("bar")) return "Bar";
+      if (sceneId.includes("pool")) return "Pool";
+      if (sceneId.includes("lounge")) return "Lounge";
+      if (sceneId.includes("balcony")) return "Balcony";
+      if (sceneId.includes("gameloft")) return "Game Loft";
+      return "";
+    }
+
+    function getCharacterSlugFromScene(scene) {
+      if (!scene) return null;
+      if (scene.character) return scene.character;
+      const id = scene.id || "";
+      const match = id.match(/^scene_(\\w+)_00_intro$/);
+      return match ? match[1] : null;
+    }
+
+    // === LOADING ===
+    async function tryFetchJson(url) {
       try {
-        const res = await fetch(path);
-        if (!res.ok) {
-          throw new Error(`Failed to load ${path} (status ${res.status})`);
-        }
-        return await res.json();
+        const res = await fetch(url, { cache: "no-cache" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        jsonLoadResults.push({ url, ok: true });
+        return data;
       } catch (err) {
-        showError(`JSON Load Error: ${err.message}`);
+        jsonLoadResults.push({ url, ok: false, error: String(err) });
         return null;
       }
     }
 
-    function capitalizeWord(w) {
-      return w ? w.charAt(0).toUpperCase() + w.slice(1) : '';
+    async function loadAllJson() {
+      // primary files
+      const promises = JSON_FILES.map((url) => tryFetchJson(url));
+
+      // also try fallback ones, but they may legitimately fail
+      for (const fb of FALLBACK_JSON_FILES) {
+        promises.push(tryFetchJson(fb));
+      }
+
+      const results = await Promise.all(promises);
+
+      for (const data of results) {
+        if (!data || typeof data !== "object") continue;
+        for (const [id, scene] of Object.entries(data)) {
+          scenes[id] = scene;
+        }
+      }
+
+      indexCharacterIntros();
+      updateFooterJson();
+      updateJsonStatus();
     }
 
-    function niceNameFromSlug(slug) {
-      return slug
-        .split(/[_\s]+/)
-        .map(capitalizeWord)
-        .join(' ');
-    }
-
-    function normalizeLocation(loc) {
-      if (!loc) return '';
-      let s = String(loc).toLowerCase().replace(/\s+/g, '');
-      if (s === 'game_loft' || s === 'gameloft') return 'gameloft';
-      return s;
-    }
-
-    function firstNameSlug(charSlug) {
-      if (!charSlug) return '';
-      return charSlug.split(/[_\s]+/)[0].toLowerCase();
-    }
-
-    // --- Index intro data ---
-    function indexIntroData() {
-      scenesById = {};
-      scenesByCharLoc = {};
-      characterDisplayNames = {};
-      charactersSet = new Set();
-
-      for (const [sceneId, scene] of Object.entries(introScenesRaw)) {
-        const s = scene || {};
-        const id = s.id || sceneId;
-
-        // Character slug
-        let charSlug = (s.character || s.character_key || '').toString().toLowerCase();
-        if (!charSlug) {
-          const parts = sceneId.split('_');
-          if (parts.length >= 4) {
-            charSlug = parts[1].toLowerCase();
-          } else {
-            charSlug = sceneId.toLowerCase();
-          }
-        }
-
-        // Location
-        let loc = normalizeLocation(s.location || '');
-        if (!loc) {
-          const parts = sceneId.split('_');
-          if (parts.length >= 4) {
-            loc = normalizeLocation(parts[parts.length - 1]);
-          }
-        }
-
-        scenesById[id] = Object.assign({}, s, {
-          id,
-          characterSlug: charSlug,
-          location: loc
-        });
-
-        if (!scenesByCharLoc[charSlug]) {
-          scenesByCharLoc[charSlug] = {};
-        }
-        if (loc) {
-          scenesByCharLoc[charSlug][loc] = id;
-        } else {
-          console.warn('Intro scene missing location:', id);
-        }
-
-        charactersSet.add(charSlug);
-
-        const displayName =
-          s.character_name ||
-          s.name ||
-          s.title ||
-          niceNameFromSlug(charSlug);
-        if (!characterDisplayNames[charSlug]) {
-          characterDisplayNames[charSlug] = displayName;
+    function indexCharacterIntros() {
+      for (const [id, scene] of Object.entries(scenes)) {
+        const slug = getCharacterSlugFromScene(scene);
+        if (!slug) continue;
+        if (!characterIntros[slug]) {
+          characterIntros[slug] = scene;
         }
       }
     }
 
-    // --- Random mapping: each location gets 2 chars, each char appears in 2 locations ---
-    function buildRandomAssignments() {
-      locationAssignments = {};
-
-      const charList = Array.from(charactersSet);
-      if (charList.length === 0) {
-        showError('No character intro scenes found.');
+    function updateFooterJson() {
+      if (!jsonLoadResults.length) {
+        footerJsonEl.textContent = "";
         return;
       }
 
-      const pool = [];
-      for (const slug of charList) {
-        pool.push(slug, slug); // each char appears twice
+      const loadedOk = jsonLoadResults.filter((r) => r.ok).map((r) => r.url);
+      const failed = jsonLoadResults.filter((r) => !r.ok).map((r) => r.url);
+
+      const parts = [];
+      if (loadedOk.length) {
+        parts.push(
+          "JSON used: " +
+            loadedOk
+              .map((u) => "<span class=\\"file\\">" + u.replace(/^.*\\//, "") + "</span>")
+              .join(" • ")
+        );
+      }
+      if (failed.length) {
+        parts.push(
+          "Failed: " +
+            failed
+              .map((u) => "<span class=\\"failed\\">" + u.replace(/^.*\\//, "") + "</span>")
+              .join(", ")
+        );
       }
 
-      // Shuffle pool
-      for (let i = pool.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [pool[i], pool[j]] = [pool[j], pool[i]];
-      }
-
-      let idx = 0;
-      for (const loc of LOCATIONS) {
-        const c1 = pool[idx % pool.length];
-        const c2 = pool[(idx + 1) % pool.length];
-        locationAssignments[loc] = [c1, c2];
-        idx += 2;
-      }
-
-      // Reset intro flags
-      for (const loc of LOCATIONS) {
-        for (const charSlug of locationAssignments[loc]) {
-          const key = `${charSlug}|${loc}`;
-          seenIntroImage[key] = false;
-        }
-      }
+      footerJsonEl.innerHTML = parts.join(" • ");
     }
 
-    function addChoiceButton(label, handler) {
-      const btn = document.createElement('button');
-      btn.className = 'choice-btn';
-      btn.textContent = label;
-      btn.onclick = handler;
-      choicesEl.appendChild(btn);
-    }
-
-    function prettyLocation(loc) {
-      if (loc === 'gameloft') return 'Game Loft';
-      return capitalizeWord(loc);
-    }
-
-    // --- Image logic ---
-    function pickImageFromManifest(charSlug, loc) {
-      if (!imagesManifest) return null;
-
-      const base = firstNameSlug(charSlug);
-      let charBlock = imagesManifest[base];
-      if (!charBlock) {
-        charBlock = imagesManifest[charSlug];
-      }
-      if (!charBlock) return null;
-
-      const locBlock = charBlock[loc];
-      if (!locBlock || !locBlock.length) return null;
-
-      const idx = Math.floor(Math.random() * locBlock.length);
-      return locBlock[idx];
-    }
-
-    // --- Scene rendering ---
-    function renderArrivalScene() {
-      clearError();
-      sceneTitleEl.textContent = 'Hollywood Party';
-
-      sceneImageEl.src = 'images/scene_00_intro.jpg';
-      sceneImageEl.style.display = 'block';
-
-      sceneTextEl.textContent =
-        'You arrive at a sprawling Hollywood Hills mansion. Music spills out through open glass doors, warm light washing over polished stone. Somewhere inside, five very different women are already in motion.\n\nWhere do you want to wander first?';
-
-      metaLineEl.textContent = 'Each location has two randomly assigned guests for this run.';
-
-      choicesEl.innerHTML = '';
-      addChoiceButton('Head to the Bar', () => enterLocation('bar'));
-      addChoiceButton('Check out the Lounge', () => enterLocation('lounge'));
-      addChoiceButton('Step onto the Balcony', () => enterLocation('balcony'));
-      addChoiceButton('Walk down to the Pool', () => enterLocation('pool'));
-      addChoiceButton('Climb up to the Game Loft', () => enterLocation('gameloft'));
-    }
-
-    function enterLocation(loc) {
-      clearError();
-
-      const assigned = locationAssignments[loc];
-      if (!assigned || assigned.length !== 2) {
-        showError(`No characters assigned to location: ${loc}`);
-        return;
-      }
-
-      const [char1, char2] = assigned;
-      const name1 = characterDisplayNames[char1] || niceNameFromSlug(char1);
-      const name2 = characterDisplayNames[char2] || niceNameFromSlug(char2);
-
-      sceneTitleEl.textContent = prettyLocation(loc);
-
-      // Generic location background image
-      const genericImg = `images/${loc}.jpg`;
-      sceneImageEl.src = genericImg;
-      sceneImageEl.style.display = 'block';
-
-      sceneTextEl.textContent =
-        `You drift into the ${prettyLocation(loc).toLowerCase()}. Two familiar figures stand out from the blur of guests:\n\n` +
-        `• ${name1}\n` +
-        `• ${name2}\n\n` +
-        `Who do you want to approach?`;
-
-      metaLineEl.textContent =
-        'Characters are randomly assigned each time you restart the night.';
-
-      choicesEl.innerHTML = '';
-      addChoiceButton(`Approach ${name1}`, () => showCharacterAtLocation(char1, loc));
-      addChoiceButton(`Approach ${name2}`, () => showCharacterAtLocation(char2, loc));
-      addChoiceButton('Return to the main party', renderArrivalScene);
-    }
-
-    function showCharacterAtLocation(charSlug, loc) {
-      clearError();
-
-      const normLoc = normalizeLocation(loc);
-
-      // Find a character intro scene (location‑agnostic).
-      // Prefer an id like "scene_<char>_00_intro", otherwise fall back
-      // to the first intro scene we find for that character.
-      let scene = null;
-      const preferredId = `scene_${charSlug}_00_intro`;
-      if (scenesById[preferredId]) {
-        scene = scenesById[preferredId];
+    function updateJsonStatus() {
+      const failures = jsonLoadResults.filter((r) => !r.ok);
+      if (!jsonLoadResults.length) {
+        jsonStatusEl.textContent = "no files loaded";
+        jsonStatusEl.className = "json-status-error";
+      } else if (failures.length) {
+        jsonStatusEl.textContent = failures.length + " file(s) failed";
+        jsonStatusEl.className = "json-status-error";
       } else {
-        for (const s of Object.values(scenesById)) {
-          if (s.characterSlug === charSlug) {
-            scene = s;
-            break;
-          }
-        }
+        jsonStatusEl.textContent = "all files loaded";
+        jsonStatusEl.className = "json-status-ok";
       }
+    }
+
+    // === RENDERING ===
+    function renderScene(sceneId) {
+      const scene = scenes[sceneId];
+      currentSceneId = sceneId;
+      sceneErrorEl.style.display = "none";
+      sceneErrorEl.textContent = "";
 
       if (!scene) {
-        showError(`No intro scene found for ${charSlug}.`);
+        sceneTitleEl.textContent = "Missing scene";
+        sceneTextEl.textContent = "No scene found for id: " + sceneId;
+        choiceListEl.innerHTML = "";
+        sceneLocationEl.textContent = "";
+        sceneMetaEl.textContent = "";
+        sceneTagEl.textContent = "";
+        sceneImageEl.style.display = "none";
+        sceneImagePlaceholderEl.style.display = "flex";
         return;
       }
 
-      const displayName =
-        characterDisplayNames[charSlug] || niceNameFromSlug(charSlug);
-
-      // header shows character name once in conversation
-      sceneTitleEl.textContent = displayName;
-
-      const introKey = `${charSlug}|${normLoc}`;
-      let imagePath = null;
-
-      if (!seenIntroImage[introKey]) {
-        const base = firstNameSlug(charSlug);
-        imagePath = `images/${base}_${normLoc}_01.jpg`;
-        seenIntroImage[introKey] = true;
+      const charSlug = getCharacterSlugFromScene(scene);
+      if (scene.character_name) {
+        sceneTitleEl.textContent = scene.character_name;
+      } else if (charSlug) {
+        // capitalise slug
+        sceneTitleEl.textContent = charSlug.charAt(0).toUpperCase() + charSlug.slice(1);
       } else {
-        imagePath = pickImageFromManifest(charSlug, normLoc);
-        if (!imagePath) {
-          const base = firstNameSlug(charSlug);
-          imagePath = `images/${base}_${normLoc}_01.jpg`;
+        sceneTitleEl.textContent = "Hollywood Party";
+      }
+
+      let locationLabel = "";
+      if (scene.location && scene.location.trim()) {
+        locationLabel = scene.location;
+      } else {
+        locationLabel = inferLocationFromScene(sceneId);
+      }
+      sceneLocationEl.textContent = locationLabel ? "Location: " + locationLabel : "";
+
+      sceneTextEl.textContent = scene.text || "";
+      sceneMetaEl.textContent = "";
+
+      // scene tag (simple classification)
+      if (charSlug) {
+        sceneTagEl.textContent = "Focus: " + (scene.character_name || charSlug);
+      } else if (locationLabel) {
+        sceneTagEl.textContent = "Area: " + locationLabel;
+      } else {
+        sceneTagEl.textContent = "";
+      }
+
+      // image
+      const imgPath = imagePathFromScene(scene);
+      if (imgPath) {
+        sceneImageEl.src = imgPath;
+        sceneImageEl.style.display = "block";
+        sceneImagePlaceholderEl.style.display = "none";
+      } else {
+        sceneImageEl.style.display = "none";
+        sceneImagePlaceholderEl.style.display = "flex";
+      }
+
+      // choices
+      choiceListEl.innerHTML = "";
+      if (scene.choices && typeof scene.choices === "object") {
+        for (const [choiceKey, nextId] of Object.entries(scene.choices)) {
+          const btn = document.createElement("button");
+          btn.className = "choice-button";
+          const labelSpan = document.createElement("span");
+          labelSpan.className = "label";
+          labelSpan.textContent = prettyChoiceLabel(choiceKey);
+          const chevronSpan = document.createElement("span");
+          chevronSpan.className = "chevron";
+          chevronSpan.textContent = "›";
+          btn.appendChild(labelSpan);
+          btn.appendChild(chevronSpan);
+
+          btn.addEventListener("click", () => {
+            renderScene(nextId);
+          });
+
+          choiceListEl.appendChild(btn);
         }
-      }
-
-      if (imagePath) {
-        sceneImageEl.src = imagePath;
-        sceneImageEl.style.display = 'block';
       } else {
-        sceneImageEl.style.display = 'none';
+        // terminal scene
+        const btn = document.createElement("button");
+        btn.className = "choice-button";
+        const labelSpan = document.createElement("span");
+        labelSpan.className = "label";
+        labelSpan.textContent = "Return to the main party";
+        const chevronSpan = document.createElement("span");
+        chevronSpan.className = "chevron";
+        chevronSpan.textContent = "↺";
+        btn.appendChild(labelSpan);
+        btn.appendChild(chevronSpan);
+        btn.addEventListener("click", () => renderScene(START_SCENE_ID));
+        choiceListEl.appendChild(btn);
       }
-
-      const mainText =
-        scene.text ||
-        scene.body ||
-        scene.description ||
-        `${displayName} notices you and lets a slow smile curl at the corner of their mouth.`;
-      sceneTextEl.textContent = mainText;
-
-      let metaBits = [];
-      if (scene.profession) metaBits.push(scene.profession);
-      if (scene.tone) metaBits.push(scene.tone);
-      metaBits.push(`Location: ${prettyLocation(normLoc)}`);
-      metaLineEl.textContent = metaBits.join(' • ');
-
-      choicesEl.innerHTML = '';
-      addChoiceButton('Say something clever (new reaction)', () => {
-        runRomanceBeat(charSlug, normLoc, 'clever');
-      });
-      addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
-        enterLocation(normLoc);
-      });
-      addChoiceButton('Slip away to the main party', renderArrivalScene);
     }
 
-    
-    // --- Romance / affinity system ---
-    
-    // --- Romance / affinity system using characters/<slug>/romance.json ---
-    async function runRomanceBeat(charSlug, loc, trigger) {
-      clearError();
-      const normLoc = normalizeLocation(loc);
-
-      if (affinity[charSlug] == null) affinity[charSlug] = 0;
-
-      // Lazy-load romance data for this character from folder-based file
-      if (!romanceData[charSlug]) {
-        const romancePath = `characters/${charSlug}/romance.json`;
-        const data = await loadJSON(romancePath);
-        if (!data || !data.styles) {
-          showError(`No romance data found for ${charSlug} (expected ${romancePath}).`);
-          return;
-        }
-        romanceData[charSlug] = data;
-      }
-
-      const data = romanceData[charSlug];
-      const displayName = characterDisplayNames[charSlug] || niceNameFromSlug(charSlug);
-
-      // First step: let the player choose how to approach (style)
-      const styles = data.styles || {};
-      const styleKeys = Object.keys(styles);
-
-      sceneTitleEl.textContent = displayName;
-      sceneTextEl.textContent =
-        data.prompt ||
-        `${displayName} watches you with interest, waiting to see what you say next.`;
-
-      choicesEl.innerHTML = '';
-
-      if (styleKeys.length === 0) {
-        // No styles defined: fall back immediately to a simple reaction
-        await runRomanceReaction(charSlug, normLoc, null);
+    // === MEET THE CHARACTERS MODAL ===
+    function buildCharacterGrid() {
+      characterGridEl.innerHTML = "";
+      const entries = Object.entries(characterIntros);
+      if (!entries.length) {
+        const div = document.createElement("div");
+        div.style.fontSize = "13px";
+        div.style.color = "#ccc";
+        div.textContent = "No character intro scenes were found in the JSON files.";
+        characterGridEl.appendChild(div);
         return;
       }
 
-      // Offer style choices
-      for (const key of styleKeys) {
-        const style = styles[key];
-        const label = style.label || key;
-        addChoiceButton(label, () => {
-          runRomanceReaction(charSlug, normLoc, key);
+      for (const [slug, scene] of entries) {
+        const card = document.createElement("div");
+        card.className = "character-card";
+
+        const title = document.createElement("h3");
+        title.textContent = scene.character_name || (slug.charAt(0).toUpperCase() + slug.slice(1));
+
+        const tagline = document.createElement("div");
+        tagline.className = "character-tagline";
+        tagline.textContent = CHARACTER_TAGLINES[slug] || "";
+
+        const actions = document.createElement("div");
+        actions.className = "character-actions";
+        const btn = document.createElement("button");
+        btn.textContent = "Jump to intro";
+        btn.addEventListener("click", () => {
+          hideCharactersModal();
+          renderScene(scene.id);
         });
+        actions.appendChild(btn);
+
+        card.appendChild(title);
+        card.appendChild(tagline);
+        card.appendChild(actions);
+
+        characterGridEl.appendChild(card);
       }
-
-      // Navigation choices
-      addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
-        enterLocation(normLoc);
-      });
-      addChoiceButton('Slip away to the main party', renderArrivalScene);
-
-      const aNow = affinity[charSlug] || 0;
-      let moodLabel = 'Neutral';
-      if (aNow <= 0) moodLabel = 'Cool';
-      else if (aNow < 3) moodLabel = 'Curious';
-      else if (aNow < 6) moodLabel = 'Warm';
-      else moodLabel = 'Very warm';
-
-      metaLineEl.textContent =
-        `Location: ${prettyLocation(normLoc)} • Affinity: ${aNow} (${moodLabel})`;
     }
 
-    async function runRomanceReaction(charSlug, loc, styleKey) {
-      clearError();
-      const normLoc = normalizeLocation(loc);
-
-      if (affinity[charSlug] == null) affinity[charSlug] = 0;
-
-      // Ensure data is loaded
-      if (!romanceData[charSlug]) {
-        const romancePath = `characters/${charSlug}/romance.json`;
-        const data = await loadJSON(romancePath);
-        if (!data || !data.styles) {
-          showError(`No romance data found for ${charSlug} (expected ${romancePath}).`);
-          return;
-        }
-        romanceData[charSlug] = data;
-      }
-
-      const data = romanceData[charSlug];
-      const displayName = characterDisplayNames[charSlug] || niceNameFromSlug(charSlug);
-
-      let reactionText = '';
-      let delta = 0;
-
-      if (styleKey && data.styles && data.styles[styleKey]) {
-        const style = data.styles[styleKey];
-        const reactions = style.reactions || [];
-        const a = affinity[charSlug] || 0;
-
-        // Pick the first reaction whose affinity window matches
-        let chosen = null;
-        for (const r of reactions) {
-          const minA = typeof r.min_affinity === 'number' ? r.min_affinity : -999;
-          const maxA = typeof r.max_affinity === 'number' ? r.max_affinity : 999;
-          if (a >= minA && a <= maxA) {
-            chosen = r;
-            break;
-          }
-        }
-
-        if (!chosen && reactions.length > 0) {
-          chosen = reactions[0];
-        }
-
-        if (chosen) {
-          reactionText = chosen.text || '';
-          delta = typeof chosen.delta === 'number' ? chosen.delta : 0;
-        }
-      }
-
-      // Fallback if no style or no valid reaction
-      if (!reactionText) {
-        const fb = data.fallback || {};
-        reactionText =
-          fb.text ||
-          `${displayName} smiles politely, but you feel the moment slipping away.`;
-        delta = typeof fb.delta === 'number' ? fb.delta : 0;
-      }
-
-      affinity[charSlug] += delta;
-
-      // Clamp affinity to a reasonable range
-      if (affinity[charSlug] > 20) affinity[charSlug] = 20;
-      if (affinity[charSlug] < -10) affinity[charSlug] = -10;
-
-      const aNow = affinity[charSlug] || 0;
-      let moodLabel = 'Neutral';
-      if (aNow <= 0) moodLabel = 'Cool';
-      else if (aNow < 3) moodLabel = 'Curious';
-      else if (aNow < 6) moodLabel = 'Warm';
-      else moodLabel = 'Very warm';
-
-      sceneTitleEl.textContent = displayName;
-      sceneTextEl.textContent = reactionText;
-
-      metaLineEl.textContent =
-        `Location: ${prettyLocation(normLoc)} • Affinity: ${aNow} (${moodLabel})`;
-
-      choicesEl.innerHTML = '';
-      addChoiceButton('Say something clever (try a different angle)', () => {
-        runRomanceBeat(charSlug, normLoc, 'clever');
-      });
-      addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
-        enterLocation(normLoc);
-      });
-      addChoiceButton('Slip away to the main party', renderArrivalScene);
+    function showCharactersModal() {
+      buildCharacterGrid();
+      charactersModal.classList.add("visible");
+      charactersModal.setAttribute("aria-hidden", "false");
     }
 
-
-    
+    function hideCharactersModal() {
+      charactersModal.classList.remove("visible");
+      charactersModal.setAttribute("aria-hidden", "true");
     }
 
-// === MEET THE CHARACTERS MODAL ===
-    async function showCharacterProfiles() {
-      clearError();
-
-      const modal = document.getElementById('character-modal');
-      const overlay = document.getElementById('character-modal-overlay');
-      const container = document.getElementById('character-profiles-container');
-
-      container.innerHTML = '';
-
-      if (!Object.keys(characterProfiles).length) {
-        const profiles = await loadJSON('character_profiles.json');
-        if (!profiles) {
-          container.innerHTML = '<p>Error loading character profiles.</p>';
-        } else {
-          characterProfiles = profiles;
-        }
-      }
-
-      if (Object.keys(characterProfiles).length) {
-        Object.entries(characterProfiles).forEach(([slug, data]) => {
-          const card = document.createElement('div');
-          card.className = 'character-card';
-
-          const img = document.createElement('img');
-          if (data.image) {
-            img.src = data.image.startsWith('images/')
-              ? data.image
-              : `images/${data.image}`;
-          } else {
-            img.src = 'images/placeholder.jpg';
-          }
-
-          const name = document.createElement('h3');
-          name.textContent = data.name || niceNameFromSlug(slug);
-
-          const desc = document.createElement('p');
-          desc.textContent = data.short_description || data.description || '';
-
-          card.appendChild(img);
-          card.appendChild(name);
-          card.appendChild(desc);
-
-          container.appendChild(card);
-        });
-      }
-
-      overlay.classList.remove('hidden');
-      modal.classList.remove('hidden');
-
-      requestAnimationFrame(() => {
-        overlay.style.opacity = '1';
-        modal.style.opacity = '1';
-        modal.style.transform = 'translate(-50%, -50%) scale(1)';
-      });
-
-      overlay.onclick = () => closeCharacterProfiles();
-    }
-
-    function closeCharacterProfiles() {
-      const modal = document.getElementById('character-modal');
-      const overlay = document.getElementById('character-modal-overlay');
-
-      overlay.style.opacity = '0';
-      modal.style.opacity = '0';
-      modal.style.transform = 'translate(-50%, -50%) scale(0.95)';
-
-      setTimeout(() => {
-        modal.classList.add('hidden');
-        overlay.classList.add('hidden');
-      }, 250);
-    }
-
-    function restartNight() {
-      clearError();
-      buildRandomAssignments();
-      renderArrivalScene();
-    }
-
-    // --- Initialization ---
+    // === INIT ===
     async function init() {
-      clearError();
-
-      const [introData, openingsData, endingsData, manifestData] = await Promise.all([
-        loadJSON('characters/intro.json'),
-        loadJSON('characters/shared_openings.json'),
-        loadJSON('characters/shared_endings.json'),
-        loadJSON('images_manifest.json')
-      ]);
-
-      if (!introData || !manifestData) {
-        showError('One or more JSON files failed to load.');
-        return;
+      try {
+        await loadAllJson();
+        renderScene(START_SCENE_ID);
+      } catch (err) {
+        sceneErrorEl.style.display = "block";
+        sceneErrorEl.textContent = "Error initialising story: " + String(err);
       }
-
-      // For now we keep using the original introScenesRaw structure.
-      // If your characters/intro.json already matches the old characters/intro.json
-      // schema, this will work without further changes.
-      introScenesRaw = introData;
-      imagesManifest = manifestData;
-      sharedOpenings = openingsData || {};
-      sharedEndings = endingsData || {};
-
-      indexIntroData();
-      buildRandomAssignments();
-      renderArrivalScene();
     }
 
+    meetCharactersBtn.addEventListener("click", showCharactersModal);
+    closeCharactersModalBtn.addEventListener("click", hideCharactersModal);
+    charactersModal.addEventListener("click", (e) => {
+      if (e.target === charactersModal) hideCharactersModal();
+    });
+
+    restartBtn.addEventListener("click", () => {
+      renderScene(START_SCENE_ID);
+    });
+
+    // kick everything off
     init();
   </script>
 </body>
