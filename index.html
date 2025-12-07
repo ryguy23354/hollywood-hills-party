@@ -1,875 +1,169 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Hollywood Party</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    :root {
-      --bg: #050509;
-      --card-bg: #101018;
-      --card-border: #252538;
-      --accent: #f5a623;
-      --accent-soft: rgba(245, 166, 35, 0.18);
-      --accent-strong: rgba(245, 166, 35, 0.95);
-      --text: #f7f7ff;
-      --text-soft: #b7b8d9;
-      --danger: #ff4f6a;
-      --muted: #6e6f8f;
-      --btn-bg: #19192a;
-      --btn-bg-hover: #23233a;
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 26px 60px rgba(0, 0, 0, 0.7);
-      --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.55);
-      --transition-fast: 150ms ease-out;
-      --transition-med: 220ms ease-out;
-      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 24px 24px 32px;
-      background: radial-gradient(circle at top, #1c1c28 0, #050509 55%);
-      min-height: 100vh;
-      color: var(--text);
-      font-family: var(--font-main);
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .app-shell {
-      max-width: 1280px;
-      margin: 0 auto;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    header.app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .title-block h1 {
-      margin: 0;
-      font-size: 28px;
-      letter-spacing: 0.03em;
-    }
-
-    .title-sub {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(245, 166, 35, 0.14);
-      color: var(--accent-strong);
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #33ff99;
-      box-shadow: 0 0 12px rgba(51, 255, 153, 0.75);
-    }
-
-    .header-actions {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    button {
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .button-pill {
-      border-radius: var(--radius-pill);
-      padding: 8px 16px;
-      font-size: 14px;
-      background: var(--btn-bg);
-      color: var(--text);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: var(--shadow-subtle);
-      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    }
-
-    .button-pill.primary {
-      background: linear-gradient(135deg, #f5a623, #ff6b3d);
-      color: #050509;
-      border-color: transparent;
-      box-shadow: 0 10px 25px rgba(255, 119, 51, 0.55);
-    }
-
-    .button-pill:hover {
-      background: var(--btn-bg-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7);
-      border-color: rgba(255, 255, 255, 0.12);
-    }
-
-    .button-pill.primary:hover {
-      filter: brightness(1.06);
-      transform: translateY(-1px) translateZ(0);
-    }
-
-    .button-pill:active {
-      transform: translateY(0);
-      box-shadow: var(--shadow-subtle);
-    }
-
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .scene-card {
-      background: radial-gradient(circle at top left, #1e1e33 0, #090914 55%);
-      border-radius: 24px;
-      padding: 24px 24px 22px;
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .scene-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(245, 166, 35, 0.14) 0, transparent 55%);
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
-    .scene-inner {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 900px) {
-      .scene-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .scene-main {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .scene-title-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .scene-title {
-      margin: 0;
-      font-size: 22px;
-      letter-spacing: 0.02em;
-    }
-
-    .scene-location {
-      font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .scene-body-text {
-      font-size: 15px;
-      line-height: 1.6;
-      color: var(--text-soft);
-      white-space: pre-wrap;
-    }
-
-    .choice-list {
-      margin-top: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .choice-button {
-      width: 100%;
-      text-align: left;
-      padding: 10px 14px;
-      border-radius: 12px;
-      background: rgba(15, 15, 30, 0.9);
-      color: var(--text);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    }
-
-    .choice-button span.label {
-      flex: 1;
-    }
-
-    .choice-button span.chevron {
-      font-size: 12px;
-      opacity: 0.7;
-    }
-
-    .choice-button:hover {
-      background: rgba(35, 35, 60, 0.98);
-      transform: translateY(-1px);
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.75);
-      border-color: rgba(245, 166, 35, 0.5);
-    }
-
-    .choice-button:active {
-      transform: translateY(0);
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .scene-meta {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-
-    .scene-right {
-      border-radius: 18px;
-      background: rgba(5, 5, 15, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .scene-image-wrap {
-      position: relative;
-      padding-top: 66%;
-      overflow: hidden;
-      background: radial-gradient(circle at center, #303050 0, #050509 60%);
-    }
-
-    .scene-image-wrap img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .scene-image-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 4px;
-      color: var(--muted);
-      font-size: 12px;
-      text-align: center;
-      padding: 8px;
-    }
-
-    .scene-image-placeholder span.icon {
-      font-size: 20px;
-      margin-bottom: 2px;
-    }
-
-    .scene-right-footer {
-      padding: 9px 12px 11px;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
-      font-size: 11px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .json-status-ok {
-      color: #7fffd4;
-    }
-
-    .json-status-error {
-      color: var(--danger);
-    }
-
-    footer.app-footer {
-      font-size: 11px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .footer-json {
-      opacity: 0.9;
-    }
-
-    .footer-json span.file {
-      color: var(--text-soft);
-    }
-
-    .footer-json span.failed {
-      color: var(--danger);
-    }
-
-    .footer-hint {
-      opacity: 0.7;
-    }
-
-    /* Modal */
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 50;
-    }
-
-    .modal-backdrop.visible {
-      display: flex;
-    }
-
-    .modal {
-      width: min(900px, 100% - 32px);
-      max-height: calc(100vh - 80px);
-      background: radial-gradient(circle at top left, #2a253b 0, #090712 60%);
-      border-radius: 24px;
-      padding: 18px 20px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: var(--shadow-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      font-size: 18px;
-    }
-
-    .modal-close {
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(10, 10, 20, 0.9);
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-soft);
-      font-size: 14px;
-      cursor: pointer;
-      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-    }
-
-    .modal-close:hover {
-      background: rgba(35, 35, 60, 0.98);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-subtle);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .modal-body {
-      overflow: auto;
-      padding-right: 2px;
-    }
-
-    .character-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-    }
-
-    .character-card {
-      background: rgba(9, 9, 20, 0.94);
-      border-radius: 16px;
-      padding: 10px 11px 11px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .character-card h3 {
-      margin: 0;
-      font-size: 15px;
-    }
-
-    .character-tagline {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .character-actions {
-      margin-top: 4px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .character-actions button {
-      font-size: 12px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: rgba(245, 166, 35, 0.12);
-      color: var(--accent-strong);
-      border: 1px solid rgba(245, 166, 35, 0.65);
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .character-actions button:hover {
-      filter: brightness(1.05);
-    }
-
-    .error-banner {
-      border-radius: 10px;
-      border: 1px solid rgba(255, 79, 106, 0.65);
-      background: rgba(80, 12, 24, 0.92);
-      color: #ffd5df;
-      padding: 6px 10px;
-      font-size: 12px;
-      margin-top: 6px;
-    }
-
-  </style>
+<meta charset="UTF-8">
+<title>Hollywood Hills Party</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin:0;
+  background:#000;
+  font-family: Arial, sans-serif;
+  color:#fff;
+}
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px;
+}
+header h1 { margin:0; font-size:28px; }
+header button {
+  background:#222; color:#fff; padding:10px 16px; border:1px solid #444;
+  border-radius:6px; cursor:pointer; margin-left:10px;
+}
+.main-card {
+  max-width:900px; margin:20px auto; background:#111; border-radius:12px;
+  padding:30px; box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+.scene-title { font-size:26px; margin-bottom:10px; text-align:center; }
+.scene-location { text-align:center; font-size:14px; color:#bbb; margin-bottom:20px; }
+.scene-text { font-size:18px; margin-bottom:20px; line-height:1.5; text-align:left; }
+.scene-image-wrapper { text-align:center; margin-bottom:20px; }
+.scene-image-wrapper img {
+  max-width:800px; width:100%; height:auto; border-radius:8px; object-fit:contain;
+}
+.choice-list { text-align:center; }
+.choice-list button {
+  display:inline-block; margin:8px; padding:12px 20px;
+  background:#222; border:1px solid #555; border-radius:6px; color:#fff; cursor:pointer;
+}
+.modal-backdrop { 
+  position:fixed; top:0; left:0; width:100%; height:100%; 
+  background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center;
+}
+.modal-backdrop.visible { display:flex; }
+.modal {
+  background:#111; padding:20px; border-radius:12px; max-width:600px; width:90%;
+}
+.character-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.character-card { background:#222; padding:12px; border-radius:8px; text-align:center; cursor:pointer; }
+</style>
 </head>
 <body>
-  <div class="app-shell">
-    <header class="app-header">
-      <div class="title-block">
-        <h1>Hollywood Party</h1>
-        <div class="title-sub">
-          <span>Dynamic character placement</span>
-          <span>&bull;</span>
-          <span>Simple story UI</span>
-        </div>
-      </div>
-      <div class="header-actions">
-        <button id="meetCharactersBtn" class="button-pill">Meet the Characters</button>
-        <button id="restartBtn" class="button-pill primary">Restart Night</button>
-      </div>
-    </header>
-
-    <main>
-      <section class="scene-card">
-        <div class="scene-inner">
-          <div class="scene-main">
-            <div class="scene-title-row">
-              <h2 id="sceneTitle" class="scene-title">Hollywood Party</h2>
-              <div id="sceneLocation" class="scene-location"></div>
-            </div>
-            <div id="sceneText" class="scene-body-text">
-              Loading story data…
-            </div>
-            <div id="choiceList" class="choice-list"></div>
-            <div id="sceneMeta" class="scene-meta"></div>
-            <div id="sceneError" class="error-banner" style="display:none;"></div>
-          </div>
-
-          <aside class="scene-right">
-            <div class="scene-image-wrap">
-              <img id="sceneImage" alt="Scene image" style="display:none;" />
-              <div id="sceneImagePlaceholder" class="scene-image-placeholder">
-                <span class="icon">🎬</span>
-                <div>Scene image will appear here</div>
-              </div>
-            </div>
-            <div class="scene-right-footer">
-              <div>JSON status: <span id="jsonStatus" class="json-status-ok">loading…</span></div>
-              <div id="sceneTag" class="json-status-ok"></div>
-            </div>
-          </aside>
-        </div>
-      </section>
-    </main>
-
-    <footer class="app-footer">
-      <div class="footer-json" id="footerJson"></div>
-      <div class="footer-hint">Tip: use “Restart Night” to return to the main party intro.</div>
-    </footer>
+<header>
+  <h1>Hollywood Party</h1>
+  <div>
+    <button id="meetCharactersBtn">Meet the Characters</button>
+    <button id="restartBtn">Restart Night</button>
   </div>
+</header>
 
-  <!-- Meet the Characters Modal -->
-  <div id="charactersModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal">
-      <div class="modal-header">
-        <div>
-          <div class="badge"><span class="badge-dot"></span><span>Party Roster</span></div>
-          <h2>Meet the Characters</h2>
-        </div>
-        <button class="modal-close" id="closeCharactersModal" aria-label="Close">✕</button>
-      </div>
-      <div class="modal-body">
-        <div id="characterGrid" class="character-grid"></div>
-      </div>
-    </div>
+<div class="main-card">
+  <div class="scene-title" id="sceneTitle"></div>
+  <div class="scene-location" id="sceneLocation"></div>
+  <div class="scene-text" id="sceneText"></div>
+  <div class="scene-image-wrapper"><img id="sceneImage" /></div>
+  <div class="choice-list" id="choiceList"></div>
+</div>
+
+<div id="charactersModal" class="modal-backdrop">
+  <div class="modal">
+    <h2>Characters</h2>
+    <div class="character-grid" id="characterGrid"></div>
+    <button id="closeCharactersModal">Close</button>
   </div>
+</div>
 
-  <script>
+<script>
+const START_SCENE_ID = "scene_00_intro";
+const STORY_JSON = "main_story.json";
+const INTRO_JSON = "characters/intro.json";
+const SHARED_OPENINGS_JSON = "characters/shared_openings.json";
+const SHARED_ENDINGS_JSON = "characters/shared_endings.json";
+const CHARACTER_FILES = {
+  sienna: "characters/sienna/narrative.json",
+  riley: "characters/riley/narrative.json",
+  luna:  "characters/luna/narrative.json",
+  harper:"characters/harper/narrative.json",
+  mara:  "characters/mara/narrative.json"
+};
 
-    // === SIMPLE STORY ENGINE CONFIG (matching your folder layout) ===
-    const START_SCENE_ID = "scene_00_intro";
+const CHOICE_LABEL_OVERRIDES = {
+  go_to_bar:"Head to the bar",
+  go_to_pool:"Head to the pool",
+  go_to_lounge:"Head to the lounge",
+  go_to_balcony:"Head to the balcony",
+  go_to_gameloft:"Head to the game loft",
+  return:"Return",
+  continue:"Continue"
+};
 
-    const STORY_JSON = "main_story.json";
-    const INTRO_JSON = "characters/intro.json";
-    const SHARED_OPENINGS_JSON = "characters/shared_openings.json";
-    const SHARED_ENDINGS_JSON = "characters/shared_endings.json";
+const CHARACTER_TAGLINES = {
+  sienna:"Fiery pop star",
+  riley:"Playful athlete",
+  luna:"Ethereal model",
+  harper:"Confident actress",
+  mara:"Gentle enchantress"
+};
 
-    const CHARACTER_FILES = {
-      sienna: "characters/sienna/narrative.json",
-      riley: "characters/riley/narrative.json",
-      luna: "characters/luna/narrative.json",
-      harper: "characters/harper/narrative.json",
-      mara: "characters/mara/narrative.json"
-    };
+const sceneTitleEl = document.getElementById("sceneTitle");
+const sceneLocationEl = document.getElementById("sceneLocation");
+const sceneTextEl = document.getElementById("sceneText");
+const sceneImageEl = document.getElementById("sceneImage");
+const choiceListEl = document.getElementById("choiceList");
+const charactersModal = document.getElementById("charactersModal");
+const characterGridEl = document.getElementById("characterGrid");
 
-    // Choice label overrides (same idea as before)
-    const CHOICE_LABEL_OVERRIDES = {
-      go_to_bar: "Head to the bar",
-      go_to_pool: "Drift toward the pool",
-      go_to_lounge: "Slide into the lounge",
-      go_to_balcony: "Step out onto the balcony",
-      go_to_gameloft: "Climb up to the game loft",
-      return_to_party: "Return to the main party",
-      return: "Slip away to the main party",
-      go_home: "Call it a night",
-      continue: "Continue…"
-    };
+function prettyChoiceLabel(k){ return CHOICE_LABEL_OVERRIDES[k]||k.replace(/_/g," "); }
 
-    const CHARACTER_TAGLINES = {
-      sienna: "Fiery pop star, emotional and electric.",
-      riley: "Athletic firecracker with playful intensity.",
-      luna: "Ethereal model with quiet, hypnotic charm.",
-      harper: "Movie-star charisma and teasing confidence.",
-      mara: "Soft-voiced actress with quiet, intimate allure."
-    };
+async function loadJson(p){ try{ let r=await fetch(p); if(!r.ok) return null; return await r.json(); }catch(e){ return null;} }
 
-    // === STATE ===
-    const scenes = {};
-    const characterNarratives = {};   // name -> scenes object
-    let introData = null;
-    let sharedOpenings = null;
-    let sharedEndings = null;
+const scenes = {};
+async function init(){
+  let files=[STORY_JSON,INTRO_JSON,SHARED_OPENINGS_JSON,SHARED_ENDINGS_JSON,...Object.values(CHARACTER_FILES)];
+  let loaded=await Promise.all(files.map(loadJson));
+  loaded.forEach((data,i)=>{ if(data && typeof data==="object") Object.assign(scenes,data); });
 
-    let currentSceneId = START_SCENE_ID;
+  renderScene(START_SCENE_ID);
+}
 
-    // DOM refs
-    const sceneTitleEl = document.getElementById("sceneTitle");
-    const sceneLocationEl = document.getElementById("sceneLocation");
-    const sceneTextEl = document.getElementById("sceneText");
-    const choiceListEl = document.getElementById("choiceList");
-    const sceneMetaEl = document.getElementById("sceneMeta");
-    const sceneErrorEl = document.getElementById("sceneError");
-    const sceneImageEl = document.getElementById("sceneImage");
-    const sceneImagePlaceholderEl = document.getElementById("sceneImagePlaceholder");
-    const jsonStatusEl = document.getElementById("jsonStatus");
-    const sceneTagEl = document.getElementById("sceneTag");
-    const footerJsonEl = document.getElementById("footerJson");
+function renderScene(id){
+  const s = scenes[id];
+  if(!s){ sceneTitleEl.textContent="Missing Scene"; sceneTextEl.textContent=id; choiceListEl.innerHTML=""; return;}
+  sceneTitleEl.textContent = s.title||"";
+  sceneLocationEl.textContent = s.location ? "Location: "+s.location : "";
+  sceneTextEl.textContent = s.text||"";
+  sceneImageEl.src = s.image ? "images/"+s.image : "";
 
-    const meetCharactersBtn = document.getElementById("meetCharactersBtn");
-    const restartBtn = document.getElementById("restartBtn");
+  choiceListEl.innerHTML="";
+  for(let k in s.choices){
+    let btn=document.createElement("button");
+    btn.textContent=prettyChoiceLabel(k);
+    btn.onclick=()=>renderScene(s.choices[k]);
+    choiceListEl.appendChild(btn);
+  }
+}
 
-    const charactersModal = document.getElementById("charactersModal");
-    const closeCharactersModalBtn = document.getElementById("closeCharactersModal");
-    const characterGridEl = document.getElementById("characterGrid");
+document.getElementById("meetCharactersBtn").onclick=()=>openModal();
+document.getElementById("closeCharactersModal").onclick=()=>closeModal();
+document.getElementById("restartBtn").onclick=()=>renderScene(START_SCENE_ID);
 
-    // === UTILITIES ===
-    function prettyChoiceLabel(key) {
-      if (CHOICE_LABEL_OVERRIDES[key]) return CHOICE_LABEL_OVERRIDES[key];
-      return key
-        .replace(/_/g, " ")
-        .replace(/\\b\\w/g, (m) => m.toUpperCase());
-    }
+function openModal(){
+  characterGridEl.innerHTML="";
+  Object.keys(CHARACTER_FILES).forEach(n=>{
+    let c=document.createElement("div");
+    c.className="character-card";
+    c.textContent = n.charAt(0).toUpperCase()+n.slice(1)+" — "+(CHARACTER_TAGLINES[n]||"");
+    c.onclick=()=>{ closeModal(); };
+    characterGridEl.appendChild(c);
+  });
+  charactersModal.classList.add("visible");
+}
+function closeModal(){ charactersModal.classList.remove("visible"); }
 
-    function imagePathFromScene(scene) {
-      if (!scene || !scene.image) return null;
-      // assume all images live in /images/
-      return "images/" + scene.image;
-    }
-
-    function setSceneImage(scene) {
-      const path = imagePathFromScene(scene);
-      if (path) {
-        sceneImageEl.src = path;
-        sceneImageEl.style.display = "block";
-        sceneImagePlaceholderEl.style.display = "none";
-      } else {
-        sceneImageEl.style.display = "none";
-        sceneImagePlaceholderEl.style.display = "flex";
-      }
-    }
-
-    function setJsonStatus(ok, detailsText) {
-      if (!jsonStatusEl) return;
-      jsonStatusEl.textContent = ok ? "ok" : "1+ file(s) failed";
-      jsonStatusEl.className = ok ? "json-status-ok" : "json-status-error";
-      if (detailsText && footerJsonEl) {
-        footerJsonEl.textContent = detailsText;
-      }
-    }
-
-    function showError(message) {
-      if (!sceneErrorEl) return;
-      sceneErrorEl.textContent = message;
-      sceneErrorEl.style.display = "block";
-    }
-
-    function clearError() {
-      if (!sceneErrorEl) return;
-      sceneErrorEl.textContent = "";
-      sceneErrorEl.style.display = "none";
-    }
-
-    function renderScene(sceneId) {
-      const scene =
-        scenes[sceneId] ||
-        (sharedOpenings && sharedOpenings[sceneId]) ||
-        (sharedEndings && sharedEndings[sceneId]);
-
-      currentSceneId = sceneId;
-
-      clearError();
-
-      if (!scene) {
-        sceneTitleEl.textContent = "Missing scene";
-        sceneTextEl.textContent = `No scene found for id: ${sceneId}`;
-        choiceListEl.innerHTML = "";
-        setSceneImage(null);
-        return;
-      }
-
-      sceneTitleEl.textContent = scene.title || "Hollywood Party";
-      sceneTextEl.textContent = scene.text || "";
-      sceneMetaEl.textContent = scene.meta || "";
-
-      // location label
-      const loc = scene.location || "";
-      sceneLocationEl.textContent = loc ? `Location: ${loc}` : "";
-
-      // tag under JSON status (optional)
-      sceneTagEl.textContent = scene.tag || "";
-
-      // image
-      setSceneImage(scene);
-
-      // choices
-      choiceListEl.innerHTML = "";
-      const choices = scene.choices || {};
-      const keys = Object.keys(choices);
-      if (!keys.length) {
-        const p = document.createElement("p");
-        p.textContent = "No choices available in this scene.";
-        choiceListEl.appendChild(p);
-        return;
-      }
-
-      keys.forEach((key) => {
-        const nextId = choices[key];
-        const btn = document.createElement("button");
-        btn.className = "choice-button";
-        btn.textContent = prettyChoiceLabel(key);
-        btn.addEventListener("click", () => {
-          renderScene(nextId);
-        });
-        choiceListEl.appendChild(btn);
-      });
-    }
-
-    async function loadJson(path) {
-      try {
-        const res = await fetch(path);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return await res.json();
-      } catch (err) {
-        console.error("Error loading JSON:", path, err);
-        return null;
-      }
-    }
-
-    async function initStory() {
-      try {
-        const jsonPromises = [
-          loadJson(STORY_JSON),
-          loadJson(INTRO_JSON),
-          loadJson(SHARED_OPENINGS_JSON),
-          loadJson(SHARED_ENDINGS_JSON),
-          ...Object.values(CHARACTER_FILES).map((p) => loadJson(p))
-        ];
-
-        const results = await Promise.all(jsonPromises);
-
-        const [
-          storyJson,
-          introJson,
-          openingsJson,
-          endingsJson,
-          ...characterJsons
-        ] = results;
-
-        // populate story scenes
-        if (storyJson && typeof storyJson === "object") {
-          Object.assign(scenes, storyJson);
-        }
-
-        introData = introJson || null;
-        sharedOpenings = openingsJson || null;
-        sharedEndings = endingsJson || null;
-
-        // character narratives (not yet used heavily, but loaded for later)
-        const characterNames = Object.keys(CHARACTER_FILES);
-        characterNames.forEach((name, idx) => {
-          const data = characterJsons[idx];
-          if (data && typeof data === "object") {
-            characterNarratives[name] = data;
-          }
-        });
-
-        // JSON status
-        const allPaths = [
-          STORY_JSON,
-          INTRO_JSON,
-          SHARED_OPENINGS_JSON,
-          SHARED_ENDINGS_JSON,
-          ...Object.values(CHARACTER_FILES)
-        ];
-        const failed = results
-          .map((res, idx) => (res ? null : allPaths[idx]))
-          .filter(Boolean);
-
-        if (failed.length) {
-          setJsonStatus(false, "JSON used: " + allPaths.join(" • ") +
-            " — failed: " + failed.join(", "));
-        } else {
-          setJsonStatus(true, "JSON used: " + allPaths.join(" • "));
-        }
-
-        // finally, render intro
-        renderScene(START_SCENE_ID);
-      } catch (err) {
-        console.error("Fatal error initialising story:", err);
-        showError("A fatal error occurred while initialising the story.");
-        setJsonStatus(false, "Initialisation failed");
-      }
-    }
-
-    // === MEET THE CHARACTERS MODAL ===
-    function openCharactersModal() {
-      if (!charactersModal) return;
-      charactersModal.classList.add("active");
-      charactersModal.setAttribute("aria-hidden", "false");
-      buildCharactersGrid();
-    }
-
-    function closeCharactersModal() {
-      if (!charactersModal) return;
-      charactersModal.classList.remove("active");
-      charactersModal.setAttribute("aria-hidden", "true");
-    }
-
-    function buildCharactersGrid() {
-      if (!characterGridEl) return;
-      characterGridEl.innerHTML = "";
-
-      const names = Object.keys(CHARACTER_FILES);
-      names.forEach((name) => {
-        const card = document.createElement("button");
-        card.className = "character-card";
-        card.type = "button";
-
-        const title = document.createElement("div");
-        title.className = "character-name";
-        title.textContent = name.charAt(0).toUpperCase() + name.slice(1);
-
-        const tagline = document.createElement("div");
-        tagline.className = "character-tagline";
-        tagline.textContent = CHARACTER_TAGLINES[name] || "";
-
-        card.appendChild(title);
-        card.appendChild(tagline);
-
-        card.addEventListener("click", () => {
-          // For now, just close the modal and jump back to the intro.
-          closeCharactersModal();
-          renderScene(START_SCENE_ID);
-        });
-
-        characterGridEl.appendChild(card);
-      });
-    }
-
-    // === BUTTON HOOK-UP ===
-    if (meetCharactersBtn) {
-      meetCharactersBtn.addEventListener("click", openCharactersModal);
-    }
-    if (closeCharactersModalBtn) {
-      closeCharactersModalBtn.addEventListener("click", closeCharactersModal);
-    }
-    if (charactersModal) {
-      charactersModal.addEventListener("click", (evt) => {
-        if (evt.target === charactersModal) {
-          closeCharactersModal();
-        }
-      });
-    }
-    if (restartBtn) {
-      restartBtn.addEventListener("click", () => {
-        renderScene(START_SCENE_ID);
-      });
-    }
-
-    // === START ===
-    initStory();
-  
-  </script>
+init();
+</script>
 </body>
 </html>
