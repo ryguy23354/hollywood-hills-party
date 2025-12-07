@@ -39,14 +39,14 @@
       "Option_C_Tame": "scene_harper_intro_balcony_C"
     }
   },
-  "scene_harper_intro_game_loft": {
-    "id": "scene_harper_intro_game_loft",
-    "image": "scene_harper_intro_game_loft.jpg",
+  "scene_harper_intro_gameloft": {
+    "id": "scene_harper_intro_gameloft",
+    "image": "scene_harper_intro_gameloft.jpg",
     "text": "Up in the game loft, Harper leans over a sleek card table, idly shuffling a deck like she\u2019s done this a thousand times on camera. Neon from the arcade cabinet paints soft color along her cheekbones. \"Finally,\" she says when she notices you. \"Someone who looks like a worthy co-star. Sit\u2014let\u2019s see if you bluff as well as you flirt.\"",
     "choices": {
-      "Option_A": "scene_harper_intro_game_loft_A",
-      "Option_B": "scene_harper_intro_game_loft_B",
-      "Option_C_Tame": "scene_harper_intro_game_loft_C"
+      "Option_A": "scene_harper_intro_gameloft_A",
+      "Option_B": "scene_harper_intro_gameloft_B",
+      "Option_C_Tame": "scene_harper_intro_gameloft_C"
     }
   },
   "scene_sienna_intro_bar": {
@@ -89,14 +89,14 @@
       "Option_C_Tame": "scene_sienna_intro_balcony_C"
     }
   },
-  "scene_sienna_intro_game_loft": {
-    "id": "scene_sienna_intro_game_loft",
-    "image": "scene_sienna_intro_game_loft.jpg",
+  "scene_sienna_intro_gameloft": {
+    "id": "scene_sienna_intro_gameloft",
+    "image": "scene_sienna_intro_gameloft.jpg",
     "text": "In the game loft, Sienna leans over a pinball machine, red hair tumbling forward as she chases the last flashing bonus. She slams the button, wins, and throws both hands up with a victorious shout. Then she clocks you watching and grins. \"You here to cheer me on,\" she asks, \"or to see if you can beat me?\"",
     "choices": {
-      "Option_A": "scene_sienna_intro_game_loft_A",
-      "Option_B": "scene_sienna_intro_game_loft_B",
-      "Option_C_Tame": "scene_sienna_intro_game_loft_C"
+      "Option_A": "scene_sienna_intro_gameloft_A",
+      "Option_B": "scene_sienna_intro_gameloft_B",
+      "Option_C_Tame": "scene_sienna_intro_gameloft_C"
     }
   },
   "scene_luna_intro_bar": {
@@ -139,14 +139,14 @@
       "Option_C_Tame": "scene_luna_intro_balcony_C"
     }
   },
-  "scene_luna_intro_game_loft": {
-    "id": "scene_luna_intro_game_loft",
-    "image": "scene_luna_intro_game_loft.jpg",
+  "scene_luna_intro_gameloft": {
+    "id": "scene_luna_intro_gameloft",
+    "image": "scene_luna_intro_gameloft.jpg",
     "text": "In the game loft, Luna sits on the arm of a sofa, watching the shifting neon reflections from the arcade machines play across the ceiling. She absently rolls a game token between her fingers, lost in thought. When you step into her orbit, she offers the token out to you. \"Your move,\" she says softly, eyes searching your face.",
     "choices": {
-      "Option_A": "scene_luna_intro_game_loft_A",
-      "Option_B": "scene_luna_intro_game_loft_B",
-      "Option_C_Tame": "scene_luna_intro_game_loft_C"
+      "Option_A": "scene_luna_intro_gameloft_A",
+      "Option_B": "scene_luna_intro_gameloft_B",
+      "Option_C_Tame": "scene_luna_intro_gameloft_C"
     }
   },
   "scene_riley_intro_bar": {
@@ -189,14 +189,14 @@
       "Option_C_Tame": "scene_riley_intro_balcony_C"
     }
   },
-  "scene_riley_intro_game_loft": {
-    "id": "scene_riley_intro_game_loft",
-    "image": "scene_riley_intro_game_loft.jpg",
+  "scene_riley_intro_gameloft": {
+    "id": "scene_riley_intro_gameloft",
+    "image": "scene_riley_intro_gameloft.jpg",
     "text": "In the game loft, Riley is mid\u2013button-mash at the arcade cabinet, laughing as the screen explodes in bright colors. She loses by a sliver, throws her head back with a groan, then spots you and brightens instantly. \"Perfect timing,\" she says. \"I need a rematch partner. You in, or are you scared to lose?\"",
     "choices": {
-      "Option_A": "scene_riley_intro_game_loft_A",
-      "Option_B": "scene_riley_intro_game_loft_B",
-      "Option_C_Tame": "scene_riley_intro_game_loft_C"
+      "Option_A": "scene_riley_intro_gameloft_A",
+      "Option_B": "scene_riley_intro_gameloft_B",
+      "Option_C_Tame": "scene_riley_intro_gameloft_C"
     }
   },
   "scene_mara_intro_bar": {
@@ -239,14 +239,14 @@
       "Option_C_Tame": "scene_mara_intro_balcony_C"
     }
   },
-  "scene_mara_intro_game_loft": {
-    "id": "scene_mara_intro_game_loft",
-    "image": "scene_mara_intro_game_loft.jpg",
+  "scene_mara_intro_gameloft": {
+    "id": "scene_mara_intro_gameloft",
+    "image": "scene_mara_intro_gameloft.jpg",
     "text": "In the game loft, Mara stands near a vintage-looking board game laid out but not yet played, tracing one fingertip along the edge of the box. She looks up as you approach, eyes bright with quiet mischief. \"I was just thinking how much more fun this would be with the right partner,\" she says. \"Interested in a little strategy?\"",
     "choices": {
-      "Option_A": "scene_mara_intro_game_loft_A",
-      "Option_B": "scene_mara_intro_game_loft_B",
-      "Option_C_Tame": "scene_mara_intro_game_loft_C"
+      "Option_A": "scene_mara_intro_gameloft_A",
+      "Option_B": "scene_mara_intro_gameloft_B",
+      "Option_C_Tame": "scene_mara_intro_gameloft_C"
     }
   }
 }
