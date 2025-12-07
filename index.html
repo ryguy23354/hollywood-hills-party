@@ -556,70 +556,54 @@
   </div>
 
   <script>
-    // === CONFIG ===
-    const JSON_FILES = [
-      "shared_openings.json",
-      "main_story.json",
-      "shared_endings.json",
-      "characters/intro.json",
-      "characters/harper/narrative.json",
-      "characters/sienna/narrative.json",
-      "characters/riley/narrative.json",
-      "characters/luna/narrative.json",
-      "characters/mara/narrative.json"
-    ];
 
-    const FALLBACK_JSON_FILES = [
-      // if you are testing locally with a different layout, these will be tried when the primary path fails
-      "intro.json",
-      "harper_narrative.json",
-      "sienna_narrative.json",
-      "riley_narrative.json",
-      "luna_narrative.json",
-      "mara_narrative.json"
-    ];
-
+    // === SIMPLE STORY ENGINE CONFIG (matching your folder layout) ===
     const START_SCENE_ID = "scene_00_intro";
 
-    // simple mapping from snake_case choice keys to nicer labels
+    const STORY_JSON = "main_story.json";
+    const INTRO_JSON = "characters/intro.json";
+    const SHARED_OPENINGS_JSON = "characters/shared_openings.json";
+    const SHARED_ENDINGS_JSON = "characters/shared_endings.json";
+
+    const CHARACTER_FILES = {
+      sienna: "characters/sienna/narrative.json",
+      riley: "characters/riley/narrative.json",
+      luna: "characters/luna/narrative.json",
+      harper: "characters/harper/narrative.json",
+      mara: "characters/mara/narrative.json"
+    };
+
+    // Choice label overrides (same idea as before)
     const CHOICE_LABEL_OVERRIDES = {
       go_to_bar: "Head to the bar",
-      go_to_pool: "Check out the pool",
+      go_to_pool: "Drift toward the pool",
       go_to_lounge: "Slide into the lounge",
       go_to_balcony: "Step out onto the balcony",
-      go_to_gameloft: "Climb to the game loft",
-      bar_area: "Head to the bar",
-      pool_area: "Check out the pool",
-      lounge_area: "Slide into the lounge",
-      balcony_area: "Step out onto the balcony",
-      gameloft_area: "Climb to the game loft",
-      approach_harper: "Approach Harper",
-      approach_sienna: "Approach Sienna",
-      approach_riley: "Approach Riley",
-      approach_luna: "Approach Luna",
-      approach_mara: "Approach Mara",
+      go_to_gameloft: "Climb up to the game loft",
       return_to_party: "Return to the main party",
       return: "Slip away to the main party",
       go_home: "Call it a night",
       continue: "Continue…"
     };
 
-    // optional taglines for Meet the Characters
     const CHARACTER_TAGLINES = {
       sienna: "Fiery pop star, emotional and electric.",
       riley: "Athletic firecracker with playful intensity.",
       luna: "Ethereal model with quiet, hypnotic charm.",
       harper: "Movie-star charisma and teasing confidence.",
-      mara: "Soft-voiced actress with gentle sensuality."
+      mara: "Soft-voiced actress with quiet, intimate allure."
     };
 
     // === STATE ===
     const scenes = {};
-    const jsonLoadResults = [];
-    let currentSceneId = START_SCENE_ID;
-    const characterIntros = {}; // slug -> scene object
+    const characterNarratives = {};   // name -> scenes object
+    let introData = null;
+    let sharedOpenings = null;
+    let sharedEndings = null;
 
-    // === DOM ===
+    let currentSceneId = START_SCENE_ID;
+
+    // DOM refs
     const sceneTitleEl = document.getElementById("sceneTitle");
     const sceneLocationEl = document.getElementById("sceneLocation");
     const sceneTextEl = document.getElementById("sceneText");
@@ -639,11 +623,9 @@
     const closeCharactersModalBtn = document.getElementById("closeCharactersModal");
     const characterGridEl = document.getElementById("characterGrid");
 
-    // === UTILS ===
+    // === UTILITIES ===
     function prettyChoiceLabel(key) {
       if (CHOICE_LABEL_OVERRIDES[key]) return CHOICE_LABEL_OVERRIDES[key];
-
-      // heuristic: split on underscores, capitalise
       return key
         .replace(/_/g, " ")
         .replace(/\\b\\w/g, (m) => m.toUpperCase());
@@ -651,293 +633,243 @@
 
     function imagePathFromScene(scene) {
       if (!scene || !scene.image) return null;
-      // assume everything lives in images/ folder
+      // assume all images live in /images/
       return "images/" + scene.image;
     }
 
-    function inferLocationFromScene(sceneId) {
-      if (!sceneId) return "";
-      if (sceneId.includes("bar")) return "Bar";
-      if (sceneId.includes("pool")) return "Pool";
-      if (sceneId.includes("lounge")) return "Lounge";
-      if (sceneId.includes("balcony")) return "Balcony";
-      if (sceneId.includes("gameloft")) return "Game Loft";
-      return "";
-    }
-
-    function getCharacterSlugFromScene(scene) {
-      if (!scene) return null;
-      if (scene.character) return scene.character;
-      const id = scene.id || "";
-      const match = id.match(/^scene_(\\w+)_00_intro$/);
-      return match ? match[1] : null;
-    }
-
-    // === LOADING ===
-    async function tryFetchJson(url) {
-      try {
-        const res = await fetch(url, { cache: "no-cache" });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const data = await res.json();
-        jsonLoadResults.push({ url, ok: true });
-        return data;
-      } catch (err) {
-        jsonLoadResults.push({ url, ok: false, error: String(err) });
-        return null;
-      }
-    }
-
-    async function loadAllJson() {
-      // primary files
-      const promises = JSON_FILES.map((url) => tryFetchJson(url));
-
-      // also try fallback ones, but they may legitimately fail
-      for (const fb of FALLBACK_JSON_FILES) {
-        promises.push(tryFetchJson(fb));
-      }
-
-      const results = await Promise.all(promises);
-
-      for (const data of results) {
-        if (!data || typeof data !== "object") continue;
-        for (const [id, scene] of Object.entries(data)) {
-          scenes[id] = scene;
-        }
-      }
-
-      indexCharacterIntros();
-      updateFooterJson();
-      updateJsonStatus();
-    }
-
-    function indexCharacterIntros() {
-      for (const [id, scene] of Object.entries(scenes)) {
-        const slug = getCharacterSlugFromScene(scene);
-        if (!slug) continue;
-        if (!characterIntros[slug]) {
-          characterIntros[slug] = scene;
-        }
-      }
-    }
-
-    function updateFooterJson() {
-      if (!jsonLoadResults.length) {
-        footerJsonEl.textContent = "";
-        return;
-      }
-
-      const loadedOk = jsonLoadResults.filter((r) => r.ok).map((r) => r.url);
-      const failed = jsonLoadResults.filter((r) => !r.ok).map((r) => r.url);
-
-      const parts = [];
-      if (loadedOk.length) {
-        parts.push(
-          "JSON used: " +
-            loadedOk
-              .map((u) => "<span class=\\"file\\">" + u.replace(/^.*\\//, "") + "</span>")
-              .join(" • ")
-        );
-      }
-      if (failed.length) {
-        parts.push(
-          "Failed: " +
-            failed
-              .map((u) => "<span class=\\"failed\\">" + u.replace(/^.*\\//, "") + "</span>")
-              .join(", ")
-        );
-      }
-
-      footerJsonEl.innerHTML = parts.join(" • ");
-    }
-
-    function updateJsonStatus() {
-      const failures = jsonLoadResults.filter((r) => !r.ok);
-      if (!jsonLoadResults.length) {
-        jsonStatusEl.textContent = "no files loaded";
-        jsonStatusEl.className = "json-status-error";
-      } else if (failures.length) {
-        jsonStatusEl.textContent = failures.length + " file(s) failed";
-        jsonStatusEl.className = "json-status-error";
-      } else {
-        jsonStatusEl.textContent = "all files loaded";
-        jsonStatusEl.className = "json-status-ok";
-      }
-    }
-
-    // === RENDERING ===
-    function renderScene(sceneId) {
-      const scene = scenes[sceneId];
-      currentSceneId = sceneId;
-      sceneErrorEl.style.display = "none";
-      sceneErrorEl.textContent = "";
-
-      if (!scene) {
-        sceneTitleEl.textContent = "Missing scene";
-        sceneTextEl.textContent = "No scene found for id: " + sceneId;
-        choiceListEl.innerHTML = "";
-        sceneLocationEl.textContent = "";
-        sceneMetaEl.textContent = "";
-        sceneTagEl.textContent = "";
-        sceneImageEl.style.display = "none";
-        sceneImagePlaceholderEl.style.display = "flex";
-        return;
-      }
-
-      const charSlug = getCharacterSlugFromScene(scene);
-      if (scene.character_name) {
-        sceneTitleEl.textContent = scene.character_name;
-      } else if (charSlug) {
-        // capitalise slug
-        sceneTitleEl.textContent = charSlug.charAt(0).toUpperCase() + charSlug.slice(1);
-      } else {
-        sceneTitleEl.textContent = "Hollywood Party";
-      }
-
-      let locationLabel = "";
-      if (scene.location && scene.location.trim()) {
-        locationLabel = scene.location;
-      } else {
-        locationLabel = inferLocationFromScene(sceneId);
-      }
-      sceneLocationEl.textContent = locationLabel ? "Location: " + locationLabel : "";
-
-      sceneTextEl.textContent = scene.text || "";
-      sceneMetaEl.textContent = "";
-
-      // scene tag (simple classification)
-      if (charSlug) {
-        sceneTagEl.textContent = "Focus: " + (scene.character_name || charSlug);
-      } else if (locationLabel) {
-        sceneTagEl.textContent = "Area: " + locationLabel;
-      } else {
-        sceneTagEl.textContent = "";
-      }
-
-      // image
-      const imgPath = imagePathFromScene(scene);
-      if (imgPath) {
-        sceneImageEl.src = imgPath;
+    function setSceneImage(scene) {
+      const path = imagePathFromScene(scene);
+      if (path) {
+        sceneImageEl.src = path;
         sceneImageEl.style.display = "block";
         sceneImagePlaceholderEl.style.display = "none";
       } else {
         sceneImageEl.style.display = "none";
         sceneImagePlaceholderEl.style.display = "flex";
       }
+    }
+
+    function setJsonStatus(ok, detailsText) {
+      if (!jsonStatusEl) return;
+      jsonStatusEl.textContent = ok ? "ok" : "1+ file(s) failed";
+      jsonStatusEl.className = ok ? "json-status-ok" : "json-status-error";
+      if (detailsText && footerJsonEl) {
+        footerJsonEl.textContent = detailsText;
+      }
+    }
+
+    function showError(message) {
+      if (!sceneErrorEl) return;
+      sceneErrorEl.textContent = message;
+      sceneErrorEl.style.display = "block";
+    }
+
+    function clearError() {
+      if (!sceneErrorEl) return;
+      sceneErrorEl.textContent = "";
+      sceneErrorEl.style.display = "none";
+    }
+
+    function renderScene(sceneId) {
+      const scene =
+        scenes[sceneId] ||
+        (sharedOpenings && sharedOpenings[sceneId]) ||
+        (sharedEndings && sharedEndings[sceneId]);
+
+      currentSceneId = sceneId;
+
+      clearError();
+
+      if (!scene) {
+        sceneTitleEl.textContent = "Missing scene";
+        sceneTextEl.textContent = `No scene found for id: ${sceneId}`;
+        choiceListEl.innerHTML = "";
+        setSceneImage(null);
+        return;
+      }
+
+      sceneTitleEl.textContent = scene.title || "Hollywood Party";
+      sceneTextEl.textContent = scene.text || "";
+      sceneMetaEl.textContent = scene.meta || "";
+
+      // location label
+      const loc = scene.location || "";
+      sceneLocationEl.textContent = loc ? `Location: ${loc}` : "";
+
+      // tag under JSON status (optional)
+      sceneTagEl.textContent = scene.tag || "";
+
+      // image
+      setSceneImage(scene);
 
       // choices
       choiceListEl.innerHTML = "";
-      if (scene.choices && typeof scene.choices === "object") {
-        for (const [choiceKey, nextId] of Object.entries(scene.choices)) {
-          const btn = document.createElement("button");
-          btn.className = "choice-button";
-          const labelSpan = document.createElement("span");
-          labelSpan.className = "label";
-          labelSpan.textContent = prettyChoiceLabel(choiceKey);
-          const chevronSpan = document.createElement("span");
-          chevronSpan.className = "chevron";
-          chevronSpan.textContent = "›";
-          btn.appendChild(labelSpan);
-          btn.appendChild(chevronSpan);
+      const choices = scene.choices || {};
+      const keys = Object.keys(choices);
+      if (!keys.length) {
+        const p = document.createElement("p");
+        p.textContent = "No choices available in this scene.";
+        choiceListEl.appendChild(p);
+        return;
+      }
 
-          btn.addEventListener("click", () => {
-            renderScene(nextId);
-          });
-
-          choiceListEl.appendChild(btn);
-        }
-      } else {
-        // terminal scene
+      keys.forEach((key) => {
+        const nextId = choices[key];
         const btn = document.createElement("button");
         btn.className = "choice-button";
-        const labelSpan = document.createElement("span");
-        labelSpan.className = "label";
-        labelSpan.textContent = "Return to the main party";
-        const chevronSpan = document.createElement("span");
-        chevronSpan.className = "chevron";
-        chevronSpan.textContent = "↺";
-        btn.appendChild(labelSpan);
-        btn.appendChild(chevronSpan);
-        btn.addEventListener("click", () => renderScene(START_SCENE_ID));
+        btn.textContent = prettyChoiceLabel(key);
+        btn.addEventListener("click", () => {
+          renderScene(nextId);
+        });
         choiceListEl.appendChild(btn);
+      });
+    }
+
+    async function loadJson(path) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+      } catch (err) {
+        console.error("Error loading JSON:", path, err);
+        return null;
+      }
+    }
+
+    async function initStory() {
+      try {
+        const jsonPromises = [
+          loadJson(STORY_JSON),
+          loadJson(INTRO_JSON),
+          loadJson(SHARED_OPENINGS_JSON),
+          loadJson(SHARED_ENDINGS_JSON),
+          ...Object.values(CHARACTER_FILES).map((p) => loadJson(p))
+        ];
+
+        const results = await Promise.all(jsonPromises);
+
+        const [
+          storyJson,
+          introJson,
+          openingsJson,
+          endingsJson,
+          ...characterJsons
+        ] = results;
+
+        // populate story scenes
+        if (storyJson && typeof storyJson === "object") {
+          Object.assign(scenes, storyJson);
+        }
+
+        introData = introJson || null;
+        sharedOpenings = openingsJson || null;
+        sharedEndings = endingsJson || null;
+
+        // character narratives (not yet used heavily, but loaded for later)
+        const characterNames = Object.keys(CHARACTER_FILES);
+        characterNames.forEach((name, idx) => {
+          const data = characterJsons[idx];
+          if (data && typeof data === "object") {
+            characterNarratives[name] = data;
+          }
+        });
+
+        // JSON status
+        const allPaths = [
+          STORY_JSON,
+          INTRO_JSON,
+          SHARED_OPENINGS_JSON,
+          SHARED_ENDINGS_JSON,
+          ...Object.values(CHARACTER_FILES)
+        ];
+        const failed = results
+          .map((res, idx) => (res ? null : allPaths[idx]))
+          .filter(Boolean);
+
+        if (failed.length) {
+          setJsonStatus(false, "JSON used: " + allPaths.join(" • ") +
+            " — failed: " + failed.join(", "));
+        } else {
+          setJsonStatus(true, "JSON used: " + allPaths.join(" • "));
+        }
+
+        // finally, render intro
+        renderScene(START_SCENE_ID);
+      } catch (err) {
+        console.error("Fatal error initialising story:", err);
+        showError("A fatal error occurred while initialising the story.");
+        setJsonStatus(false, "Initialisation failed");
       }
     }
 
     // === MEET THE CHARACTERS MODAL ===
-    function buildCharacterGrid() {
-      characterGridEl.innerHTML = "";
-      const entries = Object.entries(characterIntros);
-      if (!entries.length) {
-        const div = document.createElement("div");
-        div.style.fontSize = "13px";
-        div.style.color = "#ccc";
-        div.textContent = "No character intro scenes were found in the JSON files.";
-        characterGridEl.appendChild(div);
-        return;
-      }
-
-      for (const [slug, scene] of entries) {
-        const card = document.createElement("div");
-        card.className = "character-card";
-
-        const title = document.createElement("h3");
-        title.textContent = scene.character_name || (slug.charAt(0).toUpperCase() + slug.slice(1));
-
-        const tagline = document.createElement("div");
-        tagline.className = "character-tagline";
-        tagline.textContent = CHARACTER_TAGLINES[slug] || "";
-
-        const actions = document.createElement("div");
-        actions.className = "character-actions";
-        const btn = document.createElement("button");
-        btn.textContent = "Jump to intro";
-        btn.addEventListener("click", () => {
-          hideCharactersModal();
-          renderScene(scene.id);
-        });
-        actions.appendChild(btn);
-
-        card.appendChild(title);
-        card.appendChild(tagline);
-        card.appendChild(actions);
-
-        characterGridEl.appendChild(card);
-      }
-    }
-
-    function showCharactersModal() {
-      buildCharacterGrid();
-      charactersModal.classList.add("visible");
+    function openCharactersModal() {
+      if (!charactersModal) return;
+      charactersModal.classList.add("active");
       charactersModal.setAttribute("aria-hidden", "false");
+      buildCharactersGrid();
     }
 
-    function hideCharactersModal() {
-      charactersModal.classList.remove("visible");
+    function closeCharactersModal() {
+      if (!charactersModal) return;
+      charactersModal.classList.remove("active");
       charactersModal.setAttribute("aria-hidden", "true");
     }
 
-    // === INIT ===
-    async function init() {
-      try {
-        await loadAllJson();
-        renderScene(START_SCENE_ID);
-      } catch (err) {
-        sceneErrorEl.style.display = "block";
-        sceneErrorEl.textContent = "Error initialising story: " + String(err);
-      }
+    function buildCharactersGrid() {
+      if (!characterGridEl) return;
+      characterGridEl.innerHTML = "";
+
+      const names = Object.keys(CHARACTER_FILES);
+      names.forEach((name) => {
+        const card = document.createElement("button");
+        card.className = "character-card";
+        card.type = "button";
+
+        const title = document.createElement("div");
+        title.className = "character-name";
+        title.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+
+        const tagline = document.createElement("div");
+        tagline.className = "character-tagline";
+        tagline.textContent = CHARACTER_TAGLINES[name] || "";
+
+        card.appendChild(title);
+        card.appendChild(tagline);
+
+        card.addEventListener("click", () => {
+          // For now, just close the modal and jump back to the intro.
+          closeCharactersModal();
+          renderScene(START_SCENE_ID);
+        });
+
+        characterGridEl.appendChild(card);
+      });
     }
 
-    meetCharactersBtn.addEventListener("click", showCharactersModal);
-    closeCharactersModalBtn.addEventListener("click", hideCharactersModal);
-    charactersModal.addEventListener("click", (e) => {
-      if (e.target === charactersModal) hideCharactersModal();
-    });
+    // === BUTTON HOOK-UP ===
+    if (meetCharactersBtn) {
+      meetCharactersBtn.addEventListener("click", openCharactersModal);
+    }
+    if (closeCharactersModalBtn) {
+      closeCharactersModalBtn.addEventListener("click", closeCharactersModal);
+    }
+    if (charactersModal) {
+      charactersModal.addEventListener("click", (evt) => {
+        if (evt.target === charactersModal) {
+          closeCharactersModal();
+        }
+      });
+    }
+    if (restartBtn) {
+      restartBtn.addEventListener("click", () => {
+        renderScene(START_SCENE_ID);
+      });
+    }
 
-    restartBtn.addEventListener("click", () => {
-      renderScene(START_SCENE_ID);
-    });
-
-    // kick everything off
-    init();
+    // === START ===
+    initStory();
+  
   </script>
 </body>
 </html>
