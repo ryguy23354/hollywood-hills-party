@@ -1,0 +1,33 @@
+{
+  "character": "luna",
+  "displayName": "Luna Devreaux",
+  "beats": [
+    {
+      "id": "luna_clever_low",
+      "trigger": "clever",
+      "location": "any",
+      "minAffinity": -5,
+      "maxAffinity": 1,
+      "affinityChange": 2,
+      "text": "You keep your voice low, making a quiet, almost conspiratorial comment about how the party feels like a dream sequence. Luna's lips curve, storm-gray eyes drifting back to you.\n\n\"Mm,\" she murmurs, \"and which part are you?\""
+    },
+    {
+      "id": "luna_clever_mid",
+      "trigger": "clever",
+      "location": "any",
+      "minAffinity": 2,
+      "maxAffinity": 5,
+      "affinityChange": 2,
+      "text": "You follow it with something softer, a line that sounds more like a poem than a joke. Luna studies you, the world seeming to slow around her.\n\n\"You talk like you paint with words,\" she says quietly. \"I like listening to you.\""
+    },
+    {
+      "id": "luna_clever_high",
+      "trigger": "clever",
+      "location": "any",
+      "minAffinity": 6,
+      "maxAffinity": 10,
+      "affinityChange": 1,
+      "text": "You lean in just enough that the air between you feels charged but unhurried. The line you choose is simple, honest, and aimed directly at her.\n\nLuna's lashes lower, a slow, luminous smile unfolding. \"Stay here a little longer,\" she whispers. \"I like this version of the night.\""
+    }
+  ]
+}

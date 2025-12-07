@@ -284,7 +284,7 @@ Where do you want to wander first?
 
   <footer>
     JSON used:
-    <code>characters/intro.json</code> • <code>images_manifest.json</code> • <code>characters/shared_openings.json</code>.
+    <code>characters_intro.json</code> • <code>images_manifest.json</code> • <code>character_profiles.json</code>.
     Random assignment: 2 characters per location, each character appears in 2 locations.
   </footer>
 
@@ -301,8 +301,6 @@ Where do you want to wander first?
     const LOCATIONS = ['bar', 'lounge', 'balcony', 'pool', 'gameloft'];
 
     let introScenesRaw = {};          // characters_intro.json
-    let sharedOpenings = {};           // characters/shared_openings.json
-    let sharedEndings = {};            // characters/shared_endings.json
     let scenesById = {};              // id -> scene
     let scenesByCharLoc = {};         // charSlug -> { loc: sceneId }
     let characterDisplayNames = {};   // charSlug -> display name
@@ -313,6 +311,10 @@ Where do you want to wander first?
 
     let locationAssignments = {};     // loc -> [charSlug1, charSlug2]
     const seenIntroImage = {};        // `${charSlug}|${loc}` -> boolean
+
+    let affinity = {};                // charSlug -> numeric relationship score
+    let romanceData = {};             // charSlug -> loaded romance JSON
+    let usedRomanceBeats = {};        // charSlug -> Set of used beat ids
 
     // --- Helpers ---
     function clearError() {
@@ -384,7 +386,6 @@ Where do you want to wander first?
 
         // Location
         let loc = normalizeLocation(s.location || '');
-        if (!loc) loc = 'any';
         if (!loc) {
           const parts = sceneId.split('_');
           if (parts.length >= 4) {
@@ -524,12 +525,11 @@ Where do you want to wander first?
       const name2 = characterDisplayNames[char2] || niceNameFromSlug(char2);
 
       sceneTitleEl.textContent = prettyLocation(loc);
-      sceneImageEl.style.display = 'none';
 
-	  // Show generic location background image
-	  const genericImg = `images/${loc}.jpg`;
-	  sceneImageEl.src = genericImg;
-	  sceneImageEl.style.display = 'block';
+      // Generic location background image
+      const genericImg = `images/${loc}.jpg`;
+      sceneImageEl.src = genericImg;
+      sceneImageEl.style.display = 'block';
 
       sceneTextEl.textContent =
         `You drift into the ${prettyLocation(loc).toLowerCase()}. Two familiar figures stand out from the blur of guests:\n\n` +
@@ -551,23 +551,12 @@ Where do you want to wander first?
 
       const normLoc = normalizeLocation(loc);
       const charScenes = scenesByCharLoc[charSlug];
-
-      if (!charScenes) {
-        showError(`No intro scenes found for ${charSlug}.`);
-        return;
-      }
-
-      let sceneId = charScenes[normLoc];
-      if (!sceneId) {
-        // Fallback: use any available scene for this character
-        const anyKey = Object.keys(charScenes)[0];
-        sceneId = charScenes[anyKey];
-      }
-
-      if (!sceneId) {
+      if (!charScenes || !charScenes[normLoc]) {
         showError(`No intro scene found for ${charSlug} at ${normLoc}.`);
         return;
       }
+
+      const sceneId = charScenes[normLoc];
       const scene = scenesById[sceneId];
       if (!scene) {
         showError(`Scene "${sceneId}" not found.`);
@@ -617,7 +606,7 @@ Where do you want to wander first?
 
       choicesEl.innerHTML = '';
       addChoiceButton('Say something clever (new reaction)', () => {
-        showCharacterAtLocation(charSlug, normLoc);
+        runRomanceBeat(charSlug, normLoc, 'clever');
       });
       addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
         enterLocation(normLoc);
@@ -625,7 +614,90 @@ Where do you want to wander first?
       addChoiceButton('Slip away to the main party', renderArrivalScene);
     }
 
-    // === MEET THE CHARACTERS MODAL ===
+    
+    // --- Romance / affinity system ---
+    async function runRomanceBeat(charSlug, loc, trigger) {
+      clearError();
+      const normLoc = normalizeLocation(loc);
+
+      if (affinity[charSlug] == null) affinity[charSlug] = 0;
+      if (!usedRomanceBeats[charSlug]) usedRomanceBeats[charSlug] = new Set();
+
+      // Lazy-load romance data for this character
+      if (!romanceData[charSlug]) {
+        const romancePath = `characters/${charSlug}_romance.json`;
+        const data = await loadJSON(romancePath);
+        if (!data || !Array.isArray(data.beats)) {
+          showError(`No romance data found for ${charSlug} (expected ${romancePath}).`);
+          return;
+        }
+        romanceData[charSlug] = data;
+      }
+
+      const data = romanceData[charSlug];
+      const beats = (data.beats || []).filter((b) => {
+        if (b.trigger && b.trigger !== trigger) return false;
+
+        const locKey = (b.location || 'any').toLowerCase();
+        if (locKey !== 'any' && locKey !== normLoc) return false;
+
+        const a = affinity[charSlug];
+        const minA = typeof b.minAffinity === 'number' ? b.minAffinity : -999;
+        const maxA = typeof b.maxAffinity === 'number' ? b.maxAffinity : 999;
+        if (a < minA || a > maxA) return false;
+
+        if (b.id && usedRomanceBeats[charSlug].has(b.id)) return false;
+        return true;
+      });
+
+      let beat = beats[0];
+
+      if (!beat) {
+        // Fallback: any beat for this trigger
+        const allBeats = (data.beats || []).filter((b) => (b.trigger || 'clever') === trigger);
+        beat = allBeats[0] || null;
+      }
+
+      const displayName = characterDisplayNames[charSlug] || niceNameFromSlug(charSlug);
+
+      if (!beat) {
+        sceneTitleEl.textContent = displayName;
+        sceneTextEl.textContent =
+          `${displayName} smiles politely. You get the sense you've used up your best material for tonight.`;
+      } else {
+        if (beat.id) usedRomanceBeats[charSlug].add(beat.id);
+        const delta = typeof beat.affinityChange === 'number' ? beat.affinityChange : 0;
+        affinity[charSlug] += delta;
+
+        // Clamp affinity
+        if (affinity[charSlug] > 10) affinity[charSlug] = 10;
+        if (affinity[charSlug] < -5) affinity[charSlug] = -5;
+
+        sceneTitleEl.textContent = displayName;
+        sceneTextEl.textContent = beat.text;
+      }
+
+      const aNow = affinity[charSlug] || 0;
+      let moodLabel = 'Neutral';
+      if (aNow <= 0) moodLabel = 'Cool';
+      else if (aNow < 3) moodLabel = 'Curious';
+      else if (aNow < 6) moodLabel = 'Warm';
+      else moodLabel = 'Very warm';
+
+      metaLineEl.textContent =
+        `Location: ${prettyLocation(normLoc)} • Affinity: ${aNow} (${moodLabel})`;
+
+      choicesEl.innerHTML = '';
+      addChoiceButton('Say something clever (new reaction)', () => {
+        runRomanceBeat(charSlug, normLoc, trigger);
+      });
+      addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
+        enterLocation(normLoc);
+      });
+      addChoiceButton('Slip away to the main party', renderArrivalScene);
+    }
+
+// === MEET THE CHARACTERS MODAL ===
     async function showCharacterProfiles() {
       clearError();
 
@@ -708,22 +780,18 @@ Where do you want to wander first?
     async function init() {
       clearError();
 
-      const [introData, manifestData, sharedOpenData, sharedEndData] = await Promise.all([
-        loadJSON('characters/intro.json'),
-        loadJSON('images_manifest.json'),
-        loadJSON('characters/shared_openings.json'),
-        loadJSON('characters/shared_endings.json')
+      const [introData, manifestData] = await Promise.all([
+        loadJSON('characters_intro.json'),
+        loadJSON('images_manifest.json')
       ]);
 
-      if (!introData || !manifestData || !sharedOpenData || !sharedEndData) {
+      if (!introData || !manifestData) {
         showError('One or more JSON files failed to load.');
         return;
       }
 
       introScenesRaw = introData;
       imagesManifest = manifestData;
-      sharedOpenings = sharedOpenData || {};
-      sharedEndings = sharedEndData || {};
 
       indexIntroData();
       buildRandomAssignments();
