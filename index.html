@@ -552,16 +552,25 @@ Where do you want to wander first?
       clearError();
 
       const normLoc = normalizeLocation(loc);
-      const charScenes = scenesByCharLoc[charSlug];
-      if (!charScenes || !charScenes[normLoc]) {
-        showError(`No intro scene found for ${charSlug} at ${normLoc}.`);
-        return;
+
+      // Find a character intro scene (location‑agnostic).
+      // Prefer an id like "scene_<char>_00_intro", otherwise fall back
+      // to the first intro scene we find for that character.
+      let scene = null;
+      const preferredId = `scene_${charSlug}_00_intro`;
+      if (scenesById[preferredId]) {
+        scene = scenesById[preferredId];
+      } else {
+        for (const s of Object.values(scenesById)) {
+          if (s.characterSlug === charSlug) {
+            scene = s;
+            break;
+          }
+        }
       }
 
-      const sceneId = charScenes[normLoc];
-      const scene = scenesById[sceneId];
       if (!scene) {
-        showError(`Scene "${sceneId}" not found.`);
+        showError(`No intro scene found for ${charSlug}.`);
         return;
       }
 
@@ -771,17 +780,7 @@ Where do you want to wander first?
     }
 
 
-    metaLineEl.textContent =
-        `Location: ${prettyLocation(normLoc)} • Affinity: ${aNow} (${moodLabel})`;
-
-      choicesEl.innerHTML = '';
-      addChoiceButton('Say something clever (new reaction)', () => {
-        runRomanceBeat(charSlug, normLoc, trigger);
-      });
-      addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
-        enterLocation(normLoc);
-      });
-      addChoiceButton('Slip away to the main party', renderArrivalScene);
+    
     }
 
 // === MEET THE CHARACTERS MODAL ===
