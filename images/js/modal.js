@@ -1,10 +1,11 @@
+
 // Meet the Characters modal
 
 function hpOpenCharactersModal() {
   const modal = document.getElementById("charactersModal");
-  const grid = document.getElementById("charactersGrid");
-  if (!modal || !grid) return;
+  if (!modal) return;
 
+  const grid = document.getElementById("charactersGrid");
   grid.innerHTML = "";
 
   for (const charKey of HP_CONFIG.CHARACTERS) {
@@ -16,23 +17,22 @@ function hpOpenCharactersModal() {
     nameEl.className = "hp-character-name";
     nameEl.textContent = display?.name || charKey;
 
-    const archEl = document.createElement("div");
-    archEl.className = "hp-character-archetype";
-    archEl.textContent = display?.archetype || "";
+    const archetypeEl = document.createElement("div");
+    archetypeEl.className = "hp-character-archetype";
+    archetypeEl.textContent = display?.archetype || "";
 
     const tonightEl = document.createElement("div");
     tonightEl.className = "hp-character-locations";
-
     const locs = hpGetLocationsForCharacter(charKey);
     if (locs.length) {
-      const pretty = locs.map((l) => HP_CONFIG.LOCATION_DISPLAY[l] || l);
-      tonightEl.textContent = "Tonight: " + pretty.join(" • ");
+      const pretty = locs.map((loc) => HP_CONFIG.LOCATION_DISPLAY[loc] || loc);
+      tonightEl.textContent = `Tonight: ${pretty.join(" • ")}`;
     } else {
       tonightEl.textContent = "Tonight: Not currently at the party";
     }
 
     card.appendChild(nameEl);
-    card.appendChild(archEl);
+    card.appendChild(archetypeEl);
     card.appendChild(tonightEl);
     grid.appendChild(card);
   }

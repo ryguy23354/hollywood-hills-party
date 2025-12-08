@@ -1,12 +1,11 @@
-
 // Story JSON loading and merging
 
 async function hpLoadJson(path) {
-  const response = await fetch(path);
-  if (!response.ok) {
-    throw new Error(`Failed to load ${path}: ${response.status}`);
+  const res = await fetch(path);
+  if (!res.ok) {
+    throw new Error(`Failed to load ${path}: ${res.status}`);
   }
-  return response.json();
+  return res.json();
 }
 
 async function hpLoadAllScenes() {
@@ -15,16 +14,15 @@ async function hpLoadAllScenes() {
   for (const file of HP_CONFIG.STORY_FILES) {
     try {
       const data = await hpLoadJson(file);
-      // Each file is a dictionary of sceneId -> sceneObject
       for (const [id, scene] of Object.entries(data)) {
         allScenes[id] = scene;
       }
     } catch (err) {
       console.error(err);
-      const status = document.getElementById("jsonStatus");
-      if (status) {
-        status.textContent = `JSON status: error loading ${file}`;
-        status.style.color = "#ff6b6b";
+      const statusEl = document.getElementById("jsonStatus");
+      if (statusEl) {
+        statusEl.textContent = `JSON status: error loading ${file}`;
+        statusEl.style.color = "#ff6b6b";
       }
       throw err;
     }
@@ -33,9 +31,9 @@ async function hpLoadAllScenes() {
   HP_STATE.scenes = allScenes;
   HP_STATE.loaded = true;
 
-  const status = document.getElementById("jsonStatus");
-  if (status) {
-    status.textContent = "JSON status: ok";
-    status.style.color = "#52ffa8";
+  const statusEl = document.getElementById("jsonStatus");
+  if (statusEl) {
+    statusEl.textContent = "JSON status: ok";
+    statusEl.style.color = "#52ffa8";
   }
 }

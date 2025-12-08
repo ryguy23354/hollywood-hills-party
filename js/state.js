@@ -1,9 +1,10 @@
-
-// Global mutable state for Hollywood Party
+// Global mutable state
 
 const HP_STATE = {
-  scenes: {},                // id -> scene data
+  scenes: {},              // id -> scene object
   loaded: false,
   currentSceneId: null,
-  locationAssignments: {}    // location -> [charKey, charKey]
+  currentLocation: null,   // active location (bar, pool, etc)
+  currentCharacter: null,  // active character key (sienna, etc)
+  locationAssignments: {}  // location -> [charKey, charKey]
 };

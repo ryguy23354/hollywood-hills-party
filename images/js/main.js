@@ -1,3 +1,4 @@
+
 // Bootstrapping
 
 async function hpInit() {
@@ -14,8 +15,6 @@ async function hpInit() {
     if (restartBtn) {
       restartBtn.addEventListener("click", () => {
         hpAssignCharactersToLocations();
-        HP_STATE.currentLocation = null;
-        HP_STATE.currentCharacter = null;
         hpRenderScene(HP_CONFIG.START_SCENE_ID);
       });
     }
@@ -23,7 +22,7 @@ async function hpInit() {
     hpWireModalEvents();
     hpRenderScene(HP_CONFIG.START_SCENE_ID);
   } catch (err) {
-    console.error("Error during init:", err);
+    console.error(err);
   }
 }
 

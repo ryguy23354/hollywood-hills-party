@@ -1,11 +1,12 @@
+
 // Character placement randomizer
 
-function hpShuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
+function hpShuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [array[i], array[j]] = [array[j], array[i]];
   }
-  return arr;
+  return array;
 }
 
 // Each character appears in exactly 2 locations.
@@ -13,7 +14,7 @@ function hpShuffle(arr) {
 function hpAssignCharactersToLocations() {
   const pool = [];
   for (const char of HP_CONFIG.CHARACTERS) {
-    pool.push(char, char);
+    pool.push(char, char); // duplicate each character
   }
 
   hpShuffle(pool);
@@ -28,7 +29,7 @@ function hpAssignCharactersToLocations() {
   HP_STATE.locationAssignments = assignments;
 }
 
-// Utility to see where a character is tonight
+// Utility: invert the mapping to get locations per character
 function hpGetLocationsForCharacter(charKey) {
   const result = [];
   for (const [loc, chars] of Object.entries(HP_STATE.locationAssignments)) {
