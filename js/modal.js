@@ -1,12 +1,10 @@
 // Meet the Characters modal
-
 function hpOpenCharactersModal() {
   const modal = document.getElementById("charactersModal");
   const grid = document.getElementById("charactersGrid");
   if (!modal || !grid) return;
 
   grid.innerHTML = "";
-
   for (const charKey of HP_CONFIG.CHARACTERS) {
     const display = HP_CONFIG.CHARACTER_DISPLAY[charKey];
     const card = document.createElement("div");
@@ -20,20 +18,20 @@ function hpOpenCharactersModal() {
     archEl.className = "hp-character-archetype";
     archEl.textContent = display?.archetype || "";
 
-    const tonightEl = document.createElement("div");
-    tonightEl.className = "hp-character-locations";
+    const locsEl = document.createElement("div");
+    locsEl.className = "hp-character-locations";
 
     const locs = hpGetLocationsForCharacter(charKey);
     if (locs.length) {
       const pretty = locs.map((l) => HP_CONFIG.LOCATION_DISPLAY[l] || l);
-      tonightEl.textContent = "Tonight: " + pretty.join(" • ");
+      locsEl.textContent = "Tonight: " + pretty.join(" • ");
     } else {
-      tonightEl.textContent = "Tonight: Not currently at the party";
+      locsEl.textContent = "Tonight: Not currently at the party";
     }
 
     card.appendChild(nameEl);
     card.appendChild(archEl);
-    card.appendChild(tonightEl);
+    card.appendChild(locsEl);
     grid.appendChild(card);
   }
 
@@ -51,7 +49,6 @@ function hpCloseCharactersModal() {
 function hpWireModalEvents() {
   const modal = document.getElementById("charactersModal");
   if (!modal) return;
-
   modal.addEventListener("click", (evt) => {
     if (evt.target.hasAttribute("data-modal-close")) {
       hpCloseCharactersModal();
