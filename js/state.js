@@ -5,5 +5,6 @@ const HP_STATE = {
   currentSceneId: null,
   currentLocation: null,
   currentCharacter: null,
-  locationAssignments: {}
+  locationAssignments: {},
+  seed: null
 };
