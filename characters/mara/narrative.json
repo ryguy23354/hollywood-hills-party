@@ -5,9 +5,9 @@
     "text": "Mara stands near a tall loft window, hair glowing softly in the city light. A quiet two-person table sits nearby with an untouched game laid out between the chairs. \"You’re just in time,\" she says, nodding toward the view. \"The city puts on its best performance after midnight.\"",
     "choices": {
       "close_in": "mara_A",
-      "ask_about_telescope": "mara_B",
       "tame_talk": "mara_C",
-      "step_away": "mara_fail"
+      "step_away": "mara_fail",
+      "ask_about_the_view": "mara_B"
     }
   },
   "mara_A": {
@@ -22,7 +22,7 @@
   "mara_B": {
     "id": "mara_B",
     "image": "mara_B.jpg",
-    "text": "She guides your hands on the telescope controls, fingers sliding over yours. \"Like this,\" she murmurs. \"Feel it?\"",
+    "text": "She guides your hands along the edge of the table, fingers sliding over yours. \"Like this,\" she murmurs. \"Feel it?\"",
     "choices": {
       "turn_toward_her": "mara_success_2",
       "step_back": "mara_fail"
