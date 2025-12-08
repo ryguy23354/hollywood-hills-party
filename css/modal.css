@@ -1,0 +1,82 @@
+
+/* css/modal.css — A1-Classic modal layout fix */
+
+#charactersModal.hp-modal-open {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#charactersModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 9999;
+  overflow-y: auto;
+}
+
+.hp-modal-box {
+  width: 90%;
+  max-width: 1600px;
+  margin: 40px auto;
+  background: #111;
+  border-radius: 16px;
+  padding: 32px;
+  color: #fff;
+}
+
+#charactersGrid {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 24px;
+  padding-bottom: 16px;
+}
+
+.hp-char-card {
+  flex: 0 0 300px;
+  background: #1b1b1b;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.hp-char-img-box {
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.hp-char-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hp-char-name {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.hp-char-type {
+  font-size: 15px;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+.hp-char-desc {
+  font-size: 15px;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.hp-char-drink {
+  font-size: 14px;
+  color: #e6b98f;
+  margin-top: auto;
+}
