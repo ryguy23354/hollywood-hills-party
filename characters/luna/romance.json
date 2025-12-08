@@ -1,0 +1,80 @@
+{
+  "character": "luna",
+  "display_name": "Luna Devreaux",
+  "prompt": "The world seems quieter around Luna. Storm-gray eyes study you with slow, drifting interest, as if she is waiting to see which version of you steps forward.",
+  "styles": {
+    "bold": {
+      "label": "Meet her gaze with intense focus",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You hold her eyes a little too firmly at first. Luna tilts her head, unreadable. After a beat, a small smile curves her lips. \"You do not flinch easily,\" she murmurs. \"I am still deciding if that is dangerous or intriguing.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You let silence do some of the talking, meeting her gaze without looking away. Luna’s lashes lower, expression softening. \"Better,\" she says quietly. \"You understand stillness.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You step into her orbit with slow, deliberate confidence, as if this has all the time in the world. Luna’s fingers brush your wrist in a ghost of a touch. \"Stay right here,\" she whispers. \"You feel like a calm I have been missing.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "warm": {
+      "label": "Offer gentle, thoughtful conversation",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You ask about her work in a way that is more curious than impressed. Luna’s shoulders loosen by a fraction. \"You are not chasing a story,\" she says. \"You are just… curious. That is rare.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You share a quiet, honest thought about how the night feels to you. Luna listens with her whole attention, eyes soft. \"You notice texture,\" she murmurs. \"I like that.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You admit that being near her feels strangely grounding, like stepping out of the noise without leaving the party. Luna moves half a step closer until your shoulders almost touch. \"Stay with me a little longer,\" she whispers. \"I like how the world sounds when you are this close.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "playful": {
+      "label": "Try a soft, subtle tease",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You attempt a joke that is a bit louder than her mood. Luna’s mouth twitches, and she rescues you with a small smile. \"You are sweet,\" she says. \"Just… soften the edges.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You tease her in a hushed tone, keeping it gentle and almost conspiratorial. Her smile deepens, eyes fluttering briefly closed. \"That is better,\" she murmurs. \"You sound like you belong in this volume.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You offer a whisper-light tease that lands as something between humor and intimacy. Luna’s hand finds your forearm for just a moment. \"You are very good at this,\" she says. \"Dangerously so.\"",
+          "delta": 2
+        }
+      ]
+    }
+  },
+  "fallback": {
+    "text": "You let a comfortable silence settle, sharing the view rather than filling the air. Luna does not step away; if anything, she drifts half a step closer.",
+    "delta": 1
+  }
+}

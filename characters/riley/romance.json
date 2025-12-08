@@ -1,0 +1,80 @@
+{
+  "character": "riley",
+  "display_name": "Riley Storm",
+  "prompt": "Riley bounces on her heels, red dress catching the light. She watches you like she is waiting for you to call the next move.",
+  "styles": {
+    "bold": {
+      "label": "Match her high energy",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You try to match her pace and overshoot a little. Riley laughs and taps your chest with the back of her hand. \"Easy, hotshot. I like chaos, not crash landings.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You toss out a daring line and step closer like it is the most natural thing in the world. Riley’s eyes spark. \"Okay, you are fun,\" she grins. \"Do not slow down now.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You lean in with a challenge that feels like the start of a game only the two of you know the rules to. Riley bites her lower lip, delighted. \"There it is,\" she says. \"That is the energy I train for.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "warm": {
+      "label": "Let her know you see more than the show",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You shift from teasing to something quieter, asking about the work that nobody sees. Riley blinks, thrown off in a good way. \"Wow,\" she says. \"You actually care about the reps, not just the highlight reel.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You talk about how impressive her control and discipline are rather than the spectacle. Her whole posture softens. \"Careful,\" she murmurs, smile turning fond. \"That kind of compliment goes straight to my heart.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You admit that watching her move makes you feel safe and excited at the same time. Riley exhales a breathy little laugh, stepping so close your shoulders touch. \"You are kind of perfect trouble, you know that?\"",
+          "delta": 3
+        }
+      ]
+    },
+    "playful": {
+      "label": "Turn it into a game",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You suggest a small challenge, but your wording comes out a bit tangled. Riley grins anyway. \"The pitch was messy, but I am listening,\" she teases. \"Try again.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You turn the moment into a playful bet with a simple, flirty prize. Riley lights up. \"Now we are talking,\" she laughs. \"I love a stake that matters.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You raise the stakes on the game in a way that is still light but charged. Riley steps in so close that her laugh brushes your neck. \"You keep making it very hard for me to focus on anything else tonight.\"",
+          "delta": 2
+        }
+      ]
+    }
+  },
+  "fallback": {
+    "text": "You keep things breezy, tossing her an easy joke and a smile. Riley bumps her shoulder lightly into yours, clearly not ready to let you disappear yet.",
+    "delta": 1
+  }
+}
