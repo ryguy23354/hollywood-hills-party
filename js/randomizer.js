@@ -1,4 +1,3 @@
-
 // Character placement randomizer
 
 function hpShuffle(array) {

@@ -1,32 +1,31 @@
-
 // Meet the Characters modal
 
 function hpOpenCharactersModal() {
   const modal = document.getElementById("charactersModal");
-  if (!modal) return;
-
   const grid = document.getElementById("charactersGrid");
+  if (!modal || !grid) return;
+
   grid.innerHTML = "";
 
   for (const charKey of HP_CONFIG.CHARACTERS) {
-    const display = HP_CONFIG.CHARACTER_DISPLAY[charKey];
+    const display = HP_CONFIG.CHARACTER_DISPLAY[charKey] || { name: charKey, archetype: "" };
     const card = document.createElement("div");
     card.className = "hp-character-card";
 
     const nameEl = document.createElement("div");
     nameEl.className = "hp-character-name";
-    nameEl.textContent = display?.name || charKey;
+    nameEl.textContent = display.name;
 
     const archetypeEl = document.createElement("div");
     archetypeEl.className = "hp-character-archetype";
-    archetypeEl.textContent = display?.archetype || "";
+    archetypeEl.textContent = display.archetype || "";
 
     const tonightEl = document.createElement("div");
     tonightEl.className = "hp-character-locations";
     const locs = hpGetLocationsForCharacter(charKey);
     if (locs.length) {
       const pretty = locs.map((loc) => HP_CONFIG.LOCATION_DISPLAY[loc] || loc);
-      tonightEl.textContent = `Tonight: ${pretty.join(" • ")}`;
+      tonightEl.textContent = "Tonight: " + pretty.join(" • ");
     } else {
       tonightEl.textContent = "Tonight: Not currently at the party";
     }

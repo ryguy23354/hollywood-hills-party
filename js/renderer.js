@@ -1,33 +1,19 @@
-
 // Scene rendering and choice wiring
 
-function hpGetLocationKeyForScene(sceneId) {
-  // Location intro scenes follow pattern: scene_<location>_01
-  for (const loc of HP_CONFIG.LOCATIONS) {
-    if (sceneId.startsWith(`scene_${loc}_`)) return loc;
-  }
-  return null;
-}
-
-function hpGetCharacterKeyForScene(sceneId) {
-  for (const char of HP_CONFIG.CHARACTERS) {
-    if (sceneId.includes(char)) return char;
-  }
-  return null;
-}
-
-function hpGetSceneTitle(sceneId) {
+function hpGetSceneTitle(sceneId, scene) {
   if (sceneId === HP_CONFIG.START_SCENE_ID) {
-    return "Hollywood Party";
+    return "Hollywood Hills Party";
   }
-  const loc = hpGetLocationKeyForScene(sceneId);
-  if (loc) {
-    return HP_CONFIG.LOCATION_DISPLAY[loc] || loc;
+  const locKey = hpGetLocationKeyForScene(sceneId);
+  if (locKey) {
+    return HP_CONFIG.LOCATION_DISPLAY[locKey] || locKey;
   }
   const charKey = hpGetCharacterKeyForScene(sceneId);
   if (charKey) {
-    return HP_CONFIG.CHARACTER_DISPLAY[charKey]?.name || charKey;
+    const display = HP_CONFIG.CHARACTER_DISPLAY[charKey];
+    if (display && display.name) return display.name;
   }
+  if (scene && scene.id && scene.id !== sceneId) return scene.id;
   return "";
 }
 
@@ -35,48 +21,46 @@ function hpRenderScene(sceneId) {
   if (!HP_STATE.loaded) return;
 
   const scene = HP_STATE.scenes[sceneId];
+  const sceneTitleEl = document.getElementById("sceneTitle");
+  const sceneLocationEl = document.getElementById("sceneLocation");
+  const sceneTextEl = document.getElementById("sceneText");
+  const choicesContainer = document.getElementById("choicesContainer");
+
   if (!scene) {
     console.warn("Unknown scene id:", sceneId);
+    HP_STATE.currentSceneId = sceneId;
+    if (sceneTitleEl) sceneTitleEl.textContent = "Missing Scene";
+    if (sceneLocationEl) sceneLocationEl.textContent = "";
+    if (sceneTextEl) sceneTextEl.textContent = `Scene not found: ${sceneId}`;
+    if (choicesContainer) choicesContainer.innerHTML = "";
     return;
   }
 
   HP_STATE.currentSceneId = sceneId;
 
-  const sceneTitleEl = document.getElementById("sceneTitle");
-  const sceneLocationEl = document.getElementById("sceneLocation");
-  const sceneTextEl = document.getElementById("sceneText");
-  const imageEl = document.getElementById("sceneImage");
-  const placeholderEl = document.getElementById("sceneImagePlaceholder");
-  const choicesContainer = document.getElementById("choicesContainer");
+  const title = hpGetSceneTitle(sceneId, scene);
+  if (sceneTitleEl) sceneTitleEl.textContent = title || "";
 
   const locKey = hpGetLocationKeyForScene(sceneId);
-  const title = hpGetSceneTitle(sceneId);
-  sceneTitleEl.textContent = title;
-
-  if (locKey) {
-    sceneLocationEl.textContent = `Location: ${HP_CONFIG.LOCATION_DISPLAY[locKey] || locKey}`;
-  } else {
-    sceneLocationEl.textContent = "";
+  if (sceneLocationEl) {
+    if (locKey) {
+      sceneLocationEl.textContent = "Location: " + (HP_CONFIG.LOCATION_DISPLAY[locKey] || locKey);
+    } else {
+      sceneLocationEl.textContent = "";
+    }
   }
 
-  sceneTextEl.textContent = scene.text || "";
+  if (sceneTextEl) sceneTextEl.textContent = scene.text || "";
 
-  // Image handling: show if we have a path, otherwise show placeholder
-  const imgPath = scene.image ? `images/${scene.image}` : null;
-  if (imgPath) {
-    imageEl.src = imgPath;
-    imageEl.style.display = "block";
-    placeholderEl.style.display = "none";
-  } else {
-    imageEl.src = "";
-    imageEl.style.display = "none";
-    placeholderEl.style.display = "inline-flex";
-  }
+  hpSetSceneImage(sceneId, scene);
 
-  // Choices
+  if (!choicesContainer) return;
   choicesContainer.innerHTML = "";
 
-  const isLocationIntro = !!locKey && sceneId !== HP_CONFIG.START_SCENE_ID;
+  const isLocationIntro =
+    locKey &&
+    sceneId !== HP_CONFIG.START_SCENE_ID &&
+    sceneId === `scene_${locKey}_01`;
 
   if (isLocationIntro) {
     hpRenderLocationIntroChoices(locKey, choicesContainer);
@@ -89,7 +73,6 @@ function hpRenderLocationIntroChoices(locKey, container) {
   const assignedChars = HP_STATE.locationAssignments[locKey] || [];
 
   if (!assignedChars.length) {
-    // Fallback: just a generic return button
     const btn = hpCreateChoiceButton("Return to the main party", HP_CONFIG.START_SCENE_ID);
     container.appendChild(btn);
     return;
@@ -125,7 +108,6 @@ function hpRenderGenericChoices(scene, container) {
 }
 
 function hpFormatChoiceLabel(choiceKey) {
-  // Basic formatter: convert snake_case to nice labels
   const customLabels = {
     bar_area: "Head to the bar",
     pool_area: "Drift toward the pool",
@@ -143,7 +125,7 @@ function hpFormatChoiceLabel(choiceKey) {
     .replace(/^go_to_/, "")
     .replace(/^approach_/, "Approach ")
     .replace(/_/g, " ")
-    .replace(/\w/g, (m) => m.toUpperCase());
+    .replace(/\b\w/g, (m) => m.toUpperCase());
 }
 
 function hpCreateChoiceButton(label, targetSceneId) {
