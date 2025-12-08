@@ -1,8 +1,6 @@
-// Core configuration for Hollywood Hills Party
-
+// Core configuration
 const HP_CONFIG = {
   START_SCENE_ID: "scene_00_intro",
-
   STORY_FILES: [
     "main_story.json",
     "characters/intro.json",
@@ -14,11 +12,8 @@ const HP_CONFIG = {
     "characters/harper/narrative.json",
     "characters/mara/narrative.json"
   ],
-
   LOCATIONS: ["bar", "pool", "lounge", "balcony", "gameloft"],
-
   CHARACTERS: ["sienna", "riley", "luna", "harper", "mara"],
-
   CHARACTER_DISPLAY: {
     sienna: { name: "Sienna Brooks", archetype: "Fiery Heartthrob" },
     riley:  { name: "Riley Storm",  archetype: "Playful Firecracker" },
@@ -26,7 +21,6 @@ const HP_CONFIG = {
     harper: { name: "Harper Vale",  archetype: "Teasing Siren" },
     mara:   { name: "Mara Quinn",   archetype: "Gentle Enchantress" }
   },
-
   LOCATION_DISPLAY: {
     bar: "Bar",
     pool: "Pool",

@@ -1,63 +1,55 @@
-// Scene rendering and image logic
+// Rendering & image resolution
 
 function hpGetLocationKeyForScene(sceneId) {
-  // scene_bar_01, scene_pool_02, etc.
-  const match = /^scene_(bar|pool|lounge|balcony|gameloft)_/i.exec(sceneId);
-  return match ? match[1].toLowerCase() : null;
+  const m = /^scene_(bar|pool|lounge|balcony|gameloft)_/i.exec(sceneId);
+  return m ? m[1].toLowerCase() : null;
 }
 
 function hpGetCharacterKeyForScene(sceneId) {
-  const match = /^scene_(sienna|riley|luna|harper|mara)_/i.exec(sceneId);
-  return match ? match[1].toLowerCase() : null;
+  const m = /^scene_(sienna|riley|luna|harper|mara)_/i.exec(sceneId);
+  return m ? m[1].toLowerCase() : null;
 }
 
 function hpGetSceneTitle(sceneId) {
-  if (sceneId === HP_CONFIG.START_SCENE_ID) {
-    return "Hollywood Hills Party";
-  }
-
+  if (sceneId === HP_CONFIG.START_SCENE_ID) return "Hollywood Hills Party";
   const locKey = hpGetLocationKeyForScene(sceneId);
-  if (locKey) {
-    return HP_CONFIG.LOCATION_DISPLAY[locKey] || locKey;
-  }
-
+  if (locKey) return HP_CONFIG.LOCATION_DISPLAY[locKey] || locKey;
   const charKey = hpGetCharacterKeyForScene(sceneId);
-  if (charKey) {
-    return HP_CONFIG.CHARACTER_DISPLAY[charKey]?.name || charKey;
-  }
-
+  if (charKey) return HP_CONFIG.CHARACTER_DISPLAY[charKey]?.name || charKey;
   return "";
 }
 
+// MAIN IMAGE RESOLUTION (Option C hybrid)
 function hpResolveImageForScene(sceneId, scene) {
-  const imgBasePath = "images/";
+  const base = "images/";
   const isIntro = sceneId === HP_CONFIG.START_SCENE_ID;
   const locKeyFromId = hpGetLocationKeyForScene(sceneId);
   const charKeyFromId = hpGetCharacterKeyForScene(sceneId);
 
   // 1. Global intro
-  if (isIntro) {
-    return imgBasePath + "scene_00_intro.jpg";
+  if (isIntro) return base + "scene_00_intro.jpg";
+
+  // 2. Location intro (scene_<loc>_01 and NOT a character intro)
+  if (locKeyFromId && /^scene_(bar|pool|lounge|balcony|gameloft)_01$/i.test(sceneId) && !charKeyFromId) {
+    return base + locKeyFromId + ".jpg";
   }
 
-  // 2. Location intro: scene_<loc>_01 and no explicit character here
-  if (locKeyFromId && /^scene_[^_]+_01$/i.test(sceneId) && !charKeyFromId) {
-    return imgBasePath + locKeyFromId + ".jpg"; // bar.jpg, pool.jpg, etc.
-  }
-
-  // 3. Character scenes:
-  //    Prefer explicit image name from JSON (Option A).
-  if (scene && typeof scene.image === "string" && scene.image.trim() !== "") {
-    const name = scene.image.trim();
-    // If user included extension, respect it; otherwise assume .jpg
-    if (/\.(jpg|jpeg|png|webp|gif)$/i.test(name)) {
-      return imgBasePath + name;
-    } else {
-      return imgBasePath + name + ".jpg";
+  // 3. Character intro scenes: scene_<char>_00_intro
+  if (charKeyFromId && /^scene_(sienna|riley|luna|harper|mara)_00_intro$/i.test(sceneId)) {
+    const activeLoc = HP_STATE.currentLocation || hpGuessLocationForCharacter(charKeyFromId);
+    if (activeLoc) {
+      return base + `${charKeyFromId}_${activeLoc}_01.jpg`;
     }
   }
 
-  //    Otherwise use <character>_<location>_01.jpg based on active state.
+  // 4. Other character scenes: prefer explicit image in JSON
+  if (scene && typeof scene.image === "string" && scene.image.trim() !== "") {
+    const name = scene.image.trim();
+    if (/\.(jpg|jpeg|png|webp|gif)$/i.test(name)) return base + name;
+    return base + name + ".jpg";
+  }
+
+  // 5. Fallback for character scenes without explicit image:
   const activeChar = HP_STATE.currentCharacter || charKeyFromId;
   const activeLoc =
     HP_STATE.currentLocation ||
@@ -65,23 +57,21 @@ function hpResolveImageForScene(sceneId, scene) {
     (activeChar ? hpGuessLocationForCharacter(activeChar) : null);
 
   if (activeChar && activeLoc) {
-    return imgBasePath + `${activeChar}_${activeLoc}_01.jpg`;
+    return base + `${activeChar}_${activeLoc}_01.jpg`;
   }
 
-  // 4. Fallback: if we know a location, use its generic image
+  // 6. Location fallback
   if (locKeyFromId) {
-    return imgBasePath + locKeyFromId + ".jpg";
+    return base + locKeyFromId + ".jpg";
   }
 
-  // 5. Final fallback (optional default)
-  return imgBasePath + "default.jpg";
+  // 7. Final fallback
+  return base + "default.jpg";
 }
 
-// Helper: if we somehow have only character, guess one of tonight's locations.
 function hpGuessLocationForCharacter(charKey) {
   const locs = hpGetLocationsForCharacter(charKey);
-  if (locs.length > 0) return locs[0];
-  return null;
+  return locs.length ? locs[0] : null;
 }
 
 function hpRenderScene(sceneId) {
@@ -96,7 +86,6 @@ function hpRenderScene(sceneId) {
   const choicesContainer = document.getElementById("choicesContainer");
 
   if (!scene) {
-    console.warn("Unknown scene id:", sceneId);
     if (sceneTitleEl) sceneTitleEl.textContent = "Missing scene";
     if (sceneTextEl) sceneTextEl.textContent = `Scene not found: ${sceneId}`;
     if (imageEl && placeholderEl) {
@@ -108,51 +97,67 @@ function hpRenderScene(sceneId) {
   }
 
   HP_STATE.currentSceneId = sceneId;
-
   const locKey = hpGetLocationKeyForScene(sceneId);
   const charKeyFromId = hpGetCharacterKeyForScene(sceneId);
 
-  // For location intros, set the active location and clear active character
-  if (locKey && /^scene_[^_]+_01$/i.test(sceneId) && !charKeyFromId) {
+  // Update active location on location-intro scenes
+  if (locKey && /^scene_(bar|pool|lounge|balcony|gameloft)_01$/i.test(sceneId) && !charKeyFromId) {
     HP_STATE.currentLocation = locKey;
     HP_STATE.currentCharacter = null;
   }
 
-  if (sceneTitleEl) {
-    sceneTitleEl.textContent = hpGetSceneTitle(sceneId) || "";
-  }
+  // Titles
+  if (sceneTitleEl) sceneTitleEl.textContent = hpGetSceneTitle(sceneId) || "";
 
   if (sceneLocationEl) {
     if (locKey) {
-      sceneLocationEl.textContent = `Location: ${
-        HP_CONFIG.LOCATION_DISPLAY[locKey] || locKey
-      }`;
+      sceneLocationEl.textContent = `Location: ${HP_CONFIG.LOCATION_DISPLAY[locKey] || locKey}`;
     } else {
       sceneLocationEl.textContent = "";
     }
   }
 
-  if (sceneTextEl) {
-    sceneTextEl.textContent = scene.text || "";
-  }
+  if (sceneTextEl) sceneTextEl.textContent = scene.text || "";
 
-  // IMAGE HANDLING
+  // IMAGE rendering
   if (imageEl && placeholderEl) {
     const imgPath = hpResolveImageForScene(sceneId, scene);
     if (imgPath) {
+      const activeChar = HP_STATE.currentCharacter || charKeyFromId || "";
+      const activeLoc =
+        HP_STATE.currentLocation ||
+        locKey ||
+        (activeChar ? hpGuessLocationForCharacter(activeChar) : "");
+
+      imageEl.dataset.char = activeChar;
+      imageEl.dataset.loc = activeLoc;
+      imageEl.dataset.variant = "1";
       imageEl.src = imgPath;
       imageEl.style.display = "block";
       placeholderEl.style.display = "none";
+
       imageEl.onerror = function () {
-        // If the first attempt fails, fall back to location generic if possible.
-        const loc = hpGetLocationKeyForScene(sceneId) || HP_STATE.currentLocation;
-        if (loc) {
+        const c = imageEl.dataset.char || "";
+        const l = imageEl.dataset.loc || "";
+        let v = parseInt(imageEl.dataset.variant || "1", 10);
+
+        // Try next variants up to 4
+        if (c && l && v < 4) {
+          v += 1;
+          imageEl.dataset.variant = String(v);
           imageEl.onerror = null;
-          imageEl.src = "images/" + loc + ".jpg";
+          imageEl.src = `images/${c}_${l}_0${v}.jpg`;
         } else {
+          // Fall back to generic location image
           imageEl.onerror = null;
-          imageEl.style.display = "none";
-          placeholderEl.style.display = "block";
+          if (l) {
+            imageEl.src = `images/${l}.jpg`;
+          } else if (locKey) {
+            imageEl.src = `images/${locKey}.jpg`;
+          } else {
+            imageEl.style.display = "none";
+            placeholderEl.style.display = "block";
+          }
         }
       };
     } else {
@@ -167,7 +172,10 @@ function hpRenderScene(sceneId) {
   choicesContainer.innerHTML = "";
 
   const isLocationIntro =
-    locKey && /^scene_[^_]+_01$/i.test(sceneId) && sceneId !== HP_CONFIG.START_SCENE_ID;
+    locKey &&
+    /^scene_(bar|pool|lounge|balcony|gameloft)_01$/i.test(sceneId) &&
+    sceneId !== HP_CONFIG.START_SCENE_ID &&
+    !charKeyFromId;
 
   if (isLocationIntro) {
     hpRenderLocationIntroChoices(locKey, choicesContainer);
@@ -178,12 +186,6 @@ function hpRenderScene(sceneId) {
 
 function hpRenderLocationIntroChoices(locKey, container) {
   const assignedChars = HP_STATE.locationAssignments[locKey] || [];
-
-  if (!assignedChars.length) {
-    const btn = hpCreateChoiceButton("Return to the main party", HP_CONFIG.START_SCENE_ID);
-    container.appendChild(btn);
-    return;
-  }
 
   for (const charKey of assignedChars) {
     const display = HP_CONFIG.CHARACTER_DISPLAY[charKey];
@@ -211,9 +213,11 @@ function hpRenderGenericChoices(scene, container) {
   const choices = scene.choices || {};
   const entries = Object.entries(choices);
   if (!entries.length) {
-    const btn = hpCreateChoiceButton("Return to the main party", HP_CONFIG.START_SCENE_ID, {
-      clearCharacter: false
-    });
+    const btn = hpCreateChoiceButton(
+      "Return to the main party",
+      HP_CONFIG.START_SCENE_ID,
+      { clearCharacter: false }
+    );
     container.appendChild(btn);
     return;
   }
@@ -251,18 +255,10 @@ function hpCreateChoiceButton(label, targetSceneId, options) {
   btn.textContent = label;
 
   btn.addEventListener("click", () => {
-    if (options && options.setLocation) {
-      HP_STATE.currentLocation = options.setLocation;
-    }
-    if (options && options.setCharacter) {
-      HP_STATE.currentCharacter = options.setCharacter;
-    }
-    if (options && options.clearCharacter) {
-      HP_STATE.currentCharacter = null;
-    }
-    if (options && options.clearLocation) {
-      HP_STATE.currentLocation = null;
-    }
+    if (options && options.setLocation) HP_STATE.currentLocation = options.setLocation;
+    if (options && options.setCharacter) HP_STATE.currentCharacter = options.setCharacter;
+    if (options && options.clearCharacter) HP_STATE.currentCharacter = null;
+    if (options && options.clearLocation) HP_STATE.currentLocation = null;
     hpRenderScene(targetSceneId);
   });
 

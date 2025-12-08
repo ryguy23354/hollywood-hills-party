@@ -1,5 +1,4 @@
 // Bootstrapping
-
 async function hpInit() {
   try {
     await hpLoadAllScenes();
@@ -7,10 +6,7 @@ async function hpInit() {
 
     const meetBtn = document.getElementById("meetCharactersBtn");
     const restartBtn = document.getElementById("restartBtn");
-
-    if (meetBtn) {
-      meetBtn.addEventListener("click", hpOpenCharactersModal);
-    }
+    if (meetBtn) meetBtn.addEventListener("click", hpOpenCharactersModal);
     if (restartBtn) {
       restartBtn.addEventListener("click", () => {
         hpAssignCharactersToLocations();
@@ -23,7 +19,12 @@ async function hpInit() {
     hpWireModalEvents();
     hpRenderScene(HP_CONFIG.START_SCENE_ID);
   } catch (err) {
-    console.error("Error during init:", err);
+    console.error("Init error:", err);
+    const statusEl = document.getElementById("jsonStatus");
+    if (statusEl) {
+      statusEl.textContent = "JSON status: error";
+      statusEl.style.color = "#ff6b6b";
+    }
   }
 }
 
