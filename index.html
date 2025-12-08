@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Hollywood Hills Party</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/config.js"></script>
+  <script defer src="js/state.js"></script>
+  <script defer src="js/storyLoader.js"></script>
+  <script defer src="js/randomizer.js"></script>
+  <script defer src="js/renderer.js"></script>
+  <script defer src="js/modal.js"></script>
+  <script defer src="js/main.js"></script>
 </head>
 <body>
-  <header id="hp-header">
-    <div id="hp-title">Hollywood Hills Party</div>
-    <div id="hp-navButtons">
-      <button id="meetCharactersBtn" class="hp-navButton">Meet the Characters</button>
-      <button id="restartBtn" class="hp-navButton">Restart Night</button>
-    </div>
-  </header>
-
-  <main id="hp-main">
-    <section id="hp-sceneCard">
-      <h1 id="sceneTitle" class="hp-scene-title"></h1>
-      <div id="sceneLocation" class="hp-scene-location"></div>
-      <div id="sceneText" class="hp-scene-text"></div>
-
-      <div id="sceneImageWrapper">
-        <img id="sceneImage" alt="Scene image">
-        <div id="sceneImagePlaceholder">Scene image will appear here</div>
+  <div id="hp-root">
+    <header id="hp-header">
+      <div id="hp-title-block">
+        <h1 id="gameTitle">Hollywood Hills Party</h1>
+        <div id="jsonStatus">JSON status: loading…</div>
       </div>
+      <div id="hp-header-buttons">
+        <button id="meetCharactersBtn" class="hp-pill-btn">Meet the Characters</button>
+        <button id="restartBtn" class="hp-pill-btn">Restart Night</button>
+      </div>
+    </header>
 
-      <div id="choicesContainer"></div>
-      <div id="status"></div>
-    </section>
-  </main>
+    <main id="hp-main">
+      <section id="sceneCard">
+        <div id="sceneMeta">
+          <h2 id="sceneTitle"></h2>
+          <div id="sceneLocation"></div>
+        </div>
 
-  <div id="charactersModal" aria-hidden="true">
-    <div id="charactersModalContent">
-      <button class="hp-modal-close" data-modal-close>&times;</button>
-      <h2>Tonight's Guests</h2>
-      <div id="charactersGrid"></div>
-      <button class="hp-modal-close-btn" data-modal-close>Close</button>
-    </div>
+        <div id="sceneText"></div>
+
+        <div id="sceneImageWrapper">
+          <img id="sceneImage" alt="Scene image" />
+          <div id="sceneImagePlaceholder">Scene image will appear here.</div>
+        </div>
+
+        <div id="choicesContainer"></div>
+      </section>
+    </main>
   </div>
 
-  <script src="js/config.js"></script>
-  <script src="js/state.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/imageResolver.js"></script>
-  <script src="js/storyLoader.js"></script>
-  <script src="js/randomizer.js"></script>
-  <script src="js/renderer.js"></script>
-  <script src="js/modal.js"></script>
-  <script src="js/storyEngine.js"></script>
+  <!-- Meet the Characters Modal -->
+  <div id="charactersModal" class="hp-modal" aria-hidden="true">
+    <div class="hp-modal-backdrop" data-modal-close="true"></div>
+    <div class="hp-modal-content">
+      <button class="hp-modal-close" data-modal-close="true">✕</button>
+      <h2>Meet the Characters</h2>
+      <p class="hp-modal-subtitle">Tonight&apos;s lineup and where you can find them.</p>
+      <div id="charactersGrid" class="hp-characters-grid"></div>
+    </div>
+  </div>
 </body>
 </html>
