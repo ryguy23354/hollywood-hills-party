@@ -1,0 +1,42 @@
+[
+  {
+    "id": "sienna",
+    "name": "Sienna Brooks",
+    "tagline": "Fiery Heartthrob",
+    "profileImage": "images/sienna_profile.jpg",
+    "locations": ["Bar", "Lounge"],
+    "description": "A radiant pop sensation with a powerful presence. Sienna’s charm burns as brightly as her emerald dress, and she meets the night with something between passion and mischief."
+  },
+  {
+    "id": "riley",
+    "name": "Riley Storm",
+    "tagline": "Playful Firecracker",
+    "profileImage": "images/riley_profile.jpg",
+    "locations": ["Pool", "Game Loft"],
+    "description": "A confident, athletic spark of energy. Riley’s warm smile and sharp wit make her the kind of woman who turns any corner of the party into an adventure."
+  },
+  {
+    "id": "luna",
+    "name": "Luna Devreaux",
+    "tagline": "Ethereal Muse",
+    "profileImage": "images/luna_profile.jpg",
+    "locations": ["Lounge", "Game Loft"],
+    "description": "A high–fashion dream wrapped in velvet nights and soft whispers. Luna moves with quiet confidence, always seeming both present and just out of reach."
+  },
+  {
+    "id": "harper",
+    "name": "Harper Vale",
+    "tagline": "Teasing Siren",
+    "profileImage": "images/harper_profile.jpg",
+    "locations": ["Bar", "Balcony"],
+    "description": "A talented actress with a dangerous smile. Harper reads people the way other women read scripts, and she never lets a moment pass without adding her signature spark."
+  },
+  {
+    "id": "mara",
+    "name": "Mara Quinn",
+    "tagline": "Gentle Enchantress",
+    "profileImage": "images/mara_profile.jpg",
+    "locations": ["Pool", "Balcony"],
+    "description": "Soft–spoken but unforgettable, Mara carries a natural elegance wherever she stands. Her presence is calming, magnetic, and quietly intoxicating."
+  }
+]
