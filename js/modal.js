@@ -1,73 +1,89 @@
-// --- Meet the Characters Modal (A1-Classic, corrected image logic) ---
+// ------------------------------------------------------------
+// Meet the Characters Modal (A1-Classic)
+// Clean version using ONLY character_profiles.json.image
+// ------------------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("charactersModal");
-  const openBtn = document.getElementById("openCharactersModal");
-  const closeBtn = document.getElementById("closeCharactersModal");
-  const container = document.getElementById("charactersList");
+    const modal = document.getElementById("charactersModal");
+    const openBtn = document.getElementById("openCharactersModal");
+    const closeBtn = document.getElementById("closeCharactersModal");
+    const listContainer = document.getElementById("charactersList");
 
-  if (!modal || !openBtn || !closeBtn || !container) return;
-
-  // ------------------------------
-  // Load character profiles JSON
-  // ------------------------------
-  async function loadProfiles() {
-    try {
-      const res = await fetch("character_profiles.json");
-      if (!res.ok) throw new Error("Failed to load character profiles");
-
-      const profiles = await res.json();
-      renderProfiles(profiles);
-    } catch (err) {
-      console.error(err);
-      container.innerHTML = `<p style="color:white; padding:20px;">Error loading character profiles.</p>`;
+    if (!modal || !openBtn || !closeBtn || !listContainer) {
+        console.warn("Modal elements missing from DOM.");
+        return;
     }
-  }
 
-  // ------------------------------------------------------
-  // Render profile cards (fixed image handling)
-  // ------------------------------------------------------
-  function renderProfiles(profiles) {
-    container.innerHTML = "";
+    let profilesLoaded = null;
 
-    profiles.forEach(profile => {
-      // Always respect the official key: profile.image
-      const imgFile = profile.image ? `images/${profile.image}` : "images/placeholder.jpg";
+    // ------------------------------------------------------------
+    // Load character_profiles.json
+    // ------------------------------------------------------------
+    async function loadProfiles() {
+        try {
+            const response = await fetch("character_profiles.json");
+            if (!response.ok) throw new Error("Failed to load character_profiles.json");
 
-      const card = document.createElement("div");
-      card.className = "characterCard";
+            const data = await response.json();
+            profilesLoaded = data;
+            renderProfiles();
+        } catch (err) {
+            console.error(err);
+            listContainer.innerHTML = `<p style="color:white;">Error loading character profiles.</p>`;
+        }
+    }
 
-      card.innerHTML = `
-        <div class="characterCardImageWrapper">
-          <img class="characterCardImage" src="${imgFile}" alt="${profile.name}">
-        </div>
+    // ------------------------------------------------------------
+    // Render profile cards
+    // ------------------------------------------------------------
+    function renderProfiles() {
+        if (!profilesLoaded) return;
 
-        <div class="characterCardContent">
-          <h3>${profile.name}</h3>
-          <p>${profile.description}</p>
-        </div>
-      `;
+        listContainer.innerHTML = ""; // Clear previous content
 
-      container.appendChild(card);
+        profilesLoaded.forEach(profile => {
+            // Use EXACTLY /images/<character>_profile.jpg with no extra prefixes
+            const imgSrc = profile.image
+                ? `images/${profile.image}`     // ← correct folder path
+                : `images/placeholder.jpg`;     // ← only used if actually missing
+
+            const card = document.createElement("div");
+            card.className = "characterCard";
+
+            card.innerHTML = `
+                <div class="characterCardImageWrapper">
+                    <img class="characterCardImage" 
+                         src="${imgSrc}" 
+                         alt="${profile.name}">
+                </div>
+
+                <div class="characterCardContent">
+                    <h3>${profile.name}</h3>
+                    <p>${profile.description}</p>
+                </div>
+            `;
+
+            listContainer.appendChild(card);
+        });
+    }
+
+    // ------------------------------------------------------------
+    // Modal open / close controls
+    // ------------------------------------------------------------
+    openBtn.addEventListener("click", () => {
+        modal.setAttribute("aria-hidden", "false");
+        if (!profilesLoaded) loadProfiles();
+        else renderProfiles();
     });
-  }
 
-  // ------------------------------
-  // Modal Open/Close
-  // ------------------------------
-  openBtn.addEventListener("click", () => {
-    modal.setAttribute("aria-hidden", "false");
-    loadProfiles();
-  });
+    closeBtn.addEventListener("click", () => {
+        modal.setAttribute("aria-hidden", "true");
+    });
 
-  closeBtn.addEventListener("click", () => {
-    modal.setAttribute("aria-hidden", "true");
-  });
-
-  // Close on background click
-  modal.addEventListener("click", e => {
-    if (e.target === modal) {
-      modal.setAttribute("aria-hidden", "true");
-    }
-  });
+    // Close when clicking the background overlay
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.setAttribute("aria-hidden", "true");
+        }
+    });
 });
