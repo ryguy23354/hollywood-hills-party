@@ -1,77 +1,73 @@
-// modal.js — A1 Classic (Clean Personality-Only Version)
+// --- Meet the Characters Modal (A1-Classic, corrected image logic) ---
 
-let modalOpen = false;
-let characterData = null;
-
-async function loadCharacterData() {
-    try {
-        const response = await fetch("character_profiles.json");
-        if (!response.ok) {
-            throw new Error("Failed to load character profiles");
-        }
-        characterData = await response.json();
-        return characterData;
-    } catch (e) {
-        console.error("Error loading character profiles:", e);
-        throw e;
-    }
-}
-
-function openCharactersModal() {
-    if (modalOpen) return;
-
-    const modal = document.getElementById("charactersModal");
-    const modalContent = document.getElementById("charactersModalContent");
-
-    modal.classList.add("open");
-    modalOpen = true;
-
-    // Lock body scroll
-    document.body.style.overflow = "hidden";
-
-    if (!characterData) {
-        modalContent.innerHTML = `
-            <div class="hp-modal-error">Error loading character profiles.</div>
-        `;
-        return;
-    }
-
-    modalContent.innerHTML = `
-        <h2 class="hp-modal-title">Meet the Characters</h2>
-        <div class="characters-grid">
-            ${characterData.characters.map(profile => `
-                <div class="character-card">
-                    <img 
-                        class="character-card-image" 
-                        src="images/${profile.profileImage}" 
-                        alt="${profile.name}"
-                    >
-                    <h3 class="character-card-name">${profile.name}</h3>
-                    <p class="character-card-description">${profile.description}</p>
-                </div>
-            `).join("")}
-        </div>
-    `;
-}
-
-function closeCharactersModal() {
-    if (!modalOpen) return;
-
-    const modal = document.getElementById("charactersModal");
-    modal.classList.remove("open");
-    modalOpen = false;
-
-    // Restore scroll
-    document.body.style.overflow = "";
-}
-
-// Ensure close button works
 document.addEventListener("DOMContentLoaded", () => {
-    const closeButton = document.getElementById("charactersModalClose");
-    if (closeButton) {
-        closeButton.addEventListener("click", closeCharactersModal);
-    }
-});
+  const modal = document.getElementById("charactersModal");
+  const openBtn = document.getElementById("openCharactersModal");
+  const closeBtn = document.getElementById("closeCharactersModal");
+  const container = document.getElementById("charactersList");
 
-// Load profiles on page load so the modal opens instantly
-loadCharacterData();
+  if (!modal || !openBtn || !closeBtn || !container) return;
+
+  // ------------------------------
+  // Load character profiles JSON
+  // ------------------------------
+  async function loadProfiles() {
+    try {
+      const res = await fetch("character_profiles.json");
+      if (!res.ok) throw new Error("Failed to load character profiles");
+
+      const profiles = await res.json();
+      renderProfiles(profiles);
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = `<p style="color:white; padding:20px;">Error loading character profiles.</p>`;
+    }
+  }
+
+  // ------------------------------------------------------
+  // Render profile cards (fixed image handling)
+  // ------------------------------------------------------
+  function renderProfiles(profiles) {
+    container.innerHTML = "";
+
+    profiles.forEach(profile => {
+      // Always respect the official key: profile.image
+      const imgFile = profile.image ? `images/${profile.image}` : "images/placeholder.jpg";
+
+      const card = document.createElement("div");
+      card.className = "characterCard";
+
+      card.innerHTML = `
+        <div class="characterCardImageWrapper">
+          <img class="characterCardImage" src="${imgFile}" alt="${profile.name}">
+        </div>
+
+        <div class="characterCardContent">
+          <h3>${profile.name}</h3>
+          <p>${profile.description}</p>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  // ------------------------------
+  // Modal Open/Close
+  // ------------------------------
+  openBtn.addEventListener("click", () => {
+    modal.setAttribute("aria-hidden", "false");
+    loadProfiles();
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.setAttribute("aria-hidden", "true");
+  });
+
+  // Close on background click
+  modal.addEventListener("click", e => {
+    if (e.target === modal) {
+      modal.setAttribute("aria-hidden", "true");
+    }
+  });
+});
