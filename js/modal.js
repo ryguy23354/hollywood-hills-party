@@ -1,84 +1,166 @@
-// ------------------------------------------------------------
-// Meet the Characters Modal (A1-Classic, FINAL FIXED VERSION)
-// ------------------------------------------------------------
+// js/modal.js
+// Meet the Characters modal – simple, self-contained, no image resolver.
 
-document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("charactersModal");
-    const openBtn = document.getElementById("openCharactersModal");
-    const closeBtn = document.getElementById("closeCharactersModal");
-    const listContainer = document.getElementById("charactersList");
+(function () {
+  const MODAL_ID = "charactersModal";
+  const LIST_ID = "charactersList";
+  const TRIGGER_ID = "openCharactersModalBtn";
+  const CLOSE_ID = "closeCharactersModalBtn";
+  const PROFILES_URL = "character_profiles.json";
 
-    if (!modal || !openBtn || !closeBtn || !listContainer) {
-        console.warn("Modal elements missing from DOM.");
-        return;
+  let profilesCache = null;
+  let isOpen = false;
+
+  function getModalElements() {
+    return {
+      modal: document.getElementById(MODAL_ID),
+      list: document.getElementById(LIST_ID),
+      trigger: document.getElementById(TRIGGER_ID),
+      closeBtn: document.getElementById(CLOSE_ID),
+    };
+  }
+
+  async function loadProfiles() {
+    if (profilesCache) return profilesCache;
+
+    const res = await fetch(PROFILES_URL);
+    if (!res.ok) {
+      throw new Error(`Failed to load ${PROFILES_URL} (${res.status})`);
     }
+    const data = await res.json();
+    profilesCache = data;
+    return data;
+  }
 
-    let profilesLoaded = null;
+  function createCharacterCard(profile) {
+    const card = document.createElement("article");
+    card.className = "character-card";
 
-    // ------------------------------------------------------------
-    // Load character_profiles.json (root-level file)
-    // ------------------------------------------------------------
-    async function loadProfiles() {
-        try {
-            const response = await fetch("character_profiles.json");
-            if (!response.ok) throw new Error("Failed to load character_profiles.json");
+    // ----- image block -----
+    const imageWrapper = document.createElement("div");
+    imageWrapper.className = "character-card-image";
 
-            profilesLoaded = await response.json();
-            renderProfiles();
-        } catch (err) {
-            console.error(err);
-            listContainer.innerHTML =
-                `<p style="color:white;">Error loading character profiles.</p>`;
-        }
-    }
+    const img = document.createElement("img");
+    // *** Direct, hard-coded path – no resolver, no placeholder ***
+    const charKey = profile.id || (profile.name || "").toLowerCase().split(" ")[0];
+    const imagePath =
+      profile.profileImage || `images/${charKey}_profile.jpg`;
 
-    // ------------------------------------------------------------
-    // Render cards — USE profile.profileImage AS-IS
-    // ------------------------------------------------------------
-    function renderProfiles() {
-        if (!profilesLoaded) return;
+    img.src = imagePath;
+    img.alt = profile.name || "Character portrait";
+    img.loading = "lazy";
 
-        listContainer.innerHTML = ""; // reset
+    imageWrapper.appendChild(img);
 
-        profilesLoaded.forEach(profile => {
-            // DO NOT prefix with "images/"
-            // JSON already contains "images/<x>.jpg"
-            const imgSrc = profile.profileImage || "images/placeholder.jpg";
+    // ----- text block -----
+    const text = document.createElement("div");
+    text.className = "character-card-text";
 
-            const card = document.createElement("div");
-            card.className = "characterCard";
+    const name = document.createElement("h3");
+    name.className = "character-name";
+    name.textContent = profile.name || "Unknown";
 
-            card.innerHTML = `
-                <div class="characterCardImageWrapper">
-                    <img class="characterCardImage" src="${imgSrc}" alt="${profile.name}">
-                </div>
+    const tagline = document.createElement("p");
+    tagline.className = "character-tagline";
+    tagline.textContent = profile.tagline || "";
 
-                <div class="characterCardContent">
-                    <h3>${profile.name}</h3>
-                    <p>${profile.description}</p>
-                </div>
-            `;
+    const description = document.createElement("p");
+    description.className = "character-description";
+    description.textContent = profile.description || "";
 
-            listContainer.appendChild(card);
-        });
-    }
+    text.appendChild(name);
+    text.appendChild(tagline);
+    text.appendChild(description);
 
-    // ------------------------------------------------------------
-    // Open / Close Modal
-    // ------------------------------------------------------------
-    openBtn.addEventListener("click", () => {
-        modal.setAttribute("aria-hidden", "false");
-        if (!profilesLoaded) loadProfiles();
-        else renderProfiles();
+    card.appendChild(imageWrapper);
+    card.appendChild(text);
+
+    return card;
+  }
+
+  function renderProfiles(listEl, profiles) {
+    listEl.innerHTML = "";
+    profiles.forEach((p) => {
+      const card = createCharacterCard(p);
+      listEl.appendChild(card);
     });
+  }
 
-    closeBtn.addEventListener("click", () => {
-        modal.setAttribute("aria-hidden", "true");
-    });
+  async function openModalInternal() {
+    const { modal, list } = getModalElements();
+    if (!modal || !list) return;
 
-    modal.addEventListener("click", e => {
+    try {
+      const profiles = await loadProfiles();
+      renderProfiles(list, profiles);
+      modal.setAttribute("aria-hidden", "false");
+      modal.classList.add("hp-modal--open");
+      document.body.classList.add("hp-modal-open");
+      isOpen = true;
+    } catch (err) {
+      console.error(err);
+      list.innerHTML =
+        '<p class="modal-error">Error loading character profiles.</p>';
+      modal.setAttribute("aria-hidden", "false");
+      modal.classList.add("hp-modal--open");
+      document.body.classList.add("hp-modal-open");
+      isOpen = true;
+    }
+  }
+
+  function closeModalInternal() {
+    const { modal } = getModalElements();
+    if (!modal) return;
+
+    modal.setAttribute("aria-hidden", "true");
+    modal.classList.remove("hp-modal--open");
+    document.body.classList.remove("hp-modal-open");
+    isOpen = false;
+  }
+
+  // Expose global hooks used by the HTML
+  window.hpOpenCharactersModal = function () {
+    if (!isOpen) {
+      openModalInternal();
+    }
+  };
+
+  window.hpCloseCharactersModal = function () {
+    if (isOpen) {
+      closeModalInternal();
+    }
+  };
+
+  // Wire up click / ESC close
+  document.addEventListener("DOMContentLoaded", () => {
+    const { trigger, closeBtn, modal } = getModalElements();
+
+    if (trigger) {
+      trigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.hpOpenCharactersModal();
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.hpCloseCharactersModal();
+      });
+    }
+
+    if (modal) {
+      modal.addEventListener("click", (e) => {
         if (e.target === modal) {
-            modal.setAttribute("aria-hidden", "true");
+          window.hpCloseCharactersModal();
         }
+      });
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen) {
+        window.hpCloseCharactersModal();
+      }
     });
-});
+  });
+})();
