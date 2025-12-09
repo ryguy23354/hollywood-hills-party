@@ -4,56 +4,471 @@
   <meta charset="UTF-8" />
   <title>Hollywood Hills Party</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/style.css" />
-  <script defer src="js/config.js"></script>
-  <script defer src="js/state.js"></script>
-  <script defer src="js/storyLoader.js"></script>
-  <script defer src="js/randomizer.js"></script>
-  <script defer src="js/renderer.js"></script>
-  <script defer src="js/modal.js"></script>
-  <script defer src="js/main.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+
 </head>
+
 <body>
-  <div id="hp-root">
-    <header id="hp-header">
-      <div id="hp-title-block">
-        <h1 id="gameTitle">Hollywood Hills Party</h1>
-        <div id="jsonStatus">JSON status: loading…</div>
-      </div>
-      <div id="hp-header-buttons">
-        <button id="meetCharactersBtn" class="hp-pill-btn">Meet the Characters</button>
-        <button id="restartBtn" class="hp-pill-btn">Restart Night</button>
-      </div>
-    </header>
-
-    <main id="hp-main">
-      <section id="sceneCard">
-        <div id="sceneMeta">
-          <h2 id="sceneTitle"></h2>
-          <div id="sceneLocation"></div>
-        </div>
-
-        <div id="sceneText"></div>
-
-        <div id="sceneImageWrapper">
-          <img id="sceneImage" alt="Scene image" />
-          <div id="sceneImagePlaceholder">Scene image will appear here.</div>
-        </div>
-
-        <div id="choicesContainer"></div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Meet the Characters Modal -->
-  <div id="charactersModal" class="hp-modal" aria-hidden="true">
-    <div class="hp-modal-backdrop" data-modal-close="true"></div>
-    <div class="hp-modal-content">
-      <button class="hp-modal-close" data-modal-close="true">✕</button>
-      <h2>Meet the Characters</h2>
-      <p class="hp-modal-subtitle">Tonight&apos;s lineup and where you can find them.</p>
-      <div id="charactersGrid" class="hp-characters-grid"></div>
+  <header>
+    <div>
+      <h1>Hollywood Party</h1>
+      <div class="sub">Dynamic character placement • Simple story UI</div>
     </div>
+    <div class="header-right">
+      <button class="btn" onclick="showCharacterProfiles()">Meet the Characters</button>
+      <button class="btn" onclick="restartNight()">Restart Night</button>
+    </div>
+  </header>
+
+  <!-- CHARACTER MODAL OVERLAY -->
+  <div id="character-modal-overlay" class="modal-overlay hidden"></div>
+
+  <!-- CHARACTER MODAL -->
+  <div id="character-modal" class="character-modal hidden">
+    <button class="modal-close" onclick="closeCharacterProfiles()">✕</button>
+    <h2>Meet the Characters</h2>
+    <div id="character-profiles-container" class="character-profiles-grid"></div>
   </div>
+
+  <div id="story-container">
+    <h2 id="scene-title">Hollywood Party</h2>
+    <img id="scene-image" src="" alt="Scene image" />
+    <p id="scene-text">
+You arrive at a sprawling Hollywood Hills mansion. Music spills out through open glass doors, warm light washing over polished stone. Somewhere inside, five very different women are already in motion.
+
+Where do you want to wander first?
+    </p>
+    <div id="meta-line"></div>
+    <div id="choices"></div>
+    <div id="error-box"></div>
+  </div>
+
+  <footer>
+    JSON used:
+    <code>characters_intro.json</code> • <code>images_manifest.json</code> • <code>character_profiles.json</code>.
+    Random assignment: 2 characters per location, each character appears in 2 locations.
+  </footer>
+
+  <script>
+    // --- DOM references ---
+    const errorBox = document.getElementById('error-box');
+    const sceneTitleEl = document.getElementById('scene-title');
+    const sceneTextEl = document.getElementById('scene-text');
+    const sceneImageEl = document.getElementById('scene-image');
+    const metaLineEl = document.getElementById('meta-line');
+    const choicesEl = document.getElementById('choices');
+
+    // --- Constants & state ---
+    const LOCATIONS = ['bar', 'lounge', 'balcony', 'pool', 'gameloft'];
+
+    let introScenesRaw = {};          // characters_intro.json
+    let scenesById = {};              // id -> scene
+    let scenesByCharLoc = {};         // charSlug -> { loc: sceneId }
+    let characterDisplayNames = {};   // charSlug -> display name
+    let charactersSet = new Set();    // all character slugs
+
+    let imagesManifest = {};          // images_manifest.json
+    let characterProfiles = {};       // character_profiles.json
+
+    let locationAssignments = {};     // loc -> [charSlug1, charSlug2]
+    const seenIntroImage = {};        // `${charSlug}|${loc}` -> boolean
+
+    // --- Helpers ---
+    function clearError() {
+      errorBox.textContent = '';
+    }
+
+    function showError(message) {
+      console.error(message);
+      errorBox.textContent = message;
+    }
+
+    async function loadJSON(path) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) {
+          throw new Error(`Failed to load ${path} (status ${res.status})`);
+        }
+        return await res.json();
+      } catch (err) {
+        showError(`JSON Load Error: ${err.message}`);
+        return null;
+      }
+    }
+
+    function capitalizeWord(w) {
+      return w ? w.charAt(0).toUpperCase() + w.slice(1) : '';
+    }
+
+    function niceNameFromSlug(slug) {
+      return slug
+        .split(/[_\s]+/)
+        .map(capitalizeWord)
+        .join(' ');
+    }
+
+    function normalizeLocation(loc) {
+      if (!loc) return '';
+      let s = String(loc).toLowerCase().replace(/\s+/g, '');
+      if (s === 'game_loft' || s === 'gameloft') return 'gameloft';
+      return s;
+    }
+
+    function firstNameSlug(charSlug) {
+      if (!charSlug) return '';
+      return charSlug.split(/[_\s]+/)[0].toLowerCase();
+    }
+
+    // --- Index intro data ---
+    function indexIntroData() {
+      scenesById = {};
+      scenesByCharLoc = {};
+      characterDisplayNames = {};
+      charactersSet = new Set();
+
+      for (const [sceneId, scene] of Object.entries(introScenesRaw)) {
+        const s = scene || {};
+        const id = s.id || sceneId;
+
+        // Character slug
+        let charSlug = (s.character || s.character_key || '').toString().toLowerCase();
+        if (!charSlug) {
+          const parts = sceneId.split('_');
+          if (parts.length >= 4) {
+            charSlug = parts[1].toLowerCase();
+          } else {
+            charSlug = sceneId.toLowerCase();
+          }
+        }
+
+        // Location
+        let loc = normalizeLocation(s.location || '');
+        if (!loc) {
+          const parts = sceneId.split('_');
+          if (parts.length >= 4) {
+            loc = normalizeLocation(parts[parts.length - 1]);
+          }
+        }
+
+        scenesById[id] = Object.assign({}, s, {
+          id,
+          characterSlug: charSlug,
+          location: loc
+        });
+
+        if (!scenesByCharLoc[charSlug]) {
+          scenesByCharLoc[charSlug] = {};
+        }
+        if (loc) {
+          scenesByCharLoc[charSlug][loc] = id;
+        } else {
+          console.warn('Intro scene missing location:', id);
+        }
+
+        charactersSet.add(charSlug);
+
+        const displayName =
+          s.character_name ||
+          s.name ||
+          s.title ||
+          niceNameFromSlug(charSlug);
+        if (!characterDisplayNames[charSlug]) {
+          characterDisplayNames[charSlug] = displayName;
+        }
+      }
+    }
+
+    // --- Random mapping: each location gets 2 chars, each char appears in 2 locations ---
+    function buildRandomAssignments() {
+      locationAssignments = {};
+
+      const charList = Array.from(charactersSet);
+      if (charList.length === 0) {
+        showError('No character intro scenes found.');
+        return;
+      }
+
+      const pool = [];
+      for (const slug of charList) {
+        pool.push(slug, slug); // each char appears twice
+      }
+
+      // Shuffle pool
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+
+      let idx = 0;
+      for (const loc of LOCATIONS) {
+        const c1 = pool[idx % pool.length];
+        const c2 = pool[(idx + 1) % pool.length];
+        locationAssignments[loc] = [c1, c2];
+        idx += 2;
+      }
+
+      // Reset intro flags
+      for (const loc of LOCATIONS) {
+        for (const charSlug of locationAssignments[loc]) {
+          const key = `${charSlug}|${loc}`;
+          seenIntroImage[key] = false;
+        }
+      }
+    }
+
+    function addChoiceButton(label, handler) {
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.textContent = label;
+      btn.onclick = handler;
+      choicesEl.appendChild(btn);
+    }
+
+    function prettyLocation(loc) {
+      if (loc === 'gameloft') return 'Game Loft';
+      return capitalizeWord(loc);
+    }
+
+    // --- Image logic ---
+    function pickImageFromManifest(charSlug, loc) {
+      if (!imagesManifest) return null;
+
+      const base = firstNameSlug(charSlug);
+      let charBlock = imagesManifest[base];
+      if (!charBlock) {
+        charBlock = imagesManifest[charSlug];
+      }
+      if (!charBlock) return null;
+
+      const locBlock = charBlock[loc];
+      if (!locBlock || !locBlock.length) return null;
+
+      const idx = Math.floor(Math.random() * locBlock.length);
+      return locBlock[idx];
+    }
+
+    // --- Scene rendering ---
+    function renderArrivalScene() {
+      clearError();
+      sceneTitleEl.textContent = 'Hollywood Party';
+
+      sceneImageEl.src = 'images/scene_00_intro.jpg';
+      sceneImageEl.style.display = 'block';
+
+      sceneTextEl.textContent =
+        'You arrive at a sprawling Hollywood Hills mansion. Music spills out through open glass doors, warm light washing over polished stone. Somewhere inside, five very different women are already in motion.\n\nWhere do you want to wander first?';
+
+      metaLineEl.textContent = 'Each location has two randomly assigned guests for this run.';
+
+      choicesEl.innerHTML = '';
+      addChoiceButton('Head to the Bar', () => enterLocation('bar'));
+      addChoiceButton('Check out the Lounge', () => enterLocation('lounge'));
+      addChoiceButton('Step onto the Balcony', () => enterLocation('balcony'));
+      addChoiceButton('Walk down to the Pool', () => enterLocation('pool'));
+      addChoiceButton('Climb up to the Game Loft', () => enterLocation('gameloft'));
+    }
+
+    function enterLocation(loc) {
+      clearError();
+
+      const assigned = locationAssignments[loc];
+      if (!assigned || assigned.length !== 2) {
+        showError(`No characters assigned to location: ${loc}`);
+        return;
+      }
+
+      const [char1, char2] = assigned;
+      const name1 = characterDisplayNames[char1] || niceNameFromSlug(char1);
+      const name2 = characterDisplayNames[char2] || niceNameFromSlug(char2);
+
+      sceneTitleEl.textContent = prettyLocation(loc);
+      sceneImageEl.style.display = 'none';
+
+      sceneTextEl.textContent =
+        `You drift into the ${prettyLocation(loc).toLowerCase()}. Two familiar figures stand out from the blur of guests:\n\n` +
+        `• ${name1}\n` +
+        `• ${name2}\n\n` +
+        `Who do you want to approach?`;
+
+      metaLineEl.textContent =
+        'Characters are randomly assigned each time you restart the night.';
+
+      choicesEl.innerHTML = '';
+      addChoiceButton(`Approach ${name1}`, () => showCharacterAtLocation(char1, loc));
+      addChoiceButton(`Approach ${name2}`, () => showCharacterAtLocation(char2, loc));
+      addChoiceButton('Return to the main party', renderArrivalScene);
+    }
+
+    function showCharacterAtLocation(charSlug, loc) {
+      clearError();
+
+      const normLoc = normalizeLocation(loc);
+      const charScenes = scenesByCharLoc[charSlug];
+      if (!charScenes || !charScenes[normLoc]) {
+        showError(`No intro scene found for ${charSlug} at ${normLoc}.`);
+        return;
+      }
+
+      const sceneId = charScenes[normLoc];
+      const scene = scenesById[sceneId];
+      if (!scene) {
+        showError(`Scene "${sceneId}" not found.`);
+        return;
+      }
+
+      const displayName =
+        characterDisplayNames[charSlug] || niceNameFromSlug(charSlug);
+
+      // header shows character name once in conversation
+      sceneTitleEl.textContent = displayName;
+
+      const introKey = `${charSlug}|${normLoc}`;
+      let imagePath = null;
+
+      if (!seenIntroImage[introKey]) {
+        const base = firstNameSlug(charSlug);
+        imagePath = `images/${base}_${normLoc}_01.jpg`;
+        seenIntroImage[introKey] = true;
+      } else {
+        imagePath = pickImageFromManifest(charSlug, normLoc);
+        if (!imagePath) {
+          const base = firstNameSlug(charSlug);
+          imagePath = `images/${base}_${normLoc}_01.jpg`;
+        }
+      }
+
+      if (imagePath) {
+        sceneImageEl.src = imagePath;
+        sceneImageEl.style.display = 'block';
+      } else {
+        sceneImageEl.style.display = 'none';
+      }
+
+      const mainText =
+        scene.text ||
+        scene.body ||
+        scene.description ||
+        `${displayName} notices you and lets a slow smile curl at the corner of their mouth.`;
+      sceneTextEl.textContent = mainText;
+
+      let metaBits = [];
+      if (scene.profession) metaBits.push(scene.profession);
+      if (scene.tone) metaBits.push(scene.tone);
+      metaBits.push(`Location: ${prettyLocation(normLoc)}`);
+      metaLineEl.textContent = metaBits.join(' • ');
+
+      choicesEl.innerHTML = '';
+      addChoiceButton('Say something clever (new reaction)', () => {
+        showCharacterAtLocation(charSlug, normLoc);
+      });
+      addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
+        enterLocation(normLoc);
+      });
+      addChoiceButton('Slip away to the main party', renderArrivalScene);
+    }
+
+    // === MEET THE CHARACTERS MODAL ===
+    async function showCharacterProfiles() {
+      clearError();
+
+      const modal = document.getElementById('character-modal');
+      const overlay = document.getElementById('character-modal-overlay');
+      const container = document.getElementById('character-profiles-container');
+
+      container.innerHTML = '';
+
+      if (!Object.keys(characterProfiles).length) {
+        const profiles = await loadJSON('character_profiles.json');
+        if (!profiles) {
+          container.innerHTML = '<p>Error loading character profiles.</p>';
+        } else {
+          characterProfiles = profiles;
+        }
+      }
+
+      if (Object.keys(characterProfiles).length) {
+        Object.entries(characterProfiles).forEach(([slug, data]) => {
+          const card = document.createElement('div');
+          card.className = 'character-card';
+
+          const img = document.createElement('img');
+          if (data.image) {
+            img.src = data.image.startsWith('images/')
+              ? data.image
+              : `images/${data.image}`;
+          } else {
+            img.src = 'images/placeholder.jpg';
+          }
+
+          const name = document.createElement('h3');
+          name.textContent = data.name || niceNameFromSlug(slug);
+
+          const desc = document.createElement('p');
+          desc.textContent = data.short_description || data.description || '';
+
+          card.appendChild(img);
+          card.appendChild(name);
+          card.appendChild(desc);
+
+          container.appendChild(card);
+        });
+      }
+
+      overlay.classList.remove('hidden');
+      modal.classList.remove('hidden');
+
+      requestAnimationFrame(() => {
+        overlay.style.opacity = '1';
+        modal.style.opacity = '1';
+        modal.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+
+      overlay.onclick = () => closeCharacterProfiles();
+    }
+
+    function closeCharacterProfiles() {
+      const modal = document.getElementById('character-modal');
+      const overlay = document.getElementById('character-modal-overlay');
+
+      overlay.style.opacity = '0';
+      modal.style.opacity = '0';
+      modal.style.transform = 'translate(-50%, -50%) scale(0.95)';
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        overlay.classList.add('hidden');
+      }, 250);
+    }
+
+    function restartNight() {
+      clearError();
+      buildRandomAssignments();
+      renderArrivalScene();
+    }
+
+    // --- Initialization ---
+    async function init() {
+      clearError();
+
+      const [introData, manifestData] = await Promise.all([
+        loadJSON('characters_intro.json'),
+        loadJSON('images_manifest.json')
+      ]);
+
+      if (!introData || !manifestData) {
+        showError('One or more JSON files failed to load.');
+        return;
+      }
+
+      introScenesRaw = introData;
+      imagesManifest = manifestData;
+
+      indexIntroData();
+      buildRandomAssignments();
+      renderArrivalScene();
+    }
+
+    init();
+  </script>
 </body>
 </html>
