@@ -1,0 +1,239 @@
+* { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050509;
+      color: #f3f3f3;
+    }
+
+    header {
+      background: #111119;
+      padding: 12px 18px;
+      border-bottom: 1px solid #262636;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    header .sub {
+      font-size: 12px;
+      color: #aaaacc;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .btn {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid #44445a;
+      background: #181826;
+      color: #f3f3f3;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #222238;
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    #story-container {
+      max-width: 780px;
+      margin: 18px auto 24px;
+      padding: 16px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid #29293c;
+      background: #0b0b14;
+    }
+
+    #scene-title {
+      margin: 0 0 8px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    #scene-image {
+      max-width: 100%;
+      margin: 8px 0;
+      border-radius: 10px;
+      display: none;
+    }
+
+    #scene-text {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #f3f3f3;
+      white-space: pre-wrap;
+    }
+
+    #meta-line {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #a0a0c9;
+    }
+
+    #choices {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .choice-btn {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid #3c3c52;
+      background: #171722;
+      color: #f3f3f3;
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+    }
+    .choice-btn:hover {
+      background: #232338;
+      border-color: #4b4b66;
+    }
+    .choice-btn:active {
+      transform: translateY(1px);
+    }
+
+    #error-box {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #ff6b6b;
+      min-height: 14px;
+    }
+
+    footer {
+      text-align: center;
+      margin: 12px 0 20px;
+      font-size: 11px;
+      color: #8a8aa5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* === CHARACTER MODAL (RESPONSIVE GRID, BIG PORTRAITS) === */
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(6px);
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .character-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      width: 90vw;
+      max-width: 90vw;    /* <— allow it to breathe on 4K */
+      max-height: 90vh;
+      background: #1c1c1c;
+      color: white;
+      border-radius: 12px;
+      padding: 24px;
+      z-index: 1100;
+      opacity: 0;
+      overflow-y: auto;
+      box-shadow: 0 0 18px rgba(0,0,0,0.6);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .character-modal h2 {
+      text-align: center;
+      margin: 0 0 20px;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    .character-profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding-bottom: 10px;
+    }
+
+    /* On very large / 4K screens, force 5 columns so all characters sit in one row */
+    @media (min-width: 2600px) {
+      .character-profiles-grid {
+        grid-template-columns: repeat(5, minmax(260px, 1fr));
+      }
+    }
+
+    .character-card {
+      background: #2a2a2a;
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* IMPORTANT: no cropping for your tall 1024x1536 portraits */
+    .character-card img {
+      width: 100%;
+      height: auto;           /* scale but don’t crop */
+      object-fit: contain;    /* keep entire portrait visible */
+      border-radius: 8px;
+      background: #000;       /* adds a nice frame when aspect doesn’t fill */
+    }
+
+    .character-card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .character-card p {
+      margin: 0;
+      opacity: 0.9;
+      line-height: 1.35;
+      font-size: 0.9rem;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 1.4rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      opacity: 0.75;
+    }
+    .modal-close:hover {
+      opacity: 1;
+    }
