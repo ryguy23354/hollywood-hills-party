@@ -3,7 +3,7 @@ const HP_CONFIG = {
   START_SCENE_ID: "scene_00_intro",
   STORY_FILES: [
     "main_story.json",
-    "characters/intro.json",
+    "characters_intro.json",
     "characters/shared_openings.json",
     "characters/shared_endings.json",
     "characters/sienna/narrative.json",
