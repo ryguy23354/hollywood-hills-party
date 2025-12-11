@@ -1,0 +1,851 @@
+{
+  "intro_sienna_bar": {
+    "id": "intro_sienna_bar",
+    "character": "sienna",
+    "location": "bar",
+    "image": "images/sienna_bar_01.jpg",
+    "text": "The bar feels brighter the moment you spot Sienna, emerald dress catching the light as she laughs with the bartender. When her green eyes land on you, her attention shifts fully, like the rest of the room stops mattering.",
+    "choices": [
+      {
+        "id": "warm_genuine",
+        "label": "Approach her with warm, genuine energy",
+        "action": "go_to_scene",
+        "target": "scene_sienna_warm_01"
+      },
+      {
+        "id": "flirty_fiery",
+        "label": "Match her fire with bold, flirty charm",
+        "action": "go_to_scene",
+        "target": "scene_sienna_fiery_01"
+      },
+      {
+        "id": "playful_teasing",
+        "label": "Open with something playful and teasing",
+        "action": "go_to_scene",
+        "target": "scene_sienna_playful_01"
+      },
+      {
+        "id": "reserved_cautious",
+        "label": "Take a more careful, reserved approach",
+        "action": "go_to_scene",
+        "target": "scene_sienna_reserved_01"
+      }
+    ]
+  },
+
+  "intro_sienna_lounge": {
+    "id": "intro_sienna_lounge",
+    "character": "sienna",
+    "location": "lounge",
+    "image": "images/sienna_lounge_01.jpg",
+    "text": "In the lounge, Sienna is curled into a corner of a velvet sofa, one heel dangling as she talks with her hands, telling some passionate story to a small audience. When she notices you watching, her expression softens into a curious, inviting smile.",
+    "choices": [
+      {
+        "id": "warm_genuine",
+        "label": "Slide in with a warm, sincere introduction",
+        "action": "go_to_scene",
+        "target": "scene_sienna_warm_01"
+      },
+      {
+        "id": "flirty_fiery",
+        "label": "Jump into the moment with fiery, flirty energy",
+        "action": "go_to_scene",
+        "target": "scene_sienna_fiery_01"
+      },
+      {
+        "id": "playful_teasing",
+        "label": "Make a light, teasing comment to break the ice",
+        "action": "go_to_scene",
+        "target": "scene_sienna_playful_01"
+      },
+      {
+        "id": "reserved_cautious",
+        "label": "Approach slowly, keeping it a bit guarded",
+        "action": "go_to_scene",
+        "target": "scene_sienna_reserved_01"
+      }
+    ]
+  },
+
+  "intro_sienna_pool": {
+    "id": "intro_sienna_pool",
+    "character": "sienna",
+    "location": "pool",
+    "image": "images/sienna_pool_01.jpg",
+    "text": "Out by the pool, Sienna stands near the edge of the water, her emerald dress catching reflections from the glowing surface as she talks animatedly with a guest. She brushes her hair back, eyes drifting toward you with a spark of recognition.",
+    "choices": [
+      {
+        "id": "warm_genuine",
+        "label": "Greet her with open, heartfelt warmth",
+        "action": "go_to_scene",
+        "target": "scene_sienna_warm_01"
+      },
+      {
+        "id": "flirty_fiery",
+        "label": "Lean into the heat of the moment with flirty confidence",
+        "action": "go_to_scene",
+        "target": "scene_sienna_fiery_01"
+      },
+      {
+        "id": "playful_teasing",
+        "label": "Turn the setting into a playful joke",
+        "action": "go_to_scene",
+        "target": "scene_sienna_playful_01"
+      },
+      {
+        "id": "reserved_cautious",
+        "label": "Come closer, but keep your guard up a bit",
+        "action": "go_to_scene",
+        "target": "scene_sienna_reserved_01"
+      }
+    ]
+  },
+
+  "intro_sienna_balcony": {
+    "id": "intro_sienna_balcony",
+    "character": "sienna",
+    "location": "balcony",
+    "image": "images/sienna_balcony_01.jpg",
+    "text": "On the balcony, Sienna leans on the railing with the city lights reflected in her eyes, hair tugged gently by the breeze. There is a quieter intensity to her here, like every emotion sits just beneath the surface, waiting for the right word.",
+    "choices": [
+      {
+        "id": "warm_genuine",
+        "label": "Share a warm, honest opening line",
+        "action": "go_to_scene",
+        "target": "scene_sienna_warm_01"
+      },
+      {
+        "id": "flirty_fiery",
+        "label": "Turn the view into something fiery and flirtatious",
+        "action": "go_to_scene",
+        "target": "scene_sienna_fiery_01"
+      },
+      {
+        "id": "playful_teasing",
+        "label": "Lighten the mood with a soft tease",
+        "action": "go_to_scene",
+        "target": "scene_sienna_playful_01"
+      },
+      {
+        "id": "reserved_cautious",
+        "label": "Test the waters with a cautious approach",
+        "action": "go_to_scene",
+        "target": "scene_sienna_reserved_01"
+      }
+    ]
+  },
+
+  "intro_sienna_gameloft": {
+    "id": "intro_sienna_gameloft",
+    "character": "sienna",
+    "location": "gameloft",
+    "image": "images/sienna_gameloft_01.jpg",
+    "text": "In the game loft, Sienna is mid-story again, animatedly narrating someone else’s daring move at a nearby table, her laughter spilling over the noise of clinking glasses. When she spots you, her expression brightens like she has just been given a new audience.",
+    "choices": [
+      {
+        "id": "warm_genuine",
+        "label": "Greet her with warm, genuine interest",
+        "action": "go_to_scene",
+        "target": "scene_sienna_warm_01"
+      },
+      {
+        "id": "flirty_fiery",
+        "label": "Match her energy with something fiery and bold",
+        "action": "go_to_scene",
+        "target": "scene_sienna_fiery_01"
+      },
+      {
+        "id": "playful_teasing",
+        "label": "Tease her about stealing the spotlight",
+        "action": "go_to_scene",
+        "target": "scene_sienna_playful_01"
+      },
+      {
+        "id": "reserved_cautious",
+        "label": "Approach in a softer, more careful way",
+        "action": "go_to_scene",
+        "target": "scene_sienna_reserved_01"
+      }
+    ]
+  },
+
+  "intro_riley_bar": {
+    "id": "intro_riley_bar",
+    "character": "riley",
+    "location": "bar",
+    "image": "images/riley_bar_01.jpg",
+    "text": "Riley is at the bar, leaning on one hip and talking with quick, animated gestures, her ruby-ginger hair bouncing with every laugh. She clocks you immediately, grin tilting into something daring, like she is already deciding how to test you.",
+    "choices": [
+      {
+        "id": "playful_challenge",
+        "label": "Turn this into a playful challenge",
+        "action": "go_to_scene",
+        "target": "scene_riley_challenge_01"
+      },
+      {
+        "id": "bold_move",
+        "label": "Open with a bold, confident move",
+        "action": "go_to_scene",
+        "target": "scene_riley_bold_01"
+      },
+      {
+        "id": "warm_easy",
+        "label": "Keep it warm and easygoing",
+        "action": "go_to_scene",
+        "target": "scene_riley_warm_01"
+      },
+      {
+        "id": "low_energy",
+        "label": "Play it a little too low-key",
+        "action": "go_to_scene",
+        "target": "scene_riley_neutral_01"
+      }
+    ]
+  },
+
+  "intro_riley_lounge": {
+    "id": "intro_riley_lounge",
+    "character": "riley",
+    "location": "lounge",
+    "image": "images/riley_lounge_01.jpg",
+    "text": "In the lounge, Riley perches on the arm of a chair rather than the seat, legs crossed, body in constant small motion as she talks to someone below her. When she notices you, her brows lift in a playful challenge as if to ask whether you can keep up.",
+    "choices": [
+      {
+        "id": "playful_challenge",
+        "label": "Step in with a playful challenge",
+        "action": "go_to_scene",
+        "target": "scene_riley_challenge_01"
+      },
+      {
+        "id": "bold_move",
+        "label": "Match her with a bold, direct line",
+        "action": "go_to_scene",
+        "target": "scene_riley_bold_01"
+      },
+      {
+        "id": "warm_easy",
+        "label": "Offer something warm and relaxed",
+        "action": "go_to_scene",
+        "target": "scene_riley_warm_01"
+      },
+      {
+        "id": "low_energy",
+        "label": "Come in a little too quietly",
+        "action": "go_to_scene",
+        "target": "scene_riley_neutral_01"
+      }
+    ]
+  },
+
+  "intro_riley_pool": {
+    "id": "intro_riley_pool",
+    "character": "riley",
+    "location": "pool",
+    "image": "images/riley_pool_01.jpg",
+    "text": "By the pool, Riley moves like she owns the deck, weaving between guests with athletic ease and a spark in her blue-green eyes. When she spots you watching, she slows just enough to tilt her head, inviting you to either step up or stay safely on the sidelines.",
+    "choices": [
+      {
+        "id": "playful_challenge",
+        "label": "Turn it into a playful, competitive moment",
+        "action": "go_to_scene",
+        "target": "scene_riley_challenge_01"
+      },
+      {
+        "id": "bold_move",
+        "label": "Make a bold move and close the distance",
+        "action": "go_to_scene",
+        "target": "scene_riley_bold_01"
+      },
+      {
+        "id": "warm_easy",
+        "label": "Keep it light and friendly",
+        "action": "go_to_scene",
+        "target": "scene_riley_warm_01"
+      },
+      {
+        "id": "low_energy",
+        "label": "Approach with hesitant, low-key energy",
+        "action": "go_to_scene",
+        "target": "scene_riley_neutral_01"
+      }
+    ]
+  },
+
+  "intro_riley_balcony": {
+    "id": "intro_riley_balcony",
+    "character": "riley",
+    "location": "balcony",
+    "image": "images/riley_balcony_01.jpg",
+    "text": "On the balcony, Riley leans against the railing, one heel hooked behind the other as she looks out over the city with a restless sort of excitement. She glances back over her shoulder at you, grin hinting at trouble if you are brave enough to invite it.",
+    "choices": [
+      {
+        "id": "playful_challenge",
+        "label": "Open with a playful challenge about the view",
+        "action": "go_to_scene",
+        "target": "scene_riley_challenge_01"
+      },
+      {
+        "id": "bold_move",
+        "label": "Take a bold step into her space",
+        "action": "go_to_scene",
+        "target": "scene_riley_bold_01"
+      },
+      {
+        "id": "warm_easy",
+        "label": "Start with something warm and relaxed",
+        "action": "go_to_scene",
+        "target": "scene_riley_warm_01"
+      },
+      {
+        "id": "low_energy",
+        "label": "Keep your entry a bit too soft",
+        "action": "go_to_scene",
+        "target": "scene_riley_neutral_01"
+      }
+    ]
+  },
+
+  "intro_riley_gameloft": {
+    "id": "intro_riley_gameloft",
+    "character": "riley",
+    "location": "gameloft",
+    "image": "images/riley_gameloft_01.jpg",
+    "text": "In the game loft, Riley is mid-laugh over a close match, one hand still hovering near the controls, eyes bright with competitive fire. When she sees you, she gestures as if to pull you into the next round, her grin daring you not to accept.",
+    "choices": [
+      {
+        "id": "playful_challenge",
+        "label": "Jump in with a playful challenge",
+        "action": "go_to_scene",
+        "target": "scene_riley_challenge_01"
+      },
+      {
+        "id": "bold_move",
+        "label": "Confidently claim the next game with her",
+        "action": "go_to_scene",
+        "target": "scene_riley_bold_01"
+      },
+      {
+        "id": "warm_easy",
+        "label": "Join in with easy, friendly energy",
+        "action": "go_to_scene",
+        "target": "scene_riley_warm_01"
+      },
+      {
+        "id": "low_energy",
+        "label": "Hover nearby without fully committing",
+        "action": "go_to_scene",
+        "target": "scene_riley_neutral_01"
+      }
+    ]
+  },
+
+  "intro_luna_bar": {
+    "id": "intro_luna_bar",
+    "character": "luna",
+    "location": "bar",
+    "image": "images/luna_bar_01.jpg",
+    "text": "At the bar, Luna sits with one elbow resting lightly on the counter, storm-gray eyes drifting over the room with calm detachment. The soft curl of her lips when she notices you feels quiet but unmistakably inviting.",
+    "choices": [
+      {
+        "id": "soft_gentle",
+        "label": "Approach with a soft, gentle tone",
+        "action": "go_to_scene",
+        "target": "scene_luna_soft_01"
+      },
+      {
+        "id": "quiet_intimacy",
+        "label": "Lean into a quiet, intimate opening",
+        "action": "go_to_scene",
+        "target": "scene_luna_intimate_01"
+      },
+      {
+        "id": "artistic_curiosity",
+        "label": "Ask something thoughtful and artistic",
+        "action": "go_to_scene",
+        "target": "scene_luna_artistic_01"
+      },
+      {
+        "id": "direct_energetic",
+        "label": "Come in a bit too direct and energetic",
+        "action": "go_to_scene",
+        "target": "scene_luna_neutral_01"
+      }
+    ]
+  },
+
+  "intro_luna_lounge": {
+    "id": "intro_luna_lounge",
+    "character": "luna",
+    "location": "lounge",
+    "image": "images/luna_lounge_01.jpg",
+    "text": "In the lounge, Luna seems almost part of the decor, silver dress catching the low light as she listens more than she speaks. When your gaze lingers, she meets it with a soft, steady look that feels strangely intimate.",
+    "choices": [
+      {
+        "id": "soft_gentle",
+        "label": "Start with something soft and gentle",
+        "action": "go_to_scene",
+        "target": "scene_luna_soft_01"
+      },
+      {
+        "id": "quiet_intimacy",
+        "label": "Open with a quiet, personal question",
+        "action": "go_to_scene",
+        "target": "scene_luna_intimate_01"
+      },
+      {
+        "id": "artistic_curiosity",
+        "label": "Ask about her take on the atmosphere",
+        "action": "go_to_scene",
+        "target": "scene_luna_artistic_01"
+      },
+      {
+        "id": "direct_energetic",
+        "label": "Introduce yourself with high energy",
+        "action": "go_to_scene",
+        "target": "scene_luna_neutral_01"
+      }
+    ]
+  },
+
+  "intro_luna_pool": {
+    "id": "intro_luna_pool",
+    "character": "luna",
+    "location": "pool",
+    "image": "images/luna_pool_01.jpg",
+    "text": "By the pool, Luna lingers in a pocket of soft light, watching the reflected glow ripple over the water with a faraway expression. When she turns toward you, her gaze is dreamy but precise, as if she is quietly sizing up your energy.",
+    "choices": [
+      {
+        "id": "soft_gentle",
+        "label": "Approach with gentle calm",
+        "action": "go_to_scene",
+        "target": "scene_luna_soft_01"
+      },
+      {
+        "id": "quiet_intimacy",
+        "label": "Step closer and keep your voice low",
+        "action": "go_to_scene",
+        "target": "scene_luna_intimate_01"
+      },
+      {
+        "id": "artistic_curiosity",
+        "label": "Say something observant about the scene",
+        "action": "go_to_scene",
+        "target": "scene_luna_artistic_01"
+      },
+      {
+        "id": "direct_energetic",
+        "label": "Come in more brightly than the moment calls for",
+        "action": "go_to_scene",
+        "target": "scene_luna_neutral_01"
+      }
+    ]
+  },
+
+  "intro_luna_balcony": {
+    "id": "intro_luna_balcony",
+    "character": "luna",
+    "location": "balcony",
+    "image": "images/luna_balcony_01.jpg",
+    "text": "On the balcony, Luna stands with her hands resting lightly on the railing, city lights shimmering in her eyes. The air around her feels quiet and charged, and when she looks over at you, it is like being silently invited into a softer world.",
+    "choices": [
+      {
+        "id": "soft_gentle",
+        "label": "Offer a soft, gentle opening line",
+        "action": "go_to_scene",
+        "target": "scene_luna_soft_01"
+      },
+      {
+        "id": "quiet_intimacy",
+        "label": "Ask something quietly personal",
+        "action": "go_to_scene",
+        "target": "scene_luna_intimate_01"
+      },
+      {
+        "id": "artistic_curiosity",
+        "label": "Frame the view with an artistic comment",
+        "action": "go_to_scene",
+        "target": "scene_luna_artistic_01"
+      },
+      {
+        "id": "direct_energetic",
+        "label": "Step in with unexpectedly energetic charm",
+        "action": "go_to_scene",
+        "target": "scene_luna_neutral_01"
+      }
+    ]
+  },
+
+  "intro_luna_gameloft": {
+    "id": "intro_luna_gameloft",
+    "character": "luna",
+    "location": "gameloft",
+    "image": "images/luna_gameloft_01.jpg",
+    "text": "In the game loft, Luna stands slightly apart from the louder players, observing with an amused, distant little smile. When you drift toward her, her gaze shifts to you with slow interest, like she is deciding whether you are worth focusing on.",
+    "choices": [
+      {
+        "id": "soft_gentle",
+        "label": "Ease in with soft, gentle conversation",
+        "action": "go_to_scene",
+        "target": "scene_luna_soft_01"
+      },
+      {
+        "id": "quiet_intimacy",
+        "label": "Create a small pocket of quiet intimacy",
+        "action": "go_to_scene",
+        "target": "scene_luna_intimate_01"
+      },
+      {
+        "id": "artistic_curiosity",
+        "label": "Make a thoughtful comment about the chaos",
+        "action": "go_to_scene",
+        "target": "scene_luna_artistic_01"
+      },
+      {
+        "id": "direct_energetic",
+        "label": "Cut straight through with bright energy",
+        "action": "go_to_scene",
+        "target": "scene_luna_neutral_01"
+      }
+    ]
+  },
+
+  "intro_harper_bar": {
+    "id": "intro_harper_bar",
+    "character": "harper",
+    "location": "bar",
+    "image": "images/harper_bar_01.jpg",
+    "text": "Harper holds court at the bar like it is a red carpet, one elbow propped, black dress sculpted to her frame, blue eyes sharp and amused. When she notices you, a slow smirk curls at the corner of her mouth, like she is already grading your entrance.",
+    "choices": [
+      {
+        "id": "bold_confident",
+        "label": "Answer that smirk with bold confidence",
+        "action": "go_to_scene",
+        "target": "scene_harper_spicy_01"
+      },
+      {
+        "id": "playful_tease",
+        "label": "Tease her right back",
+        "action": "go_to_scene",
+        "target": "scene_harper_tame_01"
+      },
+      {
+        "id": "warm_sincere",
+        "label": "Cut through the performance with sincerity",
+        "action": "go_to_scene",
+        "target": "scene_harper_soft_01"
+      },
+      {
+        "id": "awkward_formal",
+        "label": "Stumble in with something a bit awkward",
+        "action": "go_to_scene",
+        "target": "scene_harper_fail_01"
+      }
+    ]
+  },
+
+  "intro_harper_lounge": {
+    "id": "intro_harper_lounge",
+    "character": "harper",
+    "location": "lounge",
+    "image": "images/harper_lounge_01.jpg",
+    "text": "In the lounge, Harper is reclined into a sofa like it is a set piece, one arm draped along the back, gaze sharp and assessing. When your eyes meet, she lifts her chin slightly, inviting you to either impress her or waste her time.",
+    "choices": [
+      {
+        "id": "bold_confident",
+        "label": "Match her energy with bold calm",
+        "action": "go_to_scene",
+        "target": "scene_harper_spicy_01"
+      },
+      {
+        "id": "playful_tease",
+        "label": "Open with a playful, cinematic tease",
+        "action": "go_to_scene",
+        "target": "scene_harper_tame_01"
+      },
+      {
+        "id": "warm_sincere",
+        "label": "Offer something surprisingly sincere",
+        "action": "go_to_scene",
+        "target": "scene_harper_soft_01"
+      },
+      {
+        "id": "awkward_formal",
+        "label": "Start off a little stiff and formal",
+        "action": "go_to_scene",
+        "target": "scene_harper_fail_01"
+      }
+    ]
+  },
+
+  "intro_harper_pool": {
+    "id": "intro_harper_pool",
+    "character": "harper",
+    "location": "pool",
+    "image": "images/harper_pool_01.jpg",
+    "text": "By the pool, Harper stands near the glow of the water, dress immaculate, every line of her posture controlled like a still from a movie. When she spots you, her lips tilt in a knowing half-smile, as though she already expects you to come over.",
+    "choices": [
+      {
+        "id": "bold_confident",
+        "label": "Walk up like you belong in her scene",
+        "action": "go_to_scene",
+        "target": "scene_harper_spicy_01"
+      },
+      {
+        "id": "playful_tease",
+        "label": "Treat it like a playful, over-the-top moment",
+        "action": "go_to_scene",
+        "target": "scene_harper_tame_01"
+      },
+      {
+        "id": "warm_sincere",
+        "label": "Be disarmingly sincere in contrast",
+        "action": "go_to_scene",
+        "target": "scene_harper_soft_01"
+      },
+      {
+        "id": "awkward_formal",
+        "label": "Arrive just a bit too stiff for the vibe",
+        "action": "go_to_scene",
+        "target": "scene_harper_fail_01"
+      }
+    ]
+  },
+
+  "intro_harper_balcony": {
+    "id": "intro_harper_balcony",
+    "character": "harper",
+    "location": "balcony",
+    "image": "images/harper_balcony_01.jpg",
+    "text": "On the balcony, Harper stands framed by city lights, blonde hair catching the glow, every angle effortlessly cinematic. She glances over with an amused, narrowing gaze that feels like a screen test you did not know you were auditioning for.",
+    "choices": [
+      {
+        "id": "bold_confident",
+        "label": "Treat this like your own starring moment",
+        "action": "go_to_scene",
+        "target": "scene_harper_spicy_01"
+      },
+      {
+        "id": "playful_tease",
+        "label": "Make a teasing comment about her dramatic framing",
+        "action": "go_to_scene",
+        "target": "scene_harper_tame_01"
+      },
+      {
+        "id": "warm_sincere",
+        "label": "Say something simply, honestly kind",
+        "action": "go_to_scene",
+        "target": "scene_harper_soft_01"
+      },
+      {
+        "id": "awkward_formal",
+        "label": "Offer something polite but awkward",
+        "action": "go_to_scene",
+        "target": "scene_harper_fail_01"
+      }
+    ]
+  },
+
+  "intro_harper_gameloft": {
+    "id": "intro_harper_gameloft",
+    "character": "harper",
+    "location": "gameloft",
+    "image": "images/harper_gameloft_01.jpg",
+    "text": "In the game loft, Harper leans against a column near the action, watching others compete with a small, knowing smirk. When she catches your eye, there is a flash of curiosity, like she is wondering whether you are more interesting as a player or an audience.",
+    "choices": [
+      {
+        "id": "bold_confident",
+        "label": "Confidently invite her into a game with you",
+        "action": "go_to_scene",
+        "target": "scene_harper_spicy_01"
+      },
+      {
+        "id": "playful_tease",
+        "label": "Tease her about spectating instead of playing",
+        "action": "go_to_scene",
+        "target": "scene_harper_tame_01"
+      },
+      {
+        "id": "warm_sincere",
+        "label": "Start with something warm and genuine",
+        "action": "go_to_scene",
+        "target": "scene_harper_soft_01"
+      },
+      {
+        "id": "awkward_formal",
+        "label": "Approach with slightly awkward small talk",
+        "action": "go_to_scene",
+        "target": "scene_harper_fail_01"
+      }
+    ]
+  },
+
+  "intro_mara_bar": {
+    "id": "intro_mara_bar",
+    "character": "mara",
+    "location": "bar",
+    "image": "images/mara_bar_01.jpg",
+    "text": "At the bar, Mara stands with an easy, soft grace, sapphire dress catching warm light as she listens intently to someone beside her. When her blue eyes shift to you, there is a quiet warmth there, like she is ready to make space if you step closer.",
+    "choices": [
+      {
+        "id": "warm_attentive",
+        "label": "Approach her with warm, attentive interest",
+        "action": "go_to_scene",
+        "target": "scene_mara_warm_01"
+      },
+      {
+        "id": "gentle_flirt",
+        "label": "Let a gentle flirt thread into your hello",
+        "action": "go_to_scene",
+        "target": "scene_mara_flirty_01"
+      },
+      {
+        "id": "deep_question",
+        "label": "Open with a quietly sincere question",
+        "action": "go_to_scene",
+        "target": "scene_mara_deep_01"
+      },
+      {
+        "id": "bold_aggressive",
+        "label": "Come in a bit too bold and forward",
+        "action": "go_to_scene",
+        "target": "scene_mara_neutral_01"
+      }
+    ]
+  },
+
+  "intro_mara_lounge": {
+    "id": "intro_mara_lounge",
+    "character": "mara",
+    "location": "lounge",
+    "image": "images/mara_lounge_01.jpg",
+    "text": "In the lounge, Mara sits slightly turned toward the room, posture relaxed, hands resting lightly in her lap as she talks in a low, warm tone. When she notices you, her smile is small but genuine, like she is already considering how you might fit into her evening.",
+    "choices": [
+      {
+        "id": "warm_attentive",
+        "label": "Offer warm, focused attention right away",
+        "action": "go_to_scene",
+        "target": "scene_mara_warm_01"
+      },
+      {
+        "id": "gentle_flirt",
+        "label": "Add a touch of gentle flirtation",
+        "action": "go_to_scene",
+        "target": "scene_mara_flirty_01"
+      },
+      {
+        "id": "deep_question",
+        "label": "Ask something softly introspective",
+        "action": "go_to_scene",
+        "target": "scene_mara_deep_01"
+      },
+      {
+        "id": "bold_aggressive",
+        "label": "Cut in with a more assertive move",
+        "action": "go_to_scene",
+        "target": "scene_mara_neutral_01"
+      }
+    ]
+  },
+
+  "intro_mara_pool": {
+    "id": "intro_mara_pool",
+    "character": "mara",
+    "location": "pool",
+    "image": "images/mara_pool_01.jpg",
+    "text": "By the pool, Mara stands a little back from the water, watching the reflections with a soft, thoughtful expression. The way she turns toward you is unhurried and welcoming, like she is completely open to sharing a quieter moment in the middle of the chaos.",
+    "choices": [
+      {
+        "id": "warm_attentive",
+        "label": "Approach with warm, gentle attention",
+        "action": "go_to_scene",
+        "target": "scene_mara_warm_01"
+      },
+      {
+        "id": "gentle_flirt",
+        "label": "Let a subtle flirt color your words",
+        "action": "go_to_scene",
+        "target": "scene_mara_flirty_01"
+      },
+      {
+        "id": "deep_question",
+        "label": "Ask something a little deeper than small talk",
+        "action": "go_to_scene",
+        "target": "scene_mara_deep_01"
+      },
+      {
+        "id": "bold_aggressive",
+        "label": "Arrive with energy that is a bit too strong",
+        "action": "go_to_scene",
+        "target": "scene_mara_neutral_01"
+      }
+    ]
+  },
+
+  "intro_mara_balcony": {
+    "id": "intro_mara_balcony",
+    "character": "mara",
+    "location": "balcony",
+    "image": "images/mara_balcony_01.jpg",
+    "text": "On the balcony, Mara rests her hands lightly on the rail, eyes turned toward the city with a touch of quiet melancholy. When she glances over at you, the look is warm and searching, like she would not mind sharing something a little real.",
+    "choices": [
+      {
+        "id": "warm_attentive",
+        "label": "Offer her warm, grounded presence",
+        "action": "go_to_scene",
+        "target": "scene_mara_warm_01"
+      },
+      {
+        "id": "gentle_flirt",
+        "label": "Let a soft flirtation slip into your greeting",
+        "action": "go_to_scene",
+        "target": "scene_mara_flirty_01"
+      },
+      {
+        "id": "deep_question",
+        "label": "Ask a quietly sincere question about her night",
+        "action": "go_to_scene",
+        "target": "scene_mara_deep_01"
+      },
+      {
+        "id": "bold_aggressive",
+        "label": "Come in with bolder energy than the mood calls for",
+        "action": "go_to_scene",
+        "target": "scene_mara_neutral_01"
+      }
+    ]
+  },
+
+  "intro_mara_gameloft": {
+    "id": "intro_mara_gameloft",
+    "character": "mara",
+    "location": "gameloft",
+    "image": "images/mara_gameloft_01.jpg",
+    "text": "In the game loft, Mara stands near one of the tables, watching the back-and-forth with a soft, amused smile. Her attention shifts to you with quiet curiosity, like she is wondering whether you are here to play or to talk.",
+    "choices": [
+      {
+        "id": "warm_attentive",
+        "label": "Join her with warm, focused interest",
+        "action": "go_to_scene",
+        "target": "scene_mara_warm_01"
+      },
+      {
+        "id": "gentle_flirt",
+        "label": "Turn it into gentle, playful flirtation",
+        "action": "go_to_scene",
+        "target": "scene_mara_flirty_01"
+      },
+      {
+        "id": "deep_question",
+        "label": "Start with something quietly thoughtful",
+        "action": "go_to_scene",
+        "target": "scene_mara_deep_01"
+      },
+      {
+        "id": "bold_aggressive",
+        "label": "Arrive with a bit too much boldness",
+        "action": "go_to_scene",
+        "target": "scene_mara_neutral_01"
+      }
+    ]
+  }
+}
