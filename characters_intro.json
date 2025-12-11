@@ -1,177 +1,727 @@
 {
-  "intro_bar_sienna": {
-    "id": "intro_bar_sienna",
+  "scene_sienna_bar_intro_01": {
+    "id": "scene_sienna_bar_intro_01",
+    "type": "character_intro",
+    "characterId": "sienna",
+    "characterName": "Sienna Brooks",
     "location": "bar",
-    "character": "sienna",
-    "text": "You encounter Sienna at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
+    "locationLabel": "Bar",
+    "image": "sienna_bar_01.jpg",
+    "tags": [
+      "intro",
+      "sienna",
+      "bar"
+    ],
+    "text": "Sienna Brooks is posted up at the bar, framed in warm golden light. Even in the crowd, there's an orbit around her\u2014people drawn to the way she laughs, listens, and fills the space without even trying. Up close, the impression is sharper: fiery pop star with a big heart. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Sienna.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
   },
-  "intro_bar_riley": {
-    "id": "intro_bar_riley",
+  "scene_sienna_pool_intro_01": {
+    "id": "scene_sienna_pool_intro_01",
+    "type": "character_intro",
+    "characterId": "sienna",
+    "characterName": "Sienna Brooks",
+    "location": "pool",
+    "locationLabel": "Pool Terrace",
+    "image": "sienna_pool_01.jpg",
+    "tags": [
+      "intro",
+      "sienna",
+      "pool"
+    ],
+    "text": "Sienna Brooks has slipped out to the pool terrace, away from the loudest pockets of the party. String lights shimmer across the water as she leans on the railing, half watching the crowd, half lost in her own thoughts. Up close, the impression is sharper: fiery pop star with a big heart. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Sienna.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_sienna_lounge_intro_01": {
+    "id": "scene_sienna_lounge_intro_01",
+    "type": "character_intro",
+    "characterId": "sienna",
+    "characterName": "Sienna Brooks",
+    "location": "lounge",
+    "locationLabel": "Lounge",
+    "image": "sienna_lounge_01.jpg",
+    "tags": [
+      "intro",
+      "sienna",
+      "lounge"
+    ],
+    "text": "Sienna Brooks has claimed a corner of the lounge, low music and soft lighting wrapping around her. A small cluster of guests hangs on her every word, but it looks like she's ready for a more one\u2011on\u2011one moment. Up close, the impression is sharper: fiery pop star with a big heart. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Sienna.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_sienna_balcony_intro_01": {
+    "id": "scene_sienna_balcony_intro_01",
+    "type": "character_intro",
+    "characterId": "sienna",
+    "characterName": "Sienna Brooks",
+    "location": "balcony",
+    "locationLabel": "Balcony",
+    "image": "sienna_balcony_01.jpg",
+    "tags": [
+      "intro",
+      "sienna",
+      "balcony"
+    ],
+    "text": "Sienna Brooks is out on the balcony, city lights stretched beneath her like a private constellation. The air is cooler here, and there's a softness in her posture you don\u2019t usually see when she's center\u2011stage. Up close, the impression is sharper: fiery pop star with a big heart. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Sienna.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_sienna_game_loft_intro_01": {
+    "id": "scene_sienna_game_loft_intro_01",
+    "type": "character_intro",
+    "characterId": "sienna",
+    "characterName": "Sienna Brooks",
+    "location": "gameloft",
+    "locationLabel": "Game Loft",
+    "image": "sienna_game_loft_01.jpg",
+    "tags": [
+      "intro",
+      "sienna",
+      "game_loft"
+    ],
+    "text": "Sienna Brooks is up in the game loft, where the party feels looser and louder. Between the clack of pool balls and bursts of laughter, she moves with easy confidence, turning competition into flirtation without missing a beat. Up close, the impression is sharper: fiery pop star with a big heart. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Sienna.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_sienna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_riley_bar_intro_01": {
+    "id": "scene_riley_bar_intro_01",
+    "type": "character_intro",
+    "characterId": "riley",
+    "characterName": "Riley Storm",
     "location": "bar",
-    "character": "riley",
-    "text": "You encounter Riley at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
+    "locationLabel": "Bar",
+    "image": "riley_bar_01.jpg",
+    "tags": [
+      "intro",
+      "riley",
+      "bar"
+    ],
+    "text": "Riley Storm is posted up at the bar, framed in warm golden light. Even in the crowd, there's an orbit around her\u2014people drawn to the way she laughs, listens, and fills the space without even trying. Up close, the impression is sharper: playful, athletic adrenaline\u2011chaser. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Riley.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 0
+      }
+    ]
   },
-  "intro_bar_luna": {
-    "id": "intro_bar_luna",
+  "scene_riley_pool_intro_01": {
+    "id": "scene_riley_pool_intro_01",
+    "type": "character_intro",
+    "characterId": "riley",
+    "characterName": "Riley Storm",
+    "location": "pool",
+    "locationLabel": "Pool Terrace",
+    "image": "riley_pool_01.jpg",
+    "tags": [
+      "intro",
+      "riley",
+      "pool"
+    ],
+    "text": "Riley Storm has slipped out to the pool terrace, away from the loudest pockets of the party. String lights shimmer across the water as she leans on the railing, half watching the crowd, half lost in her own thoughts. Up close, the impression is sharper: playful, athletic adrenaline\u2011chaser. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Riley.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_riley_lounge_intro_01": {
+    "id": "scene_riley_lounge_intro_01",
+    "type": "character_intro",
+    "characterId": "riley",
+    "characterName": "Riley Storm",
+    "location": "lounge",
+    "locationLabel": "Lounge",
+    "image": "riley_lounge_01.jpg",
+    "tags": [
+      "intro",
+      "riley",
+      "lounge"
+    ],
+    "text": "Riley Storm has claimed a corner of the lounge, low music and soft lighting wrapping around her. A small cluster of guests hangs on her every word, but it looks like she's ready for a more one\u2011on\u2011one moment. Up close, the impression is sharper: playful, athletic adrenaline\u2011chaser. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Riley.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_riley_balcony_intro_01": {
+    "id": "scene_riley_balcony_intro_01",
+    "type": "character_intro",
+    "characterId": "riley",
+    "characterName": "Riley Storm",
+    "location": "balcony",
+    "locationLabel": "Balcony",
+    "image": "riley_balcony_01.jpg",
+    "tags": [
+      "intro",
+      "riley",
+      "balcony"
+    ],
+    "text": "Riley Storm is out on the balcony, city lights stretched beneath her like a private constellation. The air is cooler here, and there's a softness in her posture you don\u2019t usually see when she's center\u2011stage. Up close, the impression is sharper: playful, athletic adrenaline\u2011chaser. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Riley.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_riley_game_loft_intro_01": {
+    "id": "scene_riley_game_loft_intro_01",
+    "type": "character_intro",
+    "characterId": "riley",
+    "characterName": "Riley Storm",
+    "location": "gameloft",
+    "locationLabel": "Game Loft",
+    "image": "riley_game_loft_01.jpg",
+    "tags": [
+      "intro",
+      "riley",
+      "game_loft"
+    ],
+    "text": "Riley Storm is up in the game loft, where the party feels looser and louder. Between the clack of pool balls and bursts of laughter, she moves with easy confidence, turning competition into flirtation without missing a beat. Up close, the impression is sharper: playful, athletic adrenaline\u2011chaser. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Riley.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_riley_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_luna_bar_intro_01": {
+    "id": "scene_luna_bar_intro_01",
+    "type": "character_intro",
+    "characterId": "luna",
+    "characterName": "Luna Devreaux",
     "location": "bar",
-    "character": "luna",
-    "text": "You encounter Luna at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
+    "locationLabel": "Bar",
+    "image": "luna_bar_01.jpg",
+    "tags": [
+      "intro",
+      "luna",
+      "bar"
+    ],
+    "text": "Luna Devreaux is posted up at the bar, framed in warm golden light. Even in the crowd, there's an orbit around her\u2014people drawn to the way she laughs, listens, and fills the space without even trying. Up close, the impression is sharper: elegant, quietly intense fashion muse. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Luna.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
   },
-  "intro_bar_harper": {
-    "id": "intro_bar_harper",
+  "scene_luna_pool_intro_01": {
+    "id": "scene_luna_pool_intro_01",
+    "type": "character_intro",
+    "characterId": "luna",
+    "characterName": "Luna Devreaux",
+    "location": "pool",
+    "locationLabel": "Pool Terrace",
+    "image": "luna_pool_01.jpg",
+    "tags": [
+      "intro",
+      "luna",
+      "pool"
+    ],
+    "text": "Luna Devreaux has slipped out to the pool terrace, away from the loudest pockets of the party. String lights shimmer across the water as she leans on the railing, half watching the crowd, half lost in her own thoughts. Up close, the impression is sharper: elegant, quietly intense fashion muse. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Luna.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_luna_lounge_intro_01": {
+    "id": "scene_luna_lounge_intro_01",
+    "type": "character_intro",
+    "characterId": "luna",
+    "characterName": "Luna Devreaux",
+    "location": "lounge",
+    "locationLabel": "Lounge",
+    "image": "luna_lounge_01.jpg",
+    "tags": [
+      "intro",
+      "luna",
+      "lounge"
+    ],
+    "text": "Luna Devreaux has claimed a corner of the lounge, low music and soft lighting wrapping around her. A small cluster of guests hangs on her every word, but it looks like she's ready for a more one\u2011on\u2011one moment. Up close, the impression is sharper: elegant, quietly intense fashion muse. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Luna.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_luna_balcony_intro_01": {
+    "id": "scene_luna_balcony_intro_01",
+    "type": "character_intro",
+    "characterId": "luna",
+    "characterName": "Luna Devreaux",
+    "location": "balcony",
+    "locationLabel": "Balcony",
+    "image": "luna_balcony_01.jpg",
+    "tags": [
+      "intro",
+      "luna",
+      "balcony"
+    ],
+    "text": "Luna Devreaux is out on the balcony, city lights stretched beneath her like a private constellation. The air is cooler here, and there's a softness in her posture you don\u2019t usually see when she's center\u2011stage. Up close, the impression is sharper: elegant, quietly intense fashion muse. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Luna.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_luna_game_loft_intro_01": {
+    "id": "scene_luna_game_loft_intro_01",
+    "type": "character_intro",
+    "characterId": "luna",
+    "characterName": "Luna Devreaux",
+    "location": "gameloft",
+    "locationLabel": "Game Loft",
+    "image": "luna_game_loft_01.jpg",
+    "tags": [
+      "intro",
+      "luna",
+      "game_loft"
+    ],
+    "text": "Luna Devreaux is up in the game loft, where the party feels looser and louder. Between the clack of pool balls and bursts of laughter, she moves with easy confidence, turning competition into flirtation without missing a beat. Up close, the impression is sharper: elegant, quietly intense fashion muse. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Luna.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_luna_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_harper_bar_intro_01": {
+    "id": "scene_harper_bar_intro_01",
+    "type": "character_intro",
+    "characterId": "harper",
+    "characterName": "Harper Vale",
     "location": "bar",
-    "character": "harper",
-    "text": "You encounter Harper at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
+    "locationLabel": "Bar",
+    "image": "harper_bar_01.jpg",
+    "tags": [
+      "intro",
+      "harper",
+      "bar"
+    ],
+    "text": "Harper Vale is posted up at the bar, framed in warm golden light. Even in the crowd, there's an orbit around her\u2014people drawn to the way she laughs, listens, and fills the space without even trying. Up close, the impression is sharper: witty, watchful actress who reads people. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Harper.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 0
+      }
+    ]
   },
-  "intro_bar_mara": {
-    "id": "intro_bar_mara",
+  "scene_harper_pool_intro_01": {
+    "id": "scene_harper_pool_intro_01",
+    "type": "character_intro",
+    "characterId": "harper",
+    "characterName": "Harper Vale",
+    "location": "pool",
+    "locationLabel": "Pool Terrace",
+    "image": "harper_pool_01.jpg",
+    "tags": [
+      "intro",
+      "harper",
+      "pool"
+    ],
+    "text": "Harper Vale has slipped out to the pool terrace, away from the loudest pockets of the party. String lights shimmer across the water as she leans on the railing, half watching the crowd, half lost in her own thoughts. Up close, the impression is sharper: witty, watchful actress who reads people. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Harper.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_harper_lounge_intro_01": {
+    "id": "scene_harper_lounge_intro_01",
+    "type": "character_intro",
+    "characterId": "harper",
+    "characterName": "Harper Vale",
+    "location": "lounge",
+    "locationLabel": "Lounge",
+    "image": "harper_lounge_01.jpg",
+    "tags": [
+      "intro",
+      "harper",
+      "lounge"
+    ],
+    "text": "Harper Vale has claimed a corner of the lounge, low music and soft lighting wrapping around her. A small cluster of guests hangs on her every word, but it looks like she's ready for a more one\u2011on\u2011one moment. Up close, the impression is sharper: witty, watchful actress who reads people. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Harper.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_harper_balcony_intro_01": {
+    "id": "scene_harper_balcony_intro_01",
+    "type": "character_intro",
+    "characterId": "harper",
+    "characterName": "Harper Vale",
+    "location": "balcony",
+    "locationLabel": "Balcony",
+    "image": "harper_balcony_01.jpg",
+    "tags": [
+      "intro",
+      "harper",
+      "balcony"
+    ],
+    "text": "Harper Vale is out on the balcony, city lights stretched beneath her like a private constellation. The air is cooler here, and there's a softness in her posture you don\u2019t usually see when she's center\u2011stage. Up close, the impression is sharper: witty, watchful actress who reads people. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Harper.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_harper_game_loft_intro_01": {
+    "id": "scene_harper_game_loft_intro_01",
+    "type": "character_intro",
+    "characterId": "harper",
+    "characterName": "Harper Vale",
+    "location": "gameloft",
+    "locationLabel": "Game Loft",
+    "image": "harper_game_loft_01.jpg",
+    "tags": [
+      "intro",
+      "harper",
+      "game_loft"
+    ],
+    "text": "Harper Vale is up in the game loft, where the party feels looser and louder. Between the clack of pool balls and bursts of laughter, she moves with easy confidence, turning competition into flirtation without missing a beat. Up close, the impression is sharper: witty, watchful actress who reads people. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Harper.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_harper_00_intro",
+        "affinityDelta": 0
+      }
+    ]
+  },
+  "scene_mara_bar_intro_01": {
+    "id": "scene_mara_bar_intro_01",
+    "type": "character_intro",
+    "characterId": "mara",
+    "characterName": "Mara Quinn",
     "location": "bar",
-    "character": "mara",
-    "text": "You encounter Mara at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
+    "locationLabel": "Bar",
+    "image": "mara_bar_01.jpg",
+    "tags": [
+      "intro",
+      "mara",
+      "bar"
+    ],
+    "text": "Mara Quinn is posted up at the bar, framed in warm golden light. Even in the crowd, there's an orbit around her\u2014people drawn to the way she laughs, listens, and fills the space without even trying. Up close, the impression is sharper: warm, magnetic, slow\u2011burn romantic. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Mara.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 0
+      }
+    ]
   },
-  "intro_lounge_sienna": {
-    "id": "intro_lounge_sienna",
-    "location": "lounge",
-    "character": "sienna",
-    "text": "You encounter Sienna at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_lounge_riley": {
-    "id": "intro_lounge_riley",
-    "location": "lounge",
-    "character": "riley",
-    "text": "You encounter Riley at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_lounge_luna": {
-    "id": "intro_lounge_luna",
-    "location": "lounge",
-    "character": "luna",
-    "text": "You encounter Luna at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_lounge_harper": {
-    "id": "intro_lounge_harper",
-    "location": "lounge",
-    "character": "harper",
-    "text": "You encounter Harper at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_lounge_mara": {
-    "id": "intro_lounge_mara",
-    "location": "lounge",
-    "character": "mara",
-    "text": "You encounter Mara at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_pool_sienna": {
-    "id": "intro_pool_sienna",
+  "scene_mara_pool_intro_01": {
+    "id": "scene_mara_pool_intro_01",
+    "type": "character_intro",
+    "characterId": "mara",
+    "characterName": "Mara Quinn",
     "location": "pool",
-    "character": "sienna",
-    "text": "You encounter Sienna at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
+    "locationLabel": "Pool Terrace",
+    "image": "mara_pool_01.jpg",
+    "tags": [
+      "intro",
+      "mara",
+      "pool"
+    ],
+    "text": "Mara Quinn has slipped out to the pool terrace, away from the loudest pockets of the party. String lights shimmer across the water as she leans on the railing, half watching the crowd, half lost in her own thoughts. Up close, the impression is sharper: warm, magnetic, slow\u2011burn romantic. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Mara.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 0
+      }
+    ]
   },
-  "intro_pool_riley": {
-    "id": "intro_pool_riley",
-    "location": "pool",
-    "character": "riley",
-    "text": "You encounter Riley at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
+  "scene_mara_lounge_intro_01": {
+    "id": "scene_mara_lounge_intro_01",
+    "type": "character_intro",
+    "characterId": "mara",
+    "characterName": "Mara Quinn",
+    "location": "lounge",
+    "locationLabel": "Lounge",
+    "image": "mara_lounge_01.jpg",
+    "tags": [
+      "intro",
+      "mara",
+      "lounge"
+    ],
+    "text": "Mara Quinn has claimed a corner of the lounge, low music and soft lighting wrapping around her. A small cluster of guests hangs on her every word, but it looks like she's ready for a more one\u2011on\u2011one moment. Up close, the impression is sharper: warm, magnetic, slow\u2011burn romantic. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Mara.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 0
+      }
+    ]
   },
-  "intro_pool_luna": {
-    "id": "intro_pool_luna",
-    "location": "pool",
-    "character": "luna",
-    "text": "You encounter Luna at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_pool_harper": {
-    "id": "intro_pool_harper",
-    "location": "pool",
-    "character": "harper",
-    "text": "You encounter Harper at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_pool_mara": {
-    "id": "intro_pool_mara",
-    "location": "pool",
-    "character": "mara",
-    "text": "You encounter Mara at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_balcony_sienna": {
-    "id": "intro_balcony_sienna",
+  "scene_mara_balcony_intro_01": {
+    "id": "scene_mara_balcony_intro_01",
+    "type": "character_intro",
+    "characterId": "mara",
+    "characterName": "Mara Quinn",
     "location": "balcony",
-    "character": "sienna",
-    "text": "You encounter Sienna at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
+    "locationLabel": "Balcony",
+    "image": "mara_balcony_01.jpg",
+    "tags": [
+      "intro",
+      "mara",
+      "balcony"
+    ],
+    "text": "Mara Quinn is out on the balcony, city lights stretched beneath her like a private constellation. The air is cooler here, and there's a softness in her posture you don\u2019t usually see when she's center\u2011stage. Up close, the impression is sharper: warm, magnetic, slow\u2011burn romantic. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Mara.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 0
+      }
+    ]
   },
-  "intro_balcony_riley": {
-    "id": "intro_balcony_riley",
-    "location": "balcony",
-    "character": "riley",
-    "text": "You encounter Riley at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_balcony_luna": {
-    "id": "intro_balcony_luna",
-    "location": "balcony",
-    "character": "luna",
-    "text": "You encounter Luna at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_balcony_harper": {
-    "id": "intro_balcony_harper",
-    "location": "balcony",
-    "character": "harper",
-    "text": "You encounter Harper at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_balcony_mara": {
-    "id": "intro_balcony_mara",
-    "location": "balcony",
-    "character": "mara",
-    "text": "You encounter Mara at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_gameloft_sienna": {
-    "id": "intro_gameloft_sienna",
+  "scene_mara_game_loft_intro_01": {
+    "id": "scene_mara_game_loft_intro_01",
+    "type": "character_intro",
+    "characterId": "mara",
+    "characterName": "Mara Quinn",
     "location": "gameloft",
-    "character": "sienna",
-    "text": "You encounter Sienna at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_gameloft_riley": {
-    "id": "intro_gameloft_riley",
-    "location": "gameloft",
-    "character": "riley",
-    "text": "You encounter Riley at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_gameloft_luna": {
-    "id": "intro_gameloft_luna",
-    "location": "gameloft",
-    "character": "luna",
-    "text": "You encounter Luna at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_gameloft_harper": {
-    "id": "intro_gameloft_harper",
-    "location": "gameloft",
-    "character": "harper",
-    "text": "You encounter Harper at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
-  },
-  "intro_gameloft_mara": {
-    "id": "intro_gameloft_mara",
-    "location": "gameloft",
-    "character": "mara",
-    "text": "You encounter Mara at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
-    "choices": []
+    "locationLabel": "Game Loft",
+    "image": "mara_game_loft_01.jpg",
+    "tags": [
+      "intro",
+      "mara",
+      "game_loft"
+    ],
+    "text": "Mara Quinn is up in the game loft, where the party feels looser and louder. Between the clack of pool balls and bursts of laughter, she moves with easy confidence, turning competition into flirtation without missing a beat. Up close, the impression is sharper: warm, magnetic, slow\u2011burn romantic. If you walk over now, this won\u2019t just be small talk\u2014it\u2019ll set the tone for how the night unfolds between you.",
+    "choices": [
+      {
+        "id": "lean_in",
+        "label": "Lean in and really engage Mara.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 1
+      },
+      {
+        "id": "keep_it_light",
+        "label": "Keep it light and playful for now.",
+        "nextSceneId": "scene_mara_00_intro",
+        "affinityDelta": 0
+      }
+    ]
   }
 }
