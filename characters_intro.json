@@ -1,72 +1,177 @@
 {
-  "scene_sienna_00_intro": {
-    "id": "scene_sienna_00_intro",
+  "intro_bar_sienna": {
+    "id": "intro_bar_sienna",
+    "location": "bar",
     "character": "sienna",
-    "character_name": "Sienna Brooks",
-    "location": "",
-    "image": "scene_sienna_00_intro.jpg",
-    "text": "Sienna lounges at the edge of the pool, legs kicking lazily in the glowing water. When she spots you watching, she splashes playfully and lifts one brow, grin wide and wicked.",
-    "choices": {
-      "flirt_back": "scene_sienna_flirt_01",
-      "tease_her": "scene_sienna_tease_01",
-      "stay_cool": "scene_sienna_cool_01",
-      "return": "scene_00_intro"
-    }
+    "text": "You encounter Sienna at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
   },
-  "scene_riley_00_intro": {
-    "id": "scene_riley_00_intro",
+  "intro_bar_riley": {
+    "id": "intro_bar_riley",
+    "location": "bar",
     "character": "riley",
-    "character_name": "Riley Storm",
-    "location": "",
-    "image": "scene_riley_00_intro.jpg",
-    "text": "Riley finishes a sharp, fluid gymnastic pivot and laughs breathlessly. \"Didn’t see you there. Enjoying the show?\"",
-    "choices": {
-      "flirty_praise": "riley_A",
-      "match_energy": "riley_B",
-      "tame_chat": "riley_C",
-      "step_away": "riley_fail"
-    }
+    "text": "You encounter Riley at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
   },
-  "scene_luna_00_intro": {
-    "id": "scene_luna_00_intro",
+  "intro_bar_luna": {
+    "id": "intro_bar_luna",
+    "location": "bar",
     "character": "luna",
-    "character_name": "Luna Devreaux",
-    "location": "",
-    "image": "scene_luna_00_intro.jpg",
-    "text": "Luna watches you approach with a slow, assessing gaze—like she's reading a page no one else can see. Her voice is low and velvety. \"You carry a strange gravity. Sit with me a moment.\"",
-    "choices": {
-      "soft_approach": "scene_luna_soft_01",
-      "intense_energy": "scene_luna_intense_01",
-      "tame_option": "scene_luna_tame_01",
-      "step_away": "scene_luna_fail_01"
-    }
+    "text": "You encounter Luna at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
   },
-  "scene_harper_00_intro": {
-    "id": "scene_harper_00_intro",
+  "intro_bar_harper": {
+    "id": "intro_bar_harper",
+    "location": "bar",
     "character": "harper",
-    "character_name": "Harper Vale",
-    "location": "",
-    "image": "scene_harper_00_intro.jpg",
-    "text": "Harper Vale — instantly recognizable, magnetic in person — stands in a warm halo of lanternlight near a wide loft window, the city sprawled in glittering layers below. She swirls her drink, watching reflections glide across the glass and polished game tables nearby.\n\n\"You look like someone with better stories than half the people here,\" she says with a sly, cinematic smile.\n\nHer voice is low, velvet-smooth — the kind of tone that makes everything sound like a line delivered perfectly on the first take.",
-    "choices": {
-      "soft_flirt": "scene_harper_soft_01",
-      "intense_energy": "scene_harper_spicy_01",
-      "tame_chat": "scene_harper_tame_01",
-      "play_it_safe": "scene_harper_fail_01"
-    }
+    "text": "You encounter Harper at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
   },
-  "scene_mara_00_intro": {
-    "id": "scene_mara_00_intro",
+  "intro_bar_mara": {
+    "id": "intro_bar_mara",
+    "location": "bar",
     "character": "mara",
-    "character_name": "Mara Quinn",
-    "location": "",
-    "image": "scene_mara_00_intro.jpg",
-    "text": "Mara stands near a tall loft window, hair glowing softly in the city light. A quiet two-person table sits nearby with an untouched game laid out between the chairs. \"You’re just in time,\" she says, nodding toward the view. \"The city puts on its best performance after midnight.\"",
-    "choices": {
-      "close_in": "mara_A",
-      "ask_about_telescope": "mara_B",
-      "tame_talk": "mara_C",
-      "step_away": "mara_fail"
-    }
+    "text": "You encounter Mara at the bar. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_lounge_sienna": {
+    "id": "intro_lounge_sienna",
+    "location": "lounge",
+    "character": "sienna",
+    "text": "You encounter Sienna at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_lounge_riley": {
+    "id": "intro_lounge_riley",
+    "location": "lounge",
+    "character": "riley",
+    "text": "You encounter Riley at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_lounge_luna": {
+    "id": "intro_lounge_luna",
+    "location": "lounge",
+    "character": "luna",
+    "text": "You encounter Luna at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_lounge_harper": {
+    "id": "intro_lounge_harper",
+    "location": "lounge",
+    "character": "harper",
+    "text": "You encounter Harper at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_lounge_mara": {
+    "id": "intro_lounge_mara",
+    "location": "lounge",
+    "character": "mara",
+    "text": "You encounter Mara at the lounge. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_pool_sienna": {
+    "id": "intro_pool_sienna",
+    "location": "pool",
+    "character": "sienna",
+    "text": "You encounter Sienna at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_pool_riley": {
+    "id": "intro_pool_riley",
+    "location": "pool",
+    "character": "riley",
+    "text": "You encounter Riley at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_pool_luna": {
+    "id": "intro_pool_luna",
+    "location": "pool",
+    "character": "luna",
+    "text": "You encounter Luna at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_pool_harper": {
+    "id": "intro_pool_harper",
+    "location": "pool",
+    "character": "harper",
+    "text": "You encounter Harper at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_pool_mara": {
+    "id": "intro_pool_mara",
+    "location": "pool",
+    "character": "mara",
+    "text": "You encounter Mara at the pool. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_balcony_sienna": {
+    "id": "intro_balcony_sienna",
+    "location": "balcony",
+    "character": "sienna",
+    "text": "You encounter Sienna at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_balcony_riley": {
+    "id": "intro_balcony_riley",
+    "location": "balcony",
+    "character": "riley",
+    "text": "You encounter Riley at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_balcony_luna": {
+    "id": "intro_balcony_luna",
+    "location": "balcony",
+    "character": "luna",
+    "text": "You encounter Luna at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_balcony_harper": {
+    "id": "intro_balcony_harper",
+    "location": "balcony",
+    "character": "harper",
+    "text": "You encounter Harper at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_balcony_mara": {
+    "id": "intro_balcony_mara",
+    "location": "balcony",
+    "character": "mara",
+    "text": "You encounter Mara at the balcony. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_gameloft_sienna": {
+    "id": "intro_gameloft_sienna",
+    "location": "gameloft",
+    "character": "sienna",
+    "text": "You encounter Sienna at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_gameloft_riley": {
+    "id": "intro_gameloft_riley",
+    "location": "gameloft",
+    "character": "riley",
+    "text": "You encounter Riley at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_gameloft_luna": {
+    "id": "intro_gameloft_luna",
+    "location": "gameloft",
+    "character": "luna",
+    "text": "You encounter Luna at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_gameloft_harper": {
+    "id": "intro_gameloft_harper",
+    "location": "gameloft",
+    "character": "harper",
+    "text": "You encounter Harper at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
+  },
+  "intro_gameloft_mara": {
+    "id": "intro_gameloft_mara",
+    "location": "gameloft",
+    "character": "mara",
+    "text": "You encounter Mara at the gameloft. (Placeholder intro scene \u2014 ready for narrative expansion.)",
+    "choices": []
   }
 }
