@@ -49,7 +49,7 @@ Where do you want to wander first?
     Random assignment: 2 characters per location, each character appears in 2 locations.
   </footer>
 
-  <script>
+  <script type="text/plain" id="legacy-inline-script">
     // --- DOM references ---
     const errorBox = document.getElementById('error-box');
     const sceneTitleEl = document.getElementById('scene-title');
@@ -358,14 +358,14 @@ Where do you want to wander first?
       metaLineEl.textContent = metaBits.join(' • ');
 
       choicesEl.innerHTML = '';
-      addChoiceButton('Say something clever (new reaction)', () => {
-        showCharacterAtLocation(charSlug, normLoc);
-      });
-      addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
-        enterLocation(normLoc);
-      });
-      addChoiceButton('Slip away to the main party', renderArrivalScene);
-    }
+// [LEGACY DISABLED]       addChoiceButton('Say something clever (new reaction)', () => {
+// [LEGACY DISABLED]         showCharacterAtLocation(charSlug, normLoc);
+// [LEGACY DISABLED]       });
+// [LEGACY DISABLED]       addChoiceButton(`Glance around ${prettyLocation(normLoc)} again`, () => {
+// [LEGACY DISABLED]         enterLocation(normLoc);
+// [LEGACY DISABLED]       });
+// [LEGACY DISABLED]       addChoiceButton('Slip away to the main party', renderArrivalScene);
+// [LEGACY DISABLED]     }
 
     // === MEET THE CHARACTERS MODAL ===
     async function showCharacterProfiles() {
@@ -470,5 +470,32 @@ Where do you want to wander first?
 
     init();
   </script>
+
+  <!-- ========================= -->
+  <!-- JS LOAD ORDER (AUTHORITATIVE) -->
+  <!-- ========================= -->
+  <script src="js/config.js" defer></script>
+  <script src="js/state.js" defer></script>
+  <script src="js/storyLoader.js" defer></script>
+  <script src="js/storyEngine.js" defer></script>
+  <script src="js/affinity.js" defer></script>
+  <script src="js/randomizer.js" defer></script>
+  <script src="js/placement.js" defer></script>
+  <script src="js/imageResolver.js" defer></script>
+  <script src="js/renderer.js" defer></script>
+  <script src="js/modal.js" defer></script>
+  <script src="js/debug.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+  <script defer>
+    // Sanity checks (non-fatal): helps confirm scripts are loaded correctly
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!window.HP_CONFIG) console.warn('HP_CONFIG is not defined — check js/config.js loading');
+      if (!window.HP_STATE) console.warn('HP_STATE is not defined — check js/state.js loading');
+      if (!window.StoryEngine) console.warn('StoryEngine is not defined — check js/storyEngine.js loading');
+    });
+  </script>
+
 </body>
 </html>

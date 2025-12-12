@@ -37,7 +37,7 @@
 
       if (window.HP_STATE) {
         HP_STATE.loaded = true;
-        HP_STATE.scenes = merged; // debug / inspection only
+        HP_STATE.scenes = merged; // debug only
       }
 
       const statusEl = document.getElementById("jsonStatus");
@@ -49,10 +49,6 @@
 
     /**
      * Resolve a scene by id, optionally in the context of a character.
-     * This:
-     *  - Normalizes different scene formats (choices vs options)
-     *  - Applies affinity-based filters / endings
-     *  - Applies random choice-count rules (2 options 75%, 3 options 25%)
      */
     getScene(sceneId, explicitCharacter) {
       if (!sceneId) return null;
@@ -64,30 +60,40 @@
 
       const scene = { ...base };
 
-      // determine active character
       const activeCharacter =
         explicitCharacter ||
         (window.HP_STATE && HP_STATE.currentCharacter) ||
         scene.characterId ||
         null;
 
-      // normalize options:
-      // - if the scene already has "options", use that
-      // - otherwise, if it has "choices" (characters_intro.json), convert them
       let rawOptions = [];
 
+      // Normalize options
       if (Array.isArray(scene.options)) {
         rawOptions = scene.options.map(o => ({ ...o }));
       } else if (Array.isArray(scene.choices)) {
         rawOptions = scene.choices.map(choice => {
           const opt = {
-            id: choice.id,
-            text: choice.label,
-            nextSceneId: choice.nextSceneId
+            id: choice.id || choice.label,
+            text: choice.label
           };
-          if (typeof choice.affinityDelta === "number") {
-            opt.effect = { affinity: choice.affinityDelta };
+
+          // 🔑 Narrative → Romance entry
+          if (choice.romanceStyle) {
+            opt.enterRomance = true;
+            opt.romanceStyle = choice.romanceStyle;
+            opt.effect = {
+              affinity: typeof choice.affinityDelta === "number"
+                ? choice.affinityDelta
+                : 0
+            };
+          } else {
+            opt.nextSceneId = choice.nextSceneId;
+            if (typeof choice.affinityDelta === "number") {
+              opt.effect = { affinity: choice.affinityDelta };
+            }
           }
+
           return opt;
         });
       }
@@ -99,7 +105,7 @@
         const affinity = HP_STATE.getAffinity(activeCharacter);
         const interactions = HP_STATE.getInteractions(activeCharacter);
 
-        // filter locked options
+        // filter by requirements
         baseOptions = baseOptions.filter(o => {
           const req = o.requirements;
           if (!req) return true;
@@ -109,14 +115,14 @@
           return true;
         });
 
-        // bonus options (scene.bonusOptions) -> only sometimes included
+        // bonus options
         if (Array.isArray(scene.bonusOptions) && Math.random() < 0.25) {
           for (const bo of scene.bonusOptions) {
             baseOptions.push({ ...bo });
           }
         }
 
-        // endings unlock after 4+ interactions
+        // endings
         if (interactions >= 4 && Array.isArray(scene.endings)) {
           for (const ending of scene.endings) {
             const minA = ending.minAffinity;
@@ -136,22 +142,20 @@
         }
       }
 
-      // randomize base options and enforce 2 vs 3 rule
+      // shuffle
       if (baseOptions.length > 1) {
         baseOptions = [...baseOptions].sort(() => Math.random() - 0.5);
       }
 
+      // enforce 2 / 3 option rule
       let maxBase = baseOptions.length;
-
       if (baseOptions.length > 2) {
-        // 75% chance -> 2 options, 25% chance -> up to 3
-        const wantThree = Math.random() < 0.25;
-        maxBase = wantThree ? Math.min(3, baseOptions.length) : 2;
+        maxBase = Math.random() < 0.25
+          ? Math.min(3, baseOptions.length)
+          : 2;
       }
 
-      const finalBase = baseOptions.slice(0, maxBase);
-
-      const finalOptions = finalBase.concat(endingOptions);
+      const finalOptions = baseOptions.slice(0, maxBase).concat(endingOptions);
 
       return {
         ...scene,
@@ -161,7 +165,7 @@
     },
 
     /**
-     * Apply a choice's effect to affinity + interaction counts.
+     * Apply affinity + interaction effects
      */
     applyChoice(character, effect) {
       if (!character || !effect || !window.HP_STATE) return;
