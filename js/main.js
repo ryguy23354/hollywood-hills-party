@@ -1,31 +1,53 @@
-// Bootstrapping
-async function hpInit() {
-  try {
-    await hpLoadAllScenes();
-    hpAssignCharactersToLocations();
 
-    const meetBtn = document.getElementById("meetCharactersBtn");
-    const restartBtn = document.getElementById("restartBtn");
-    if (meetBtn) meetBtn.addEventListener("click", hpOpenCharactersModal);
-    if (restartBtn) {
-      restartBtn.addEventListener("click", () => {
-        hpAssignCharactersToLocations();
-        HP_STATE.currentLocation = null;
-        HP_STATE.currentCharacter = null;
-        hpRenderScene(HP_CONFIG.START_SCENE_ID);
-      });
-    }
+// Main routing logic
+import { StoryEngine } from './storyEngine.js';
+import { HP_STATE } from './state.js';
 
-    hpWireModalEvents();
-    hpRenderScene(HP_CONFIG.START_SCENE_ID);
-  } catch (err) {
-    console.error("Init error:", err);
-    const statusEl = document.getElementById("jsonStatus");
-    if (statusEl) {
-      statusEl.textContent = "JSON status: error";
-      statusEl.style.color = "#ff6b6b";
-    }
-  }
+let currentCharacter = null;
+
+export async function startGame() {
+    await StoryEngine.loadScenes();
+    loadScene('scene_00_intro');
 }
 
-document.addEventListener("DOMContentLoaded", hpInit);
+export function loadScene(sceneId) {
+    const scene = StoryEngine.getScene(sceneId, currentCharacter);
+    if (!scene) {
+        console.error("Missing scene:", sceneId);
+        return;
+    }
+
+    renderScene(scene);
+}
+
+export function chooseOption(option) {
+    if (currentCharacter && option.effect) {
+        StoryEngine.applyChoice(currentCharacter, option.effect);
+    }
+
+    if (option.nextSceneId) {
+        loadScene(option.nextSceneId);
+    }
+}
+
+function renderScene(scene) {
+    const container = document.getElementById('story');
+    container.innerHTML = `
+        <h2>${scene.title}</h2>
+        <p>${scene.text}</p>
+        <div class="options"></div>
+    `;
+
+    const optionsDiv = container.querySelector('.options');
+    scene.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt.text;
+        btn.onclick = () => chooseOption(opt);
+        optionsDiv.appendChild(btn);
+    });
+}
+
+export function setActiveCharacter(name) {
+    currentCharacter = name;
+    HP_STATE.resetFor(name);
+}
