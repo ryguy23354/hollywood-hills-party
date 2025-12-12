@@ -1,7 +1,8 @@
 {
   "character": "sienna",
   "display_name": "Sienna Brooks",
-  "prompt": "You decide how to play things with Sienna here. She is all emerald heat and emotional spark, watching you with bright green eyes that are waiting for a choice.",
+  "prompt": "You decide how to engage with Sienna. She’s vibrant and emotionally present, green eyes bright and reactive, clearly attuned to how you show up in the moment.",
+
   "styles": {
     "bold": {
       "label": "Go bold and flirty",
@@ -9,72 +10,171 @@
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You push the flirt a little too hard. Sienna laughs, but her eyes slide away for a beat. \"Careful,\" she says softly. \"If you are going to come in that hot, you have to mean it.\"",
+          "text": "You come in hot, maybe a little too fast. Sienna laughs, but it’s tempered. \"Careful,\" she says gently. \"I like confidence, but only when it’s real.\"",
           "delta": 1
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "You meet her energy head on. The line lands with electric timing. Sienna lights up, leaning closer. \"Yes,\" she grins. \"That is the energy I came here for tonight.\"",
+          "text": "Your boldness lands cleanly. Sienna’s smile flashes wide as she leans in. \"Okay,\" she grins. \"I’m listening. Keep going.\"",
           "delta": 2
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
-          "text": "You throw a line that is equal parts dangerous and sincere. Sienna goes briefly quiet, then laughs under her breath. \"If I write a song about tonight,\" she murmurs, \"this is the verse you just wrote.\"",
+          "text": "You flirt with fearless sincerity. Sienna goes quiet for half a beat, then laughs softly. \"Wow,\" she murmurs. \"You don’t hesitate. That’s dangerous.\"",
           "delta": 2
         }
       ]
     },
+
     "warm": {
       "label": "Be emotionally sincere",
       "reactions": [
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You slow down and say something real instead of clever. Sienna blinks, surprised. \"Okay,\" she says, voice softening. \"That was not what I expected in the best way.\"",
+          "text": "You slow things down and speak from the heart. Sienna blinks, surprised, then softens. \"Okay,\" she admits. \"That… actually got through.\"",
           "delta": 2
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "You admit exactly why she pulled your attention, in words that sound more like a confession than a line. Her shoulders drop; the performance melts. \"Thank you,\" she says quietly. \"I needed something honest tonight.\"",
+          "text": "You share something honest, unpolished. Her shoulders relax, voice gentler. \"Thank you,\" she says quietly. \"I need real tonight.\"",
           "delta": 3
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
-          "text": "You share something vulnerable about how her music or presence hits you. Sienna just looks at you for a moment, lashes low, then threads her fingers briefly through yours. \"Do not make me fall for you in one night,\" she teases, but the warmth in her voice is completely real.",
+          "text": "Your sincerity meets her fully. Sienna holds your gaze, eyes shining. \"If people talked like that more,\" she says softly, \"I’d fall in love a lot faster.\"",
           "delta": 3
         }
       ]
     },
+
     "playful": {
       "label": "Lean into playful teasing",
       "reactions": [
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You reach for a joke that half lands, half wobbles. Sienna still laughs and rescues the moment with a grin. \"Okay, there is potential,\" she says. \"We will workshop the material.\"",
+          "text": "Your joke wobbles, but she saves it with a laugh. \"Okay,\" she grins. \"Not perfect — but I see the potential.\"",
           "delta": 1
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "You volley a tease that hits her rhythm perfectly. She tips her head back, laughing with full, musical delight. \"Yes,\" she says, poking your shoulder. \"Stay right there. That is my favorite version of you.\"",
+          "text": "You hit her rhythm just right. Sienna laughs brightly, nudging you. \"Yes,\" she says. \"That energy? Don’t lose it.\"",
           "delta": 2
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
-          "text": "By now the two of you are finishing each other’s jokes. Sienna nudges you with her hip, eyes bright. \"You realize we are dangerously compatible, right?\" she murmurs. \"This feels like trouble in the best way.\"",
+          "text": "You volley back and forth effortlessly. She laughs, leaning into you. \"You realize we’re flirting dangerously well, right?\"",
           "delta": 2
+        }
+      ]
+    },
+
+    "confident": {
+      "label": "Hold confident eye contact",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You try to hold the moment, but it feels forced. Sienna tilts her head. \"Confidence is hot,\" she says kindly. \"Pretending is not.\"",
+          "delta": 0
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You meet her gaze without flinching. Sienna smiles slowly. \"Okay,\" she murmurs. \"I see you.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You don’t break eye contact. Neither does she. Her voice drops. \"That,\" she says softly, \"is incredibly effective on me.\"",
+          "delta": 2
+        }
+      ]
+    },
+
+    "intimate": {
+      "label": "Lean in close and personal",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You move closer too soon. Sienna shifts back slightly. \"Hey,\" she says gently. \"I need the feeling first.\"",
+          "delta": -1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You lower your voice, close enough to feel the moment. Sienna stays, eyes soft. \"Okay,\" she says. \"I like where this is going.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "She doesn’t pull away — she leans in. \"You’re very easy to be close to,\" she admits, warmth unmistakable.",
+          "delta": 3
+        }
+      ]
+    },
+
+    "music": {
+      "label": "Ask about her music",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "She shrugs lightly. \"It’s complicated,\" she says. \"Some nights it feels too close.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "Her face lights up immediately. \"That’s everything to me,\" she says. \"Emotion first. Always.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "She smiles, touched. \"If someone really *listens*,\" she says quietly, \"that means more than applause.\"",
+          "delta": 2
+        }
+      ]
+    },
+
+    "distant": {
+      "label": "Stay emotionally reserved",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "The distance lands badly. Sienna’s smile fades. \"Okay,\" she says politely. \"That’s… cold.\"",
+          "delta": -2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "She notices the restraint and frowns slightly. \"You don’t have to hide,\" she says. \"I’m right here.\"",
+          "delta": -1
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "Even with warmth between you, the distance dampens her energy. \"Don’t pull away now,\" she says softly.",
+          "delta": -1
         }
       ]
     }
   },
+
   "fallback": {
-    "text": "You keep things light and let Sienna set the pace. She relaxes, humming a few bars of a song as she watches you with growing curiosity.",
+    "text": "You keep things light and let Sienna guide the moment. She hums a few notes under her breath, watching you with warm curiosity.",
     "delta": 1
   }
 }
