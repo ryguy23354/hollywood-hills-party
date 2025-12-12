@@ -1,29 +1,57 @@
+// Global state for affinity, interactions and routing
 
-// Global state for affinity + interactions
-export const HP_STATE = {
-    affinity: {},
-    interactions: {},
+window.HP_STATE = {
+  // per-character affinity score
+  affinity: {},
 
-    resetFor(character) {
-        this.affinity[character] = 0;
-        this.interactions[character] = 0;
-    },
+  // per-character interaction count (number of choices taken while focused on them)
+  interactions: {},
 
-    getAffinity(character) {
-        return this.affinity[character] ?? 0;
-    },
+  // which character the player is currently focusing on (e.g. "sienna")
+  currentCharacter: null,
 
-    modifyAffinity(character, value) {
-        if (!this.affinity[character]) this.affinity[character] = 0;
-        this.affinity[character] += value;
-    },
+  // id of the last scene that was rendered
+  currentSceneId: null,
 
-    getInteractions(character) {
-        return this.interactions[character] ?? 0;
-    },
+  // whether all story JSON has been loaded
+  loaded: false,
 
-    incrementInteractions(character) {
-        if (!this.interactions[character]) this.interactions[character] = 0;
-        this.interactions[character] += 1;
+  resetFor(character) {
+    if (!character) return;
+    this.affinity[character] = 0;
+    this.interactions[character] = 0;
+  },
+
+  setActiveCharacter(character) {
+    this.currentCharacter = character || null;
+    if (character) {
+      this.resetFor(character);
     }
+  },
+
+  getAffinity(character) {
+    if (!character) return 0;
+    return this.affinity[character] ?? 0;
+  },
+
+  modifyAffinity(character, delta) {
+    if (!character || !delta) return;
+    if (this.affinity[character] == null) {
+      this.affinity[character] = 0;
+    }
+    this.affinity[character] += delta;
+  },
+
+  getInteractions(character) {
+    if (!character) return 0;
+    return this.interactions[character] ?? 0;
+  },
+
+  incrementInteractions(character) {
+    if (!character) return;
+    if (this.interactions[character] == null) {
+      this.interactions[character] = 0;
+    }
+    this.interactions[character] += 1;
+  }
 };
