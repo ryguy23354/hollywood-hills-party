@@ -489,13 +489,27 @@ Where do you want to wander first?
   <script src="js/main.js" defer></script>
 
   <script defer>
-    // Sanity checks (non-fatal): helps confirm scripts are loaded correctly
-    window.addEventListener('DOMContentLoaded', () => {
-      if (!window.HP_CONFIG) console.warn('HP_CONFIG is not defined — check js/config.js loading');
-      if (!window.HP_STATE) console.warn('HP_STATE is not defined — check js/state.js loading');
-      if (!window.StoryEngine) console.warn('StoryEngine is not defined — check js/storyEngine.js loading');
-    });
+	  // Sanity checks (non-fatal): helps confirm scripts are loaded correctly
+	  window.addEventListener('DOMContentLoaded', () => {
+		if (!window.HP_CONFIG) console.warn('HP_CONFIG is not defined — check js/config.js loading');
+		if (!window.HP_STATE) console.warn('HP_STATE is not defined — check js/state.js loading');
+		if (!window.StoryEngine) console.warn('StoryEngine is not defined — check js/storyEngine.js loading');
+
+		// ✅ ADD THIS BLOCK IMMEDIATELY AFTER
+		// ===================================
+		if (typeof init === 'function') {
+		  init();                     // preferred (your app already uses this)
+		} else if (typeof startGame === 'function') {
+		  startGame();                // fallback, just in case
+		} else if (typeof renderArrivalScene === 'function') {
+		  renderArrivalScene();       // last-resort safety
+		} else {
+		  console.error('No bootstrap function found to start the game.');
+		}
+		// ===================================
+	  });
   </script>
+
 
 </body>
 </html>
