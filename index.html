@@ -497,15 +497,12 @@ Where do you want to wander first?
 
 		// ✅ ADD THIS BLOCK IMMEDIATELY AFTER
 		// ===================================
-		if (typeof init === 'function') {
-		  init();                     // preferred (your app already uses this)
-		} else if (typeof startGame === 'function') {
-		  startGame();                // fallback, just in case
-		} else if (typeof renderArrivalScene === 'function') {
-		  renderArrivalScene();       // last-resort safety
+		if (typeof start === 'function') {
+			start(); // ✅ correct entry point (main.js)
 		} else {
-		  console.error('No bootstrap function found to start the game.');
+			console.error('No bootstrap function found to start the game.');
 		}
+
 		// ===================================
 	  });
   </script>

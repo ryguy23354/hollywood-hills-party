@@ -1,6 +1,14 @@
+// js/main.js
 // Main routing & glue between the engine and the UI
+// Classic-script safe, idempotent, globally bootstrappable
 
 (function () {
+  // Prevent double execution
+  if (window.HP_MainLoaded) {
+    return;
+  }
+  window.HP_MainLoaded = true;
+
   if (!window.HP_STATE) {
     window.HP_STATE = {};
   }
@@ -13,7 +21,7 @@
 
     StoryEngine.loadScenes().then(() => {
       const startId =
-        (window.HP_CONFIG && HP_CONFIG.START_SCENE_ID) ||
+        (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) ||
         "scene_00_intro";
 
       loadScene(startId);
@@ -39,14 +47,17 @@
     if (typeof window.hpRenderScene === "function") {
       window.hpRenderScene(sceneId, scene);
     } else {
-      // Simple fallback renderer for safety (won't overwrite your custom UI if hpRenderScene exists)
+      // Minimal safety fallback (will not override real renderer)
       const container = document.getElementById("story");
       if (container) {
         container.innerHTML = "";
+
         const titleEl = document.createElement("h2");
         titleEl.textContent = scene.title || "";
+
         const textEl = document.createElement("p");
         textEl.textContent = scene.text || "";
+
         const optionsDiv = document.createElement("div");
         optionsDiv.className = "options";
 
@@ -83,9 +94,12 @@
     HP_STATE.setActiveCharacter(characterId);
   }
 
-  // Expose for other scripts (randomizer, UI buttons, etc.)
+  // 🔑 PUBLIC API
   window.hpStartGame = startGame;
   window.hpLoadScene = loadScene;
   window.hpChooseOption = chooseOption;
   window.hpSetActiveCharacter = setActiveCharacter;
+
+  // 🔑 BOOTSTRAP ALIAS (THIS WAS MISSING)
+  window.start = startGame;
 })();
