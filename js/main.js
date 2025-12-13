@@ -43,6 +43,17 @@
 
     HP_STATE.currentSceneId = sceneId;
 
+	// If this is the intro scene, immediately show location overview
+	if (
+	  sceneId === (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID)
+	) {
+	  if (typeof window.hpRenderLocationOverview === "function") {
+		window.hpRenderLocationOverview();
+		return;
+	  }
+	}
+
+
     // Delegate to your existing renderer if present
     if (typeof window.hpRenderScene === "function") {
       window.hpRenderScene(sceneId, scene);
