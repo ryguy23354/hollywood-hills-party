@@ -16,12 +16,17 @@
     }
 
     // Ensure placements exist before the first interactive screen.
-    if (!HP_STATE.locationAssignments && typeof window.hpAssignCharactersToLocations === "function") {
+    if (
+      !HP_STATE.locationAssignments &&
+      typeof window.hpAssignCharactersToLocations === "function"
+    ) {
       window.hpAssignCharactersToLocations(HP_STATE.nightSeed ?? "");
     }
 
     StoryEngine.loadScenes().then(() => {
-      const startId = (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) || "scene_00_intro";
+      const startId =
+        (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) ||
+        "scene_00_intro";
       loadScene(startId);
     });
   }
@@ -79,7 +84,8 @@
     // (kept for compatibility; your UI uses scene.choices mapping)
     if (!option) return;
     const activeChar = HP_STATE.currentCharacter || null;
-    if (activeChar && option.effect && window.StoryEngine) StoryEngine.applyChoice(activeChar, option.effect);
+    if (activeChar && option.effect && window.StoryEngine)
+      StoryEngine.applyChoice(activeChar, option.effect);
     if (option.nextSceneId) loadScene(option.nextSceneId);
   }
 
