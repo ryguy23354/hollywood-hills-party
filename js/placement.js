@@ -1,8 +1,10 @@
-
 // js/placement.js
+
+// Canonical character + location lists
 const HP_CHARACTERS = ["sienna", "riley", "luna", "harper", "mara"];
 const HP_LOCATIONS = ["bar", "pool", "lounge", "balcony", "gameloft"];
 
+// Fixed placement patterns (2 characters per location)
 const HP_PLACEMENT_PATTERNS = [
   {
     bar: ["sienna", "harper"],
@@ -34,6 +36,7 @@ const HP_PLACEMENT_PATTERNS = [
   }
 ];
 
+// Deterministic hash → pattern index
 function hpSeedToPatternIndex(seedString) {
   let hash = 2166136261;
   const s = String(seedString ?? "");
@@ -44,16 +47,24 @@ function hpSeedToPatternIndex(seedString) {
   return hash % HP_PLACEMENT_PATTERNS.length;
 }
 
-export function hpGetCharacterPlacement(seed) {
+// --- PUBLIC API (GLOBAL) ---
+
+function hpGetCharacterPlacement(seed) {
   const index = hpSeedToPatternIndex(seed);
   const pattern = HP_PLACEMENT_PATTERNS[index];
   const result = {};
+
   for (const loc of HP_LOCATIONS) {
     result[loc] = [...pattern[loc]];
   }
+
   return result;
 }
 
-export function hpGetCharactersForLocation(locationId, placement) {
+function hpGetCharactersForLocation(locationId, placement) {
   return placement[locationId] ? [...placement[locationId]] : [];
 }
+
+// Expose to global scope (classic script compatibility)
+window.hpGetCharacterPlacement = hpGetCharacterPlacement;
+window.hpGetCharactersForLocation = hpGetCharactersForLocation;
