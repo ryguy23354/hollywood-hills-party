@@ -46,7 +46,8 @@
 
     // 3) Character intro: scene_<char>_00_intro (use active location variant)
     if (charKeyFromId && /^scene_(sienna|riley|luna|harper|mara)_00_intro$/i.test(sceneId)) {
-      const activeLoc = (window.HP_STATE && window.HP_STATE.currentLocation) ||
+      const activeLoc =
+        (window.HP_STATE && window.HP_STATE.currentLocation) ||
         (typeof window.hpGuessLocationForCharacter === "function"
           ? window.hpGuessLocationForCharacter(charKeyFromId)
           : null);
@@ -87,7 +88,7 @@
       gameloft_area: "Climb up to the game loft",
       return_to_party: "Return to the main party",
       return: "Return",
-      continue: "Continue"
+      continue: "Continue",
     };
     if (choiceKey in map) return map[choiceKey];
 
@@ -128,18 +129,17 @@
         hpCreateChoiceButton(label, () => {
           HP_STATE.currentLocation = locKey;
           HP_STATE.currentCharacter = null;
-          if (typeof window.hpLoadScene === "function") {
-            window.hpLoadScene(targetSceneId);
-          } else {
-            hpRenderScene(targetSceneId);
-          }
+          if (typeof window.hpLoadScene === "function") window.hpLoadScene(targetSceneId);
+          else hpRenderScene(targetSceneId);
         })
       );
     }
   }
 
   function hpRenderLocationIntroChoices(locKey, container) {
-    const assigned = (window.HP_STATE && window.HP_STATE.locationAssignments && window.HP_STATE.locationAssignments[locKey]) || [];
+    const assigned =
+      (window.HP_STATE && window.HP_STATE.locationAssignments && window.HP_STATE.locationAssignments[locKey]) || [];
+
     for (const charKey of assigned) {
       const display = window.HP_CONFIG && HP_CONFIG.CHARACTER_DISPLAY?.[charKey];
       const label = display ? `Approach ${display.name.split(" ")[0]}` : `Approach ${charKey}`;
@@ -150,11 +150,8 @@
           if (!window.HP_STATE) window.HP_STATE = {};
           HP_STATE.currentLocation = locKey;
           HP_STATE.currentCharacter = charKey;
-          if (typeof window.hpLoadScene === "function") {
-            window.hpLoadScene(targetId);
-          } else {
-            hpRenderScene(targetId);
-          }
+          if (typeof window.hpLoadScene === "function") window.hpLoadScene(targetId);
+          else hpRenderScene(targetId);
         })
       );
     }
@@ -164,18 +161,15 @@
         if (!window.HP_STATE) window.HP_STATE = {};
         HP_STATE.currentCharacter = null;
         HP_STATE.currentLocation = null;
-        if (typeof window.hpLoadScene === "function") {
-          window.hpLoadScene(HP_CONFIG.START_SCENE_ID);
-        } else {
-          hpRenderScene(HP_CONFIG.START_SCENE_ID);
-        }
+        if (typeof window.hpLoadScene === "function") window.hpLoadScene(HP_CONFIG.START_SCENE_ID);
+        else hpRenderScene(HP_CONFIG.START_SCENE_ID);
       })
     );
   }
 
   function hpRenderGenericChoices(scene, container) {
     // Your engine uses "choices" (object map) rather than "options" (array)
-    const choices = (scene && scene.choices) ? scene.choices : {};
+    const choices = scene && scene.choices ? scene.choices : {};
     const entries = Object.entries(choices);
 
     if (!entries.length) {
@@ -237,7 +231,7 @@
     const isLocationIntro =
       !!locKey &&
       /^scene_(bar|pool|lounge|balcony|gameloft)_01$/i.test(sceneId) &&
-      (!charKeyFromId);
+      !charKeyFromId;
 
     if (isLocationIntro) {
       HP_STATE.currentLocation = locKey;
@@ -306,11 +300,8 @@
     // Intro scene: render generic choices if present, otherwise render location overview
     if (window.HP_CONFIG && sceneId === HP_CONFIG.START_SCENE_ID) {
       const hasChoices = scene && scene.choices && Object.keys(scene.choices).length > 0;
-      if (hasChoices) {
-        hpRenderGenericChoices(scene, choicesContainer);
-      } else {
-        hpRenderLocationOverview();
-      }
+      if (hasChoices) hpRenderGenericChoices(scene, choicesContainer);
+      else hpRenderLocationOverview();
       return;
     }
 
