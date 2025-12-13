@@ -4,14 +4,10 @@
 
 (function () {
   // Prevent double execution
-  if (window.HP_MainLoaded) {
-    return;
-  }
+  if (window.HP_MainLoaded) return;
   window.HP_MainLoaded = true;
 
-  if (!window.HP_STATE) {
-    window.HP_STATE = {};
-  }
+  if (!window.HP_STATE) window.HP_STATE = {};
 
   function startGame() {
     if (!window.StoryEngine) {
@@ -19,11 +15,13 @@
       return;
     }
 
-    StoryEngine.loadScenes().then(() => {
-      const startId =
-        (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) ||
-        "scene_00_intro";
+    // Ensure placements exist before the first interactive screen.
+    if (!HP_STATE.locationAssignments && typeof window.hpAssignCharactersToLocations === "function") {
+      window.hpAssignCharactersToLocations(HP_STATE.nightSeed ?? "");
+    }
 
+    StoryEngine.loadScenes().then(() => {
+      const startId = (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) || "scene_00_intro";
       loadScene(startId);
     });
   }
@@ -43,61 +41,46 @@
 
     HP_STATE.currentSceneId = sceneId;
 
-	// If this is the intro scene, immediately show location overview
-	if (
-	  sceneId === (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID)
-	) {
-	  if (typeof window.hpRenderLocationOverview === "function") {
-		window.hpRenderLocationOverview();
-		return;
-	  }
-	}
-
-
-    // Delegate to your existing renderer if present
+    // Delegate to renderer (authoritative path)
     if (typeof window.hpRenderScene === "function") {
       window.hpRenderScene(sceneId, scene);
-    } else {
-      // Minimal safety fallback (will not override real renderer)
-      const container = document.getElementById("story");
-      if (container) {
-        container.innerHTML = "";
+      return;
+    }
 
-        const titleEl = document.createElement("h2");
-        titleEl.textContent = scene.title || "";
+    // Minimal safety fallback (shouldn't be used in your real app)
+    const container = document.getElementById("story");
+    if (container) {
+      container.innerHTML = "";
 
-        const textEl = document.createElement("p");
-        textEl.textContent = scene.text || "";
+      const titleEl = document.createElement("h2");
+      titleEl.textContent = scene.title || "";
 
-        const optionsDiv = document.createElement("div");
-        optionsDiv.className = "options";
+      const textEl = document.createElement("p");
+      textEl.textContent = scene.text || "";
 
-        (scene.options || []).forEach(opt => {
-          const btn = document.createElement("button");
-          btn.textContent = opt.text || "Continue";
-          btn.addEventListener("click", () => chooseOption(opt));
-          optionsDiv.appendChild(btn);
-        });
+      const optionsDiv = document.createElement("div");
+      optionsDiv.className = "options";
 
-        container.appendChild(titleEl);
-        container.appendChild(textEl);
-        container.appendChild(optionsDiv);
+      const choices = scene.choices || {};
+      for (const [choiceKey, targetId] of Object.entries(choices)) {
+        const btn = document.createElement("button");
+        btn.textContent = String(choiceKey);
+        btn.addEventListener("click", () => loadScene(targetId));
+        optionsDiv.appendChild(btn);
       }
+
+      container.appendChild(titleEl);
+      container.appendChild(textEl);
+      container.appendChild(optionsDiv);
     }
   }
 
   function chooseOption(option) {
+    // (kept for compatibility; your UI uses scene.choices mapping)
     if (!option) return;
-
     const activeChar = HP_STATE.currentCharacter || null;
-
-    if (activeChar && option.effect && window.StoryEngine) {
-      StoryEngine.applyChoice(activeChar, option.effect);
-    }
-
-    if (option.nextSceneId) {
-      loadScene(option.nextSceneId);
-    }
+    if (activeChar && option.effect && window.StoryEngine) StoryEngine.applyChoice(activeChar, option.effect);
+    if (option.nextSceneId) loadScene(option.nextSceneId);
   }
 
   function setActiveCharacter(characterId) {
@@ -105,12 +88,12 @@
     HP_STATE.setActiveCharacter(characterId);
   }
 
-  // 🔑 PUBLIC API
-  window.hpStartGame = startGame;
-  window.hpLoadScene = loadScene;
-  window.hpChooseOption = chooseOption;
-  window.hpSetActiveCharacter = setActiveCharacter;
+  // Public API
+  window.hpStartGame = window.hpStartGame || startGame;
+  window.hpLoadScene = window.hpLoadScene || loadScene;
+  window.hpChooseOption = window.hpChooseOption || chooseOption;
+  window.hpSetActiveCharacter = window.hpSetActiveCharacter || setActiveCharacter;
 
-  // 🔑 BOOTSTRAP ALIAS (THIS WAS MISSING)
-  window.start = startGame;
+  // Bootstrap alias used by index.html
+  window.start = window.start || startGame;
 })();
