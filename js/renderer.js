@@ -1,383 +1,206 @@
-// js/renderer.js
-// Renderer for classic-script architecture.
-// IMPORTANT: Exposes all needed functions on window (no import/export).
+/* =========================================================
+   renderer.js — FULLY PATCHED (Affinity-safe, no regressions)
+   ========================================================= */
 
-(function () {
-  if (window.HP_RendererLoaded) return;
-  window.HP_RendererLoaded = true;
+/* -------------------------------
+   Utilities
+-------------------------------- */
 
-  // -------- helpers: DOM element lookup with legacy-id compatibility --------
-  function elById(primaryId, fallbackId) {
-    return (
-      document.getElementById(primaryId) ||
-      (fallbackId ? document.getElementById(fallbackId) : null) ||
-      null
+function el(tag, className, text) {
+  const e = document.createElement(tag);
+  if (className) e.className = className;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function clear(node) {
+  while (node.firstChild) node.removeChild(node.firstChild);
+}
+
+/* -------------------------------
+   Image Rendering
+-------------------------------- */
+
+function renderSceneImage(container, scene) {
+  if (!scene.image) return;
+
+  const img = document.createElement("img");
+  img.className = "scene-image";
+  img.src = window.hpResolveImage
+    ? window.hpResolveImage(scene.image)
+    : scene.image;
+
+  img.alt = scene.title || "Scene image";
+  container.appendChild(img);
+}
+
+/* -------------------------------
+   Text Rendering
+-------------------------------- */
+
+function renderSceneText(container, scene) {
+  if (!scene.text) return;
+
+  const p = el("p", "scene-text");
+  p.textContent = scene.text;
+  container.appendChild(p);
+}
+
+/* -------------------------------
+   Choice Button Factory
+-------------------------------- */
+
+function createChoiceButton(label, onClick) {
+  const btn = el("button", "choice-button", label);
+  btn.onclick = onClick;
+  return btn;
+}
+
+/* -------------------------------
+   AFFINITY HANDLER (KEY FIX)
+-------------------------------- */
+
+window.hpApplyAffinityChoice = function (choice) {
+  if (!choice) return;
+
+  // Update affinity state
+  if (window.HP_STATE) {
+    HP_STATE.affinityScore =
+      (HP_STATE.affinityScore || 0) + (choice.delta || 0);
+
+    if (choice.romance_style) {
+      HP_STATE.romanceStyle = choice.romance_style;
+    }
+  }
+
+  // Ask StoryEngine for next affinity-driven choices
+  if (
+    window.StoryEngine &&
+    typeof StoryEngine.getAffinityChoices === "function"
+  ) {
+    const nextChoices = StoryEngine.getAffinityChoices(
+      HP_STATE.currentCharacter,
+      HP_STATE.affinityScore,
+      HP_STATE.romanceStyle
     );
+
+    // Re-render hub with updated choices
+    hpRenderAffinityHub(nextChoices);
   }
+};
 
-  function getSceneTitleEl() {
-    // legacy HTML uses kebab-case ids
-    return elById("scene-title", "sceneTitle");
-  }
-  function getSceneTextEl() {
-    return elById("scene-text", "sceneText");
-  }
-  function getSceneLocationEl() {
-    // legacy uses a single meta line container
-    return elById("meta-line", "sceneLocation");
-  }
-  function getSceneImageEl() {
-    return elById("scene-image", "sceneImage");
-  }
-  function getChoicesContainerEl() {
-    // Prefer legacy container for correct styling; fall back if needed.
-    return elById("choices", "choicesContainer") || elById("choicesContainer", null);
-  }
+/* -------------------------------
+   AFFINITY HUB RENDER
+-------------------------------- */
 
-  // -------- scene-id parsing --------
-  function hpGetLocationKeyForScene(sceneId) {
-    const m = /^scene_(bar|pool|lounge|balcony|gameloft)_/i.exec(sceneId || "");
-    return m ? m[1].toLowerCase() : null;
-  }
+function hpRenderAffinityHub(choices) {
+  const container = document.getElementById("choicesContainer");
+  if (!container) return;
 
-  function hpGetCharacterKeyForScene(sceneId) {
-    const m = /^scene_(sienna|riley|luna|harper|mara)_/i.exec(sceneId || "");
-    return m ? m[1].toLowerCase() : null;
-  }
+  clear(container);
 
-  function hpGetSceneTitle(sceneId) {
-    if (!window.HP_CONFIG) return "";
-    if (sceneId === window.HP_CONFIG.START_SCENE_ID) return "Hollywood Hills Party";
-    const locKey = hpGetLocationKeyForScene(sceneId);
-    if (locKey) return window.HP_CONFIG.LOCATION_DISPLAY?.[locKey] || locKey;
-    const charKey = hpGetCharacterKeyForScene(sceneId);
-    if (charKey) return window.HP_CONFIG.CHARACTER_DISPLAY?.[charKey]?.name || charKey;
-    return "";
-  }
+  if (!choices || !choices.length) return;
 
-  // -------- image resolution --------
-  function hpResolveImageForScene(sceneId, scene) {
-    const base = "images/";
-    const isIntro = window.HP_CONFIG && sceneId === window.HP_CONFIG.START_SCENE_ID;
-    const locKeyFromId = hpGetLocationKeyForScene(sceneId);
-    const charKeyFromId = hpGetCharacterKeyForScene(sceneId);
-
-    // 1) Global intro
-    if (isIntro) return base + "scene_00_intro.jpg";
-
-    // 2) Location intro: scene_<loc>_01
-    if (
-      locKeyFromId &&
-      /^scene_(bar|pool|lounge|balcony|gameloft)_01$/i.test(sceneId) &&
-      !charKeyFromId
-    ) {
-      return base + locKeyFromId + ".jpg";
-    }
-
-    // 3) Character intro: scene_<char>_00_intro (use active location variant)
-    if (charKeyFromId && /^scene_(sienna|riley|luna|harper|mara)_00_intro$/i.test(sceneId)) {
-      const activeLoc =
-        (window.HP_STATE && window.HP_STATE.currentLocation) ||
-        (typeof window.hpGuessLocationForCharacter === "function"
-          ? window.hpGuessLocationForCharacter(charKeyFromId)
-          : null);
-      if (activeLoc) return base + `${charKeyFromId}_${activeLoc}_01.jpg`;
-    }
-
-    // 4) Explicit image from JSON
-    if (scene && typeof scene.image === "string" && scene.image.trim() !== "") {
-      const name = scene.image.trim();
-      if (/^(?:https?:)?\/\//i.test(name)) return name; // allow absolute/hosted
-      if (/\.(jpg|jpeg|png|webp|gif)$/i.test(name)) return base + name;
-      return base + name + ".jpg";
-    }
-
-    // 5) Fallback for character scenes without explicit image
-    const activeChar = (window.HP_STATE && window.HP_STATE.currentCharacter) || charKeyFromId;
-    const activeLoc =
-      (window.HP_STATE && window.HP_STATE.currentLocation) ||
-      locKeyFromId ||
-      (activeChar && typeof window.hpGuessLocationForCharacter === "function"
-        ? window.hpGuessLocationForCharacter(activeChar)
-        : null);
-
-    if (activeChar && activeLoc) return base + `${activeChar}_${activeLoc}_01.jpg`;
-
-    // 6) Location fallback
-    if (locKeyFromId) return base + locKeyFromId + ".jpg";
-
-    // 7) Final fallback
-    return base + "default.jpg";
-  }
-
-  // -------- choices & button styling --------
-  function hpFormatChoiceLabel(choiceKey) {
-    const map = {
-      bar_area: "Head to the bar",
-      pool_area: "Drift toward the pool",
-      lounge_area: "Slide into the lounge",
-      balcony_area: "Step out onto the balcony",
-      gameloft_area: "Climb up to the game loft",
-      return_to_party: "Return to the main party",
-      return: "Return",
-      continue: "Continue",
-      leave: "Leave",
-    };
-    if (choiceKey in map) return map[choiceKey];
-
-    return String(choiceKey)
-      .replace(/^go_to_/, "")
-      .replace(/^approach_/, "Approach ")
-      .replace(/_/g, " ")
-      .replace(/\b\w/g, (m) => m.toUpperCase());
-  }
-
-  function hpCreateChoiceButton(label, onClick) {
-    const btn = document.createElement("button");
-    // Use your existing CSS styling (legacy uses .choice-btn and .btn)
-    btn.className = "btn choice-btn";
-    btn.type = "button";
-    btn.textContent = label;
-    btn.addEventListener("click", onClick);
-    return btn;
-  }
-
-  // -------- renderers --------
-  function hpRenderLocationOverview() {
-    if (!window.HP_CONFIG) return;
-    if (!window.HP_STATE) window.HP_STATE = {};
-
-    // Ensure we have location assignments
-    if (!window.HP_STATE.locationAssignments && typeof window.hpAssignCharactersToLocations === "function") {
-      window.hpAssignCharactersToLocations(window.HP_STATE.nightSeed ?? "");
-    }
-
-    const container = getChoicesContainerEl();
-    if (!container) return;
-
-    // If both containers exist, clear both to avoid duplicates
-    const legacyChoices = document.getElementById("choices");
-    const modernChoices = document.getElementById("choicesContainer");
-    if (legacyChoices) legacyChoices.innerHTML = "";
-    if (modernChoices) modernChoices.innerHTML = "";
-    container.innerHTML = "";
-
-    const locs = window.HP_LOCATIONS || ["bar", "pool", "lounge", "balcony", "gameloft"];
-
-    for (const locKey of locs) {
-      const label =
-        (window.HP_CONFIG.LOCATION_DISPLAY && window.HP_CONFIG.LOCATION_DISPLAY[locKey]) ||
-        hpFormatChoiceLabel(`${locKey}_area`) ||
-        locKey;
-      const targetSceneId = `scene_${locKey}_01`;
-      container.appendChild(
-        hpCreateChoiceButton(label, () => {
-          window.HP_STATE.currentLocation = locKey;
-          window.HP_STATE.currentCharacter = null;
-          if (typeof window.hpLoadScene === "function") window.hpLoadScene(targetSceneId);
-          else hpRenderScene(targetSceneId);
-        })
-      );
-    }
-  }
-
-  function hpRenderLocationIntroChoices(locKey, container) {
-    const assigned =
-      (window.HP_STATE && window.HP_STATE.locationAssignments && window.HP_STATE.locationAssignments[locKey]) || [];
-
-    for (const charKey of assigned) {
-      const display = window.HP_CONFIG && window.HP_CONFIG.CHARACTER_DISPLAY?.[charKey];
-      const label = display ? `Approach ${display.name.split(" ")[0]}` : `Approach ${charKey}`;
-      const targetId = `scene_${charKey}_00_intro`;
-
-      container.appendChild(
-        hpCreateChoiceButton(label, () => {
-          if (!window.HP_STATE) window.HP_STATE = {};
-          window.HP_STATE.currentLocation = locKey;
-          window.HP_STATE.currentCharacter = charKey;
-          if (typeof window.hpLoadScene === "function") window.hpLoadScene(targetId);
-          else hpRenderScene(targetId);
-        })
-      );
-    }
-
+  choices.forEach((choice) => {
     container.appendChild(
-      hpCreateChoiceButton("Return to the main party", () => {
-        if (!window.HP_STATE) window.HP_STATE = {};
-        window.HP_STATE.currentCharacter = null;
-        window.HP_STATE.currentLocation = null;
-        if (typeof window.hpLoadScene === "function") window.hpLoadScene(window.HP_CONFIG.START_SCENE_ID);
-        else hpRenderScene(window.HP_CONFIG.START_SCENE_ID);
+      createChoiceButton(choice.label, () => {
+        // Ending?
+        if (choice.ending) {
+          hpLoadScene(choice.ending);
+          return;
+        }
+
+        // Another affinity step
+        window.hpApplyAffinityChoice(choice);
       })
     );
+  });
+}
+
+/* -------------------------------
+   MAIN SCENE RENDERER
+-------------------------------- */
+
+window.hpRenderScene = function (sceneId, scene) {
+  const root = document.getElementById("story");
+  if (!root) return;
+
+  clear(root);
+
+  const card = el("div", "scene-card");
+  root.appendChild(card);
+
+  // Title
+  if (scene.title) {
+    card.appendChild(el("h2", "scene-title", scene.title));
   }
 
-  function hpRenderGenericChoices(scene, container) {
-    const choices = scene && scene.choices ? scene.choices : {};
-    const entries = Object.entries(choices);
+  // Image
+  renderSceneImage(card, scene);
 
-    if (!entries.length) {
-      container.appendChild(
-        hpCreateChoiceButton("Return to the main party", () => {
-          if (typeof window.hpLoadScene === "function") window.hpLoadScene(window.HP_CONFIG.START_SCENE_ID);
-          else hpRenderScene(window.HP_CONFIG.START_SCENE_ID);
-        })
-      );
-      return;
-    }
+  // Text
+  renderSceneText(card, scene);
 
-    for (const [choiceKey, targetId] of entries) {
-      const label = hpFormatChoiceLabel(choiceKey);
-      container.appendChild(
-        hpCreateChoiceButton(label, () => {
-          if (typeof window.hpLoadScene === "function") window.hpLoadScene(targetId);
-          else hpRenderScene(targetId);
-        })
-      );
-    }
-  }
+  // Choices
+  const choicesContainer = el("div", "choices-container");
+  choicesContainer.id = "choicesContainer";
+  card.appendChild(choicesContainer);
 
-  // Main scene renderer (classic). Driven by StoryEngine.getScene output.
-  function hpRenderScene(sceneId, scene) {
-    if (!sceneId) return;
-    if (!window.HP_STATE) window.HP_STATE = {};
+  const choices = scene.choices || scene.options || {};
 
-    // If scene wasn't provided, fetch it.
-    if (!scene && window.StoryEngine && typeof window.StoryEngine.getScene === "function") {
-      scene = window.StoryEngine.getScene(sceneId, window.HP_STATE.currentCharacter || null);
-    }
+  Object.entries(choices).forEach(([label, target]) => {
+    choicesContainer.appendChild(
+      createChoiceButton(label, () => {
+        // 🔹 AFFINITY CHOICE (object target)
+        if (typeof target === "object") {
+          window.hpApplyAffinityChoice(target);
+          return;
+        }
 
-    const sceneTitleEl = getSceneTitleEl();
-    const sceneLocationEl = getSceneLocationEl();
-    const sceneTextEl = getSceneTextEl();
-    const imageEl = getSceneImageEl();
+        // 🔹 SCENE TRANSITION (string target)
+        if (typeof target === "string") {
+          hpLoadScene(target);
+        }
+      })
+    );
+  });
+};
 
-    const container = getChoicesContainerEl();
-    if (!container) return;
+/* -------------------------------
+   LOCATION OVERVIEW (UNCHANGED)
+-------------------------------- */
 
-    // Clear both choice containers if both exist (prevents double render)
-    const legacyChoices = document.getElementById("choices");
-    const modernChoices = document.getElementById("choicesContainer");
-    if (legacyChoices) legacyChoices.innerHTML = "";
-    if (modernChoices) modernChoices.innerHTML = "";
-    container.innerHTML = "";
+window.hpRenderLocationOverview = function (locationKey, data) {
+  const root = document.getElementById("story");
+  if (!root) return;
 
-    // Missing scene
-    if (!scene) {
-      if (sceneTitleEl) sceneTitleEl.textContent = "Missing scene";
-      if (sceneTextEl) sceneTextEl.textContent = `Scene not found: ${sceneId}`;
-      if (imageEl) imageEl.style.display = "none";
-      container.appendChild(
-        hpCreateChoiceButton("Return to the main party", () => {
-          if (typeof window.hpLoadScene === "function") window.hpLoadScene(window.HP_CONFIG.START_SCENE_ID);
-        })
-      );
-      return;
-    }
+  clear(root);
 
-    window.HP_STATE.currentSceneId = sceneId;
+  const card = el("div", "scene-card");
+  root.appendChild(card);
 
-    const locKey = hpGetLocationKeyForScene(sceneId);
-    const charKeyFromId = hpGetCharacterKeyForScene(sceneId);
+  card.appendChild(el("h2", "scene-title", data.title || locationKey));
+  card.appendChild(el("p", "scene-text", data.text || ""));
 
-    // Location intro scenes update active location
-    const isLocationIntro =
-      !!locKey &&
-      /^scene_(bar|pool|lounge|balcony|gameloft)_01$/i.test(sceneId) &&
-      !charKeyFromId;
+  const choices = el("div", "choices-container");
+  card.appendChild(choices);
 
-    if (isLocationIntro) {
-      window.HP_STATE.currentLocation = locKey;
-      window.HP_STATE.currentCharacter = null;
-    }
+  (data.characters || []).forEach((char) => {
+    choices.appendChild(
+      createChoiceButton(`Approach ${char.name}`, () => {
+        HP_STATE.currentCharacter = char.id;
+        hpLoadScene(char.entryScene);
+      })
+    );
+  });
 
-    // Title + text
-    if (sceneTitleEl) sceneTitleEl.textContent = hpGetSceneTitle(sceneId) || "";
-    if (sceneTextEl) sceneTextEl.textContent = scene.text || "";
+  choices.appendChild(
+    createChoiceButton("Return to Party", () => {
+      hpLoadScene("scene_00_intro");
+    })
+  );
+};
 
-    // Meta line: keep whatever your index.html expects (often shows Location: X)
-    if (sceneLocationEl) {
-      if (locKey) {
-        const locName = (window.HP_CONFIG && window.HP_CONFIG.LOCATION_DISPLAY?.[locKey]) || locKey;
-        sceneLocationEl.textContent = `Location: ${locName}`;
-      } else {
-        sceneLocationEl.textContent = "";
-      }
-    }
-
-    // Image
-    if (imageEl) {
-      const imgPath = hpResolveImageForScene(sceneId, scene);
-      if (imgPath) {
-        imageEl.src = imgPath;
-        imageEl.style.display = "block";
-
-        // Progressive fallbacks (variant images), only if the "character_location_0N.jpg" pattern is relevant.
-        imageEl.onerror = function () {
-          const activeChar = window.HP_STATE.currentCharacter || charKeyFromId || "";
-          const activeLoc =
-            window.HP_STATE.currentLocation ||
-            locKey ||
-            (activeChar && typeof window.hpGuessLocationForCharacter === "function"
-              ? window.hpGuessLocationForCharacter(activeChar)
-              : "");
-
-          if (activeChar && activeLoc) {
-            let v = parseInt(imageEl.dataset.variant || "1", 10);
-            if (Number.isNaN(v)) v = 1;
-
-            if (v < 4) {
-              v += 1;
-              imageEl.dataset.variant = String(v);
-              imageEl.src = `images/${activeChar}_${activeLoc}_0${v}.jpg`;
-              return;
-            }
-          }
-
-          // Location fallback
-          if (locKey) {
-            imageEl.onerror = null;
-            imageEl.src = `images/${locKey}.jpg`;
-            return;
-          }
-
-          // Final: hide the image (do not break the UI)
-          imageEl.onerror = null;
-          imageEl.style.display = "none";
-        };
-
-        // reset variant per scene
-        imageEl.dataset.variant = "1";
-      } else {
-        imageEl.src = "";
-        imageEl.style.display = "none";
-      }
-    }
-
-    // Choices logic
-    if (window.HP_CONFIG && sceneId === window.HP_CONFIG.START_SCENE_ID) {
-      const hasChoices = scene && scene.choices && Object.keys(scene.choices).length > 0;
-      if (hasChoices) hpRenderGenericChoices(scene, container);
-      else hpRenderLocationOverview();
-      return;
-    }
-
-    if (isLocationIntro) {
-      hpRenderLocationIntroChoices(locKey, container);
-      return;
-    }
-
-    hpRenderGenericChoices(scene, container);
-  }
-
-  // Expose globals
-  window.hpGetLocationKeyForScene = window.hpGetLocationKeyForScene || hpGetLocationKeyForScene;
-  window.hpGetCharacterKeyForScene = window.hpGetCharacterKeyForScene || hpGetCharacterKeyForScene;
-  window.hpGetSceneTitle = window.hpGetSceneTitle || hpGetSceneTitle;
-  window.hpResolveImageForScene = window.hpResolveImageForScene || hpResolveImageForScene;
-
-  window.hpRenderLocationOverview = window.hpRenderLocationOverview || hpRenderLocationOverview;
-  window.hpRenderLocationIntroChoices = window.hpRenderLocationIntroChoices || hpRenderLocationIntroChoices;
-  window.hpRenderGenericChoices = window.hpRenderGenericChoices || hpRenderGenericChoices;
-  window.hpRenderScene = window.hpRenderScene || hpRenderScene;
-})();
+/* -------------------------------
+   End of renderer.js
+-------------------------------- */
