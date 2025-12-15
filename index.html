@@ -6,43 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/main.css">
 
-
-  <!-- PATCH: ensure dynamically-rendered choice buttons match site styling -->
-  <style>
-    /* If css/main.css already styles these, these rules are harmless fallbacks */
-    #choices, #choicesContainer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-    .choice-btn {
-      appearance: none;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.06);
-      color: inherit;
-      padding: 10px 14px;
-      border-radius: 999px;
-      cursor: pointer;
-      font: inherit;
-      letter-spacing: 0.2px;
-      transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
-    }
-    .choice-btn:hover {
-      background: rgba(255,255,255,0.10);
-      border-color: rgba(255,255,255,0.26);
-      transform: translateY(-1px);
-    }
-    .choice-btn:active { transform: translateY(0px); }
-    .scene-image {
-      width: 100%;
-      height: auto;
-      border-radius: 18px;
-      margin: 14px 0 10px;
-      display: block;
-    }
-  </style>
-
 </head>
 
 <body>
@@ -68,8 +31,10 @@
   </div>
 
   <div id="story-container">
+    <!-- PATCH: renderer.js requires this container -->
+    <div id="story">
     <h2 id="scene-title">Hollywood Party</h2>
-    <img id="scene-image" class="scene-image" src="" alt="Scene image" />
+    <img id="scene-image" src="" alt="Scene image" />
     <p id="scene-text">
 You arrive at a sprawling Hollywood Hills mansion. Music spills out through open glass doors, warm light washing over polished stone. Somewhere inside, five very different women are already in motion.
 
@@ -80,6 +45,7 @@ Where do you want to wander first?
     <!-- REQUIRED by modern renderer.js (Option A classic) -->
     <div id="choicesContainer" class="choices"></div>
     <div id="error-box"></div>
+    </div> <!-- /#story -->
   </div>
 
   <footer>
