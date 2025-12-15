@@ -1,105 +1,84 @@
-// js/main.js
-// Main routing & glue between the engine and the UI
-// Classic-script safe, idempotent, globally bootstrappable
+// main.js
 
-(function () {
-  // Prevent double execution
-  if (window.HP_MainLoaded) return;
-  window.HP_MainLoaded = true;
+function start() {
+  const startId = "scene_00_intro";
+  loadScene(startId);
+}
 
-  if (!window.HP_STATE) window.HP_STATE = {};
+function loadScene(sceneId) {
+  // 🔴 PATCH START — guard against choice objects
+  if (typeof sceneId === "object" && sceneId !== null) {
+    handleApproachChoice(sceneId);
+    return;
+  }
+  // 🔴 PATCH END
 
-  function startGame() {
-    if (!window.StoryEngine) {
-      console.error("hpStartGame: StoryEngine is not available");
-      return;
-    }
-
-    // Ensure placements exist before the first interactive screen.
-    if (
-      !HP_STATE.locationAssignments &&
-      typeof window.hpAssignCharactersToLocations === "function"
-    ) {
-      window.hpAssignCharactersToLocations(HP_STATE.nightSeed ?? "");
-    }
-
-    StoryEngine.loadScenes().then(() => {
-      const startId =
-        (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) ||
-        "scene_00_intro";
-      loadScene(startId);
-    });
+  if (!window.StoryEngine) {
+    console.error("hpLoadScene: StoryEngine is not available");
+    return;
   }
 
-  function loadScene(sceneId) {
-    if (!window.StoryEngine) {
-      console.error("hpLoadScene: StoryEngine is not available");
-      return;
-    }
+  const activeChar = HP_STATE.currentCharacter || null;
+  const scene = StoryEngine.getScene(sceneId, activeChar);
 
-    const activeChar = HP_STATE.currentCharacter || null;
-    const scene = StoryEngine.getScene(sceneId, activeChar);
-    if (!scene) {
-      console.error("hpLoadScene: missing scene", sceneId);
-      return;
-    }
-
-    HP_STATE.currentSceneId = sceneId;
-
-    // Delegate to renderer (authoritative path)
-    if (typeof window.hpRenderScene === "function") {
-      window.hpRenderScene(sceneId, scene);
-      return;
-    }
-
-    // Minimal safety fallback (shouldn't be used in your real app)
-    const container = document.getElementById("story");
-    if (container) {
-      container.innerHTML = "";
-
-      const titleEl = document.createElement("h2");
-      titleEl.textContent = scene.title || "";
-
-      const textEl = document.createElement("p");
-      textEl.textContent = scene.text || "";
-
-      const optionsDiv = document.createElement("div");
-      optionsDiv.className = "options";
-
-      const choices = scene.choices || {};
-      for (const [choiceKey, targetId] of Object.entries(choices)) {
-        const btn = document.createElement("button");
-        btn.textContent = String(choiceKey);
-        btn.addEventListener("click", () => loadScene(targetId));
-        optionsDiv.appendChild(btn);
-      }
-
-      container.appendChild(titleEl);
-      container.appendChild(textEl);
-      container.appendChild(optionsDiv);
-    }
+  if (!scene) {
+    console.error("hpLoadScene: missing scene", sceneId);
+    return;
   }
 
-  function chooseOption(option) {
-    // (kept for compatibility; your UI uses scene.choices mapping)
-    if (!option) return;
-    const activeChar = HP_STATE.currentCharacter || null;
-    if (activeChar && option.effect && window.StoryEngine)
-      StoryEngine.applyChoice(activeChar, option.effect);
-    if (option.nextSceneId) loadScene(option.nextSceneId);
+  HP_STATE.currentSceneId = sceneId;
+
+  if (typeof window.hpRenderScene === "function") {
+    window.hpRenderScene(sceneId, scene);
+    return;
   }
 
-  function setActiveCharacter(characterId) {
-    if (!window.HP_STATE || !HP_STATE.setActiveCharacter) return;
-    HP_STATE.setActiveCharacter(characterId);
+  // fallback (unchanged)
+  const container = document.getElementById("story");
+  if (!container) return;
+
+  container.innerHTML = "";
+  const titleEl = document.createElement("h2");
+  titleEl.textContent = scene.title || "";
+  container.appendChild(titleEl);
+
+  const textEl = document.createElement("p");
+  textEl.textContent = scene.text || "";
+  container.appendChild(textEl);
+}
+
+/**
+ * 🔴 NEW: Handle approach choices (bold / warm / playful / reserved)
+ * These are NOT scene transitions.
+ */
+function handleApproachChoice(choice) {
+  const char = HP_STATE.currentCharacter;
+
+  if (!char) {
+    console.warn("Approach selected with no active character");
+    return;
   }
 
-  // Public API
-  window.hpStartGame = window.hpStartGame || startGame;
-  window.hpLoadScene = window.hpLoadScene || loadScene;
-  window.hpChooseOption = window.hpChooseOption || chooseOption;
-  window.hpSetActiveCharacter = window.hpSetActiveCharacter || setActiveCharacter;
+  // Apply affinity delta
+  if (window.AffinityEngine && typeof AffinityEngine.applyDelta === "function") {
+    AffinityEngine.applyDelta(char, choice.delta || 0, choice.romance_style);
+  }
 
-  // Bootstrap alias used by index.html
-  window.start = window.start || startGame;
-})();
+  // Record entry style (optional but useful later)
+  HP_STATE.characterEntryStyle = choice.romance_style;
+
+  // Route into character hub (NOT a new scene per choice)
+  const hubSceneId = `character_${char}_hub`;
+
+  // Fallback safety if hub scene naming differs
+  if (!StoryEngine.getScene(hubSceneId, char)) {
+    loadScene(HP_STATE.currentSceneId);
+    return;
+  }
+
+  loadScene(hubSceneId);
+}
+
+// expose for renderer
+window.start = start;
+window.loadScene = loadScene;
