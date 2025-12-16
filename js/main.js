@@ -1,77 +1,120 @@
-// main.js — entry + scene routing
+// main.js (patched)
+// Reliable bootstrap for StoryEngine + storyLoader + renderer.
+// Exposes the globals expected by index.html and renderer.js:
+//   - start()
+//   - hpStartGame()
+//   - hpLoadScene(sceneId)
 
-function start() {
-  const startId = "scene_00_intro";
+(function () {
+  'use strict';
 
-  // 🔒 FIX: wait for HP_STATE.loaded instead of StoryEngine.scenes
-  if (!window.HP_STATE || !window.HP_STATE.loaded) {
-    console.warn("main.js: scenes not ready yet, retrying start...");
-    setTimeout(start, 50);
-    return;
+  // Ensure HP_STATE exists.
+  window.HP_STATE = window.HP_STATE || {};
+
+  let starting = false;
+  let started = false;
+
+  /**
+   * Returns true when scenes are actually present (not just a flag).
+   */
+  function scenesReady() {
+    const scenes = window.HP_STATE && window.HP_STATE.scenes;
+    return !!(scenes && typeof scenes === 'object' && Object.keys(scenes).length > 0);
   }
 
-  loadScene(startId);
-}
-
-function loadScene(sceneId) {
-  // Guard: approach / affinity choices are objects, not scene IDs
-  if (typeof sceneId === "object" && sceneId !== null) {
-    if (typeof window.handleApproachChoice === "function") {
-      window.handleApproachChoice(sceneId);
-    } else {
-      console.warn("main.js: approach choice received but handler missing", sceneId);
+  /**
+   * Loads/merges story JSON (storyLoader.js) and syncs it into StoryEngine.
+   */
+  async function ensureScenesLoaded() {
+    // 1) If storyLoader provides an async loader, use it.
+    if (typeof window.hpLoadAllScenes === 'function') {
+      // hpLoadAllScenes sets HP_STATE.scenes and HP_STATE.loaded.
+      await window.hpLoadAllScenes();
     }
-    return;
+
+    // 2) If StoryEngine can sync from HP_STATE.scenes, do it.
+    if (window.StoryEngine && typeof window.StoryEngine.loadScenes === 'function') {
+      try {
+        window.StoryEngine.loadScenes();
+      } catch (e) {
+        console.warn('main.js: StoryEngine.loadScenes() threw; continuing', e);
+      }
+    }
+
+    return scenesReady();
   }
 
-  if (!window.StoryEngine || typeof window.StoryEngine.getScene !== "function") {
-    console.error("main.js: StoryEngine not available");
-    return;
+  /**
+   * Loads a scene by id and renders it using renderer.js.
+   * This is what renderer.js calls for normal navigation.
+   */
+  function hpLoadScene(sceneId) {
+    if (!sceneId) return;
+
+    // Some callers may accidentally pass an object (e.g., affinity choice payload).
+    // Do not attempt to treat that as a scene id.
+    if (typeof sceneId === 'object') {
+      console.warn('hpLoadScene: received non-string sceneId; ignoring', sceneId);
+      return;
+    }
+
+    // Track current scene.
+    window.HP_STATE.currentSceneId = sceneId;
+
+    // Prefer renderer's entrypoint if present.
+    if (typeof window.hpRenderScene === 'function') {
+      window.hpRenderScene(sceneId);
+      return;
+    }
+
+    // Fallback: attempt direct DOM update if renderer isn't loaded.
+    console.warn('hpLoadScene: hpRenderScene is not available; cannot render', sceneId);
   }
 
-  const scene = window.StoryEngine.getScene(sceneId);
+  /**
+   * Starts the game. Called by index.html via start().
+   */
+  async function hpStartGame() {
+    if (starting || started) return;
+    starting = true;
 
-  if (!scene) {
-    console.error("hpLoadScene: missing scene", sceneId);
-    return;
-  }
+    try {
+      const ok = await ensureScenesLoaded();
+      if (!ok) {
+        console.error('main.js: scenes failed to load (HP_STATE.scenes is empty).');
+        return;
+      }
 
-  HP_STATE.currentSceneId = sceneId;
+      // Select a start scene id.
+      const startSceneId =
+        (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) ||
+        window.HP_STATE.startSceneId ||
+        'scene_00_intro';
 
-  // Preferred render path
-  if (typeof window.hpRenderScene === "function") {
-    window.hpRenderScene(sceneId, scene);
-    return;
-  }
-
-  // Fallback render (unchanged legacy behavior)
-  const container = document.getElementById("story");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  const titleEl = document.createElement("h2");
-  titleEl.textContent = scene.title || "";
-  container.appendChild(titleEl);
-
-  const textEl = document.createElement("p");
-  textEl.textContent = scene.text || "";
-  container.appendChild(textEl);
-
-  const choicesEl = document.getElementById("choicesContainer");
-  if (!choicesEl) return;
-
-  choicesEl.innerHTML = "";
-
-  if (scene.choices) {
-    for (const [label, target] of Object.entries(scene.choices)) {
-      const btn = document.createElement("button");
-      btn.textContent = label;
-      btn.onclick = () => loadScene(target);
-      choicesEl.appendChild(btn);
+      hpLoadScene(startSceneId);
+      started = true;
+    } catch (e) {
+      console.error('main.js: failed to start game', e);
+    } finally {
+      starting = false;
     }
   }
-}
 
-// Expose start globally (unchanged)
-window.start = start;
+  // --- Public globals expected by the rest of the app ---
+  window.hpLoadScene = hpLoadScene;
+  window.hpStartGame = hpStartGame;
+
+  // index.html calls start() on DOMContentLoaded.
+  // Keep compatibility with older naming.
+  window.start = hpStartGame;
+
+  // Optional: allow manual restart via console.
+  window.hpRestartNight = async function hpRestartNight() {
+    // Clear basic runtime state, but keep loaded scene map.
+    window.HP_STATE.currentSceneId = null;
+    if (window.StoryEngine && typeof window.StoryEngine.reset === 'function') {
+      try { window.StoryEngine.reset(); } catch (_) {}
+    }
+    await hpStartGame();
+  };
+})();
