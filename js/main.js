@@ -1,8 +1,9 @@
+// main.js — entry + scene routing
+
 function start() {
   const startId = "scene_00_intro";
 
-  // 🔒 Ensure scenes are loaded before starting
-  // FIX: use HP_STATE.loaded instead of StoryEngine.scenes length
+  // 🔒 FIX: wait for HP_STATE.loaded instead of StoryEngine.scenes
   if (!window.HP_STATE || !window.HP_STATE.loaded) {
     console.warn("main.js: scenes not ready yet, retrying start...");
     setTimeout(start, 50);
@@ -13,13 +14,17 @@ function start() {
 }
 
 function loadScene(sceneId) {
-  // 🔴 Guard: approach / affinity choices are objects, not scene IDs
+  // Guard: approach / affinity choices are objects, not scene IDs
   if (typeof sceneId === "object" && sceneId !== null) {
-    handleApproachChoice(sceneId);
+    if (typeof window.handleApproachChoice === "function") {
+      window.handleApproachChoice(sceneId);
+    } else {
+      console.warn("main.js: approach choice received but handler missing", sceneId);
+    }
     return;
   }
 
-  if (!window.StoryEngine || !window.StoryEngine.getScene) {
+  if (!window.StoryEngine || typeof window.StoryEngine.getScene !== "function") {
     console.error("main.js: StoryEngine not available");
     return;
   }
@@ -33,12 +38,13 @@ function loadScene(sceneId) {
 
   HP_STATE.currentSceneId = sceneId;
 
+  // Preferred render path
   if (typeof window.hpRenderScene === "function") {
     window.hpRenderScene(sceneId, scene);
     return;
   }
 
-  // fallback (unchanged)
+  // Fallback render (unchanged legacy behavior)
   const container = document.getElementById("story");
   if (!container) return;
 
@@ -67,5 +73,5 @@ function loadScene(sceneId) {
   }
 }
 
-// Existing hook — unchanged
+// Expose start globally (unchanged)
 window.start = start;
