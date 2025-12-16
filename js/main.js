@@ -1,10 +1,9 @@
-// main.js
-
 function start() {
   const startId = "scene_00_intro";
 
   // 🔒 Ensure scenes are loaded before starting
-  if (!window.StoryEngine || !window.StoryEngine.scenes || Object.keys(window.StoryEngine.scenes).length === 0) {
+  // FIX: use HP_STATE.loaded instead of StoryEngine.scenes length
+  if (!window.HP_STATE || !window.HP_STATE.loaded) {
     console.warn("main.js: scenes not ready yet, retrying start...");
     setTimeout(start, 50);
     return;
