@@ -39,17 +39,34 @@
         HP_STATE.loaded = true;
         HP_STATE.scenes = merged; // debug only
       }
-
-      const statusEl = document.getElementById("jsonStatus");
-      if (statusEl) {
-        statusEl.textContent = "JSON status: ok";
-        statusEl.style.color = "#52ffa8";
-      }
     },
 
-    /**
-     * Resolve a scene by id, optionally in the context of a character.
-     */
+    /* ===============================
+       HUB INTEGRATION (NEW)
+    =============================== */
+
+    enterHub(characterId) {
+      if (!characterId) return;
+      if (!window.HP_STATE) window.HP_STATE = {};
+
+      HP_STATE.mode = "hub";
+      HP_STATE.currentCharacter = characterId;
+    },
+
+    applyHubChoice(choice) {
+      if (!choice || !window.HP_STATE) return;
+      if (!window.HubEngine) {
+        console.error("StoryEngine.applyHubChoice: HubEngine missing");
+        return;
+      }
+
+      HubEngine.applyChoice(choice);
+    },
+
+    /* ===============================
+       SCENE RESOLUTION (UNCHANGED)
+    =============================== */
+
     getScene(sceneId, explicitCharacter) {
       if (!sceneId) return null;
       const base = this.scenes[sceneId];
@@ -68,7 +85,6 @@
 
       let rawOptions = [];
 
-      // Normalize options
       if (Array.isArray(scene.options)) {
         rawOptions = scene.options.map(o => ({ ...o }));
       } else if (Array.isArray(scene.choices)) {
@@ -78,14 +94,11 @@
             text: choice.label
           };
 
-          // 🔑 Narrative → Romance entry
           if (choice.romanceStyle) {
-            opt.enterRomance = true;
-            opt.romanceStyle = choice.romanceStyle;
-            opt.effect = {
-              affinity: typeof choice.affinityDelta === "number"
-                ? choice.affinityDelta
-                : 0
+            opt.enterHub = true;
+            opt.hubPayload = {
+              romance_style: choice.romanceStyle,
+              delta: typeof choice.affinityDelta === "number" ? choice.affinityDelta : 0
             };
           } else {
             opt.nextSceneId = choice.nextSceneId;
@@ -98,79 +111,17 @@
         });
       }
 
-      let baseOptions = rawOptions;
-      const endingOptions = [];
-
-      if (activeCharacter && window.HP_STATE) {
-        const affinity = HP_STATE.getAffinity(activeCharacter);
-        const interactions = HP_STATE.getInteractions(activeCharacter);
-
-        // filter by requirements
-        baseOptions = baseOptions.filter(o => {
-          const req = o.requirements;
-          if (!req) return true;
-          if (typeof req.minAffinity === "number" && affinity < req.minAffinity) return false;
-          if (typeof req.maxAffinity === "number" && affinity > req.maxAffinity) return false;
-          if (typeof req.minInteractions === "number" && interactions < req.minInteractions) return false;
-          return true;
-        });
-
-        // bonus options
-        if (Array.isArray(scene.bonusOptions) && Math.random() < 0.25) {
-          for (const bo of scene.bonusOptions) {
-            baseOptions.push({ ...bo });
-          }
-        }
-
-        // endings
-        if (interactions >= 4 && Array.isArray(scene.endings)) {
-          for (const ending of scene.endings) {
-            const minA = ending.minAffinity;
-            const maxA = ending.maxAffinity;
-            const meetsMin = (typeof minA !== "number") || affinity >= minA;
-            const meetsMax = (typeof maxA !== "number") || affinity <= maxA;
-
-            if (meetsMin && meetsMax) {
-              endingOptions.push({
-                id: ending.id || ending.nextSceneId || "ending",
-                text: ending.text,
-                nextSceneId: ending.nextSceneId,
-                isEnding: true
-              });
-            }
-          }
-        }
-      }
-
-      // shuffle
-      if (baseOptions.length > 1) {
-        baseOptions = [...baseOptions].sort(() => Math.random() - 0.5);
-      }
-
-      // enforce 2 / 3 option rule
-      let maxBase = baseOptions.length;
-      if (baseOptions.length > 2) {
-        maxBase = Math.random() < 0.25
-          ? Math.min(3, baseOptions.length)
-          : 2;
-      }
-
-      const finalOptions = baseOptions.slice(0, maxBase).concat(endingOptions);
-
       return {
         ...scene,
         id: sceneId,
-        options: finalOptions
+        options: rawOptions
       };
     },
 
-    /**
-     * Apply affinity + interaction effects
-     */
-    applyChoice(character, effect) {
-      if (!character || !effect || !window.HP_STATE) return;
-      if (typeof effect.affinity === "number") {
-        HP_STATE.modifyAffinity(character, effect.affinity);
+    applyChoice(character, style, delta) {
+      if (!character || !window.HP_STATE) return;
+      if (typeof delta === "number") {
+        HP_STATE.modifyAffinity(character, delta);
       }
       HP_STATE.incrementInteractions(character);
     }
