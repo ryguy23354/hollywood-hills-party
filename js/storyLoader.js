@@ -21,4 +21,7 @@ async function hpLoadAllScenes() {
     statusEl.textContent = "JSON status: ok";
     statusEl.style.color = "#52ffa8";
   }
+  if (window.StoryEngine) {
+	window.StoryEngine.scenes = HP_STATE.scenes;
+  }
 }
