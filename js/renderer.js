@@ -61,80 +61,89 @@ function hpGuessLocationForCharacter(charKey) {
 }
 
 function hpRenderScene(sceneId) {
-  if (!HP_STATE.loaded) return;
-
   const scene =
-    (window.StoryEngine && typeof StoryEngine.getScene === "function")
-      ? StoryEngine.getScene(sceneId)
-      : HP_STATE.scenes[sceneId];
-
-  const sceneTitleEl = document.getElementById("sceneTitle");
-  const sceneLocationEl = document.getElementById("sceneLocation");
-  const sceneTextEl = document.getElementById("sceneText");
-  const imageEl = document.getElementById("sceneImage");
-  const placeholderEl = document.getElementById("sceneImagePlaceholder");
-  const choicesContainer = document.getElementById("choicesContainer");
+    (window.StoryEngine && window.StoryEngine.getScene)
+      ? window.StoryEngine.getScene(sceneId)
+      : (HP_STATE.scenes ? HP_STATE.scenes[sceneId] : null);
 
   if (!scene) {
-    if (sceneTitleEl) sceneTitleEl.textContent = "Missing scene";
-    if (sceneTextEl) sceneTextEl.textContent = `Scene not found: ${sceneId}`;
-    if (imageEl && placeholderEl) {
-      imageEl.style.display = "none";
-      imageEl.removeAttribute("src");
-      placeholderEl.style.display = "block";
-    }
-    if (choicesContainer) choicesContainer.innerHTML = "";
+    console.warn("hpRenderScene: scene not found:", sceneId);
     return;
   }
 
   HP_STATE.currentSceneId = sceneId;
 
-  const locKey = hpGetLocationKeyForScene(sceneId);
-  const charKeyFromId = hpGetCharacterKeyForScene(sceneId);
+  const container = document.getElementById("sceneContainer");
+  if (!container) return;
 
-  if (locKey && /^scene_(bar|pool|lounge|balcony|gameloft)_01$/i.test(sceneId) && !charKeyFromId) {
-    HP_STATE.currentLocation = locKey;
-    HP_STATE.currentCharacter = null;
+  container.innerHTML = "";
+
+  /* =========================
+     IMAGE (AUTHORITATIVE)
+     ========================= */
+  if (scene.image) {
+    const img = document.createElement("img");
+    img.src = scene.image;
+    img.alt = "Scene image";
+    img.className = "scene-image";
+    container.appendChild(img);
   }
 
-  if (sceneTitleEl) sceneTitleEl.textContent = hpGetSceneTitle(sceneId) || "";
-
-  if (sceneLocationEl) {
-    sceneLocationEl.textContent = locKey
-      ? `Location: ${HP_CONFIG.LOCATION_DISPLAY[locKey] || locKey}`
-      : "";
+  /* =========================
+     TEXT / NARRATIVE
+     ========================= */
+  if (scene.text) {
+    const textEl = document.createElement("div");
+    textEl.className = "scene-text";
+    textEl.textContent = scene.text;
+    container.appendChild(textEl);
   }
 
-  if (sceneTextEl) sceneTextEl.textContent = scene.text || "";
+  /* =========================
+     OPTIONS (MODERN PATH)
+     ========================= */
+  if (Array.isArray(scene.options) && scene.options.length > 0) {
+    const choicesEl = document.createElement("div");
+    choicesEl.className = "scene-choices";
 
-  if (imageEl && placeholderEl) {
-    const imgPath = hpResolveImageForScene(sceneId, scene);
-    if (imgPath) {
-      imageEl.src = imgPath;
-      imageEl.style.display = "block";
-      placeholderEl.style.display = "none";
-    } else {
-      imageEl.style.display = "none";
-      imageEl.removeAttribute("src");
-      placeholderEl.style.display = "block";
-    }
+    scene.options.forEach(opt => {
+      if (!opt || !opt.label) return;
+
+      const btn = document.createElement("button");
+      btn.textContent = opt.label;
+
+      btn.addEventListener("click", () => {
+        if (opt.go_to) {
+          hpRenderScene(opt.go_to);
+        } else {
+          console.warn("Choice missing go_to:", opt);
+        }
+      });
+
+      choicesEl.appendChild(btn);
+    });
+
+    container.appendChild(choicesEl);
+    return; // ⬅️ IMPORTANT: do NOT fall through to legacy logic
   }
 
-  if (!choicesContainer) return;
-  choicesContainer.innerHTML = "";
-
-  const isLocationIntro =
-    locKey &&
-    /^scene_(bar|pool|lounge|balcony|gameloft)_01$/i.test(sceneId) &&
-    sceneId !== HP_CONFIG.START_SCENE_ID &&
-    !charKeyFromId;
-
-  if (isLocationIntro) {
-    hpRenderLocationIntroChoices(locKey, choicesContainer);
-  } else {
-    hpRenderGenericChoices(scene, choicesContainer);
+  /* =========================
+     LEGACY / HUB FALLBACK
+     ========================= */
+  if (typeof hpRenderLocationIntroChoices === "function") {
+    hpRenderLocationIntroChoices(container);
+    return;
   }
+
+  /* =========================
+     FINAL SAFETY FALLBACK
+     ========================= */
+  const backBtn = document.createElement("button");
+  backBtn.textContent = "Return to the main party";
+  backBtn.onclick = () => hpRenderScene("scene_00_intro");
+  container.appendChild(backBtn);
 }
+
 
 function hpRenderLocationIntroChoices(locKey, container) {
   const assignedChars =
