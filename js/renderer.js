@@ -188,7 +188,7 @@ function hpRenderScene(sceneId) {
 }
 
 function hpRenderLocationIntroChoices(locKey, container) {
-  const assignedChars = HP_STATE.locationAssignments[locKey] || [];
+  const assignedChars = (HP_STATE.locationAssignments && HP_STATE.locationAssignments[locKey]) || [];
 
   for (const charKey of assignedChars) {
     const display = HP_CONFIG.CHARACTER_DISPLAY[charKey];
