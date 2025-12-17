@@ -1,149 +1,217 @@
-// js/hubEngine.js
-// Global, character-agnostic conversation hub engine
-// Classic script architecture (no imports)
+// hubEngine.js
+// Global "hub" chooser that turns per-character romance configuration into a dynamic scene.
+// This module is intentionally defensive: it should never throw, and it should always provide a safe fallback.
+//
+// Expected globals (if present):
+// - window.StoryEngine  (must expose .scenes and optionally .getAffinity(characterId))
+// - window.HP_STATE     (optional; if present we update currentSceneId for renderer integration)
+//
+// The hub scene id injected into StoryEngine.scenes is: "__hub__"
 
 (function () {
-  if (window.HubEngine) return;
+  "use strict";
 
-  const HubEngine = {};
+  const HUB_SCENE_ID = "__hub__";
 
-  // ----------------------------
-  // Internal helpers
-  // ----------------------------
-
-  function getAffinity(characterId) {
-    return window.HP_STATE?.affinity?.[characterId] ?? 0;
-  }
-
-  function getInteractionCount(characterId) {
-    return window.HP_STATE?.interactionCount?.[characterId] ?? 0;
-  }
-
-  function incrementInteraction(characterId) {
-    if (!window.HP_STATE.interactionCount) {
-      window.HP_STATE.interactionCount = {};
-    }
-    window.HP_STATE.interactionCount[characterId] =
-      (window.HP_STATE.interactionCount[characterId] ?? 0) + 1;
-  }
-
-  function applyAffinity(characterId, delta) {
-    if (!window.HP_STATE.affinity) {
-      window.HP_STATE.affinity = {};
-    }
-    window.HP_STATE.affinity[characterId] =
-      (window.HP_STATE.affinity[characterId] ?? 0) + delta;
-  }
-
-  function getRomanceData(characterId) {
-    return window.HP_ROMANCE_DATA?.[characterId] ?? null;
-  }
-
-  // ----------------------------
-  // Public API
-  // ----------------------------
-
-  /**
-   * Enter hub mode for a character
-   */
-  HubEngine.enter = function (characterId) {
-    if (!window.HP_STATE) window.HP_STATE = {};
-
-    window.HP_STATE.mode = "hub";
-    window.HP_STATE.currentCharacter = characterId;
-
-    if (!window.HP_STATE.interactionCount) {
-      window.HP_STATE.interactionCount = {};
-    }
-    if (!window.HP_STATE.affinity) {
-      window.HP_STATE.affinity = {};
-    }
-
-    // Do not reset affinity here — approach already set it
+  const _state = {
+    ctx: {
+      character: null,
+      location: null,
+      affinity: 0,
+    },
   };
 
-  /**
-   * Returns current hub context
-   */
-  HubEngine.getContext = function () {
-    const characterId = window.HP_STATE.currentCharacter;
-    return {
-      characterId,
-      location: window.HP_STATE.currentLocation,
-      affinity: getAffinity(characterId),
-      interactionCount: getInteractionCount(characterId),
+  function _safeNumber(n, fallback = 0) {
+    const x = Number(n);
+    return Number.isFinite(x) ? x : fallback;
+  }
+
+  function _getAffinity(characterId) {
+    try {
+      if (window.StoryEngine && typeof window.StoryEngine.getAffinity === "function") {
+        return _safeNumber(window.StoryEngine.getAffinity(characterId), 0);
+      }
+      // Common alternative: StoryEngine.affinity[characterId]
+      if (window.StoryEngine && window.StoryEngine.affinity && characterId in window.StoryEngine.affinity) {
+        return _safeNumber(window.StoryEngine.affinity[characterId], 0);
+      }
+    } catch (_) {}
+    return 0;
+  }
+
+  function setContext(partial) {
+    if (!partial || typeof partial !== "object") return;
+    _state.ctx = {
+      character: partial.character ?? _state.ctx.character,
+      location: partial.location ?? _state.ctx.location,
+      affinity: _safeNumber(partial.affinity ?? _state.ctx.affinity, 0),
     };
-  };
+  }
+
+  function getContext() {
+    return { ..._state.ctx };
+  }
 
   /**
-   * Select interaction choices based on affinity + location
+   * Resolve the romance config for a character. We support a few shapes:
+   * - window.HP_STATE.romance[characterId]
+   * - window.HP_ROMANCE[characterId]
+   * - A scene object in StoryEngine.scenes under `romance_${characterId}` (JSON imported as scenes)
    */
-  HubEngine.getChoices = function () {
-    const ctx = HubEngine.getContext();
-    const romance = getRomanceData(ctx.characterId);
-    if (!romance) return [];
+  function _getRomanceConfig(characterId) {
+    try {
+      if (window.HP_STATE?.romance && window.HP_STATE.romance[characterId]) return window.HP_STATE.romance[characterId];
+      if (window.HP_ROMANCE && window.HP_ROMANCE[characterId]) return window.HP_ROMANCE[characterId];
 
-    const validChoices = [];
+      const se = window.StoryEngine;
+      if (se?.scenes) {
+        const keyA = `romance_${characterId}`;
+        const keyB = `romance_${String(characterId).toLowerCase()}`;
+        if (se.scenes[keyA] && typeof se.scenes[keyA] === "object") return se.scenes[keyA];
+        if (se.scenes[keyB] && typeof se.scenes[keyB] === "object") return se.scenes[keyB];
+      }
+    } catch (_) {}
+    return null;
+  }
 
-    for (const styleKey in romance.styles) {
-      const style = romance.styles[styleKey];
+  function _fallbackNextSceneId() {
+    // Prefer explicit intro if present; otherwise fall back to whatever renderer is currently on.
+    if (window.StoryEngine?.scenes?.scene_00_intro) return "scene_00_intro";
+    if (window.HP_STATE?.currentSceneId) return window.HP_STATE.currentSceneId;
+    return "scene_00_intro";
+  }
 
-      // Location filtering (if specified)
-      if (style.locations && !style.locations.includes(ctx.location)) {
+  /**
+   * Build the hub "choices" from romance config.
+   * Returned format matches your renderer conventions: an object map of key -> targetId (scene id or object).
+   */
+  function _buildChoiceMapFromRomance(romance, ctx) {
+    const choices = {};
+
+    // If there's no config, we still offer a safe exit.
+    if (!romance || typeof romance !== "object") {
+      choices.return_to_party = _fallbackNextSceneId();
+      return choices;
+    }
+
+    const styles = romance.styles && typeof romance.styles === "object" ? romance.styles : null;
+    if (!styles) {
+      choices.return_to_party = romance.return_to_party ?? _fallbackNextSceneId();
+      return choices;
+    }
+
+    // Preserve original ordering where possible.
+    const entries = Object.entries(styles);
+
+    for (const [styleKey, style] of entries) {
+      if (!style || typeof style !== "object") continue;
+
+      // Location filtering
+      if (Array.isArray(style.locations) && ctx.location && !style.locations.includes(ctx.location)) continue;
+
+      // Affinity gating
+      if (typeof style.min_affinity === "number" && ctx.affinity < style.min_affinity) continue;
+      if (typeof style.max_affinity === "number" && ctx.affinity > style.max_affinity) continue;
+
+      // Determine label & next
+      const label = style.label || styleKey;
+      const next =
+        style.next ??
+        style.nextScene ??
+        style.scene ??
+        romance.default_next ??
+        romance.defaultNext ??
+        romance.next ??
+        null;
+
+      // If next is still missing, we *still* include the choice as an affinity-only object so renderer can apply it and stay in hub.
+      if (!next) {
+        choices[styleKey] = {
+          label,
+          romance_style: styleKey,
+          delta: _safeNumber(style.delta ?? style.affinity_delta ?? 0, 0),
+        };
         continue;
       }
 
-      // Affinity range filtering
-      if (
-        typeof style.min_affinity === "number" &&
-        ctx.affinity < style.min_affinity
-      ) continue;
-
-      if (
-        typeof style.max_affinity === "number" &&
-        ctx.affinity > style.max_affinity
-      ) continue;
-
-      validChoices.push({
-        id: styleKey,
-        label: style.label,
-        delta: style.delta,
+      // If the renderer expects "approach objects", return an object (not a string scene id).
+      // This lets renderer apply affinity and then re-enter hub without needing per-choice hub scene ids.
+      choices[styleKey] = {
+        label,
         romance_style: styleKey,
-      });
+        delta: _safeNumber(style.delta ?? style.affinity_delta ?? 0, 0),
+        next, // keep for engines that want to route immediately
+      };
     }
 
-    // Shuffle
-    for (let i = validChoices.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [validChoices[i], validChoices[j]] = [validChoices[j], validChoices[i]];
+    // Always provide an exit
+    choices.return_to_party = romance.return_to_party ?? _fallbackNextSceneId();
+    return choices;
+  }
+
+  /**
+   * Create the actual injected hub scene object.
+   * This is what renderer will render when currentSceneId === "__hub__".
+   */
+  function buildHubScene() {
+    const ctx = getContext();
+    const romance = ctx.character ? _getRomanceConfig(ctx.character) : null;
+
+    const title =
+      romance?.title ||
+      (ctx.character ? `${ctx.character} — Hub` : "Hub");
+
+    const text =
+      romance?.description ||
+      romance?.text ||
+      "Choose how you want to approach. Your choices shape the vibe of the night.";
+
+    const image =
+      // Optional: support location-based hub images if you add them later.
+      romance?.images?.[ctx.location] ||
+      romance?.image ||
+      null;
+
+    return {
+      title,
+      text,
+      image,
+      // Your renderer supports either `choices` or `options` depending on version.
+      choices: _buildChoiceMapFromRomance(romance, ctx),
+    };
+  }
+
+  /**
+   * Enter hub mode for a character & location.
+   * - Updates HubEngine context
+   * - Injects a synthetic scene into StoryEngine.scenes under "__hub__"
+   * - Switches HP_STATE.currentSceneId to "__hub__" so renderer can redraw
+   */
+  function enter(characterId, locationId) {
+    const affinity = _getAffinity(characterId);
+    setContext({ character: characterId, location: locationId, affinity });
+
+    try {
+      const scene = buildHubScene();
+      if (window.StoryEngine && window.StoryEngine.scenes) {
+        window.StoryEngine.scenes[HUB_SCENE_ID] = scene;
+      }
+      if (window.HP_STATE) {
+        window.HP_STATE.currentSceneId = HUB_SCENE_ID;
+      }
+    } catch (e) {
+      console.error("HubEngine.enter failed:", e);
     }
 
-    // Choose 2 or 3
-    const count = Math.random() < 0.25 ? 3 : 2;
-    return validChoices.slice(0, count);
+    return HUB_SCENE_ID;
+  }
+
+  // Public API
+  window.HubEngine = {
+    HUB_SCENE_ID,
+    setContext,
+    getContext,
+    buildHubScene,
+    enter,
   };
-
-  /**
-   * Apply a hub choice and loop
-   */
-  HubEngine.applyChoice = function (choice) {
-    const characterId = window.HP_STATE.currentCharacter;
-    if (!characterId) return;
-
-    applyAffinity(characterId, choice.delta);
-    incrementInteraction(characterId);
-  };
-
-  /**
-   * Check if endings should be offered
-   */
-  HubEngine.shouldOfferEnding = function () {
-    const ctx = HubEngine.getContext();
-    return ctx.interactionCount >= 4;
-  };
-
-  // ----------------------------
-  // Expose globally
-  // ----------------------------
-  window.HubEngine = HubEngine;
 })();
