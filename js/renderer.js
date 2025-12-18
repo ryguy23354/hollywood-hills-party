@@ -294,6 +294,7 @@ function hpGetEl(...ids) {
   }
 
   function hpRenderChoices(sceneId, scene) {
+	if (document.readyState === "loading") return;
     const container = hpFirstExistingElementId(
 		"choicesContainer",
 		"choices",
