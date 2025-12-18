@@ -6,6 +6,8 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
+console.log("renderer.js v2024-choices-fix");
+
 (function () {
   "use strict";
 
@@ -292,6 +294,7 @@ function hpGetEl(...ids) {
   }
 
   function hpRenderChoices(sceneId, scene) {
+	if (document.readyState === "loading") return;
     const container = hpFirstExistingElementId(
 		"choicesContainer",
 		"choices",
