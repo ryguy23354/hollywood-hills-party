@@ -117,6 +117,19 @@
     return !!t && typeof t === "object" && ("romance_style" in t || "romanceStyle" in t || "style" in t || "delta" in t);
   }
 
+/**
+ * DOM lookup helper that supports multiple historical IDs.
+ * Prevents silent render failures when index.html element IDs differ.
+ */
+function hpGetEl(...ids) {
+  for (const id of ids) {
+    const el = document.getElementById(id);
+    if (el) return el;
+  }
+  return null;
+}
+
+
   // ---------- Image Resolution ----------
 
   function hpResolveSceneImage(sceneId, scene) {
@@ -188,7 +201,21 @@
           // { id, label, target } OR { label, next } OR { text, goto } OR { key: "x", value: "scene_y" }
           const key = it.id ?? it.key ?? it.choiceKey ?? it.name ?? `choice_${i}`;
           const label = it.label ?? it.text ?? it.title ?? hpHumanizeChoiceKey(key);
-          const target = it.target ?? it.next ?? it.goto ?? it.scene ?? it.to ?? it.value ?? it;
+          let target = (
+			it.target ??
+			it.next ??
+			it.goto ??
+			it.scene ??
+			it.to ??
+			it.value ??
+			null
+			);
+
+		// Romance-style choices: { label, reactions }
+		if (!target && Array.isArray(it.reactions)) {
+		  target = it;
+		}
+
           out.push({ key, label, target });
           continue;
         }
