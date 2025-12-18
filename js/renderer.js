@@ -54,12 +54,18 @@
   }
 
   function hpFirstExistingElementId(ids) {
-    for (const id of ids) {
-      const el = document.getElementById(id);
-      if (el) return el;
+    // Allow both hpFirstExistingElementId(["a","b"])
+    // and hpFirstExistingElementId("a","b")
+    if (!Array.isArray(ids)) {
+  	  ids = Array.from(arguments);
+	}
+  for (const id of ids) {
+	const el = document.getElementById(id);
+	if (el) return el;
     }
-    return null;
+	  return null;
   }
+
 
   function hpGetStoryEngine() {
     return window.StoryEngine || window.storyEngine || null;
