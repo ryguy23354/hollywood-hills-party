@@ -1,242 +1,372 @@
-// Rendering & image resolution
+// renderer.js (rewritten) - robust scene/image/choice rendering for the Hollywood Hills Party UI
+// Goals:
+// - Render scene title, location, narrative text, and image (if available)
+// - Render choices from either an object-map or an array format
+// - Support affinity/approach choices whose "target" is an object (romance_style/delta, etc.)
+// - Be tolerant of differing index.html element IDs (older/newer UI variants)
+// - Avoid hard crashes; log actionable warnings instead
 
-function hpGetLocationKeyForScene(sceneId) {
-  const m = /^scene_(bar|pool|lounge|balcony|gameloft)_/i.exec(sceneId);
-  return m ? m[1].toLowerCase() : null;
-}
+(function () {
+  "use strict";
 
-function hpGetCharacterKeyForScene(sceneId) {
-  const m = /^scene_(sienna|riley|luna|harper|mara)_/i.exec(sceneId);
-  return m ? m[1].toLowerCase() : null;
-}
+  // ---------- Utilities ----------
 
-function hpGetSceneTitle(sceneId) {
-  if (sceneId === HP_CONFIG.START_SCENE_ID) return "Hollywood Hills Party";
-  const locKey = hpGetLocationKeyForScene(sceneId);
-  if (locKey) return HP_CONFIG.LOCATION_DISPLAY[locKey] || locKey;
-  const charKey = hpGetCharacterKeyForScene(sceneId);
-  if (charKey) return HP_CONFIG.CHARACTER_DISPLAY[charKey]?.name || charKey;
-  return "";
-}
-
-// MAIN IMAGE RESOLUTION (Option C hybrid)
-function hpResolveImageForScene(sceneId, scene) {
-  const base = "images/";
-  const isIntro = sceneId === HP_CONFIG.START_SCENE_ID;
-  const locKeyFromId = hpGetLocationKeyForScene(sceneId);
-  const charKeyFromId = hpGetCharacterKeyForScene(sceneId);
-
-  if (isIntro) return base + "scene_00_intro.jpg";
-
-  if (locKeyFromId && /^scene_(bar|pool|lounge|balcony|gameloft)_01$/i.test(sceneId) && !charKeyFromId) {
-    return base + locKeyFromId + ".jpg";
+  function hpLogWarn(...args) {
+    try { console.warn(...args); } catch (_) {}
+  }
+  function hpLogErr(...args) {
+    try { console.error(...args); } catch (_) {}
   }
 
-  if (charKeyFromId && /^scene_(sienna|riley|luna|harper|mara)_00_intro$/i.test(sceneId)) {
-    const activeLoc = HP_STATE.currentLocation || hpGuessLocationForCharacter(charKeyFromId);
-    if (activeLoc) return base + `${charKeyFromId}_${activeLoc}_01.jpg`;
-  }
-
-  if (scene && typeof scene.image === "string" && scene.image.trim() !== "") {
-    const name = scene.image.trim();
-    if (/\.(jpg|jpeg|png|webp|gif)$/i.test(name)) return base + name;
-    return base + name + ".jpg";
-  }
-
-  const activeChar = HP_STATE.currentCharacter || charKeyFromId;
-  const activeLoc =
-    HP_STATE.currentLocation ||
-    locKeyFromId ||
-    (activeChar ? hpGuessLocationForCharacter(activeChar) : null);
-
-  if (activeChar && activeLoc) return base + `${activeChar}_${activeLoc}_01.jpg`;
-  if (locKeyFromId) return base + locKeyFromId + ".jpg";
-
-  return base + "default.jpg";
-}
-
-function hpGuessLocationForCharacter(charKey) {
-  const locs = hpGetLocationsForCharacter(charKey);
-  return locs.length ? locs[0] : null;
-}
-
-function hpRenderScene(sceneId) {
-  const scene =
-    (window.StoryEngine && window.StoryEngine.getScene)
-      ? window.StoryEngine.getScene(sceneId)
-      : (HP_STATE.scenes ? HP_STATE.scenes[sceneId] : null);
-
-  if (!scene) {
-    console.warn("hpRenderScene: scene not found:", sceneId);
-    return;
-  }
-
-  HP_STATE.currentSceneId = sceneId;
-
-  const container = document.getElementById("sceneContainer");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  /* =========================
-     IMAGE (AUTHORITATIVE)
-     ========================= */
-  if (scene.image) {
-    const img = document.createElement("img");
-    img.src = scene.image;
-    img.alt = "Scene image";
-    img.className = "scene-image";
-    container.appendChild(img);
-  }
-
-  /* =========================
-     TEXT / NARRATIVE
-     ========================= */
-  if (scene.text) {
-    const textEl = document.createElement("div");
-    textEl.className = "scene-text";
-    textEl.textContent = scene.text;
-    container.appendChild(textEl);
-  }
-
-  /* =========================
-     OPTIONS (MODERN PATH)
-     ========================= */
-  if (Array.isArray(scene.options) && scene.options.length > 0) {
-    const choicesEl = document.createElement("div");
-    choicesEl.className = "scene-choices";
-
-    scene.options.forEach(opt => {
-      if (!opt || !opt.label) return;
-
-      const btn = document.createElement("button");
-      btn.textContent = opt.label;
-
-      btn.addEventListener("click", () => {
-        if (opt.go_to) {
-          hpRenderScene(opt.go_to);
-        } else {
-          console.warn("Choice missing go_to:", opt);
-        }
-      });
-
-      choicesEl.appendChild(btn);
-    });
-
-    container.appendChild(choicesEl);
-    return; // ⬅️ IMPORTANT: do NOT fall through to legacy logic
-  }
-
-  /* =========================
-     LEGACY / HUB FALLBACK
-     ========================= */
-  if (typeof hpRenderLocationIntroChoices === "function") {
-    hpRenderLocationIntroChoices(container);
-    return;
-  }
-
-  /* =========================
-     FINAL SAFETY FALLBACK
-     ========================= */
-  const backBtn = document.createElement("button");
-  backBtn.textContent = "Return to the main party";
-  backBtn.onclick = () => hpRenderScene("scene_00_intro");
-  container.appendChild(backBtn);
-}
-
-
-function hpRenderLocationIntroChoices(locKey, container) {
-  const assignedChars =
-    (HP_STATE.locationAssignments && HP_STATE.locationAssignments[locKey]) || [];
-
-  for (const charKey of assignedChars) {
-    const display = HP_CONFIG.CHARACTER_DISPLAY[charKey];
-    const label = display
-      ? `Approach ${display.name.split(" ")[0]}`
-      : `Approach ${charKey}`;
-
-    const targetId = `scene_${charKey}_00_intro`;
-    container.appendChild(
-      hpCreateChoiceButton(label, targetId, {
-        setCharacter: charKey,
-        setLocation: locKey
-      })
-    );
-  }
-
-  container.appendChild(
-    hpCreateChoiceButton(
-      "Return to the main party",
-      HP_CONFIG.START_SCENE_ID,
-      { clearCharacter: true, clearLocation: true }
-    )
-  );
-}
-
-function hpRenderGenericChoices(scene, container) {
-  let options = [];
-
-  if (Array.isArray(scene.options)) {
-    options = scene.options.map(opt => ({
-      label: opt.label,
-      target: opt.go_to || opt.target
-    }));
-  } else if (scene.choices && typeof scene.choices === "object") {
-    options = Object.entries(scene.choices).map(([k, v]) => ({
-      label: hpFormatChoiceLabel(k),
-      target: v
-    }));
-  }
-
-  if (!options.length) {
-    container.appendChild(
-      hpCreateChoiceButton("Return to the main party", HP_CONFIG.START_SCENE_ID)
-    );
-    return;
-  }
-
-  for (const opt of options) {
-    container.appendChild(hpCreateChoiceButton(opt.label, opt.target));
-  }
-}
-
-function hpFormatChoiceLabel(choiceKey) {
-  const map = {
-    bar_area: "Head to the bar",
-    pool_area: "Drift toward the pool",
-    lounge_area: "Slide into the lounge",
-    balcony_area: "Step out onto the balcony",
-    gameloft_area: "Climb up to the game loft",
-    return_to_party: "Return to the main party",
-    return: "Return",
-    continue: "Continue"
-  };
-  if (choiceKey in map) return map[choiceKey];
-
-  return choiceKey
-    .replace(/^go_to_/, "")
-    .replace(/^approach_/, "Approach ")
-    .replace(/_/g, " ")
-    .replace(/\b\w/g, (m) => m.toUpperCase());
-}
-
-function hpCreateChoiceButton(label, targetSceneId, options) {
-  const btn = document.createElement("button");
-  btn.className = "hp-choice-btn";
-  btn.textContent = label;
-
-  btn.addEventListener("click", () => {
-    if (options && options.setLocation) HP_STATE.currentLocation = options.setLocation;
-    if (options && options.setCharacter) HP_STATE.currentCharacter = options.setCharacter;
-    if (options && options.clearCharacter) HP_STATE.currentCharacter = null;
-    if (options && options.clearLocation) HP_STATE.currentLocation = null;
-
-    if (window.hpLoadScene) {
-      window.hpLoadScene(targetSceneId);
-    } else {
-      hpRenderScene(targetSceneId);
+  function hpSafeGet(obj, path, fallback) {
+    try {
+      let cur = obj;
+      for (const k of path) cur = cur?.[k];
+      return cur ?? fallback;
+    } catch (_) {
+      return fallback;
     }
-  });
+  }
 
-  return btn;
-}
+  function hpHumanizeChoiceKey(key) {
+    if (!key) return "";
+    // keep already-nice labels
+    if (/\s/.test(key) && /[A-Za-z]/.test(key)) return key;
+    // strip common prefixes
+    let s = String(key).replace(/^go_to_/, "").replace(/^approach_/, "").replace(/^return_to_/, "return to ");
+    s = s.replace(/_/g, " ").replace(/\s+/g, " ").trim();
+    if (!s) return String(key);
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function hpCreateButton(label, onClick) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "choiceBtn";
+    btn.textContent = label;
+    btn.addEventListener("click", onClick);
+    return btn;
+  }
+
+  function hpClear(el) {
+    if (!el) return;
+    while (el.firstChild) el.removeChild(el.firstChild);
+  }
+
+  function hpFirstExistingElementId(ids) {
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el) return el;
+    }
+    return null;
+  }
+
+  function hpGetStoryEngine() {
+    return window.StoryEngine || window.storyEngine || null;
+  }
+
+  function hpGetScene(sceneId) {
+    const SE = hpGetStoryEngine();
+    if (SE && typeof SE.getScene === "function") return SE.getScene(sceneId);
+    // fallback to common storage spots
+    const scenes =
+      hpSafeGet(SE, ["scenes"], null) ||
+      hpSafeGet(window, ["HP_STATE", "scenes"], null) ||
+      hpSafeGet(window, ["STATE", "scenes"], null);
+    return scenes ? scenes[sceneId] : undefined;
+  }
+
+  function hpGetScenesObject() {
+    const SE = hpGetStoryEngine();
+    return (
+      hpSafeGet(SE, ["scenes"], null) ||
+      hpSafeGet(window, ["HP_STATE", "scenes"], null) ||
+      hpSafeGet(window, ["STATE", "scenes"], null) ||
+      {}
+    );
+  }
+
+  function hpGetCurrentSceneId() {
+    return (
+      hpSafeGet(window, ["HP_STATE", "currentSceneId"], null) ||
+      hpSafeGet(window, ["HP_STATE", "sceneId"], null) ||
+      hpSafeGet(window, ["STATE", "currentSceneId"], null) ||
+      hpSafeGet(window, ["STATE", "sceneId"], null) ||
+      null
+    );
+  }
+
+  function hpSetCurrentSceneId(sceneId) {
+    if (window.HP_STATE) window.HP_STATE.currentSceneId = sceneId;
+    if (window.STATE) window.STATE.currentSceneId = sceneId;
+  }
+
+  function hpGetActiveCharacter() {
+    const SE = hpGetStoryEngine();
+    return (
+      hpSafeGet(window, ["HP_STATE", "activeCharacter"], null) ||
+      hpSafeGet(window, ["HP_STATE", "currentCharacter"], null) ||
+      hpSafeGet(SE, ["activeCharacter"], null) ||
+      hpSafeGet(SE, ["currentCharacter"], null) ||
+      null
+    );
+  }
+
+  function hpIsAffinityChoiceTarget(t) {
+    // An affinity choice "target" is an object with romance_style / romanceStyle and optional delta.
+    return !!t && typeof t === "object" && ("romance_style" in t || "romanceStyle" in t || "style" in t || "delta" in t);
+  }
+
+  // ---------- Image Resolution ----------
+
+  function hpResolveSceneImage(sceneId, scene) {
+    // Try engine-provided resolver first
+    const SE = hpGetStoryEngine();
+    if (SE && typeof SE.getSceneImage === "function") {
+      const img = SE.getSceneImage(sceneId, scene);
+      if (img) return img;
+    }
+
+    // Common field names in JSON
+    const direct = scene?.image || scene?.img || scene?.imagePath || scene?.image_path;
+    if (typeof direct === "string" && direct.trim()) return direct;
+
+    // Images manifest map (several possible shapes)
+    const manifest =
+      hpSafeGet(window, ["HP_STATE", "images"], null) ||
+      hpSafeGet(window, ["HP_STATE", "imagesManifest"], null) ||
+      hpSafeGet(window, ["HP_IMAGES"], null) ||
+      null;
+
+    if (manifest) {
+      // { sceneId: "path" }
+      if (typeof manifest[sceneId] === "string") return manifest[sceneId];
+
+      // { scenes: { sceneId: "path" } }
+      const fromScenes = hpSafeGet(manifest, ["scenes", sceneId], null);
+      if (typeof fromScenes === "string") return fromScenes;
+
+      // { locations: { bar: "..." }, characters: {...} } – attempt best-effort
+      const loc = hpSafeGet(scene, ["location"], null) || hpLocationKeyFromSceneId(sceneId);
+      const ch = hpSafeGet(scene, ["character"], null) || hpCharacterKeyFromSceneId(sceneId);
+      const locImg = loc ? hpSafeGet(manifest, ["locations", loc], null) : null;
+      if (typeof locImg === "string") return locImg;
+      const chImg = ch ? hpSafeGet(manifest, ["characters", ch], null) : null;
+      if (typeof chImg === "string") return chImg;
+    }
+
+    return null;
+  }
+
+  function hpLocationKeyFromSceneId(sceneId) {
+    const m = /^scene_(bar|pool|lounge|balcony|gameloft)_/i.exec(sceneId || "");
+    return m ? m[1].toLowerCase() : null;
+  }
+
+  function hpCharacterKeyFromSceneId(sceneId) {
+    const m = /^scene_(sienna|riley|luna|harper|mara)_/i.exec(sceneId || "");
+    return m ? m[1].toLowerCase() : null;
+  }
+
+  // ---------- Choice Normalization ----------
+
+  function hpNormalizeChoices(scene) {
+    // Returns array of { key, label, target }
+    const raw = scene?.choices ?? scene?.options ?? scene?.buttons ?? null;
+
+    // If already an array:
+    if (Array.isArray(raw)) {
+      const out = [];
+      for (let i = 0; i < raw.length; i++) {
+        const it = raw[i];
+        if (typeof it === "string") {
+          out.push({ key: it, label: hpHumanizeChoiceKey(it), target: it });
+          continue;
+        }
+        if (it && typeof it === "object") {
+          // common shapes:
+          // { id, label, target } OR { label, next } OR { text, goto } OR { key: "x", value: "scene_y" }
+          const key = it.id ?? it.key ?? it.choiceKey ?? it.name ?? `choice_${i}`;
+          const label = it.label ?? it.text ?? it.title ?? hpHumanizeChoiceKey(key);
+          const target = it.target ?? it.next ?? it.goto ?? it.scene ?? it.to ?? it.value ?? it;
+          out.push({ key, label, target });
+          continue;
+        }
+      }
+      return out;
+    }
+
+    // If map/object:
+    if (raw && typeof raw === "object") {
+      return Object.entries(raw).map(([key, target]) => ({
+        key,
+        label: hpHumanizeChoiceKey(key),
+        target
+      }));
+    }
+
+    return [];
+  }
+
+  // ---------- Rendering ----------
+
+  function hpSetText(el, text) {
+    if (!el) return;
+    el.textContent = text ?? "";
+  }
+
+  function hpRenderImage(sceneId, scene) {
+    const imgEl = hpFirstExistingElementId(["sceneImage", "image", "storyImage", "sceneImg"]);
+    const placeholderEl = hpFirstExistingElementId(["sceneImagePlaceholder", "imagePlaceholder", "sceneImgPlaceholder"]);
+    if (!imgEl) return;
+
+    const img = hpResolveSceneImage(sceneId, scene);
+    if (!img) {
+      // show placeholder text if present
+      if (placeholderEl) placeholderEl.style.display = "";
+      imgEl.removeAttribute("src");
+      imgEl.style.display = "none";
+      return;
+    }
+
+    if (placeholderEl) placeholderEl.style.display = "none";
+    imgEl.style.display = "";
+    imgEl.src = img;
+
+    // Enforce sane scaling if CSS isn’t handling it
+    imgEl.style.maxWidth = "100%";
+    imgEl.style.height = "auto";
+    imgEl.style.objectFit = "cover";
+  }
+
+  function hpRenderNarrative(sceneId, scene) {
+    const titleEl = hpFirstExistingElementId(["sceneTitle", "title"]);
+    const locEl = hpFirstExistingElementId(["sceneLocation", "location"]);
+    const textEl = hpFirstExistingElementId(["sceneText", "story", "narrative", "text"]);
+
+    const title = scene?.title ?? scene?.name ?? (sceneId ? String(sceneId) : "Scene");
+    const location = scene?.location_display ?? scene?.locationDisplay ?? scene?.location ?? hpLocationKeyFromSceneId(sceneId) ?? "";
+    const text =
+      scene?.text ??
+      scene?.description ??
+      scene?.narrative ??
+      scene?.body ??
+      "";
+
+    hpSetText(titleEl, title);
+    if (locEl) hpSetText(locEl, location ? String(location) : "");
+    hpSetText(textEl, text ? String(text) : "");
+  }
+
+  function hpRenderChoices(sceneId, scene) {
+    const container = hpFirstExistingElementId(["choicesContainer", "choices", "options", "buttons"]);
+    if (!container) {
+      hpLogWarn("renderer: missing choices container element in DOM");
+      return;
+    }
+
+    hpClear(container);
+
+    const choices = hpNormalizeChoices(scene);
+
+    if (!choices.length) {
+      // If there's an implicit "return" in hub mode, don't force it here.
+      return;
+    }
+
+    const activeChar = hpGetActiveCharacter();
+
+    for (const c of choices) {
+      const label = c.label || hpHumanizeChoiceKey(c.key);
+      const target = c.target;
+
+      container.appendChild(
+        hpCreateButton(label, () => {
+          // 1) Affinity choice target object: apply & enter hub
+          if (hpIsAffinityChoiceTarget(target)) {
+            const style = target.romance_style ?? target.romanceStyle ?? target.style;
+            const delta = Number(target.delta ?? 0);
+
+            const SE = hpGetStoryEngine();
+            if (SE && typeof SE.applyChoice === "function" && style) {
+              try { SE.applyChoice(activeChar, style, delta); } catch (e) { hpLogErr("renderer: applyChoice failed", e, target); }
+            }
+
+            // Enter global hub if available
+            if (SE && typeof SE.enterHub === "function") {
+              try {
+                SE.enterHub(activeChar);
+              } catch (e) {
+                hpLogErr("renderer: enterHub failed", e);
+              }
+            }
+
+            // Re-render current scene (hub UI may be separate; safest is re-render current scene id)
+            const cur = hpGetCurrentSceneId() || sceneId;
+            if (typeof window.hpRenderScene === "function") window.hpRenderScene(cur);
+            return;
+          }
+
+          // 2) String target is a scene id
+          if (typeof target === "string") {
+            if (typeof window.hpLoadScene === "function") window.hpLoadScene(target);
+            else if (typeof window.hpRenderScene === "function") window.hpRenderScene(target);
+            else hpLogWarn("renderer: no hpLoadScene/hpRenderScene to navigate to", target);
+            return;
+          }
+
+          // 3) Function target as callback
+          if (typeof target === "function") {
+            try { target(); } catch (e) { hpLogErr("renderer: choice callback failed", e); }
+            return;
+          }
+
+          // 4) Unknown target type
+          hpLogWarn("renderer: unsupported choice target", target);
+        })
+      );
+    }
+  }
+
+  function hpRenderScene(sceneId) {
+    if (!sceneId) {
+      hpLogWarn("renderer: hpRenderScene called with empty sceneId");
+      return;
+    }
+    hpSetCurrentSceneId(sceneId);
+
+    const scene = hpGetScene(sceneId);
+    if (!scene) {
+      // Render a minimal "missing scene" state (do not crash)
+      hpRenderNarrative(sceneId, { title: "Missing scene", text: `Scene not found: ${sceneId}` });
+      hpRenderImage(sceneId, null);
+      hpRenderChoices(sceneId, { choices: {} });
+      return;
+    }
+
+    hpRenderNarrative(sceneId, scene);
+    hpRenderImage(sceneId, scene);
+    hpRenderChoices(sceneId, scene);
+  }
+
+  // ---------- Public API ----------
+
+  window.hpRenderScene = hpRenderScene;
+
+  // Convenience: allow renderer to be used even if other code calls hpRenderSceneId / hpRender
+  window.hpRender = window.hpRender || hpRenderScene;
+  window.hpRenderSceneId = window.hpRenderSceneId || hpRenderScene;
+
+  // If the page already has a current scene id, try to render it (but don’t fight main.js if it controls flow)
+  try {
+    const existing = hpGetCurrentSceneId();
+    if (existing) {
+      // Defer to end of current tick so scripts can finish init
+      setTimeout(() => {
+        // Render only if choices container exists (avoid rendering into incomplete DOM)
+        const container = hpFirstExistingElementId(["choicesContainer", "choices", "options", "buttons"]);
+        if (container) hpRenderScene(existing);
+      }, 0);
+    }
+  } catch (_) {}
+})();
