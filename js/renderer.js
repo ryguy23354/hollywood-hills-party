@@ -6,7 +6,7 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v2024-choices-fix");
+console.log("renderer.js v 18-Dec 5:37 PM");
 
 (function () {
   "use strict";
@@ -302,10 +302,40 @@ function hpGetEl(...ids) {
 		"buttons"
     );
 
-    if (!container) {
-      hpLogWarn("renderer: missing choices container element in DOM");
-      return;
-    }
+    // ---- guarded retry for DOM readiness ----
+	hpRenderChoices._retryCount ??= 0;
+
+	if (!container) {
+	  hpRenderChoices._retryCount++;
+
+	  if (hpRenderChoices._retryCount > 3) {
+		console.error(
+		  "[renderer] Failed to locate choices container after retries.",
+		  {
+			sceneId,
+			triedIds: ["choicesContainer", "choices", "options", "buttons"],
+			readyState: document.readyState,
+			bodyPresent: !!document.body,
+			timestamp: new Date().toISOString()
+		  }
+		);
+		return;
+	  }
+
+	  hpLogWarn(
+		`renderer: choices container missing (retry ${hpRenderChoices._retryCount}/3)`
+	  );
+
+	  setTimeout(() => {
+		hpRenderChoices(sceneId, scene);
+	  }, 1000);
+
+	  return;
+	}
+
+	// reset retry counter on success
+	hpRenderChoices._retryCount = 0;
+
 
     hpClear(container);
 
