@@ -292,7 +292,13 @@ function hpGetEl(...ids) {
   }
 
   function hpRenderChoices(sceneId, scene) {
-    const container = hpFirstExistingElementId(["choicesContainer", "choices", "options", "buttons"]);
+    const container = hpFirstExistingElementId(
+		"choicesContainer",
+		"choices",
+		"options",
+		"buttons"
+    );
+
     if (!container) {
       hpLogWarn("renderer: missing choices container element in DOM");
       return;
