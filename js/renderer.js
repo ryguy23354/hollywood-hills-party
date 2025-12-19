@@ -6,7 +6,7 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 19-Dec 1:12 PM");
+console.log("renderer.js v 19-Dec 1:26 PM");
 
 (function () {
   "use strict";
@@ -143,10 +143,17 @@ function hpGetEl(...ids) {
   function hpResolveSceneImage(sceneId, scene) {
     // Try engine-provided resolver first
     const SE = hpGetStoryEngine();
-    if (SE && typeof SE.getSceneImage === "function") {
-      const img = SE.getSceneImage(sceneId, scene);
-      if (img) return img;
-    }
+	if (SE && typeof SE.getSceneImage === "function") {
+	  try {
+		const img = SE.getSceneImage(sceneId, scene);
+		if (typeof img === "string" && img.trim()) {
+		  return img;
+		}
+	  } catch (e) {
+		hpLogWarn("renderer: getSceneImage failed", e);
+	  }
+	}
+
 
     // Common field names in JSON
     const direct = scene?.image || scene?.img || scene?.imagePath || scene?.image_path;
