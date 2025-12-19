@@ -6,7 +6,7 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 19-Dec 8:15 AM");
+console.log("renderer.js v 19-Dec 1:12 PM");
 
 (function () {
   "use strict";
@@ -329,8 +329,6 @@ function hpGetEl(...ids) {
 		timestamp: new Date().toISOString()
 	  });
 	  return;
-	}
-
 	}
 
 	// reset retry counter on success
