@@ -6,7 +6,7 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 19-Dec 1:26 PM");
+console.log("renderer.js v 19-Dec 1:34 PM");
 
 (function () {
   "use strict";
@@ -258,28 +258,38 @@ function hpGetEl(...ids) {
   }
 
   function hpRenderImage(sceneId, scene) {
-    const imgEl = hpFirstExistingElementId(["sceneImage", "image", "storyImage", "sceneImg"]);
-    const placeholderEl = hpFirstExistingElementId(["sceneImagePlaceholder", "imagePlaceholder", "sceneImgPlaceholder"]);
-    if (!imgEl) return;
+  const src = hpResolveSceneImage(sceneId, scene);
+  if (!src) return;
 
-    const img = hpResolveSceneImage(sceneId, scene);
-    if (!img) {
-      // show placeholder text if present
-      if (placeholderEl) placeholderEl.style.display = "";
-      imgEl.removeAttribute("src");
-      imgEl.style.display = "none";
-      return;
-    }
+  let container =
+    document.getElementById("sceneImage") ||
+    document.getElementById("imageContainer") ||
+    document.querySelector(".scene-image");
 
-    if (placeholderEl) placeholderEl.style.display = "none";
-    imgEl.style.display = "";
-    imgEl.src = img;
+  // Create image container if missing (mirrors choices behavior)
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "sceneImage";
+    container.className = "scene-image";
 
-    // Enforce sane scaling if CSS isn’t handling it
-    imgEl.style.maxWidth = "100%";
-    imgEl.style.height = "auto";
-    imgEl.style.objectFit = "cover";
+    const sceneBox = document.querySelector(".scene-box") || document.body;
+    sceneBox.prepend(container);
+
+    hpLogWarn("renderer: image container missing — created dynamically");
   }
+
+  container.innerHTML = "";
+
+  const img = document.createElement("img");
+  img.src = src;
+  img.alt = "";
+  img.loading = "eager";
+  img.style.maxWidth = "100%";
+  img.style.borderRadius = "12px";
+
+  container.appendChild(img);
+  }
+
 
   function hpRenderNarrative(sceneId, scene) {
     const titleEl = hpFirstExistingElementId(["sceneTitle", "title"]);
