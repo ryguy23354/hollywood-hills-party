@@ -6,7 +6,7 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 18-Dec 5:37 PM");
+console.log("renderer.js v 19-Dec 8:15 AM");
 
 (function () {
   "use strict";
@@ -295,42 +295,42 @@ function hpGetEl(...ids) {
 
   function hpRenderChoices(sceneId, scene) {
 	if (document.readyState === "loading") return;
-    const container = hpFirstExistingElementId(
-		"choicesContainer",
-		"choices",
-		"options",
-		"buttons"
-    );
+	const triedIds = ["choicesContainer", "choices", "options", "buttons"];
+	let container = hpFirstExistingElementId(triedIds);
 
-    // ---- guarded retry for DOM readiness ----
-	hpRenderChoices._retryCount ??= 0;
-
+	// If missing, create it deterministically
 	if (!container) {
-	  hpRenderChoices._retryCount++;
+	  const host =
+		document.getElementById("story") ||
+		document.getElementById("story-container") ||
+		document.querySelector("main") ||
+		document.body;
 
-	  if (hpRenderChoices._retryCount > 3) {
-		console.error(
-		  "[renderer] Failed to locate choices container after retries.",
-		  {
-			sceneId,
-			triedIds: ["choicesContainer", "choices", "options", "buttons"],
-			readyState: document.readyState,
-			bodyPresent: !!document.body,
-			timestamp: new Date().toISOString()
-		  }
+	  if (host) {
+		container = document.createElement("div");
+		container.id = "choicesContainer";
+		container.className = "choices";
+		host.appendChild(container);
+
+		hpLogWarn(
+		  "renderer: choices container missing — created dynamically"
 		);
-		return;
 	  }
+	}
 
-	  hpLogWarn(
-		`renderer: choices container missing (retry ${hpRenderChoices._retryCount}/3)`
-	  );
-
-	  setTimeout(() => {
-		hpRenderChoices(sceneId, scene);
-	  }, 1000);
-
+	// Final hard failure (no retries)
+	if (!container) {
+	  console.error("[renderer] choices container unrecoverable", {
+		sceneId,
+		triedIds,
+		readyState: document.readyState,
+		bodyPresent: !!document.body,
+		storyPresent: !!document.getElementById("story"),
+		timestamp: new Date().toISOString()
+	  });
 	  return;
+	}
+
 	}
 
 	// reset retry counter on success
