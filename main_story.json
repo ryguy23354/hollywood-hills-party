@@ -32,7 +32,7 @@
   },
   "scene_lounge_01": {
     "id": "lounge",
-    "image": "images/scene_lounge_01.jpg",
+    "image": "images/lounge.jpg",
     "text": "Soft velvet couches and curated artwork make the lounge feel warm and intimate. A woman studies a large painting with a quietly intense expression.",
     "choices": {
       "approach_luna": "scene_luna_00_intro",
