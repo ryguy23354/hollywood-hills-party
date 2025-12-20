@@ -1,7 +1,7 @@
 {
   "scene_00_intro": {
     "id": "scene_00_intro",
-    "image": "scene_00_intro.jpg",
+    "image": "images\scene_00_intro.jpg",
     "text": "You arrive at a sprawling Hollywood Hills mansion. Music pulses through the open windows, and warm amber lights glow across the terrace. Guests drift between the bar, the pool, the lounge, the balcony, and the warm, tucked-away game loft above.",
     "choices": {
       "go_to_bar": "scene_bar_01",
@@ -13,7 +13,7 @@
   },
   "scene_bar_01": {
     "id": "scene_bar_01",
-    "image": "scene_bar_01.jpg",
+    "image": "images\scene_bar_01.jpg",
     "text": "The bar glows with neon reflections bouncing off smooth marble. The scent of citrus and spirits lingers in the air. A striking woman catches your eye from the corner of the bar.",
     "choices": {
       "approach_harper": "scene_harper_00_intro",
@@ -22,7 +22,7 @@
   },
   "scene_pool_01": {
     "id": "scene_pool_01",
-    "image": "scene_pool_01.jpg",
+    "image": "images\scene_pool_01.jpg",
     "text": "The pool glistens under elegant rows of string lights. Laughter ripples across the water while guests lounge with drinks in hand. Two captivating figures stand out immediately.",
     "choices": {
       "approach_sienna": "scene_sienna_00_intro",
@@ -32,7 +32,7 @@
   },
   "scene_lounge_01": {
     "id": "scene_lounge_01",
-    "image": "scene_lounge_01.jpg",
+    "image": "images\scene_lounge_01.jpg",
     "text": "Soft velvet couches and curated artwork make the lounge feel warm and intimate. A woman studies a large painting with a quietly intense expression.",
     "choices": {
       "approach_luna": "scene_luna_00_intro",
@@ -41,7 +41,7 @@
   },
   "scene_balcony_01": {
     "id": "scene_balcony_01",
-    "image": "scene_balcony_01.jpg",
+    "image": "images\scene_balcony_01.jpg",
     "text": "The balcony opens out over endless city lights. Cool air runs across your skin as a woman leans gracefully against the railing, lost in thought.",
     "choices": {
       "approach_mara": "scene_mara_00_intro",
@@ -50,7 +50,7 @@
   },
   "scene_gameloft_01": {
     "id": "scene_gameloft_01",
-    "image": "scene_gameloft_01.jpg",
+    "image": "images\scene_gameloft_01.jpg",
     "text": "The game loft feels like a private upper-level retreat above the main party. Wide windows look out over the city while warm, indirect lighting softens the space. A few elegant game tables and a quietly humming arcade cabinet sit off to the side, leaving most of the room open for low-voiced conversation and stolen glances away from the crowd.",
     "choices": {
       "approach_riley": "scene_riley_00_intro",
