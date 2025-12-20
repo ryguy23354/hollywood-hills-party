@@ -74,11 +74,15 @@
     }
 
     #sceneImage {
-      max-width: 100%;
-      margin: 8px 0;
-      border-radius: 10px;
-      display: block;
-    }
+	  width: 100%;
+	  max-width: 100%;
+	  height: auto;
+	  max-height: 60vh;
+	  object-fit: cover;
+	  margin: 8px 0;
+	  border-radius: 10px;
+	  display: none; /* keep this; renderer toggles block/none */
+	}
 
     #scene-text {
       margin-top: 8px;
