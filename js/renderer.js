@@ -44,7 +44,7 @@ console.log("renderer.js v 19-Dec 1:34 PM");
   function hpCreateButton(label, onClick) {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "choiceBtn";
+    btn.className = "choice-btn";
     btn.textContent = label;
     btn.addEventListener("click", onClick);
     return btn;
