@@ -107,6 +107,10 @@
 
 	/* Choice buttons (new engine) */
 	#choicesContainer .hp-choice-btn {
+	  margin-top: 16px;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 8px;
 	  appearance: none;
 	  border: 1px solid rgba(255,255,255,0.25);
 	  background: rgba(20,20,30,0.65);
