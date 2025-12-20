@@ -73,16 +73,15 @@
       font-weight: 600;
     }
 
-    #sceneImage {
-	  width: 100%;
+   /* main.css */
+	#sceneImage {
 	  max-width: 100%;
 	  height: auto;
-	  max-height: 60vh;
-	  object-fit: cover;
 	  margin: 8px 0;
 	  border-radius: 10px;
-	  display: none; /* keep this; renderer toggles block/none */
+	  display: block; /* IMPORTANT: not none */
 	}
+
 
     #scene-text {
       margin-top: 8px;
