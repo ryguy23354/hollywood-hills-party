@@ -1,7 +1,7 @@
 {
   "bar": {
     "id": "bar",
-    "title": "Bar",
+    "title": "Grab a drink at the bar",
     "image": "images/bar.jpg",
     "text": "You drift into the bar. Two familiar figures stand out from the blur of guests:",
     "choices": {},
@@ -10,7 +10,7 @@
 
   "pool": {
     "id": "pool",
-    "title": "Pool",
+    "title": "Chill by the pool",
     "image": "images/pool.jpg",
     "text": "A warm breeze rolls across the water as you step into the pool area. Laughter and soft chatter echo under the glowing lights.",
     "choices": {},
@@ -19,7 +19,7 @@
 
   "lounge": {
     "id": "lounge",
-    "title": "Lounge",
+    "title": "Go relax in the lounge",
     "image": "images/lounge.jpg",
     "text": "Soft music drifts through the lounge. Plush seating, dim lighting, and intimate conversations fill the room.",
     "choices": {},
@@ -28,7 +28,7 @@
 
   "balcony": {
     "id": "balcony",
-    "title": "Balcony",
+    "title": "Get some air out on the balcony",
     "image": "images/balcony.jpg",
     "text": "The city stretches endlessly below as you step onto the balcony. Cool air and glittering lights create a perfect moment.",
     "choices": {},
@@ -37,7 +37,7 @@
 
   "gameloft": {
     "id": "gameloft",
-    "title": "Game Loft",
+    "title": "Go have some fun in the Game Loft",
     "image": "images/gameloft.jpg",
     "text": "The game loft hums with energy—pool tables, arcade lights, and guests lost in friendly competition.",
     "choices": {},
