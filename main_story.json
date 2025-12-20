@@ -3,13 +3,13 @@
     "id": "scene_00_intro",
     "image": "images/scene_00_intro.jpg",
     "text": "You arrive at a sprawling Hollywood Hills mansion. Music pulses through the open windows, and warm amber lights glow across the terrace. Guests drift between the bar, the pool, the lounge, the balcony, and the warm, tucked-away game loft above.",
-    "choices": {
-      "go_to_bar": "scene_bar_01",
-      "go_to_pool": "scene_pool_01",
-      "go_to_lounge": "scene_lounge_01",
-      "go_to_balcony": "scene_balcony_01",
-      "go_to_gameloft": "scene_gameloft_01"
-    }
+    "choices": [
+	  { "label": "Grab a drink at the bar", "target": "scene_bar_01" },
+	  { "label": "Go chill by the pool", "target": "scene_pool_01" },
+	  { "label": "Go relax in the Lounge", "target": "scene_lounge_01" },
+	  { "label": "Get some air out on the balcony", "target": "scene_balcony_01" },
+	  { "label": "Have some fun in the Game Loft", "target": "scene_gameloft_01" }
+	]
   },
   "scene_bar_01": {
     "id": "scene_bar_01",
