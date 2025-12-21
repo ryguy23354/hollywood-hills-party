@@ -76,12 +76,24 @@
    /* main.css */
 	#sceneImage {
 	  max-width: 100%;
-	  height: auto;
+	  object-fit: cover;
 	  margin: 8px 0;
 	  border-radius: 10px;
 	  display: block; /* IMPORTANT: not none */
 	}
+	
+	/* this is the section to scale the scene images */
+	#sceneImageContainer {
+	  width: 100%;
+	  max-width: 1200px;
 
+	  /* 👇 This is the magic */
+	  max-height: clamp(220px, 35vh, 520px);
+
+	  margin: 0 auto 20px auto;
+	  overflow: hidden;
+	  border-radius: 14px;
+	}
 
     #scene-text {
       margin-top: 8px;
