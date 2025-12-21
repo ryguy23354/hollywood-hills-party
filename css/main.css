@@ -75,27 +75,33 @@
 
    /* main.css */
 	#sceneImage {
+	  display: block;
+
+	  /* Fill width, preserve intrinsic ratio */
 	  width: 100%;
-	  height: auto;              /* ✅ critical */
-	  max-height: inherit;       /* respect container clamp */
-	  object-fit: cover;
-	  margin: 8px 0;
+	  height: auto;
+
+	  /* IMPORTANT: contain, not cover */
+	  max-height: 100%;
+
+	  object-fit: contain;
 	  border-radius: 10px;
-	  display: block; /* IMPORTANT: not none */
 	}
+
 	
 	/* this is the section to scale the scene images */
 	#sceneImageContainer {
 	  width: 100%;
 	  max-width: 1200px;
 
-	  /* 👇 This is the magic */
-	  max-height: clamp(220px, 35vh, 520px);
+	  /* Responsive vertical cap */
+	  max-height: clamp(260px, 32vh, 520px);
 
 	  margin: 0 auto 20px auto;
 	  overflow: hidden;
 	  border-radius: 14px;
 	}
+
 
     #scene-text {
       margin-top: 8px;
