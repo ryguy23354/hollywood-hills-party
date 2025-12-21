@@ -272,8 +272,17 @@ function hpGetEl(...ids) {
     container.id = "sceneImage";
     container.className = "scene-image";
 
-    const sceneBox = document.querySelector(".scene-box") || document.body;
-    sceneBox.prepend(container);
+    const story =
+	document.getElementById("story") ||
+	document.getElementById("story-container");
+
+	if (!story) {
+	  console.warn("renderer: no story container — abort image render");
+	  return;
+	}
+
+	story.insertBefore(container, story.firstChild);
+
 
     hpLogWarn("renderer: image container missing — created dynamically");
   }
