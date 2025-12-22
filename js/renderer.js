@@ -340,110 +340,71 @@ function hpGetEl(...ids) {
     hpSetText(textEl, text ? String(text) : "");
   }
 
-  function hpRenderChoices(sceneId, scene) {
-	if (document.readyState === "loading") return;
-	const triedIds = ["choicesContainer", "choices", "options", "buttons"];
-	let container = hpFirstExistingElementId(triedIds);
+	function hpRenderChoices(sceneId, scene) {
+	  const container = document.getElementById("choicesContainer");
 
-	// If missing, create it deterministically
-	if (!container) {
-	  const host =
-		document.getElementById("story") ||
-		document.getElementById("story-container") ||
-		document.querySelector("main") ||
-		document.body;
+	  if (!container) {
+		console.error(
+		  "[renderer] choicesContainer not found in DOM — cannot render choices",
+		  sceneId
+		);
+		return;
+	  }
 
-	  if (host) {
-		container = document.createElement("div");
-		container.id = "choicesContainer";
-		container.className = "choices";
-		host.appendChild(container);
+	  hpClear(container);
 
-		hpLogWarn(
-		  "renderer: choices container missing — created dynamically"
+	  const choices = hpNormalizeChoices(scene);
+	  if (!choices.length) return;
+
+	  for (const c of choices) {
+		const label = c.label || hpHumanizeChoiceKey(c.key);
+		const target = c.target;
+
+		container.appendChild(
+		  hpCreateButton(label, () => {
+			// Affinity-style targets
+			if (hpIsAffinityChoiceTarget(target)) {
+			  const style = target.romance_style ?? target.romanceStyle ?? target.style;
+			  const delta = Number(target.delta ?? 0);
+
+			  const SE = hpGetStoryEngine();
+			  if (SE && typeof SE.applyChoice === "function" && style) {
+				SE.applyChoice(hpGetActiveCharacter(), style, delta);
+			  }
+
+			  if (SE && typeof SE.enterHub === "function") {
+				SE.enterHub(hpGetActiveCharacter());
+			  }
+
+			  const cur = hpGetCurrentSceneId() || sceneId;
+			  if (typeof window.hpRenderScene === "function") {
+				window.hpRenderScene(cur);
+			  }
+			  return;
+			}
+
+			// String scene targets
+			if (typeof target === "string") {
+			  if (typeof window.hpLoadScene === "function") {
+				window.hpLoadScene(target);
+			  } else if (typeof window.hpRenderScene === "function") {
+				window.hpRenderScene(target);
+			  }
+			  return;
+			}
+
+			// Function targets
+			if (typeof target === "function") {
+			  target();
+			  return;
+			}
+
+			console.warn("renderer: unsupported choice target", target);
+		  })
 		);
 	  }
 	}
 
-	// Final hard failure (no retries)
-	if (!container) {
-	  console.error("[renderer] choices container unrecoverable", {
-		sceneId,
-		triedIds,
-		readyState: document.readyState,
-		bodyPresent: !!document.body,
-		storyPresent: !!document.getElementById("story"),
-		timestamp: new Date().toISOString()
-	  });
-	  return;
-	}
-
-	// reset retry counter on success
-	hpRenderChoices._retryCount = 0;
-
-
-    hpClear(container);
-
-    const choices = hpNormalizeChoices(scene);
-
-    if (!choices.length) {
-      // If there's an implicit "return" in hub mode, don't force it here.
-      return;
-    }
-
-    const activeChar = hpGetActiveCharacter();
-
-    for (const c of choices) {
-      const label = c.label || hpHumanizeChoiceKey(c.key);
-      const target = c.target;
-
-      container.appendChild(
-        hpCreateButton(label, () => {
-          // 1) Affinity choice target object: apply & enter hub
-          if (hpIsAffinityChoiceTarget(target)) {
-            const style = target.romance_style ?? target.romanceStyle ?? target.style;
-            const delta = Number(target.delta ?? 0);
-
-            const SE = hpGetStoryEngine();
-            if (SE && typeof SE.applyChoice === "function" && style) {
-              try { SE.applyChoice(activeChar, style, delta); } catch (e) { hpLogErr("renderer: applyChoice failed", e, target); }
-            }
-
-            // Enter global hub if available
-            if (SE && typeof SE.enterHub === "function") {
-              try {
-                SE.enterHub(activeChar);
-              } catch (e) {
-                hpLogErr("renderer: enterHub failed", e);
-              }
-            }
-
-            // Re-render current scene (hub UI may be separate; safest is re-render current scene id)
-            const cur = hpGetCurrentSceneId() || sceneId;
-            if (typeof window.hpRenderScene === "function") window.hpRenderScene(cur);
-            return;
-          }
-
-          // 2) String target is a scene id
-          if (typeof target === "string") {
-            if (typeof window.hpLoadScene === "function") window.hpLoadScene(target);
-            else if (typeof window.hpRenderScene === "function") window.hpRenderScene(target);
-            else hpLogWarn("renderer: no hpLoadScene/hpRenderScene to navigate to", target);
-            return;
-          }
-
-          // 3) Function target as callback
-          if (typeof target === "function") {
-            try { target(); } catch (e) { hpLogErr("renderer: choice callback failed", e); }
-            return;
-          }
-
-          // 4) Unknown target type
-          hpLogWarn("renderer: unsupported choice target", target);
-        })
-      );
-    }
-  }
 
   function hpRenderScene(sceneId) {
 	  if (!sceneId) {
