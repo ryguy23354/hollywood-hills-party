@@ -6,7 +6,7 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 22-Dec 12:04 PM");
+console.log("renderer.js v 22-Dec 4:53 PM");
 
 (function () {
   "use strict";
@@ -27,10 +27,17 @@ console.log("renderer.js v 22-Dec 12:04 PM");
 	  const chars = assignments[loc];
 	  if (!Array.isArray(chars) || chars.length !== 2) return;
 
-	  scene.choices = chars.map(charKey => ({
-		label: `Approach ${charKey.charAt(0).toUpperCase()}${charKey.slice(1)}`,
-		target: `scene_${loc}_${charKey}_01`
-	  }));
+	  scene.choices = {
+		  [`approach_${chars[0]}`]: {
+			text: `Approach ${chars[0].charAt(0).toUpperCase()}${chars[0].slice(1)}`,
+			target: `scene_${loc}_${chars[0]}_01`
+		  },
+		  [`approach_${chars[1]}`]: {
+			text: `Approach ${chars[1].charAt(0).toUpperCase()}${chars[1].slice(1)}`,
+			target: `scene_${loc}_${chars[1]}_01`
+		  }
+		};
+
 	  console.log("[injector]", sceneId, scene.choices);
 	}
 
