@@ -1,6 +1,7 @@
 {
   "scene_00_intro": {
     "id": "scene_00_intro",
+	"title": "Hollywood Party",
     "image": "images/scene_00_intro.jpg",
     "text": "You arrive at a sprawling Hollywood Hills mansion. Music pulses through the open windows, and warm amber lights glow across the terrace. Guests drift between the bar, the pool, the lounge, the balcony, and the warm, tucked-away game loft above.",
     "choices": [
