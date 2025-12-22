@@ -2,6 +2,7 @@
   "bar": {
     "id": "bar",
     "title": "Bar",
+	"sceneRole": "location",
     "image": "images/bar.jpg",
     "text": "You drift into the bar. Two familiar figures stand out from the blur of guests:",
     "choices": {},
@@ -11,6 +12,7 @@
   "pool": {
     "id": "pool",
     "title": "Pool",
+	"sceneRole": "location",
     "image": "images/pool.jpg",
     "text": "A warm breeze rolls across the water as you step into the pool area. Laughter and soft chatter echo under the glowing lights.",
     "choices": {},
@@ -20,6 +22,7 @@
   "lounge": {
     "id": "lounge",
     "title": "Lounge",
+	"sceneRole": "location",
     "image": "images/lounge.jpg",
     "text": "Soft music drifts through the lounge. Plush seating, dim lighting, and intimate conversations fill the room.",
     "choices": {},
@@ -29,6 +32,7 @@
   "balcony": {
     "id": "balcony",
     "title": "Balcony",
+	"sceneRole": "location",
     "image": "images/balcony.jpg",
     "text": "The city stretches endlessly below as you step onto the balcony. Cool air and glittering lights create a perfect moment.",
     "choices": {},
@@ -38,17 +42,10 @@
   "gameloft": {
     "id": "gameloft",
     "title": "Game Loft",
+	"sceneRole": "location",
     "image": "images/gameloft.jpg",
     "text": "The game loft hums with energy—pool tables, arcade lights, and guests lost in friendly competition.",
     "choices": {},
     "note": "Dynamic character population."
-  },
-
-  "return_to_main": {
-    "id": "return_to_main",
-    "title": "Return to the Main Party",
-    "image": "images/bar.jpg",
-    "text": "You step away and drift back toward the heart of the party.",
-    "choices": {}
   }
 }
