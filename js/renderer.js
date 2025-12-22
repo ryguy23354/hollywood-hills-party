@@ -6,12 +6,30 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 19-Dec 1:34 PM");
+console.log("renderer.js v 21-Dec 8:53 PM");
 
 (function () {
   "use strict";
 
   // ---------- Utilities ----------
+	function hpInjectDynamicLocationChoices(sceneId, scene) {
+	  if (!scene || !scene.location) return;
+
+	  const assignments = window.HP_STATE?.locationAssignments;
+	  if (!assignments) return;
+
+	  const loc = scene.location;
+	  const chars = assignments[loc];
+	  if (!Array.isArray(chars) || chars.length !== 2) return;
+
+	  // Build deterministic character choices
+	  scene.choices = chars.map(charKey => ({
+		label: `Talk to ${charKey.charAt(0).toUpperCase()}${charKey.slice(1)}`,
+		target: `scene_${loc}_${charKey}_01`
+	  }));
+	}
+
+
 
   function hpLogWarn(...args) {
     try { console.warn(...args); } catch (_) {}
@@ -425,25 +443,31 @@ function hpGetEl(...ids) {
   }
 
   function hpRenderScene(sceneId) {
-    if (!sceneId) {
-      hpLogWarn("renderer: hpRenderScene called with empty sceneId");
-      return;
-    }
-    hpSetCurrentSceneId(sceneId);
+	  if (!sceneId) {
+		hpLogWarn("renderer: hpRenderScene called with empty sceneId");
+		return;
+	  }
 
-    const scene = hpGetScene(sceneId);
-    if (!scene) {
-      // Render a minimal "missing scene" state (do not crash)
-      hpRenderNarrative(sceneId, { title: "Missing scene", text: `Scene not found: ${sceneId}` });
-      hpRenderImage(sceneId, null);
-      hpRenderChoices(sceneId, { choices: {} });
-      return;
-    }
+	  hpSetCurrentSceneId(sceneId);
 
-    hpRenderNarrative(sceneId, scene);
-    hpRenderImage(sceneId, scene);
-    hpRenderChoices(sceneId, scene);
-  }
+	  const scene = hpGetScene(sceneId);
+	  if (!scene) {
+		hpRenderNarrative(sceneId, {
+		  title: "Missing scene",
+		  text: `Scene not found: ${sceneId}`
+		});
+		hpRenderChoices(sceneId, { choices: {} });
+		return;
+	  }
+
+	  // 🔥 THIS IS THE WIRING
+	  hpInjectDynamicLocationChoices(sceneId, scene);
+
+	  hpRenderNarrative(sceneId, scene);
+	  hpRenderImage(sceneId, scene);
+	  hpRenderChoices(sceneId, scene);
+	}
+
 
   // ---------- Public API ----------
 
