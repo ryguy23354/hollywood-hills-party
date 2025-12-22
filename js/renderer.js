@@ -6,7 +6,7 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 21-Dec 10:51 PM");
+console.log("renderer.js v 22-Dec 11:26 AM");
 
 (function () {
   "use strict";
@@ -334,23 +334,26 @@ function hpGetEl(...ids) {
 
 
   function hpRenderNarrative(sceneId, scene) {
-    const titleEl = hpFirstExistingElementId(["sceneTitle", "title"]);
-    const locEl = hpFirstExistingElementId(["sceneLocation", "location"]);
-    const textEl = hpFirstExistingElementId(["sceneText", "story", "narrative", "text"]);
+  // Targeted fix: NEVER treat the #story container as the narrative text element.
+  // Use the dedicated elements in index.html when present, with legacy fallbacks.
+  const titleEl = hpGetEl("scene-title", "sceneTitle", "title");
+  const locEl = hpGetEl("meta-line", "sceneLocation", "location");
+  const textEl = hpGetEl("scene-text", "sceneText", "narrative", "text");
 
-    const title = scene?.title ?? scene?.name ?? (sceneId ? String(sceneId) : "Scene");
-    const location = scene?.location_display ?? scene?.locationDisplay ?? scene?.location ?? hpLocationKeyFromSceneId(sceneId) ?? "";
-    const text =
-      scene?.text ??
-      scene?.description ??
-      scene?.narrative ??
-      scene?.body ??
-      "";
+  const title = scene?.title ?? scene?.name ?? (sceneId ? String(sceneId) : "Scene");
+  const location = scene?.location_display ?? scene?.locationDisplay ?? scene?.location ?? hpLocationKeyFromSceneId(sceneId) ?? "";
+  const text =
+    scene?.text ??
+    scene?.description ??
+    scene?.narrative ??
+    scene?.body ??
+    "";
 
-    hpSetText(titleEl, title);
-    if (locEl) hpSetText(locEl, location ? String(location) : "");
-    hpSetText(textEl, text ? String(text) : "");
-  }
+  hpSetText(titleEl, title);
+  if (locEl) hpSetText(locEl, location ? String(location) : "");
+  hpSetText(textEl, text ? String(text) : "");
+}
+
 
 	function hpRenderChoices(sceneId, scene) {
 	  const container = document.getElementById("choicesContainer");
