@@ -220,6 +220,18 @@ function hpGetEl(...ids) {
   // ---------- Choice Normalization ----------
 
   function hpNormalizeChoices(scene) {
+	// 🔥 DYNAMIC HUB OVERRIDE (authoritative)
+	const assignments = window.HP_STATE?.locationAssignments;
+	const loc = scene?.location || scene?.id;
+
+	if (assignments && loc && Array.isArray(assignments[loc])) {
+	  return assignments[loc].map(charKey => ({
+	  key: `approach_${charKey}`,
+	  label: `Approach ${charKey.charAt(0).toUpperCase()}${charKey.slice(1)}`,
+	  target: `scene_${loc}_${charKey}_01`
+	  }));
+	}  
+	  
     // Returns array of { key, label, target }
     const raw = scene?.choices ?? scene?.options ?? scene?.buttons ?? null;
 
@@ -425,7 +437,7 @@ function hpGetEl(...ids) {
 	  }
 
 	  // 🔥 THIS IS THE WIRING
-	  hpInjectDynamicLocationChoices(sceneId, scene);
+	  // hpInjectDynamicLocationChoices(sceneId, scene);
 
 	  hpRenderNarrative(sceneId, scene);
 	  hpRenderImage(sceneId, scene);
