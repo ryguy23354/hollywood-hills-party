@@ -6,14 +6,14 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 22-Dec 4:53 PM");
+console.log("renderer.js v 22-Dec 5:31 PM");
 
 (function () {
   "use strict";
 
   // ---------- Utilities ----------
 	function hpInjectDynamicLocationChoices(sceneId, scene) {
-	  if (!scene) return;
+	  if (!scene || scene.sceneRole !== "location") return;
 
 	  const assignments = window.HP_STATE?.locationAssignments;
 	  if (!assignments) return;
@@ -455,10 +455,9 @@ function hpGetEl(...ids) {
 	  }
 
 	  // 🔥 THIS IS THE WIRING
-	  hpInjectDynamicLocationChoices(sceneId, scene);
-
 	  hpRenderNarrative(sceneId, scene);
 	  hpRenderImage(sceneId, scene);
+	  hpInjectDynamicLocationChoices(sceneId, scene);
 	  hpRenderChoices(sceneId, scene);
 	}
 
