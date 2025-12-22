@@ -31,6 +31,7 @@ console.log("renderer.js v 21-Dec 10:51 PM");
 		label: `Approach ${charKey.charAt(0).toUpperCase()}${charKey.slice(1)}`,
 		target: `scene_${loc}_${charKey}_01`
 	  }));
+	  console.log("[injector]", sceneId, scene.choices);
 	}
 
   function hpLogWarn(...args) {
