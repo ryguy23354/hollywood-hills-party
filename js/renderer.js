@@ -6,7 +6,7 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 22-Dec 11:26 AM");
+console.log("renderer.js v 22-Dec 11:51 AM");
 
 (function () {
   "use strict";
@@ -291,8 +291,11 @@ function hpGetEl(...ids) {
   }
 
   function hpRenderImage(sceneId, scene) {
-  const src = hpResolveSceneImage(sceneId, scene);
-  if (!src) return;
+	const src = (
+	scene?.image ??
+	hpResolveSceneImage(sceneId, scene) ??
+	"");
+
 
   let container =
     document.getElementById("sceneImage") ||
@@ -340,7 +343,14 @@ function hpGetEl(...ids) {
   const locEl = hpGetEl("meta-line", "sceneLocation", "location");
   const textEl = hpGetEl("scene-text", "sceneText", "narrative", "text");
 
-  const title = scene?.title ?? scene?.name ?? (sceneId ? String(sceneId) : "Scene");
+  const title = (
+	  scene?.title ??
+	  scene?.name ??
+	  scene?.id ??
+	  hpHumanizeSceneId?.(sceneId) ??
+	  String(sceneId ?? "Scene")
+	);
+
   const location = scene?.location_display ?? scene?.locationDisplay ?? scene?.location ?? hpLocationKeyFromSceneId(sceneId) ?? "";
   const text =
     scene?.text ??
