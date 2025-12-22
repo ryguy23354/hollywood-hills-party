@@ -448,7 +448,7 @@ function hpGetEl(...ids) {
 	  }
 
 	  // 🔥 THIS IS THE WIRING
-	  // hpInjectDynamicLocationChoices(sceneId, scene);
+	  hpInjectDynamicLocationChoices(sceneId, scene);
 
 	  hpRenderNarrative(sceneId, scene);
 	  hpRenderImage(sceneId, scene);
