@@ -75,32 +75,22 @@
 
    /* main.css */
 	#sceneImage {
-	  display: block;
-
-	  /* Fill width, preserve intrinsic ratio */
 	  width: 100%;
 	  height: auto;
-
-	  /* IMPORTANT: contain, not cover */
-	  max-height: 100%;
-
-	  object-fit: contain;
-	  border-radius: 10px;
+	  display: block;
+	  border-radius: 14px;
 	}
 
-	
 	/* this is the section to scale the scene images */
 	#sceneImageContainer {
 	  width: 100%;
-	  max-width: 1200px;
-
-	  /* Responsive vertical cap */
-	  max-height: clamp(260px, 32vh, 520px);
-
+	  max-width: 1200px; /* keep if you want column control */
 	  margin: 0 auto 20px auto;
-	  overflow: hidden;
+
+	  /* IMPORTANT: allow image to define height */
 	  border-radius: 14px;
 	}
+
 
 
     #scene-text {
