@@ -6,30 +6,32 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 21-Dec 8:53 PM");
+console.log("renderer.js v 21-Dec 10:51 PM");
 
 (function () {
   "use strict";
 
   // ---------- Utilities ----------
 	function hpInjectDynamicLocationChoices(sceneId, scene) {
-	  if (!scene || !scene.location) return;
+	  if (!scene) return;
 
 	  const assignments = window.HP_STATE?.locationAssignments;
 	  if (!assignments) return;
 
-	  const loc = scene.location;
+	  // Support BOTH legacy scenes and hub scenes
+	  const loc =
+		scene.location ||
+		scene.id ||
+		sceneId;
+
 	  const chars = assignments[loc];
 	  if (!Array.isArray(chars) || chars.length !== 2) return;
 
-	  // Build deterministic character choices
 	  scene.choices = chars.map(charKey => ({
-		label: `Talk to ${charKey.charAt(0).toUpperCase()}${charKey.slice(1)}`,
+		label: `Approach ${charKey.charAt(0).toUpperCase()}${charKey.slice(1)}`,
 		target: `scene_${loc}_${charKey}_01`
 	  }));
 	}
-
-
 
   function hpLogWarn(...args) {
     try { console.warn(...args); } catch (_) {}
