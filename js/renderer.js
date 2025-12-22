@@ -6,7 +6,7 @@
 // - Be tolerant of differing index.html element IDs (older/newer UI variants)
 // - Avoid hard crashes; log actionable warnings instead
 
-console.log("renderer.js v 22-Dec 11:51 AM");
+console.log("renderer.js v 22-Dec 12:04 PM");
 
 (function () {
   "use strict";
@@ -297,10 +297,8 @@ function hpGetEl(...ids) {
 	"");
 
 
-  let container =
-    document.getElementById("sceneImage") ||
-    document.getElementById("imageContainer") ||
-    document.querySelector(".scene-image");
+  let container = document.getElementById("sceneImageContainer");
+
 
   // Create image container if missing (mirrors choices behavior)
   if (!container) {
