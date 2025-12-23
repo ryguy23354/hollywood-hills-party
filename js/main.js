@@ -5,7 +5,7 @@
 //   - hpStartGame()
 //   - hpLoadScene(sceneId)
 
-(function () {
+
   'use strict';
 
   // Ensure HP_STATE exists.
@@ -175,4 +175,4 @@
 	  }
 	}  
   window.restartNight = window.hpRestartNight;
-})();
+();
