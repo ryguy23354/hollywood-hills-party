@@ -114,6 +114,9 @@
         return;
       }
 
+	hpInitLocationAssignments();
+
+
       // Select a start scene id.
       const startSceneId =
         (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) ||
@@ -141,6 +144,8 @@
   window.hpRestartNight = async function hpRestartNight() {
     // Clear basic runtime state, but keep loaded scene map.
     window.HP_STATE.currentSceneId = null;
+	delete window.HP_STATE.locationAssignments;
+
     if (window.StoryEngine && typeof window.StoryEngine.reset === 'function') {
       try { window.StoryEngine.reset(); } catch (_) {}
     }
