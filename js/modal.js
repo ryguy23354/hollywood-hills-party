@@ -131,34 +131,37 @@
   };
 
   // Wire up click / ESC close
-  document.addEventListener("DOMContentLoaded", () => {
-    const { trigger, closeBtn, modal } = getModalElements();
+  function wireModalEvents() {
+	  const { trigger, closeBtn, modal } = getModalElements();
 
-    if (trigger) {
-      trigger.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.hpOpenCharactersModal();
-      });
-    }
+	  if (trigger) {
+		trigger.addEventListener("click", (e) => {
+		  e.preventDefault();
+		  window.hpOpenCharactersModal();
+		});
+	  }
 
-    if (closeBtn) {
-      closeBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.hpCloseCharactersModal();
-      });
-    }
+	  if (closeBtn) {
+		closeBtn.addEventListener("click", (e) => {
+		  e.preventDefault();
+		  window.hpCloseCharactersModal();
+		});
+	  }
 
-    if (modal) {
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          window.hpCloseCharactersModal();
-        }
-      });
-    }
+	  if (modal) {
+		modal.addEventListener("click", (e) => {
+		  if (e.target === modal) {
+			window.hpCloseCharactersModal();
+		  }
+		});
+	  }
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && isOpen) {
-        window.hpCloseCharactersModal();
-      }
-    });
-  });
+	  document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape" && isOpen) {
+		  window.hpCloseCharactersModal();
+		}
+	  });
+	}
+
+	// run immediately — safe with defer
+	wireModalEvents();
