@@ -14,6 +14,35 @@
   let starting = false;
   let started = false;
 
+	function hpInitLocationAssignments() {
+	  if (window.HP_STATE.locationAssignments) return;
+
+	  const scenes = window.HP_STATE.scenes;
+	  if (!scenes) return;
+
+	  const locations = Object.values(scenes)
+		.filter(s => s.sceneRole === "location")
+		.map(s => s.location || s.id);
+
+	  const characters = Object.keys(
+		window.HP_STATE.characters || {}
+	  );
+
+	  const assignments = {};
+
+	  locations.forEach(loc => {
+		assignments[loc] = characters
+		  .sort(() => Math.random() - 0.5)
+		  .slice(0, 2);
+	  });
+
+	  window.HP_STATE.locationAssignments = assignments;
+
+	  console.log("[init] locationAssignments", assignments);
+	}
+
+
+
   /**
    * Returns true when scenes are actually present (not just a flag).
    */
