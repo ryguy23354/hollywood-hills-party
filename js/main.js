@@ -113,18 +113,24 @@
         console.error('main.js: scenes failed to load (HP_STATE.scenes is empty).');
         return;
       }
+	// Initialize character placement ONCE per run
+	if (!window.HP_STATE.locationAssignments) {
+	  hpAssignCharactersToLocations();
+	  console.log(
+		"[init] locationAssignments",
+		window.HP_STATE.locationAssignments
+	  );
+	}
 
-	hpInitLocationAssignments();
+	// Select a start scene id.
+	const startSceneId =
+	  (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) ||
+	  window.HP_STATE.startSceneId ||
+	  "scene_00_intro";
 
+	hpLoadScene(startSceneId);
+	started = true;
 
-      // Select a start scene id.
-      const startSceneId =
-        (window.HP_CONFIG && window.HP_CONFIG.START_SCENE_ID) ||
-        window.HP_STATE.startSceneId ||
-        'scene_00_intro';
-
-      hpLoadScene(startSceneId);
-      started = true;
     } catch (e) {
       console.error('main.js: failed to start game', e);
     } finally {
