@@ -163,9 +163,4 @@
       }
     });
   });
-  
-  // ---- Expose modal controls globally (required for HTML onclick) ----
-  window.showCharacterProfiles = showCharacterProfiles;
-  window.closeCharacterProfiles = closeCharacterProfiles;
-
 })();
