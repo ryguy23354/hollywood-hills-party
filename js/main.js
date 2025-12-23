@@ -121,6 +121,8 @@
 		window.HP_STATE.locationAssignments
 	  );
 	}
+	
+	window.restartNight = window.hpRestartNight;
 
 	// Select a start scene id.
 	const startSceneId =
