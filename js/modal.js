@@ -130,6 +130,10 @@
     }
   };
 
+  window.showCharacterProfiles = window.hpOpenCharactersModal;
+  window.closeCharacterProfiles = window.hpCloseCharactersModal;
+
+
   // Wire up click / ESC close
   function wireModalEvents() {
 	  const { trigger, closeBtn, modal } = getModalElements();
