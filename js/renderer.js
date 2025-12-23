@@ -18,11 +18,7 @@ console.log("renderer.js v 22-Dec 5:31 PM");
 	  const assignments = window.HP_STATE?.locationAssignments;
 	  if (!assignments) return;
 
-	  // Support BOTH legacy scenes and hub scenes
-	  const loc =
-		scene.location ||
-		scene.id ||
-		sceneId;
+	  const loc = scene.location || hpLocationKeyFromSceneId(sceneId) || scene.id || sceneId;
 
 	  const chars = assignments[loc];
 	  if (!Array.isArray(chars) || chars.length !== 2) return;
@@ -229,7 +225,7 @@ function hpGetEl(...ids) {
   function hpNormalizeChoices(scene) {
 	// 🔥 DYNAMIC HUB OVERRIDE (authoritative)
 	const assignments = window.HP_STATE?.locationAssignments;
-	const loc = scene?.location || scene?.id;
+	const loc = scene?.location || hpLocationKeyFromSceneId(scene?.id) || scene?.id;
 
 	if (assignments && loc && Array.isArray(assignments[loc])) {
 	  return assignments[loc].map(charKey => ({
