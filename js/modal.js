@@ -118,11 +118,29 @@
   }
 
   // Expose global hooks used by the HTML
-  window.hpOpenCharactersModal = function () {
-    if (!isOpen) {
-      openModalInternal();
-    }
-  };
+//  window.hpOpenCharactersModal = function () {
+//    if (!isOpen) {
+//      openModalInternal();
+//    }
+//  };
+
+//temp code starts here
+window.hpOpenCharactersModal = function () {
+  console.log("🔥 hpOpenCharactersModal CALLED");
+
+  const modal = document.getElementById("charactersModal");
+  console.log("modal element =", modal);
+  console.log("modal classes BEFORE =", modal?.className);
+
+  if (!isOpen) {
+    openModalInternal();
+  }
+
+  console.log("modal classes AFTER =", modal?.className);
+};
+//temp code ends here
+
+
 
   window.hpCloseCharactersModal = function () {
     if (isOpen) {
