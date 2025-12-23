@@ -161,5 +161,4 @@
         window.hpCloseCharactersModal();
       }
     });
-  });
-();
+  };
