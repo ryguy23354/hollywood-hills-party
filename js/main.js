@@ -175,4 +175,3 @@
 	  }
 	}  
   window.restartNight = window.hpRestartNight;
-();
