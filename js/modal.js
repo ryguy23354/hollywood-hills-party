@@ -1,7 +1,6 @@
 // js/modal.js
 // Meet the Characters modal – simple, self-contained, no image resolver.
 
-(function () {
   const MODAL_ID = "charactersModal";
   const LIST_ID = "charactersList";
   const TRIGGER_ID = "openCharactersModalBtn";
@@ -163,4 +162,4 @@
       }
     });
   });
-})();
+();
