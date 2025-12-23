@@ -179,6 +179,13 @@
 
     /* === CHARACTER MODAL (RESPONSIVE GRID, BIG PORTRAITS) === */
 
+	/* === CHARACTER MODAL OPEN STATE === */
+	.character-modal.hp-modal--open {
+	  opacity: 1;
+	  transform: translate(-50%, -50%) scale(1);
+	}
+
+
     .modal-overlay {
       position: fixed;
       top: 0;
