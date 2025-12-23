@@ -93,9 +93,11 @@
       const profiles = await loadProfiles();
       renderProfiles(list, profiles);
       modal.setAttribute("aria-hidden", "false");
-      modal.classList.add("hp-modal--open");
-      document.body.classList.add("hp-modal-open");
-      isOpen = true;
+	  modal.classList.remove("hidden");          // 🔥 THIS WAS MISSING
+	  modal.classList.add("hp-modal--open");
+	  document.body.classList.add("hp-modal-open");
+	  isOpen = true;
+
     } catch (err) {
       console.error(err);
       list.innerHTML =
