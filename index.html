@@ -20,15 +20,22 @@
     </div>
   </header>
 
-  <!-- CHARACTER MODAL OVERLAY -->
-  <div id="character-modal-overlay" class="modal-overlay hidden"></div>
+	<!-- CHARACTER MODAL -->
+	<div id="charactersModal" class="character-modal hidden" aria-hidden="true">
+	  <button
+		id="closeCharactersModalBtn"
+		class="modal-close"
+		type="button"
+	  >✕</button>
 
-  <!-- CHARACTER MODAL -->
-  <div id="character-modal" class="character-modal hidden">
-    <button class="modal-close" onclick="closeCharacterProfiles()">✕</button>
-    <h2>Meet the Characters</h2>
-    <div id="character-profiles-container" class="character-profiles-grid"></div>
-  </div>
+	  <h2>Meet the Characters</h2>
+
+	  <div
+		id="charactersList"
+		class="character-profiles-grid"
+	  ></div>
+	</div>
+
 
   <div id="story-container">
     <div id="story">
