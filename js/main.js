@@ -157,5 +157,22 @@
     }
     await hpStartGame();
   };
+  
+  function restartNight() {
+	console.log('[restartNight] Resetting game');
+
+	// clear placement + state
+	if (window.HP_STATE) {
+		delete window.HP_STATE.locationAssignments;
+		delete window.HP_STATE.startSceneId;
+	  }
+
+	  // allow hpStartGame to re-run
+	  if (typeof hpStartGame === 'function') {
+		hpStartGame();
+	  } else {
+		console.error('hpStartGame not found');
+	  }
+	}  
   window.restartNight = window.hpRestartNight;
 })();
