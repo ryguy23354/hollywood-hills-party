@@ -157,4 +157,5 @@
     }
     await hpStartGame();
   };
+  window.restartNight = window.hpRestartNight;
 })();
