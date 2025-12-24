@@ -23,6 +23,11 @@ console.log("renderer.js v 22-Dec 5:31 PM");
 	  const chars = assignments[loc];
 	  if (!Array.isArray(chars) || chars.length !== 2) return;
 
+	  // Normalize choices to an array (some scenes define choices as an object)
+	  if (!Array.isArray(scene.choices)) {
+		  scene.choices = [];
+	  }
+		
 	  scene.choices = [
 		  ...(scene.choices || []),
 		  {
