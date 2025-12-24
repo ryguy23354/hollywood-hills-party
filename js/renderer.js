@@ -456,12 +456,6 @@ function hpGetEl(...ids) {
 			  return;
 			}
 
-
-
-			  console.error("renderer: hub target provided but enterHub() is missing", target);
-			  return;
-			}
-
 			// String scene targets
 			if (typeof target === "string") {
 			  if (typeof window.hpLoadScene === "function") {
