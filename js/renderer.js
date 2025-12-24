@@ -40,7 +40,7 @@ console.log("renderer.js v 22-Dec 5:31 PM");
 		  },
 		  {
 		    label: 'Return to the main party',
-		    target: 'scene_main_party'
+		    target: 'scene_00_intro'
 		  }
 		];
 
@@ -249,7 +249,7 @@ function hpGetEl(...ids) {
 		{
 		  key: 'return_main_party',
 		  label: 'Return to the main party',
-		  target: 'scene_main_party'
+		  target: 'scene_00_intro'
 		}
 	  ];
 	}
