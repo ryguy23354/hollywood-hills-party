@@ -174,6 +174,7 @@
 	  // Start fresh
 	  // Force fresh character randomization
 		if (typeof window.hpAssignCharactersToLocations === 'function') {
+		delete window.HP_STATE.placementSeed;
 		window.hpAssignCharactersToLocations(true);
 		}
 	  await hpStartGame();
