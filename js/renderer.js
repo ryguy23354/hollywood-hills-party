@@ -31,7 +31,11 @@ console.log("renderer.js v 22-Dec 5:31 PM");
 		{
 			label: `Approach ${chars[1].charAt(0).toUpperCase()}${chars[1].slice(1)}`,
 			target: `scene_${loc}_${chars[1]}_01`
-		}
+		},
+		{
+			label: `Check out another party of the party`,
+			target: `scene_00_intro`
+		} 
 	   ];
 
 	  console.log("[injector]", sceneId, scene.choices);
