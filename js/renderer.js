@@ -23,20 +23,21 @@ console.log("renderer.js v 22-Dec 5:31 PM");
 	  const chars = assignments[loc];
 	  if (!Array.isArray(chars) || chars.length !== 2) return;
 
-	  scene._injectedChoices = [
-		{
-			label: `Approach ${chars[0].charAt(0).toUpperCase()}${chars[0].slice(1)}`,
-			target: `scene_${loc}_${chars[0]}_01`
-		},
-		{
-			label: `Approach ${chars[1].charAt(0).toUpperCase()}${chars[1].slice(1)}`,
-			target: `scene_${loc}_${chars[1]}_01`
-		},
-		{
-			label: `Check out another party of the party`,
-			target: `scene_00_intro`
-		} 
-	   ];
+	  scene.choices = [
+		  ...(scene.choices || []),
+		  {
+		    label: `Approach ${chars[0].charAt(0).toUpperCase()}${chars[0].slice(1)}`,
+		    target: `scene_${loc}_${chars[0]}_01`
+		  },
+		  {
+		    label: `Approach ${chars[1].charAt(0).toUpperCase()}${chars[1].slice(1)}`,
+		    target: `scene_${loc}_${chars[1]}_01`
+		  },
+		  {
+		    label: 'Return to the main party',
+		    target: 'scene_main_party'
+		  }
+		];
 
 	  console.log("[injector]", sceneId, scene.choices);
 	}
