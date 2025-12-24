@@ -172,6 +172,10 @@
 	  }
 
 	  // Start fresh
+	  // Force fresh character randomization
+		if (typeof window.hpAssignCharactersToLocations === 'function') {
+		window.hpAssignCharactersToLocations(true);
+		}
 	  await hpStartGame();
 	};
 
