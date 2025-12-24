@@ -435,27 +435,33 @@ function hpGetEl(...ids) {
 			}
 			
 			// Hub targets (character hub entry)
-			if (SE && typeof SE.enterHub === "function") {
-			  console.log("[hub] entering hub", target);
+			if (target && typeof target === "object" && target.type === "hub") {
+			  if (SE && typeof SE.enterHub === "function") {
+				console.log("[hub] entering hub", target);
 
-			  const hubSceneId = SE.enterHub(target.character, {
-				location: target.location
-			  });
+				const hubSceneId = SE.enterHub(target.character, {
+				  location: target.location
+				});
 
-			  console.log("[hub] enterHub returned:", hubSceneId);
+				console.log("[hub] enterHub returned:", hubSceneId);
 
-			  if (!hubSceneId) {
-				console.warn("[hub] No hub scene returned — nothing to load");
+				if (!hubSceneId) {
+				  console.warn("[hub] No hub scene returned — nothing to load");
+				  return;
+				}
+
+				if (typeof window.hpLoadScene === "function") {
+				  window.hpLoadScene(hubSceneId);
+				} else {
+				  console.error("[hub] hpLoadScene missing");
+				}
 				return;
 			  }
 
-			  if (typeof window.hpLoadScene === "function") {
-				window.hpLoadScene(hubSceneId);
-			  } else {
-				console.error("[hub] hpLoadScene missing");
-			  }
+			  console.error("renderer: hub target provided but enterHub() is missing", target);
 			  return;
 			}
+
 
 			// String scene targets
 			if (typeof target === "string") {
