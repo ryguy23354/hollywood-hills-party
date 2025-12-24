@@ -432,6 +432,21 @@ function hpGetEl(...ids) {
 			  }
 			  return;
 			}
+			
+			// Hub targets (character hub entry)
+			if (target && typeof target === "object" && target.type === "hub") {
+			  const SE = hpGetStoryEngine();
+
+			  if (SE && typeof SE.enterHub === "function") {
+				SE.enterHub(target.character, {
+				  location: target.location
+				});
+				return;
+			  }
+
+			  console.error("renderer: hub target provided but enterHub() is missing", target);
+			  return;
+			}
 
 			// String scene targets
 			if (typeof target === "string") {
