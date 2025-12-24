@@ -113,14 +113,32 @@
         console.error('main.js: scenes failed to load (HP_STATE.scenes is empty).');
         return;
       }
-	// Initialize character placement ONCE per run
+	// Initialize character placement ONCE per run (after characters are ready)
 	if (!window.HP_STATE.locationAssignments) {
-	  hpAssignCharactersToLocations();
+	  const ensureCharactersReady = () =>
+	    window.HP_STATE &&
+	    window.HP_STATE.characters &&
+	    Object.keys(window.HP_STATE.characters).length > 0;
+	
+	  if (ensureCharactersReady()) {
+	    hpAssignCharactersToLocations();
+	  } else {
+	    console.warn('[init] Characters not ready yet, delaying randomization');
+	    setTimeout(() => {
+	      if (ensureCharactersReady()) {
+	        hpAssignCharactersToLocations();
+	      } else {
+	        console.error('[init] Characters still not loaded — cannot randomize');
+	      }
+	    }, 0);
+	  }
+	
 	  console.log(
-		"[init] locationAssignments",
-		window.HP_STATE.locationAssignments
+	    '[init] locationAssignments',
+	    window.HP_STATE.locationAssignments
 	  );
 	}
+
 	
 	window.restartNight = window.hpRestartNight;
 
