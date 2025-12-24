@@ -151,6 +151,10 @@
 
 	// Authoritative restart — resets lifecycle + placement
 	window.hpRestartNight = async function hpRestartNight() {
+	  // Ensure any open modal is closed before restarting
+	  if (typeof window.hpCloseCharactersModal === 'function') {
+  		window.hpCloseCharactersModal();
+		}
 	  console.log('[restartNight] Restarting night');
 
 	  // 🔥 Reset lifecycle guards so hpStartGame can run again
