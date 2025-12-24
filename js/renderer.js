@@ -409,6 +409,7 @@ function hpGetEl(...ids) {
 	  for (const c of choices) {
 		const label = c.label || hpHumanizeChoiceKey(c.key);
 		const target = c.target;
+		const SE = hpGetStoryEngine();
 
 		container.appendChild(
 		  hpCreateButton(label, () => {
