@@ -148,32 +148,32 @@
   // Keep compatibility with older naming.
   window.start = hpStartGame;
 
-  // Optional: allow manual restart via console.
-  window.hpRestartNight = async function hpRestartNight() {
-    // Clear basic runtime state, but keep loaded scene map.
-    window.HP_STATE.currentSceneId = null;
-	delete window.HP_STATE.locationAssignments;
+	// Authoritative restart — resets lifecycle + placement
+	window.hpRestartNight = async function hpRestartNight() {
+	  console.log('[restartNight] Restarting night');
 
-    if (window.StoryEngine && typeof window.StoryEngine.reset === 'function') {
-      try { window.StoryEngine.reset(); } catch (_) {}
-    }
-    await hpStartGame();
-  };
-  
-  function restartNight() {
-	console.log('[restartNight] Resetting game');
+	  // 🔥 Reset lifecycle guards so hpStartGame can run again
+	  starting = false;
+	  started = false;
 
-	// clear placement + state
-	if (window.HP_STATE) {
+	  // Clear runtime state
+	  if (window.HP_STATE) {
+		window.HP_STATE.currentSceneId = null;
 		delete window.HP_STATE.locationAssignments;
-		delete window.HP_STATE.startSceneId;
 	  }
 
-	  // allow hpStartGame to re-run
-	  if (typeof hpStartGame === 'function') {
-		hpStartGame();
-	  } else {
-		console.error('hpStartGame not found');
+	  // Reset StoryEngine if supported
+	  if (window.StoryEngine && typeof window.StoryEngine.reset === 'function') {
+		try {
+		  window.StoryEngine.reset();
+		} catch (e) {
+		  console.warn('StoryEngine.reset failed', e);
+		}
 	  }
-	}  
+
+	  // Start fresh
+	  await hpStartGame();
+	};
+
+  
   window.restartNight = window.hpRestartNight;
