@@ -238,12 +238,22 @@ function hpGetEl(...ids) {
 	const loc = scene?.location || hpLocationKeyFromSceneId(scene?.id) || scene?.id;
 
 	if (assignments && loc && Array.isArray(assignments[loc])) {
-	  return assignments[loc].map(charKey => ({
-	  key: `approach_${charKey}`,
-	  label: `Approach ${charKey.charAt(0).toUpperCase()}${charKey.slice(1)}`,
-	  target: `scene_${loc}_${charKey}_01`
+	  const approachChoices = assignments[loc].map(charKey => ({
+		key: `approach_${charKey}`,
+		label: `Approach ${charKey.charAt(0).toUpperCase()}${charKey.slice(1)}`,
+		target: `scene_${loc}_${charKey}_01`
 	  }));
-	}  
+
+	  return [
+		...approachChoices,
+		{
+		  key: 'return_main_party',
+		  label: 'Return to the main party',
+		  target: 'scene_main_party'
+		}
+	  ];
+	}
+
 	  
     // Returns array of { key, label, target }
     const raw = scene?.choices ?? scene?.options ?? scene?.buttons ?? null;
