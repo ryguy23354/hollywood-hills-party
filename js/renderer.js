@@ -438,11 +438,19 @@ function hpGetEl(...ids) {
 			  const SE = hpGetStoryEngine();
 
 			  if (SE && typeof SE.enterHub === "function") {
-				SE.enterHub(target.character, {
-				  location: target.location
-				});
-				return;
+				  const hubSceneId = SE.enterHub(target.character, {
+					location: target.location
+				  });
+
+				  if (hubSceneId && typeof window.hpLoadScene === "function") {
+					window.hpLoadScene(hubSceneId);
+				  } else if (typeof window.hpRenderScene === "function") {
+					window.hpRenderScene(hubSceneId || hpGetCurrentSceneId());
+				  }
+
+				  return;
 			  }
+
 
 			  console.error("renderer: hub target provided but enterHub() is missing", target);
 			  return;
