@@ -241,7 +241,11 @@ function hpGetEl(...ids) {
 	  const approachChoices = assignments[loc].map(charKey => ({
 		key: `approach_${charKey}`,
 		label: `Approach ${charKey.charAt(0).toUpperCase()}${charKey.slice(1)}`,
-		target: `scene_${loc}_${charKey}_01`
+		target: {
+		  type: "hub",
+		  character: charKey,
+		  location: loc
+		}
 	  }));
 
 	  return [
