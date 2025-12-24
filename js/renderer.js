@@ -501,13 +501,10 @@ function hpGetEl(...ids) {
 	 hpRenderNarrative(sceneId, scene);
 	 hpRenderImage(sceneId, scene);
 
-	 hpInjectDynamicLocationChoices(sceneId, scene);
+	 // commenting out hpInjectDynamicLocationChoices as it's outdated, but keeping in case regression
+	 // hpInjectDynamicLocationChoices(sceneId, scene);
 
-	 hpRenderChoices(sceneId, {
-		...scene,
-		choices: scene._injectedChoices || scene.choices
-	 });
-
+	 hpRenderChoices(sceneId, scene);
 	}
 
 
