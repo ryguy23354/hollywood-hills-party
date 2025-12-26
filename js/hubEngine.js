@@ -93,93 +93,41 @@
    * Build the hub "choices" from romance config.
    * Returned format matches your renderer conventions: an object map of key -> targetId (scene id or object).
    */
-  function _buildChoiceMapFromRomance(romance, ctx) {
-    const choices = {};
-	// 🔥 FIRST INTERACTION: show conversation starters
-	if (ctx.interactions === 0) {
-	  const starters = romance?.conversation_starters || romance?.starters;
-	  if (starters && typeof starters === "object") {
-		for (const [key, starter] of Object.entries(starters)) {
-		  choices[key] = {
-			label: starter.label || key,
-			romance_style: starter.romance_style || key,
-			delta: _safeNumber(starter.delta ?? starter.affinity_delta ?? 0, 0),
-			next:
-			  starter.next ??
-			  starter.scene ??
-			  starter.nextScene ??
-			  romance.default_next ??
-			  null,
-		  };
-		}
+	function _buildChoiceArrayFromRomance(romance, ctx) {
+	  const choices = [];
 
-		// Always allow escape
-		choices.return_to_party = romance.return_to_party ?? _fallbackNextSceneId();
-		return choices;
+	  // FIRST interaction → conversation starters
+	  if (ctx.interactions === 0) {
+		const starters = romance?.conversation_starters || romance?.starters;
+
+		if (starters && typeof starters === "object") {
+		  for (const starter of Object.values(starters)) {
+			choices.push({
+			  label: starter.label,
+			  target: {
+				type: "romance",
+				romance_style: starter.romance_style,
+				delta: Number(starter.delta ?? starter.affinity_delta ?? 0),
+				next:
+				  starter.next ??
+				  starter.scene ??
+				  romance.default_next ??
+				  null,
+			  },
+			});
+		  }
+		}
 	  }
+
+	  // Always allow escape
+	  choices.push({
+		label: "Return to party",
+		target: romance?.return_to_party ?? _fallbackNextSceneId(),
+	  });
+
+	  return choices;
 	}
 
-
-    // If there's no config, we still offer a safe exit.
-    if (!romance || typeof romance !== "object") {
-      choices.return_to_party = _fallbackNextSceneId();
-      return choices;
-    }
-
-    const styles = romance.styles && typeof romance.styles === "object" ? romance.styles : null;
-    if (!styles) {
-      choices.return_to_party = romance.return_to_party ?? _fallbackNextSceneId();
-      return choices;
-    }
-
-    // Preserve original ordering where possible.
-    const entries = Object.entries(styles);
-
-    for (const [styleKey, style] of entries) {
-      if (!style || typeof style !== "object") continue;
-
-      // Location filtering
-      if (Array.isArray(style.locations) && ctx.location && !style.locations.includes(ctx.location)) continue;
-
-      // Affinity gating
-      if (typeof style.min_affinity === "number" && ctx.affinity < style.min_affinity) continue;
-      if (typeof style.max_affinity === "number" && ctx.affinity > style.max_affinity) continue;
-
-      // Determine label & next
-      const label = style.label || styleKey;
-      const next =
-        style.next ??
-        style.nextScene ??
-        style.scene ??
-        romance.default_next ??
-        romance.defaultNext ??
-        romance.next ??
-        null;
-
-      // If next is still missing, we *still* include the choice as an affinity-only object so renderer can apply it and stay in hub.
-      if (!next) {
-        choices[styleKey] = {
-          label,
-          romance_style: styleKey,
-          delta: _safeNumber(style.delta ?? style.affinity_delta ?? 0, 0),
-        };
-        continue;
-      }
-
-      // If the renderer expects "approach objects", return an object (not a string scene id).
-      // This lets renderer apply affinity and then re-enter hub without needing per-choice hub scene ids.
-      choices[styleKey] = {
-        label,
-        romance_style: styleKey,
-        delta: _safeNumber(style.delta ?? style.affinity_delta ?? 0, 0),
-        next, // keep for engines that want to route immediately
-      };
-    }
-
-    // Always provide an exit
-    choices.return_to_party = romance.return_to_party ?? _fallbackNextSceneId();
-    return choices;
-  }
 
   /**
    * Create the actual injected hub scene object.
@@ -209,7 +157,7 @@
       text,
       image,
       // Your renderer supports either `choices` or `options` depending on version.
-      choices: _buildChoiceMapFromRomance(romance, ctx),
+      choices: _buildChoiceArrayFromRomance(romance, ctx),
     };
   }
 
