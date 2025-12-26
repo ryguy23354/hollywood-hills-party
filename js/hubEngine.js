@@ -18,6 +18,7 @@
       character: null,
       location: null,
       affinity: 0,
+	  interactions: 0,
     },
   };
 
@@ -38,6 +39,13 @@
     } catch (_) {}
     return 0;
   }
+
+	function _applyInteraction(delta = 0) {
+	  if (!_state.ctx) return;
+
+	  _state.ctx.interactions += 1;
+	  _state.ctx.affinity += delta;
+	}
 
   function setContext(partial) {
     if (!partial || typeof partial !== "object") return;
@@ -87,6 +95,30 @@
    */
   function _buildChoiceMapFromRomance(romance, ctx) {
     const choices = {};
+	// 🔥 FIRST INTERACTION: show conversation starters
+	if (ctx.interactions === 0) {
+	  const starters = romance?.conversation_starters || romance?.starters;
+	  if (starters && typeof starters === "object") {
+		for (const [key, starter] of Object.entries(starters)) {
+		  choices[key] = {
+			label: starter.label || key,
+			romance_style: starter.romance_style || key,
+			delta: _safeNumber(starter.delta ?? starter.affinity_delta ?? 0, 0),
+			next:
+			  starter.next ??
+			  starter.scene ??
+			  starter.nextScene ??
+			  romance.default_next ??
+			  null,
+		  };
+		}
+
+		// Always allow escape
+		choices.return_to_party = romance.return_to_party ?? _fallbackNextSceneId();
+		return choices;
+	  }
+	}
+
 
     // If there's no config, we still offer a safe exit.
     if (!romance || typeof romance !== "object") {
@@ -189,7 +221,13 @@
    */
   function enter(characterId, locationId) {
     const affinity = _getAffinity(characterId);
-    setContext({ character: characterId, location: locationId, affinity });
+	setContext({
+	  character: characterId,
+	  location: locationId,
+	  affinity,
+	  interactions: 0, // 🔥 reset on first approach
+	});
+
 
     try {
       const scene = buildHubScene();
