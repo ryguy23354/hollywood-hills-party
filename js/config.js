@@ -51,6 +51,8 @@
 
     GLOBAL_FALLBACK_IMAGE: "scene_00_intro.jpg",
 
+    IMAGE_MANIFEST_FILE: "images_manifest.json",
+
     ROMANCE_FILES: {
       sienna: "characters/sienna/romance.json",
       riley:  "characters/riley/romance.json",

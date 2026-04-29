@@ -16,6 +16,15 @@ async function hpLoadAllScenes() {
   HP_STATE.scenes = allScenes;
   HP_STATE.loaded = true;
 
+  // Load the images manifest so HubEngine can resolve character+location images
+  if (HP_CONFIG.IMAGE_MANIFEST_FILE) {
+    try {
+      HP_STATE.images = await hpLoadJson(HP_CONFIG.IMAGE_MANIFEST_FILE);
+    } catch (e) {
+      console.error("storyLoader: failed to load image manifest:", e);
+    }
+  }
+
   // Load romance configs into HP_STATE.romance so HubEngine can find them
   if (HP_CONFIG.ROMANCE_FILES && typeof HP_CONFIG.ROMANCE_FILES === "object") {
     HP_STATE.romance = {};
@@ -34,6 +43,6 @@ async function hpLoadAllScenes() {
     statusEl.style.color = "#52ffa8";
   }
   if (window.StoryEngine) {
-	window.StoryEngine.scenes = HP_STATE.scenes;
+    window.StoryEngine.scenes = HP_STATE.scenes;
   }
 }

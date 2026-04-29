@@ -127,22 +127,21 @@
         });
       }
     } else if (styles && typeof styles === "object") {
-      // Build the full pool of available approach options.
-      // TODO (future): filter this pool by location — when romance.styles[key].locations
-      // is defined and matches ctx.location, include it; otherwise exclude.
-      // TODO (future): weight or filter by affinity band so options that only make sense
-      // at higher/lower affinity are surfaced or suppressed accordingly.
-      const pool = Object.entries(styles).map(([styleKey, styleData]) => ({
+      // Filter pool by affinity. Styles can declare min_affinity / max_affinity to gate
+      // when they appear. Styles without thresholds are always available.
+      // TODO (future): also filter by ctx.location when style.locations is defined.
+      const currentAffinity = _getAffinity(ctx.character);
+      const fullPool = Object.entries(styles).map(([styleKey, styleData]) => ({
         label: styleData.label || styleKey,
-        target: {
-          type: "romance",
-          romance_style: styleKey,
-          character: ctx.character,
-        },
+        minAff: styleData.min_affinity !== undefined ? styleData.min_affinity : -Infinity,
+        maxAff: styleData.max_affinity !== undefined ? styleData.max_affinity : Infinity,
+        target: { type: "romance", romance_style: styleKey, character: ctx.character },
       }));
 
-      // Shuffle and pick 3 at random so every approach feels fresh.
-      // Expand the pool in romance.json to increase variety without changing this limit.
+      let pool = fullPool.filter(s => currentAffinity >= s.minAff && currentAffinity <= s.maxAff);
+      if (pool.length === 0) pool = fullPool; // safety: never strand the player
+
+      // Shuffle and pick 3. As affinity grows, the eligible pool shifts.
       const shuffled = pool.slice().sort(() => Math.random() - 0.5);
       shuffled.slice(0, Math.min(3, shuffled.length)).forEach(c => choices.push(c));
     }
@@ -185,10 +184,19 @@
       romance?.prompt ||
       "Choose how you want to approach. Your choices shape the vibe of the night.";
 
-    const image =
-      romance?.images?.[ctx.location] ||
-      romance?.image ||
-      null;
+    // Pick a random image from the manifest for this character + location.
+    // Falls back to naming convention ({character}_{location}_01.jpg) if not found.
+    let image = romance?.images?.[ctx.location] || romance?.image || null;
+    if (!image && ctx.character && ctx.location) {
+      const manifestPool =
+        window.HP_STATE?.images?.[ctx.character]?.[ctx.location];
+      if (Array.isArray(manifestPool) && manifestPool.length > 0) {
+        const picked = manifestPool[Math.floor(Math.random() * manifestPool.length)];
+        image = picked.replace(/^images\//, "");
+      } else {
+        image = ctx.character + "_" + ctx.location + "_01.jpg";
+      }
+    }
 
     return {
       title,
