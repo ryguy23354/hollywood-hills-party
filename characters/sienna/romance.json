@@ -2,7 +2,6 @@
   "character": "sienna",
   "display_name": "Sienna Brooks",
   "prompt": "You’re talking with Sienna now — close enough to feel her energy. She’s emotionally present, expressive, and very aware of how you show up in the moment.",
-
   "styles": {
     "bold": {
       "label": "Go bold and flirty",
@@ -27,7 +26,6 @@
         }
       ]
     },
-
     "warm": {
       "label": "Be emotionally sincere",
       "reactions": [
@@ -51,7 +49,6 @@
         }
       ]
     },
-
     "playful": {
       "label": "Lean into playful teasing",
       "reactions": [
@@ -75,7 +72,6 @@
         }
       ]
     },
-
     "confident": {
       "label": "Hold confident eye contact",
       "reactions": [
@@ -99,10 +95,8 @@
         }
       ]
     },
-
     "intimate": {
       "label": "Lean in close",
-      "min_affinity": 3,
       "min_affinity": 3,
       "reactions": [
         {
@@ -125,7 +119,6 @@
         }
       ]
     },
-
     "music": {
       "label": "Ask about her music",
       "reactions": [
@@ -149,10 +142,8 @@
         }
       ]
     },
-
     "distant": {
       "label": "Stay emotionally reserved",
-      "max_affinity": 4,
       "max_affinity": 4,
       "reactions": [
         {
@@ -176,9 +167,13 @@
       ]
     }
   },
-
   "fallback": {
     "text": "You keep things light and let Sienna guide the moment. She hums softly, watching you with warm curiosity.",
     "delta": 1
+  },
+  "ending": {
+    "min_affinity": 8,
+    "label": "Suggest somewhere more private",
+    "scene": "scene_shared_success_sienna"
   }
 }
