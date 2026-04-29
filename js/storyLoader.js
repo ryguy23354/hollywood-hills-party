@@ -16,6 +16,18 @@ async function hpLoadAllScenes() {
   HP_STATE.scenes = allScenes;
   HP_STATE.loaded = true;
 
+  // Load romance configs into HP_STATE.romance so HubEngine can find them
+  if (HP_CONFIG.ROMANCE_FILES && typeof HP_CONFIG.ROMANCE_FILES === "object") {
+    HP_STATE.romance = {};
+    for (const [charKey, path] of Object.entries(HP_CONFIG.ROMANCE_FILES)) {
+      try {
+        HP_STATE.romance[charKey] = await hpLoadJson(path);
+      } catch (e) {
+        console.error(`storyLoader: failed to load romance config for ${charKey}:`, e);
+      }
+    }
+  }
+
   const statusEl = document.getElementById("jsonStatus");
   if (statusEl) {
     statusEl.textContent = "JSON status: ok";

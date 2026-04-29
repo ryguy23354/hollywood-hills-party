@@ -49,6 +49,14 @@
       gameloft: "gameloft.jpg"
     },
 
-    GLOBAL_FALLBACK_IMAGE: "scene_00_intro.jpg"
+    GLOBAL_FALLBACK_IMAGE: "scene_00_intro.jpg",
+
+    ROMANCE_FILES: {
+      sienna: "characters/sienna/romance.json",
+      riley:  "characters/riley/romance.json",
+      luna:   "characters/luna/romance.json",
+      harper: "characters/harper/romance.json",
+      mara:   "characters/mara/romance.json"
+    }
   };
 })();
