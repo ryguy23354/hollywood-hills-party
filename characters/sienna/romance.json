@@ -102,6 +102,8 @@
 
     "intimate": {
       "label": "Lean in close",
+      "min_affinity": 3,
+      "min_affinity": 3,
       "reactions": [
         {
           "min_affinity": -10,
@@ -150,6 +152,8 @@
 
     "distant": {
       "label": "Stay emotionally reserved",
+      "max_affinity": 4,
+      "max_affinity": 4,
       "reactions": [
         {
           "min_affinity": -10,
