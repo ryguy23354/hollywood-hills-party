@@ -157,9 +157,18 @@
     const ctx = getContext();
     const romance = ctx.character ? _getRomanceConfig(ctx.character) : null;
 
+    const charName =
+      romance?.display_name ||
+      window.HP_CONFIG?.CHARACTER_DISPLAY?.[ctx.character]?.name ||
+      (ctx.character ? ctx.character.charAt(0).toUpperCase() + ctx.character.slice(1) : "");
+
+    const locName =
+      window.HP_CONFIG?.LOCATION_DISPLAY?.[ctx.location] ||
+      (ctx.location ? ctx.location.charAt(0).toUpperCase() + ctx.location.slice(1) : "");
+
     const title =
       romance?.title ||
-      (ctx.character ? `${ctx.character} — Hub` : "Hub");
+      (charName && locName ? `${charName} — ${locName}` : charName || "Hub");
 
     const text =
       romance?.description ||
