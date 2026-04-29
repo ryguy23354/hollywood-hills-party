@@ -146,6 +146,20 @@
       shuffled.slice(0, Math.min(3, shuffled.length)).forEach(c => choices.push(c));
     }
 
+    // Ending unlock — surfaces when affinity crosses the romance.ending threshold.
+    // The ending option appears above "Return to party" and routes to a scene directly.
+    if (romance?.ending) {
+      const endingMinAff = romance.ending.min_affinity !== undefined
+        ? romance.ending.min_affinity : Infinity;
+      const currentAff = styles ? _getAffinity(ctx.character) : 0;
+      if (currentAff >= endingMinAff) {
+        choices.push({
+          label: romance.ending.label || "Share a private moment",
+          target: romance.ending.scene || "scene_success_end",
+        });
+      }
+    }
+
     // Always allow escape
     choices.push({
       label: "Return to party",
@@ -185,16 +199,16 @@
       "Choose how you want to approach. Your choices shape the vibe of the night.";
 
     // Pick a random image from the manifest for this character + location.
-    // Falls back to naming convention ({character}_{location}_01.jpg) if not found.
+    // Manifest paths already include the "images/" folder prefix — use them as-is.
+    // Falls back to naming convention if the combo isn't in the manifest.
     let image = romance?.images?.[ctx.location] || romance?.image || null;
     if (!image && ctx.character && ctx.location) {
       const manifestPool =
         window.HP_STATE?.images?.[ctx.character]?.[ctx.location];
       if (Array.isArray(manifestPool) && manifestPool.length > 0) {
-        const picked = manifestPool[Math.floor(Math.random() * manifestPool.length)];
-        image = picked.replace(/^images\//, "");
+        image = manifestPool[Math.floor(Math.random() * manifestPool.length)];
       } else {
-        image = ctx.character + "_" + ctx.location + "_01.jpg";
+        image = "images/" + ctx.character + "_" + ctx.location + "_01.jpg";
       }
     }
 
