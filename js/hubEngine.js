@@ -127,17 +127,24 @@
         });
       }
     } else if (styles && typeof styles === "object") {
-      // Current format: styles object keyed by style name
-      for (const [styleKey, styleData] of Object.entries(styles)) {
-        choices.push({
-          label: styleData.label || styleKey,
-          target: {
-            type: "romance",
-            romance_style: styleKey,
-            character: ctx.character,
-          },
-        });
-      }
+      // Build the full pool of available approach options.
+      // TODO (future): filter this pool by location — when romance.styles[key].locations
+      // is defined and matches ctx.location, include it; otherwise exclude.
+      // TODO (future): weight or filter by affinity band so options that only make sense
+      // at higher/lower affinity are surfaced or suppressed accordingly.
+      const pool = Object.entries(styles).map(([styleKey, styleData]) => ({
+        label: styleData.label || styleKey,
+        target: {
+          type: "romance",
+          romance_style: styleKey,
+          character: ctx.character,
+        },
+      }));
+
+      // Shuffle and pick 3 at random so every approach feels fresh.
+      // Expand the pool in romance.json to increase variety without changing this limit.
+      const shuffled = pool.slice().sort(() => Math.random() - 0.5);
+      shuffled.slice(0, Math.min(3, shuffled.length)).forEach(c => choices.push(c));
     }
 
     // Always allow escape
@@ -157,9 +164,20 @@
     const ctx = getContext();
     const romance = ctx.character ? _getRomanceConfig(ctx.character) : null;
 
+    const charName =
+      romance?.display_name ||
+      window.HP_CONFIG?.CHARACTER_DISPLAY?.[ctx.character]?.name ||
+      (ctx.character ? ctx.character.charAt(0).toUpperCase() + ctx.character.slice(1) : "");
+
+    const locName =
+      window.HP_CONFIG?.LOCATION_DISPLAY?.[ctx.location] ||
+      (ctx.location ? ctx.location.charAt(0).toUpperCase() + ctx.location.slice(1) : "");
+
+    const firstName = charName.split(" ")[0];
+
     const title =
       romance?.title ||
-      (ctx.character ? `${ctx.character} — Hub` : "Hub");
+      (firstName && locName ? `${firstName} — ${locName}` : firstName || "Hub");
 
     const text =
       romance?.description ||
@@ -278,30 +296,3 @@
     }
 
     // Update internal hub context — increment, don't reset
-    _state.ctx.interactions += 1;
-    _state.ctx.affinity += delta;
-
-    // Rebuild the hub scene with the reaction text and fresh style choices
-    const scene = buildHubScene();
-    scene.text = reactionText || scene.text;
-
-    if (window.StoryEngine?.scenes) {
-      window.StoryEngine.scenes[HUB_SCENE_ID] = scene;
-    }
-    if (window.HP_STATE) {
-      window.HP_STATE.currentSceneId = HUB_SCENE_ID;
-    }
-
-    return HUB_SCENE_ID;
-  }
-
-  // Public API
-  window.HubEngine = {
-    HUB_SCENE_ID,
-    setContext,
-    getContext,
-    buildHubScene,
-    enter,
-    applyChoice,  // NEW: wires style choices through reaction lookup + delta application
-  };
-})();
