@@ -421,7 +421,7 @@ function hpGetEl(...ids) {
 			// The old flow (SE.applyChoice + SE.enterHub) bypassed all of that.
 			if (hpIsAffinityChoiceTarget(target)) {
 			  const style = target.romance_style ?? target.romanceStyle ?? target.style;
-			  const character = hpGetActiveCharacter();
+			  const character = target.character ?? hpGetActiveCharacter();
 			  let nextSceneId;
 
 			  if (window.HubEngine && typeof window.HubEngine.applyChoice === "function" && style) {
