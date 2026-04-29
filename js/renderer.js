@@ -27,7 +27,7 @@ console.log("renderer.js v 22-Dec 5:31 PM");
 	  if (!Array.isArray(scene.choices)) {
 		  scene.choices = [];
 	  }
-		
+
 	  scene.choices = [
 		  ...(scene.choices || []),
 		  {
@@ -258,7 +258,7 @@ function hpGetEl(...ids) {
 	  ];
 	}
 
-	  
+
     // Returns array of { key, label, target }
     const raw = scene?.choices ?? scene?.options ?? scene?.buttons ?? null;
 
@@ -413,27 +413,42 @@ function hpGetEl(...ids) {
 
 		container.appendChild(
 		  hpCreateButton(label, () => {
-			// Affinity-style targets
+
+			// ---------- Affinity / romance-style targets ----------
+			// FIX: Route through HubEngine.applyChoice when available.
+			// It handles: affinity lookup → matching reaction band → delta application
+			// → hub scene text update → fresh choices rebuild.
+			// The old flow (SE.applyChoice + SE.enterHub) bypassed all of that.
 			if (hpIsAffinityChoiceTarget(target)) {
 			  const style = target.romance_style ?? target.romanceStyle ?? target.style;
-			  const delta = Number(target.delta ?? 0);
+			  const character = hpGetActiveCharacter();
+			  let nextSceneId;
 
-			  const SE = hpGetStoryEngine();
-			  if (SE && typeof SE.applyChoice === "function" && style) {
-				SE.applyChoice(hpGetActiveCharacter(), style, delta);
+			  if (window.HubEngine && typeof window.HubEngine.applyChoice === "function" && style) {
+				// Primary path: let HubEngine resolve the reaction, apply the delta,
+				// update the hub scene text, and tell us what to render next.
+				nextSceneId = window.HubEngine.applyChoice(character, style);
+			  } else {
+				// Legacy fallback for any context where HubEngine isn't loaded
+				const delta = Number(target.delta ?? 0);
+				if (SE && typeof SE.applyChoice === "function" && style) {
+				  SE.applyChoice(character, style, delta);
+				}
+				if (SE && typeof SE.enterHub === "function") {
+				  SE.enterHub(character);
+				}
+				nextSceneId = hpGetCurrentSceneId() || sceneId;
 			  }
 
-			  if (SE && typeof SE.enterHub === "function") {
-				SE.enterHub(hpGetActiveCharacter());
-			  }
-
-			  const cur = hpGetCurrentSceneId() || sceneId;
-			  if (typeof window.hpRenderScene === "function") {
-				window.hpRenderScene(cur);
+			  const renderTarget = nextSceneId || hpGetCurrentSceneId() || sceneId;
+			  if (typeof window.hpLoadScene === "function") {
+				window.hpLoadScene(renderTarget);
+			  } else if (typeof window.hpRenderScene === "function") {
+				window.hpRenderScene(renderTarget);
 			  }
 			  return;
 			}
-			
+
 			// Hub targets (character hub entry)
 			if (target && typeof target === "object" && target.type === "hub") {
 			  console.log("[hub] entering hub", target);
@@ -526,7 +541,7 @@ function hpGetEl(...ids) {
   window.hpRender = window.hpRender || hpRenderScene;
   window.hpRenderSceneId = window.hpRenderSceneId || hpRenderScene;
 
-  // If the page already has a current scene id, try to render it (but don’t fight main.js if it controls flow)
+  // If the page already has a current scene id, try to render it (but don't fight main.js if it controls flow)
   try {
     const existing = hpGetCurrentSceneId();
     if (existing) {

@@ -18,7 +18,7 @@
       character: null,
       location: null,
       affinity: 0,
-	  interactions: 0,
+      interactions: 0,
     },
   };
 
@@ -27,12 +27,22 @@
     return Number.isFinite(x) ? x : fallback;
   }
 
+  // FIX 1: Read affinity from HP_STATE first (the authoritative store).
+  // The old version tried StoryEngine.getAffinity() which doesn't exist, always returning 0.
   function _getAffinity(characterId) {
     try {
+      if (window.HP_STATE) {
+        if (typeof window.HP_STATE.getAffinity === "function") {
+          return _safeNumber(window.HP_STATE.getAffinity(characterId), 0);
+        }
+        if (window.HP_STATE.affinity && characterId in window.HP_STATE.affinity) {
+          return _safeNumber(window.HP_STATE.affinity[characterId], 0);
+        }
+      }
+      // Legacy fallbacks
       if (window.StoryEngine && typeof window.StoryEngine.getAffinity === "function") {
         return _safeNumber(window.StoryEngine.getAffinity(characterId), 0);
       }
-      // Common alternative: StoryEngine.affinity[characterId]
       if (window.StoryEngine && window.StoryEngine.affinity && characterId in window.StoryEngine.affinity) {
         return _safeNumber(window.StoryEngine.affinity[characterId], 0);
       }
@@ -40,12 +50,11 @@
     return 0;
   }
 
-	function _applyInteraction(delta = 0) {
-	  if (!_state.ctx) return;
-
-	  _state.ctx.interactions += 1;
-	  _state.ctx.affinity += delta;
-	}
+  function _applyInteraction(delta = 0) {
+    if (!_state.ctx) return;
+    _state.ctx.interactions += 1;
+    _state.ctx.affinity += delta;
+  }
 
   function setContext(partial) {
     if (!partial || typeof partial !== "object") return;
@@ -53,6 +62,7 @@
       character: partial.character ?? _state.ctx.character,
       location: partial.location ?? _state.ctx.location,
       affinity: _safeNumber(partial.affinity ?? _state.ctx.affinity, 0),
+      interactions: _safeNumber(partial.interactions ?? _state.ctx.interactions, 0),
     };
   }
 
@@ -64,7 +74,7 @@
    * Resolve the romance config for a character. We support a few shapes:
    * - window.HP_STATE.romance[characterId]
    * - window.HP_ROMANCE[characterId]
-   * - A scene object in StoryEngine.scenes under `romance_${characterId}` (JSON imported as scenes)
+   * - A scene object in StoryEngine.scenes under `romance_${characterId}`
    */
   function _getRomanceConfig(characterId) {
     try {
@@ -83,51 +93,61 @@
   }
 
   function _fallbackNextSceneId() {
-    // Prefer explicit intro if present; otherwise fall back to whatever renderer is currently on.
     if (window.StoryEngine?.scenes?.scene_00_intro) return "scene_00_intro";
     if (window.HP_STATE?.currentSceneId) return window.HP_STATE.currentSceneId;
     return "scene_00_intro";
   }
 
   /**
-   * Build the hub "choices" from romance config.
-   * Returned format matches your renderer conventions: an object map of key -> targetId (scene id or object).
+   * FIX 2: Build choices from 'styles' when 'conversation_starters' isn't present.
+   * The old version only read conversation_starters, but all romance.json files use 'styles',
+   * so the hub always generated zero choices (just "Return to party").
    */
-	function _buildChoiceArrayFromRomance(romance, ctx) {
-	  const choices = [];
+  function _buildChoiceArrayFromRomance(romance, ctx) {
+    const choices = [];
 
-	  // FIRST interaction → conversation starters
-	  if (ctx.interactions === 0) {
-		const starters = romance?.conversation_starters || romance?.starters;
+    const starters = romance?.conversation_starters || romance?.starters;
+    const styles = romance?.styles;
 
-		if (starters && typeof starters === "object") {
-		  for (const starter of Object.values(starters)) {
-			choices.push({
-			  label: starter.label,
-			  target: {
-				type: "romance",
-				romance_style: starter.romance_style,
-				delta: Number(starter.delta ?? starter.affinity_delta ?? 0),
-				next:
-				  starter.next ??
-				  starter.scene ??
-				  romance.default_next ??
-				  null,
-			  },
-			});
-		  }
-		}
-	  }
+    if (starters && typeof starters === "object") {
+      // Legacy format: conversation_starters
+      for (const starter of Object.values(starters)) {
+        choices.push({
+          label: starter.label,
+          target: {
+            type: "romance",
+            romance_style: starter.romance_style,
+            delta: Number(starter.delta ?? starter.affinity_delta ?? 0),
+            next:
+              starter.next ??
+              starter.scene ??
+              romance.default_next ??
+              null,
+          },
+        });
+      }
+    } else if (styles && typeof styles === "object") {
+      // Current format: styles object keyed by style name
+      for (const [styleKey, styleData] of Object.entries(styles)) {
+        choices.push({
+          label: styleData.label || styleKey,
+          target: {
+            type: "romance",
+            romance_style: styleKey,
+            character: ctx.character,
+          },
+        });
+      }
+    }
 
-	  // Always allow escape
-	  choices.push({
-		label: "Return to party",
-		target: romance?.return_to_party ?? _fallbackNextSceneId(),
-	  });
+    // Always allow escape
+    choices.push({
+      label: "Return to party",
+      target: romance?.return_to_party ?? _fallbackNextSceneId(),
+    });
 
-	  return choices;
-	}
-
+    return choices;
+  }
 
   /**
    * Create the actual injected hub scene object.
@@ -144,10 +164,10 @@
     const text =
       romance?.description ||
       romance?.text ||
+      romance?.prompt ||
       "Choose how you want to approach. Your choices shape the vibe of the night.";
 
     const image =
-      // Optional: support location-based hub images if you add them later.
       romance?.images?.[ctx.location] ||
       romance?.image ||
       null;
@@ -156,7 +176,6 @@
       title,
       text,
       image,
-      // Your renderer supports either `choices` or `options` depending on version.
       choices: _buildChoiceArrayFromRomance(romance, ctx),
     };
   }
@@ -169,13 +188,12 @@
    */
   function enter(characterId, locationId) {
     const affinity = _getAffinity(characterId);
-	setContext({
-	  character: characterId,
-	  location: locationId,
-	  affinity,
-	  interactions: 0, // 🔥 reset on first approach
-	});
-
+    setContext({
+      character: characterId,
+      location: locationId,
+      affinity,
+      interactions: 0, // reset on first approach
+    });
 
     try {
       const scene = buildHubScene();
@@ -192,6 +210,91 @@
     return HUB_SCENE_ID;
   }
 
+  /**
+   * FIX 3 & 4: applyChoice — the missing link between a player picking a style and
+   * the affinity system actually responding.
+   *
+   * What it does:
+   *   1. Reads current affinity from HP_STATE for this character
+   *   2. Finds the matching reaction band from romance.styles[styleKey].reactions
+   *   3. Applies the reaction's delta to HP_STATE
+   *   4. Increments the interaction counter (without resetting hub context)
+   *   5. Rebuilds the hub scene with the reaction text as the new scene text
+   *   6. Re-injects the updated scene so hpRenderScene("__hub__") picks it up
+   *   7. Returns HUB_SCENE_ID so the renderer knows what to render next
+   */
+  function applyChoice(characterId, styleKey) {
+    const romance = _getRomanceConfig(characterId);
+
+    if (!romance) {
+      console.warn("[HubEngine.applyChoice] No romance config found for:", characterId);
+      return HUB_SCENE_ID;
+    }
+
+    const style = romance.styles?.[styleKey];
+    let reactionText = "";
+    let delta = 0;
+
+    if (!style) {
+      // Style key not found — use romance-level fallback
+      const fallback = romance.fallback;
+      reactionText = fallback?.text ?? "";
+      delta = _safeNumber(fallback?.delta, 0);
+    } else {
+      const affinity = _getAffinity(characterId);
+
+      // Find the reaction band whose min_affinity/max_affinity range contains current affinity
+      let reaction = null;
+      if (Array.isArray(style.reactions)) {
+        reaction = style.reactions.find(
+          r =>
+            affinity >= _safeNumber(r.min_affinity, -Infinity) &&
+            affinity <= _safeNumber(r.max_affinity, Infinity)
+        );
+        // If no band matched, use the first one as a safe fallback
+        if (!reaction) reaction = style.reactions[0];
+      }
+
+      if (!reaction) {
+        const fallback = romance.fallback;
+        reactionText = fallback?.text ?? "";
+        delta = _safeNumber(fallback?.delta, 0);
+      } else {
+        reactionText = reaction.text ?? "";
+        delta = _safeNumber(reaction.delta, 0);
+      }
+    }
+
+    // Apply delta and increment interaction count in HP_STATE
+    if (window.HP_STATE) {
+      if (typeof HP_STATE.modifyAffinity === "function") {
+        HP_STATE.modifyAffinity(characterId, delta);
+      } else if (HP_STATE.affinity) {
+        HP_STATE.affinity[characterId] = (HP_STATE.affinity[characterId] ?? 0) + delta;
+      }
+      if (typeof HP_STATE.incrementInteractions === "function") {
+        HP_STATE.incrementInteractions(characterId);
+      }
+    }
+
+    // Update internal hub context — increment, don't reset
+    _state.ctx.interactions += 1;
+    _state.ctx.affinity += delta;
+
+    // Rebuild the hub scene with the reaction text and fresh style choices
+    const scene = buildHubScene();
+    scene.text = reactionText || scene.text;
+
+    if (window.StoryEngine?.scenes) {
+      window.StoryEngine.scenes[HUB_SCENE_ID] = scene;
+    }
+    if (window.HP_STATE) {
+      window.HP_STATE.currentSceneId = HUB_SCENE_ID;
+    }
+
+    return HUB_SCENE_ID;
+  }
+
   // Public API
   window.HubEngine = {
     HUB_SCENE_ID,
@@ -199,5 +302,6 @@
     getContext,
     buildHubScene,
     enter,
+    applyChoice,  // NEW: wires style choices through reaction lookup + delta application
   };
 })();
