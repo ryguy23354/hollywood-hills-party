@@ -296,3 +296,30 @@
     }
 
     // Update internal hub context — increment, don't reset
+    _state.ctx.interactions += 1;
+    _state.ctx.affinity += delta;
+
+    // Rebuild the hub scene with the reaction text and fresh style choices
+    const scene = buildHubScene();
+    scene.text = reactionText || scene.text;
+
+    if (window.StoryEngine?.scenes) {
+      window.StoryEngine.scenes[HUB_SCENE_ID] = scene;
+    }
+    if (window.HP_STATE) {
+      window.HP_STATE.currentSceneId = HUB_SCENE_ID;
+    }
+
+    return HUB_SCENE_ID;
+  }
+
+  // Public API
+  window.HubEngine = {
+    HUB_SCENE_ID,
+    setContext,
+    getContext,
+    buildHubScene,
+    enter,
+    applyChoice,  // NEW: wires style choices through reaction lookup + delta application
+  };
+})();
