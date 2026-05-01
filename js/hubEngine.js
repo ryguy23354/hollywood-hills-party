@@ -235,7 +235,7 @@
               text: ending.text || "",
               image: ending.image ||
                 (ctx.character && ctx.location
-                  ? `${ctx.character}_${ctx.location}_01.jpg`
+                  ? `images/${ctx.character}_${ctx.location}_01.jpg`
                   : null),
               choices: [
                 {
@@ -311,10 +311,10 @@
     if (!image && ctx.character && ctx.location) {
       const manifestPool = window.HP_STATE?.images?.[ctx.character]?.[ctx.location];
       if (Array.isArray(manifestPool) && manifestPool.length > 0) {
-        const picked = manifestPool[Math.floor(Math.random() * manifestPool.length)];
-        image = picked.replace(/^images\//, "");
+        // Use the path exactly as stored in the manifest (already includes "images/" prefix)
+        image = manifestPool[Math.floor(Math.random() * manifestPool.length)];
       } else {
-        image = `${ctx.character}_${ctx.location}_01.jpg`;
+        image = `images/${ctx.character}_${ctx.location}_01.jpg`;
       }
     }
 
@@ -422,8 +422,4 @@
     HUB_SCENE_ID,
     setContext,
     getContext,
-    buildHubScene,
-    enter,
-    applyChoice,
-  };
-})();
+    bu
