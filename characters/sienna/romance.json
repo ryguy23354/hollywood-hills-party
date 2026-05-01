@@ -33,251 +33,93 @@
     "bold": {
       "label": "Go bold and flirty",
       "reactions": [
-        {
-          "min_affinity": -10,
-          "max_affinity": -3,
-          "text": "It lands in the gap between you — bold over a cold foundation, and she feels the mismatch. Sienna laughs, but it's the polished laugh, the one she gives someone who came in a little too hot. She takes a small half-step back. \"Confidence is genuinely hot,\" she says evenly. \"But it works a lot better when there's something underneath it.\" She's not cruel. She's accurate.",
-          "delta": 0
-        },
-        {
-          "min_affinity": -2,
-          "max_affinity": -1,
-          "text": "She tilts her head, eyes narrowing slightly — deciding. The boldness doesn't quite land where you wanted it, not yet, but she doesn't dismiss it either. \"You're going for it,\" she says, a little amused and a little appraising. \"I respect the energy.\" Her smile arrives now, real but careful. She's watching.",
-          "delta": 1
-        },
-        {
-          "min_affinity": 0,
-          "max_affinity": 2,
-          "text": "Your boldness lands clean. Sienna's eyes flash with something quick and pleased — she likes being surprised by directness. She leans forward slightly, matching the energy. \"Okay,\" she says, grinning slowly. \"I like where this is going.\" The air between you sharpens up a little.",
-          "delta": 1
-        },
-        {
-          "min_affinity": 3,
-          "max_affinity": 6,
-          "text": "She fires back before you can settle into it. \"Oh, we're doing this now?\" she says, laughing outright — but she doesn't step back. She steps closer. The banter has a different texture now, charged and easy at the same time. \"You're trouble,\" she tells you. Her eyes say it's absolutely a compliment.",
-          "delta": 2
-        },
-        {
-          "min_affinity": 7,
-          "max_affinity": 20,
-          "text": "You go for it without hedging and she matches it instantly, a laugh catching in her throat. She tilts her chin up and holds the eye contact on purpose. \"That should not work on me as well as it does,\" she says, not quite keeping the smile down. She sets her drink somewhere without looking. \"Okay. You have my full attention.\"",
-          "delta": 2
-        }
+        { "min_affinity": -10, "max_affinity": -3, "text": "It lands in the gap between you — bold over a cold foundation, and she feels the mismatch. Sienna laughs, but it's the polished laugh, the one she gives someone who came in a little too hot. She takes a small half-step back. \"Confidence is genuinely hot,\" she says evenly. \"But it works a lot better when there's something underneath it.\" She's not cruel. She's accurate.", "delta": 0 },
+        { "min_affinity": -2, "max_affinity": -1, "text": "She tilts her head, eyes narrowing slightly — deciding. The boldness doesn't quite land where you wanted it, not yet, but she doesn't dismiss it either. \"You're going for it,\" she says, a little amused and a little appraising. \"I respect the energy.\" Her smile arrives now, real but careful. She's watching.", "delta": 1 },
+        { "min_affinity": 0, "max_affinity": 2, "text": "Your boldness lands clean. Sienna's eyes flash with something quick and pleased — she likes being surprised by directness. She leans forward slightly, matching the energy. \"Okay,\" she says, grinning slowly. \"I like where this is going.\" The air between you sharpens up a little.", "delta": 1 },
+        { "min_affinity": 3, "max_affinity": 6, "text": "She fires back before you can settle into it. \"Oh, we're doing this now?\" she says, laughing outright — but she doesn't step back. She steps closer. The banter has a different texture now, charged and easy at the same time. \"You're trouble,\" she tells you. Her eyes say it's absolutely a compliment.", "delta": 2 },
+        { "min_affinity": 7, "max_affinity": 20, "text": "You go for it without hedging and she matches it instantly, a laugh catching in her throat. She tilts her chin up and holds the eye contact on purpose. \"That should not work on me as well as it does,\" she says, not quite keeping the smile down. She sets her drink somewhere without looking. \"Okay. You have my full attention.\"", "delta": 2 }
       ]
     },
     "warm": {
       "label": "Be emotionally sincere",
       "reactions": [
-        {
-          "min_affinity": -10,
-          "max_affinity": -3,
-          "text": "Sincerity cuts through anyway — that's its nature. Sienna blinks, recalibrates. Whatever distance had been building shifts a little. She can't be fully cold to someone who's actually real with her. She exhales through her nose. \"Okay,\" she says, quieter now. \"That was not what I expected from you.\" She doesn't smile wide, but something genuinely thaws.",
-          "delta": 2
-        },
-        {
-          "min_affinity": -2,
-          "max_affinity": -1,
-          "text": "You slow down and say something real and she feels the shift immediately — her chin lifts, her eyes focus. She was braced for something else. \"That got through,\" she admits after a beat, like she wasn't entirely sure she wanted it to. Her shoulders drop a centimeter. She's more present now, fully turned toward you.",
-          "delta": 2
-        },
-        {
-          "min_affinity": 0,
-          "max_affinity": 2,
-          "text": "You speak without dressing it up and the effect is immediate. Her whole posture changes — shoulders relax, she turns fully toward you instead of angled away. \"I needed that tonight,\" she says, and she means it completely. \"Everybody here is performing something. You're just... talking.\" She looks almost relieved.",
-          "delta": 3
-        },
-        {
-          "min_affinity": 3,
-          "max_affinity": 6,
-          "text": "Your openness meets hers and something real moves through the space between you. Sienna holds your gaze, eyes bright and just a little unguarded. She presses her lips together like she's deciding whether to say the thing she's actually thinking — then she says it. \"Careful,\" she says softly. \"That's exactly how you make me fall.\" She's smiling, but she means every word.",
-          "delta": 3
-        },
-        {
-          "min_affinity": 7,
-          "max_affinity": 20,
-          "text": "She doesn't let you finish. Her hand finds your arm lightly. \"Stop,\" she says, half-laughing and half-something else entirely. \"You cannot just say things like that.\" Her green eyes search yours for a moment, checking if you mean it. The answer is all over you. She exhales slowly. \"I am in so much trouble.\"",
-          "delta": 3
-        }
+        { "min_affinity": -10, "max_affinity": -3, "text": "Sincerity cuts through anyway — that's its nature. Sienna blinks, recalibrates. Whatever distance had been building shifts a little. She can't be fully cold to someone who's actually real with her. She exhales through her nose. \"Okay,\" she says, quieter now. \"That was not what I expected from you.\" She doesn't smile wide, but something genuinely thaws.", "delta": 2 },
+        { "min_affinity": -2, "max_affinity": -1, "text": "You slow down and say something real and she feels the shift immediately — her chin lifts, her eyes focus. She was braced for something else. \"That got through,\" she admits after a beat, like she wasn't entirely sure she wanted it to. Her shoulders drop a centimeter. She's more present now, fully turned toward you.", "delta": 2 },
+        { "min_affinity": 0, "max_affinity": 2, "text": "You speak without dressing it up and the effect is immediate. Her whole posture changes — shoulders relax, she turns fully toward you instead of angled away. \"I needed that tonight,\" she says, and she means it completely. \"Everybody here is performing something. You're just... talking.\" She looks almost relieved.", "delta": 3 },
+        { "min_affinity": 3, "max_affinity": 6, "text": "Your openness meets hers and something real moves through the space between you. Sienna holds your gaze, eyes bright and just a little unguarded. She presses her lips together like she's deciding whether to say the thing she's actually thinking — then she says it. \"Careful,\" she says softly. \"That's exactly how you make me fall.\" She's smiling, but she means every word.", "delta": 3 },
+        { "min_affinity": 7, "max_affinity": 20, "text": "She doesn't let you finish. Her hand finds your arm lightly. \"Stop,\" she says, half-laughing and half-something else entirely. \"You cannot just say things like that.\" Her green eyes search yours for a moment, checking if you mean it. The answer is all over you. She exhales slowly. \"I am in so much trouble.\"", "delta": 3 }
       ]
     },
     "playful": {
       "label": "Lean into playful teasing",
       "reactions": [
-        {
-          "min_affinity": -10,
-          "max_affinity": -3,
-          "text": "The joke lands in the wrong register. Sienna smiles — she's not cruel about it — but the timing is off and she's not going to pretend otherwise. \"We can workshop it,\" she says gently, a small laugh underneath it. \"The bones are definitely there.\" She's being kind about the miss. The door is still open, just not all the way.",
-          "delta": 1
-        },
-        {
-          "min_affinity": -2,
-          "max_affinity": -1,
-          "text": "It half-lands. She laughs — genuinely, not charitably — but the full rhythm isn't quite there yet. \"Okay, that was almost it,\" she says. There's real affection in the near-miss. She nudges you lightly with one shoulder. \"You're getting warmer. Try again.\"",
-          "delta": 1
-        },
-        {
-          "min_affinity": 0,
-          "max_affinity": 2,
-          "text": "You hit her rhythm and she feels it instantly — her eyes light up, her whole face shifts into something livelier. She laughs and nudges you. \"Yes,\" she says. \"That energy. Keep it exactly there.\" Something between you goes up a full notch.",
-          "delta": 2
-        },
-        {
-          "min_affinity": 3,
-          "max_affinity": 6,
-          "text": "The exchange accelerates — you're finishing each other's setups before the punchline even lands. She leans in, eyes bright. \"You realize we're dangerously compatible, right?\" she says, grinning. \"Like I am going to be absolutely insufferable about this later.\" She doesn't sound the least bit bothered by that.",
-          "delta": 2
-        },
-        {
-          "min_affinity": 7,
-          "max_affinity": 20,
-          "text": "You're already past teasing and into something more like play-fighting over the same joke — both of you talking over each other and laughing. She grabs your arm to steady herself. \"Stop,\" she says, still laughing. \"I cannot be this charmed in public, there are people watching.\" She doesn't let go of your arm.",
-          "delta": 2
-        }
+        { "min_affinity": -10, "max_affinity": -3, "text": "The joke lands in the wrong register. Sienna smiles — she's not cruel about it — but the timing is off and she's not going to pretend otherwise. \"We can workshop it,\" she says gently, a small laugh underneath it. \"The bones are definitely there.\" She's being kind about the miss. The door is still open, just not all the way.", "delta": 1 },
+        { "min_affinity": -2, "max_affinity": -1, "text": "It half-lands. She laughs — genuinely, not charitably — but the full rhythm isn't quite there yet. \"Okay, that was almost it,\" she says. There's real affection in the near-miss. She nudges you lightly with one shoulder. \"You're getting warmer. Try again.\"", "delta": 1 },
+        { "min_affinity": 0, "max_affinity": 2, "text": "You hit her rhythm and she feels it instantly — her eyes light up, her whole face shifts into something livelier. She laughs and nudges you. \"Yes,\" she says. \"That energy. Keep it exactly there.\" Something between you goes up a full notch.", "delta": 2 },
+        { "min_affinity": 3, "max_affinity": 6, "text": "The exchange accelerates — you're finishing each other's setups before the punchline even lands. She leans in, eyes bright. \"You realize we're dangerously compatible, right?\" she says, grinning. \"Like I am going to be absolutely insufferable about this later.\" She doesn't sound the least bit bothered by that.", "delta": 2 },
+        { "min_affinity": 7, "max_affinity": 20, "text": "You're already past teasing and into something more like play-fighting over the same joke — both of you talking over each other and laughing. She grabs your arm to steady herself. \"Stop,\" she says, still laughing. \"I cannot be this charmed in public, there are people watching.\" She doesn't let go of your arm.", "delta": 2 }
       ]
     },
     "confident": {
       "label": "Hold confident eye contact",
       "reactions": [
-        {
-          "min_affinity": -10,
-          "max_affinity": -3,
-          "text": "You hold the moment but the stillness feels manufactured — bold confidence over a cold foundation. Sienna tilts her head and there's a slight wince of recognition on her face, not unkind, just accurate. \"Confidence is so much better when it's natural,\" she says evenly. \"That felt a little rehearsed.\" She's not wrong.",
-          "delta": 0
-        },
-        {
-          "min_affinity": -2,
-          "max_affinity": -1,
-          "text": "You hold the look longer than most people do. She notices — her chin lifts slightly, reassessing. She's not sure what to make of you yet, but she's no longer dismissing anything. \"Interesting,\" she says quietly. Not a compliment exactly. Not nothing either. She holds her ground right back.",
-          "delta": 0
-        },
-        {
-          "min_affinity": 0,
-          "max_affinity": 2,
-          "text": "You meet her gaze and don't move away from it. A beat passes. Two. Sienna's mouth curves slowly at the corner — genuinely impressed, or the closest thing to it. \"Okay,\" she murmurs. \"I see you.\" Something has noticeably shifted in how she's standing.",
-          "delta": 0
-        },
-        {
-          "min_affinity": 3,
-          "max_affinity": 6,
-          "text": "Neither of you breaks. The eye contact becomes something more than just looking — a quiet conversation happening above the music and the crowd. Her voice drops when she finally speaks. \"That,\" she says carefully, as if measuring the words, \"is incredibly effective.\" She sounds like she's mostly telling herself.",
-          "delta": 2
-        },
-        {
-          "min_affinity": 7,
-          "max_affinity": 20,
-          "text": "You hold the eye contact and she tries to outlast you and doesn't come close. She blinks first, laughs, drops her chin. \"Unfair,\" she says, shaking her head. When she looks back up her eyes are bright and her cheeks are faintly flushed. \"You play for keeps.\" The way she says it makes clear that's the most appealing thing she can imagine.",
-          "delta": 3
-        }
+        { "min_affinity": -10, "max_affinity": -3, "text": "You hold the moment but the stillness feels manufactured — bold confidence over a cold foundation. Sienna tilts her head and there's a slight wince of recognition on her face, not unkind, just accurate. \"Confidence is so much better when it's natural,\" she says evenly. \"That felt a little rehearsed.\" She's not wrong.", "delta": 0 },
+        { "min_affinity": -2, "max_affinity": -1, "text": "You hold the look longer than most people do. She notices — her chin lifts slightly, reassessing. She's not sure what to make of you yet, but she's no longer dismissing anything. \"Interesting,\" she says quietly. Not a compliment exactly. Not nothing either. She holds her ground right back.", "delta": 0 },
+        { "min_affinity": 0, "max_affinity": 2, "text": "You meet her gaze and don't move away from it. A beat passes. Two. Sienna's mouth curves slowly at the corner — genuinely impressed, or the closest thing to it. \"Okay,\" she murmurs. \"I see you.\" Something has noticeably shifted in how she's standing.", "delta": 0 },
+        { "min_affinity": 3, "max_affinity": 6, "text": "Neither of you breaks. The eye contact becomes something more than just looking — a quiet conversation happening above the music and the crowd. Her voice drops when she finally speaks. \"That,\" she says carefully, as if measuring the words, \"is incredibly effective.\" She sounds like she's mostly telling herself.", "delta": 2 },
+        { "min_affinity": 7, "max_affinity": 20, "text": "You hold the eye contact and she tries to outlast you and doesn't come close. She blinks first, laughs, drops her chin. \"Unfair,\" she says, shaking her head. When she looks back up her eyes are bright and her cheeks are faintly flushed. \"You play for keeps.\" The way she says it makes clear that's the most appealing thing she can imagine.", "delta": 3 }
       ]
     },
     "intimate": {
       "label": "Lean in close",
       "min_affinity": 3,
       "reactions": [
-        {
-          "min_affinity": -10,
-          "max_affinity": -3,
-          "text": "You move into her space too soon and she shifts back — not dramatically, just clearly. She meets your eyes and her expression is gentle but firm. \"Hey,\" she says, keeping her voice low. \"I need the feeling first. You can't skip that part.\" There's no cruelty in it at all. Just honesty.",
-          "delta": -1
-        },
-        {
-          "min_affinity": -2,
-          "max_affinity": -1,
-          "text": "You step a little close and her body language reads it — she doesn't bolt, but she doesn't lean in either. There's a slight stiffening, subtle but real. \"We're not quite there,\" she says, quiet and direct. Her eyes are kind. \"Get there with me first.\"",
-          "delta": -1
-        },
-        {
-          "min_affinity": 0,
-          "max_affinity": 2,
-          "text": "You close the distance and drop your voice and she stays — that's the thing you notice. She stayed. Her eyes flick down for a half-second then back up. \"Okay,\" she says, quieter than before. \"I like this.\" It comes out careful. Tentative. The door is open.",
-          "delta": 1
-        },
-        {
-          "min_affinity": 3,
-          "max_affinity": 6,
-          "text": "You step closer and she meets you — actually leans in rather than waiting. Her shoulder nearly touches yours. \"You're very easy to be close to,\" she admits, and it sounds like a confession she didn't entirely plan to make. Her voice is low, just meant for you. The rest of the party doesn't exist right now.",
-          "delta": 3
-        },
-        {
-          "min_affinity": 7,
-          "max_affinity": 20,
-          "text": "She's already leaning toward you before you've fully crossed the space. Her eyes are unhurried and very direct. Whatever you were going to say isn't necessary — she puts her hand flat on your arm and closes the remaining distance. \"Don't talk,\" she murmurs, barely audible. \"Just stay here for a second.\"",
-          "delta": 3
-        }
+        { "min_affinity": -10, "max_affinity": -3, "text": "You move into her space too soon and she shifts back — not dramatically, just clearly. She meets your eyes and her expression is gentle but firm. \"Hey,\" she says, keeping her voice low. \"I need the feeling first. You can't skip that part.\" There's no cruelty in it at all. Just honesty.", "delta": -1 },
+        { "min_affinity": -2, "max_affinity": -1, "text": "You step a little close and her body language reads it — she doesn't bolt, but she doesn't lean in either. There's a slight stiffening, subtle but real. \"We're not quite there,\" she says, quiet and direct. Her eyes are kind. \"Get there with me first.\"", "delta": -1 },
+        { "min_affinity": 0, "max_affinity": 2, "text": "You close the distance and drop your voice and she stays — that's the thing you notice. She stayed. Her eyes flick down for a half-second then back up. \"Okay,\" she says, quieter than before. \"I like this.\" It comes out careful. Tentative. The door is open.", "delta": 1 },
+        { "min_affinity": 3, "max_affinity": 6, "text": "You step closer and she meets you — actually leans in rather than waiting. Her shoulder nearly touches yours. \"You're very easy to be close to,\" she admits, and it sounds like a confession she didn't entirely plan to make. Her voice is low, just meant for you. The rest of the party doesn't exist right now.", "delta": 3 },
+        { "min_affinity": 7, "max_affinity": 20, "text": "She's already leaning toward you before you've fully crossed the space. Her eyes are unhurried and very direct. Whatever you were going to say isn't necessary — she puts her hand flat on your arm and closes the remaining distance. \"Don't talk,\" she murmurs, barely audible. \"Just stay here for a second.\"", "delta": 3 }
       ]
     },
     "music": {
       "label": "Ask about her music",
       "reactions": [
-        {
-          "min_affinity": -10,
-          "max_affinity": -3,
-          "text": "The question cracks something loose — she can't be cold about music, it's the one place her defenses don't fully hold. She exhales. \"It's complicated right now,\" she says, looking at her drink. \"Some songs get too close to real things. They cost a lot.\" She doesn't elaborate. But she's turning toward you now, fractionally.",
-          "delta": 1
-        },
-        {
-          "min_affinity": -2,
-          "max_affinity": -1,
-          "text": "Music is the one question she can't deflect. \"I've been writing in a different key lately,\" she says quietly. \"More minor. More honest.\" She glances up at you. \"It's probably my best work and also kind of devastating to sit with.\" Something real just happened in her expression. A genuine smile, finally.",
-          "delta": 2
-        },
-        {
-          "min_affinity": 0,
-          "max_affinity": 2,
-          "text": "Her face lights up — not politely, but genuinely, instantly. She sets her drink down like she's been waiting for someone to ask. \"The songs that last are the ones that scare me to release,\" she says. \"Emotion first, always. Structure can come later.\" She's talking faster now, leaning in, fully alive with it.",
-          "delta": 2
-        },
-        {
-          "min_affinity": 3,
-          "max_affinity": 6,
-          "text": "She goes somewhere real when you ask. \"This album is different,\" she says quietly. \"It's not about being relatable. It's about being true.\" She looks at you with something careful in her expression. \"Most people don't ask what it costs to put something real out there.\" Her hand drifts toward yours on the bar. Doesn't quite land. Stays close.",
-          "delta": 2
-        },
-        {
-          "min_affinity": 7,
-          "max_affinity": 20,
-          "text": "She leans in and her voice drops to something private and warm. \"The song I'm working on right now — I've only played it for my producer and my sister.\" A pause. \"It's about that exact second right before you decide to let someone in.\" Her eyes stay on yours, still and very bright. \"I don't know why I'm telling you that.\"",
-          "delta": 3
-        }
+        { "min_affinity": -10, "max_affinity": -3, "text": "The question cracks something loose — she can't be cold about music, it's the one place her defenses don't fully hold. She exhales. \"It's complicated right now,\" she says, looking at her drink. \"Some songs get too close to real things. They cost a lot.\" She doesn't elaborate. But she's turning toward you now, fractionally.", "delta": 1 },
+        { "min_affinity": -2, "max_affinity": -1, "text": "Music is the one question she can't deflect. \"I've been writing in a different key lately,\" she says quietly. \"More minor. More honest.\" She glances up at you. \"It's probably my best work and also kind of devastating to sit with.\" Something real just happened in her expression. A genuine smile, finally.", "delta": 2 },
+        { "min_affinity": 0, "max_affinity": 2, "text": "Her face lights up — not politely, but genuinely, instantly. She sets her drink down like she's been waiting for someone to ask. \"The songs that last are the ones that scare me to release,\" she says. \"Emotion first, always. Structure can come later.\" She's talking faster now, leaning in, fully alive with it.", "delta": 2 },
+        { "min_affinity": 3, "max_affinity": 6, "text": "She goes somewhere real when you ask. \"This album is different,\" she says quietly. \"It's not about being relatable. It's about being true.\" She looks at you with something careful in her expression. \"Most people don't ask what it costs to put something real out there.\" Her hand drifts toward yours on the bar. Doesn't quite land. Stays close.", "delta": 2 },
+        { "min_affinity": 7, "max_affinity": 20, "text": "She leans in and her voice drops to something private and warm. \"The song I'm working on right now — I've only played it for my producer and my sister.\" A pause. \"It's about that exact second right before you decide to let someone in.\" Her eyes stay on yours, still and very bright. \"I don't know why I'm telling you that.\"", "delta": 3 }
       ]
     },
     "distant": {
       "label": "Stay emotionally reserved",
       "max_affinity": 2,
       "reactions": [
-        {
-          "min_affinity": -10,
-          "max_affinity": -3,
-          "text": "You were already cold between you and this is just confirmation. Sienna's smile disappears completely — not angry, just done offering. \"Okay,\" she says, with careful, hollow politeness. \"I think I'm going to get a refill.\" She doesn't invite you to come. She doesn't look back.",
-          "delta": -2
-        },
-        {
-          "min_affinity": -2,
-          "max_affinity": -1,
-          "text": "The distance lands and she names it. Her smile fades and she looks at you with something between disappointment and resignation — like she saw it coming but hoped she was wrong. \"You don't have to hide,\" she says. \"I'm right here.\" She's not angry. She's sad about it, which lands harder.",
-          "delta": -2
-        },
-        {
-          "min_affinity": 0,
-          "max_affinity": 2,
-          "text": "She frowns slightly — not angry, confused. \"I was actually here,\" she says, and there's something bruised underneath it. \"You didn't have to do that.\" The warmth that was building between you cools. She takes a sip of her drink and looks somewhere past your shoulder.",
-          "delta": -1
-        },
-        {
-          "min_affinity": 3,
-          "max_affinity": 6,
-          "text": "The withdrawal registers as a physical thing — you can see it land on her face. Her chin dips, her eyes go quiet. \"Don't do that,\" she says, barely above the music. \"Don't pull away when it's getting real.\" The intimacy you'd built together has a crack in it now. She's still there, but barely.",
-          "delta": -2
-        },
-        {
-          "min_affinity": 7,
-          "max_affinity": 20,
-          "text": "The shift confuses her more than anything else could. You'd been so present. She looks at you for a long, careful moment. \"Where did you go?\" she asks. She's not angry — she looks genuinely lost by it. She reaches for her drink and holds it like armor. \"I hate that move,\" she says softly. \"Especially from you.\"",
-          "delta": -2
-        }
+        { "min_affinity": -10, "max_affinity": -3, "text": "You were already cold between you and this is just confirmation. Sienna's smile disappears completely — not angry, just done offering. \"Okay,\" she says, with careful, hollow politeness. \"I think I'm going to get a refill.\" She doesn't invite you to come. She doesn't look back.", "delta": -2 },
+        { "min_affinity": -2, "max_affinity": -1, "text": "The distance lands and she names it. Her smile fades and she looks at you with something between disappointment and resignation — like she saw it coming but hoped she was wrong. \"You don't have to hide,\" she says. \"I'm right here.\" She's not angry. She's sad about it, which lands harder.", "delta": -2 },
+        { "min_affinity": 0, "max_affinity": 2, "text": "She frowns slightly — not angry, confused. \"I was actually here,\" she says, and there's something bruised underneath it. \"You didn't have to do that.\" The warmth that was building between you cools. She takes a sip of her drink and looks somewhere past your shoulder.", "delta": -1 },
+        { "min_affinity": 3, "max_affinity": 6, "text": "The withdrawal registers as a physical thing — you can see it land on her face. Her chin dips, her eyes go quiet. \"Don't do that,\" she says, barely above the music. \"Don't pull away when it's getting real.\" The intimacy you'd built together has a crack in it now. She's still there, but barely.", "delta": -2 },
+        { "min_affinity": 7, "max_affinity": 20, "text": "The shift confuses her more than anything else could. You'd been so present. She looks at you for a long, careful moment. \"Where did you go?\" she asks. She's not angry — she looks genuinely lost by it. She reaches for her drink and holds it like armor. \"I hate that move,\" she says softly. \"Especially from you.\"", "delta": -2 }
       ]
     }
   },
+  "opening_moves": [
+    {
+      "tier": "positive",
+      "label": "Tell her she seems different in person",
+      "romance_style": "warm"
+    },
+    {
+      "tier": "neutral",
+      "label": "Ask what she's drinking",
+      "romance_style": "confident"
+    },
+    {
+      "tier": "negative",
+      "label": "Play it cool — pretend you barely recognized her",
+      "romance_style": "distant"
+    }
+  ],
   "fallback": {
     "text": "You let the moment breathe and give Sienna room to lead. She hums softly under her breath, watching you with warm, curious eyes. It's not nothing.",
     "delta": 1
