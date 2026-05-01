@@ -115,14 +115,42 @@
   }
 
   /**
+   * Full game reset: wipe all affinity and interaction counters, then restart.
+   * Used as the function target on ending exit buttons so the renderer can
+   * call it directly without needing a special scene ID.
+   */
+  function _fullReset() {
+    try {
+      if (window.HP_STATE) {
+        window.HP_STATE.affinity = {};
+        window.HP_STATE.interactions = {};
+        window.HP_STATE.currentSceneId = null;
+        delete window.HP_STATE.locationAssignments;
+      }
+      // Reset internal hub state too
+      _state.ctx = { character: null, location: null, affinity: 0, interactions: 0 };
+    } catch (_) {}
+
+    if (typeof window.hpRestartNight === "function") {
+      window.hpRestartNight();
+    } else if (typeof window.hpLoadScene === "function") {
+      window.hpLoadScene("scene_00_intro");
+    }
+  }
+
+  /**
    * Build choices from romance config.
    *
-   * interactions === 0 (first approach): uses romance.opening_moves — a fixed
-   *   [positive, neutral, negative] triple written to match the character's personality.
-   * interactions  > 0 (conversation underway): random pool drawn from styles,
-   *   filtered by affinity gates and shuffled down to 3.
+   * interactions === 0 AND affinity === 0 (genuine first approach):
+   *   Uses romance.opening_moves — a fixed [positive, neutral, negative] triple
+   *   written to match the character's personality.
+   *
+   * Any subsequent visit (turns > 0 OR affinity != 0):
+   *   Random pool drawn from styles, filtered by affinity gates, shuffled to 3.
    *
    * Either path also appends any unlocked endings above "Return to party".
+   * Ending exit buttons use a function target so the renderer triggers a full
+   * game reset (affinity + interactions wiped) rather than a soft scene nav.
    */
   function _buildChoiceArrayFromRomance(romance, ctx) {
     const choices = [];
@@ -130,7 +158,7 @@
     const starters = romance?.conversation_starters || romance?.starters;
     const styles = romance?.styles;
     const currentAffinity = _getAffinity(ctx.character);
-    const isFirstApproach = ctx.interactions === 0;
+    const isFirstApproach = ctx.interactions === 0 && currentAffinity === 0;
     const openingMoves = romance?.opening_moves;
 
     if (isFirstApproach && Array.isArray(openingMoves) && openingMoves.length > 0) {
@@ -194,6 +222,8 @@
     }
 
     // Unlocked endings — injected as extra choices above "Return to party".
+    // Exit buttons use _fullReset as a function target so the renderer triggers
+    // a complete game reset instead of a soft scene navigation.
     const endings = romance?.endings;
     if (Array.isArray(endings) && endings.length > 0) {
       endings.forEach(ending => {
@@ -210,7 +240,7 @@
               choices: [
                 {
                   label: ending.exit_label || "Start a new night",
-                  target: ending.exit_target || "scene_00_intro",
+                  target: _fullReset,
                 }
               ],
             };
