@@ -27,8 +27,7 @@
     return Number.isFinite(x) ? x : fallback;
   }
 
-  // FIX 1: Read affinity from HP_STATE first (the authoritative store).
-  // The old version tried StoryEngine.getAffinity() which doesn't exist, always returning 0.
+  // Read affinity from HP_STATE first (the authoritative store).
   function _getAffinity(characterId) {
     try {
       if (window.HP_STATE) {
@@ -39,7 +38,6 @@
           return _safeNumber(window.HP_STATE.affinity[characterId], 0);
         }
       }
-      // Legacy fallbacks
       if (window.StoryEngine && typeof window.StoryEngine.getAffinity === "function") {
         return _safeNumber(window.StoryEngine.getAffinity(characterId), 0);
       }
@@ -71,10 +69,7 @@
   }
 
   /**
-   * Resolve the romance config for a character. We support a few shapes:
-   * - window.HP_STATE.romance[characterId]
-   * - window.HP_ROMANCE[characterId]
-   * - A scene object in StoryEngine.scenes under `romance_${characterId}`
+   * Resolve the romance config for a character.
    */
   function _getRomanceConfig(characterId) {
     try {
@@ -99,18 +94,38 @@
   }
 
   /**
-   * FIX 2: Build choices from 'styles' when 'conversation_starters' isn't present.
-   * The old version only read conversation_starters, but all romance.json files use 'styles',
-   * so the hub always generated zero choices (just "Return to party").
+   * Returns the delta a style would apply at the given affinity WITHOUT applying it.
+   * Used to annotate choice labels in debug mode.
+   */
+  function _peekDelta(romance, styleKey, affinity) {
+    const style = romance?.styles?.[styleKey];
+    if (!style) return _safeNumber(romance?.fallback?.delta, 0);
+    const band = Array.isArray(style.reactions)
+      ? style.reactions.find(
+          r =>
+            affinity >= _safeNumber(r.min_affinity, -Infinity) &&
+            affinity <= _safeNumber(r.max_affinity, Infinity)
+        ) || style.reactions[0]
+      : null;
+    return _safeNumber(band?.delta, 0);
+  }
+
+  function _isDebug() {
+    return !!window.HP_CONFIG?.DEBUG_MODE;
+  }
+
+  /**
+   * Build choices from 'styles' (primary) or legacy 'conversation_starters'.
+   * Also appends any unlocked endings from romance.endings based on current affinity.
    */
   function _buildChoiceArrayFromRomance(romance, ctx) {
     const choices = [];
 
     const starters = romance?.conversation_starters || romance?.starters;
     const styles = romance?.styles;
+    const currentAffinity = _getAffinity(ctx.character);
 
     if (starters && typeof starters === "object") {
-      // Legacy format: conversation_starters
       for (const starter of Object.values(starters)) {
         choices.push({
           label: starter.label,
@@ -118,49 +133,72 @@
             type: "romance",
             romance_style: starter.romance_style,
             delta: Number(starter.delta ?? starter.affinity_delta ?? 0),
-            next:
-              starter.next ??
-              starter.scene ??
-              romance.default_next ??
-              null,
+            next: starter.next ?? starter.scene ?? romance.default_next ?? null,
           },
         });
       }
     } else if (styles && typeof styles === "object") {
-      // Filter pool by affinity. Styles can declare min_affinity / max_affinity to gate
-      // when they appear. Styles without thresholds are always available.
-      // TODO (future): also filter by ctx.location when style.locations is defined.
-      const currentAffinity = _getAffinity(ctx.character);
-      const fullPool = Object.entries(styles).map(([styleKey, styleData]) => ({
-        label: styleData.label || styleKey,
-        minAff: styleData.min_affinity !== undefined ? styleData.min_affinity : -Infinity,
-        maxAff: styleData.max_affinity !== undefined ? styleData.max_affinity : Infinity,
-        target: { type: "romance", romance_style: styleKey, character: ctx.character },
-      }));
+      const fullPool = Object.entries(styles).map(([styleKey, styleData]) => {
+        const baseLabel = styleData.label || styleKey;
+        let label = baseLabel;
+        if (_isDebug()) {
+          const d = _peekDelta(romance, styleKey, currentAffinity);
+          label = `${baseLabel}  [${d >= 0 ? "+" : ""}${d}]`;
+        }
+        return {
+          label,
+          minAffinity: styleData.min_affinity ?? -Infinity,
+          maxAffinity: styleData.max_affinity ?? Infinity,
+          target: {
+            type: "romance",
+            romance_style: styleKey,
+            character: ctx.character,
+          },
+        };
+      });
 
-      let pool = fullPool.filter(s => currentAffinity >= s.minAff && currentAffinity <= s.maxAff);
-      if (pool.length === 0) pool = fullPool; // safety: never strand the player
+      let pool = fullPool.filter(
+        s => currentAffinity >= s.minAffinity && currentAffinity <= s.maxAffinity
+      );
+      if (pool.length === 0) pool = fullPool;
 
-      // Shuffle and pick 3. As affinity grows, the eligible pool shifts.
       const shuffled = pool.slice().sort(() => Math.random() - 0.5);
       shuffled.slice(0, Math.min(3, shuffled.length)).forEach(c => choices.push(c));
     }
 
-    // Ending unlock — surfaces when affinity crosses the romance.ending threshold.
-    // The ending option appears above "Return to party" and routes to a scene directly.
-    if (romance?.ending) {
-      const endingMinAff = romance.ending.min_affinity !== undefined
-        ? romance.ending.min_affinity : Infinity;
-      const currentAff = styles ? _getAffinity(ctx.character) : 0;
-      if (currentAff >= endingMinAff) {
-        choices.push({
-          label: romance.ending.label || "Share a private moment",
-          target: romance.ending.scene || "scene_success_end",
-        });
-      }
+    // Unlocked endings — injected as extra choices above "Return to party".
+    const endings = romance?.endings;
+    if (Array.isArray(endings) && endings.length > 0) {
+      endings.forEach(ending => {
+        const threshold = _safeNumber(ending.min_affinity, Infinity);
+        if (currentAffinity >= threshold && ending.id) {
+          if (window.StoryEngine?.scenes) {
+            window.StoryEngine.scenes[ending.id] = {
+              title: ending.title || ending.label || "The End",
+              text: ending.text || "",
+              image: ending.image ||
+                (ctx.character && ctx.location
+                  ? `${ctx.character}_${ctx.location}_01.jpg`
+                  : null),
+              choices: [
+                {
+                  label: ending.exit_label || "Start a new night",
+                  target: ending.exit_target || "scene_00_intro",
+                }
+              ],
+            };
+          }
+          const endingLabel = _isDebug() && ending.tier
+            ? `${ending.label}  [${ending.tier} ending]`
+            : ending.label;
+          choices.push({
+            label: endingLabel,
+            target: ending.id,
+          });
+        }
+      });
     }
 
-    // Always allow escape
     choices.push({
       label: "Return to party",
       target: romance?.return_to_party ?? _fallbackNextSceneId(),
@@ -170,8 +208,23 @@
   }
 
   /**
-   * Create the actual injected hub scene object.
-   * This is what renderer will render when currentSceneId === "__hub__".
+   * Returns the affinity-appropriate scene-setter text from romance.context_states.
+   */
+  function _getContextText(romance, affinity) {
+    const states = romance?.context_states;
+    if (Array.isArray(states) && states.length > 0) {
+      const match = states.find(s => {
+        const min = s.min_affinity ?? -Infinity;
+        const max = s.max_affinity ?? Infinity;
+        return affinity >= min && affinity <= max;
+      });
+      if (match?.text) return match.text;
+    }
+    return romance?.prompt || romance?.description || "";
+  }
+
+  /**
+   * Create the injected hub scene object.
    */
   function buildHubScene() {
     const ctx = getContext();
@@ -192,23 +245,19 @@
       romance?.title ||
       (firstName && locName ? `${firstName} — ${locName}` : firstName || "Hub");
 
+    const affinity = _getAffinity(ctx.character);
     const text =
-      romance?.description ||
-      romance?.text ||
-      romance?.prompt ||
+      _getContextText(romance, affinity) ||
       "Choose how you want to approach. Your choices shape the vibe of the night.";
 
-    // Pick a random image from the manifest for this character + location.
-    // Manifest paths already include the "images/" folder prefix — use them as-is.
-    // Falls back to naming convention if the combo isn't in the manifest.
     let image = romance?.images?.[ctx.location] || romance?.image || null;
     if (!image && ctx.character && ctx.location) {
-      const manifestPool =
-        window.HP_STATE?.images?.[ctx.character]?.[ctx.location];
+      const manifestPool = window.HP_STATE?.images?.[ctx.character]?.[ctx.location];
       if (Array.isArray(manifestPool) && manifestPool.length > 0) {
-        image = manifestPool[Math.floor(Math.random() * manifestPool.length)];
+        const picked = manifestPool[Math.floor(Math.random() * manifestPool.length)];
+        image = picked.replace(/^images\//, "");
       } else {
-        image = "images/" + ctx.character + "_" + ctx.location + "_01.jpg";
+        image = `${ctx.character}_${ctx.location}_01.jpg`;
       }
     }
 
@@ -222,18 +271,10 @@
 
   /**
    * Enter hub mode for a character & location.
-   * - Updates HubEngine context
-   * - Injects a synthetic scene into StoryEngine.scenes under "__hub__"
-   * - Switches HP_STATE.currentSceneId to "__hub__" so renderer can redraw
    */
   function enter(characterId, locationId) {
     const affinity = _getAffinity(characterId);
-    setContext({
-      character: characterId,
-      location: locationId,
-      affinity,
-      interactions: 0, // reset on first approach
-    });
+    setContext({ character: characterId, location: locationId, affinity, interactions: 0 });
 
     try {
       const scene = buildHubScene();
@@ -251,17 +292,7 @@
   }
 
   /**
-   * FIX 3 & 4: applyChoice — the missing link between a player picking a style and
-   * the affinity system actually responding.
-   *
-   * What it does:
-   *   1. Reads current affinity from HP_STATE for this character
-   *   2. Finds the matching reaction band from romance.styles[styleKey].reactions
-   *   3. Applies the reaction's delta to HP_STATE
-   *   4. Increments the interaction counter (without resetting hub context)
-   *   5. Rebuilds the hub scene with the reaction text as the new scene text
-   *   6. Re-injects the updated scene so hpRenderScene("__hub__") picks it up
-   *   7. Returns HUB_SCENE_ID so the renderer knows what to render next
+   * applyChoice — wires a player style pick through the full reaction/delta pipeline.
    */
   function applyChoice(characterId, styleKey) {
     const romance = _getRomanceConfig(characterId);
@@ -276,14 +307,12 @@
     let delta = 0;
 
     if (!style) {
-      // Style key not found — use romance-level fallback
       const fallback = romance.fallback;
       reactionText = fallback?.text ?? "";
       delta = _safeNumber(fallback?.delta, 0);
     } else {
       const affinity = _getAffinity(characterId);
 
-      // Find the reaction band whose min_affinity/max_affinity range contains current affinity
       let reaction = null;
       if (Array.isArray(style.reactions)) {
         reaction = style.reactions.find(
@@ -291,7 +320,6 @@
             affinity >= _safeNumber(r.min_affinity, -Infinity) &&
             affinity <= _safeNumber(r.max_affinity, Infinity)
         );
-        // If no band matched, use the first one as a safe fallback
         if (!reaction) reaction = style.reactions[0];
       }
 
@@ -305,23 +333,20 @@
       }
     }
 
-    // Apply delta and increment interaction count in HP_STATE
     if (window.HP_STATE) {
-      if (typeof HP_STATE.modifyAffinity === "function") {
-        HP_STATE.modifyAffinity(characterId, delta);
-      } else if (HP_STATE.affinity) {
-        HP_STATE.affinity[characterId] = (HP_STATE.affinity[characterId] ?? 0) + delta;
+      if (typeof window.HP_STATE.modifyAffinity === "function") {
+        window.HP_STATE.modifyAffinity(characterId, delta);
+      } else if (window.HP_STATE.affinity) {
+        window.HP_STATE.affinity[characterId] = (window.HP_STATE.affinity[characterId] ?? 0) + delta;
       }
-      if (typeof HP_STATE.incrementInteractions === "function") {
-        HP_STATE.incrementInteractions(characterId);
+      if (typeof window.HP_STATE.incrementInteractions === "function") {
+        window.HP_STATE.incrementInteractions(characterId);
       }
     }
 
-    // Update internal hub context — increment, don't reset
     _state.ctx.interactions += 1;
     _state.ctx.affinity += delta;
 
-    // Rebuild the hub scene with the reaction text and fresh style choices
     const scene = buildHubScene();
     scene.text = reactionText || scene.text;
 
@@ -342,6 +367,6 @@
     getContext,
     buildHubScene,
     enter,
-    applyChoice,  // NEW: wires style choices through reaction lookup + delta application
+    applyChoice,
   };
 })();
