@@ -49,7 +49,7 @@
           "min_affinity": 0,
           "max_affinity": 2,
           "text": "Your boldness lands clean. Sienna's eyes flash with something quick and pleased — she likes being surprised by directness. She leans forward slightly, matching the energy. \"Okay,\" she says, grinning slowly. \"I like where this is going.\" The air between you sharpens up a little.",
-          "delta": 2
+          "delta": 1
         },
         {
           "min_affinity": 3,
@@ -148,13 +148,13 @@
           "min_affinity": -2,
           "max_affinity": -1,
           "text": "You hold the look longer than most people do. She notices — her chin lifts slightly, reassessing. She's not sure what to make of you yet, but she's no longer dismissing anything. \"Interesting,\" she says quietly. Not a compliment exactly. Not nothing either. She holds her ground right back.",
-          "delta": 1
+          "delta": 0
         },
         {
           "min_affinity": 0,
           "max_affinity": 2,
           "text": "You meet her gaze and don't move away from it. A beat passes. Two. Sienna's mouth curves slowly at the corner — genuinely impressed, or the closest thing to it. \"Okay,\" she murmurs. \"I see you.\" Something has noticeably shifted in how she's standing.",
-          "delta": 2
+          "delta": 0
         },
         {
           "min_affinity": 3,
