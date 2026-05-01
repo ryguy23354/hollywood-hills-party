@@ -354,4 +354,46 @@
         const fallback = romance.fallback;
         reactionText = fallback?.text ?? "";
         delta = _safeNumber(fallback?.delta, 0);
- 
+      } else {
+        reactionText = reaction.text ?? "";
+        delta = _safeNumber(reaction.delta, 0);
+      }
+    }
+
+    if (window.HP_STATE) {
+      if (typeof window.HP_STATE.modifyAffinity === "function") {
+        window.HP_STATE.modifyAffinity(characterId, delta);
+      } else if (window.HP_STATE.affinity) {
+        window.HP_STATE.affinity[characterId] = (window.HP_STATE.affinity[characterId] ?? 0) + delta;
+      }
+      if (typeof window.HP_STATE.incrementInteractions === "function") {
+        window.HP_STATE.incrementInteractions(characterId);
+      }
+    }
+
+    _state.ctx.interactions += 1;
+    _state.ctx.affinity += delta;
+
+    const scene = buildHubScene();
+    scene.text = reactionText || scene.text;
+
+    if (window.StoryEngine?.scenes) {
+      window.StoryEngine.scenes[HUB_SCENE_ID] = scene;
+    }
+    if (window.HP_STATE) {
+      window.HP_STATE.currentSceneId = HUB_SCENE_ID;
+    }
+
+    return HUB_SCENE_ID;
+  }
+
+  // Public API
+  window.HubEngine = {
+    HUB_SCENE_ID,
+    setContext,
+    getContext,
+    buildHubScene,
+    enter,
+    applyChoice,
+  };
+})();
