@@ -115,8 +115,14 @@
   }
 
   /**
-   * Build choices from 'styles' (primary) or legacy 'conversation_starters'.
-   * Also appends any unlocked endings from romance.endings based on current affinity.
+   * Build choices from romance config.
+   *
+   * interactions === 0 (first approach): uses romance.opening_moves — a fixed
+   *   [positive, neutral, negative] triple written to match the character's personality.
+   * interactions  > 0 (conversation underway): random pool drawn from styles,
+   *   filtered by affinity gates and shuffled down to 3.
+   *
+   * Either path also appends any unlocked endings above "Return to party".
    */
   function _buildChoiceArrayFromRomance(romance, ctx) {
     const choices = [];
@@ -124,8 +130,29 @@
     const starters = romance?.conversation_starters || romance?.starters;
     const styles = romance?.styles;
     const currentAffinity = _getAffinity(ctx.character);
+    const isFirstApproach = ctx.interactions === 0;
+    const openingMoves = romance?.opening_moves;
 
-    if (starters && typeof starters === "object") {
+    if (isFirstApproach && Array.isArray(openingMoves) && openingMoves.length > 0) {
+      // Fixed opening triple — guaranteed positive / neutral / negative variety.
+      openingMoves.forEach(move => {
+        const baseLabel = move.label;
+        let label = baseLabel;
+        if (_isDebug()) {
+          const d = _peekDelta(romance, move.romance_style, currentAffinity);
+          label = `${baseLabel}  [${d >= 0 ? "+" : ""}${d}]`;
+          if (move.tier) label += ` {${move.tier}}`;
+        }
+        choices.push({
+          label,
+          target: {
+            type: "romance",
+            romance_style: move.romance_style,
+            character: ctx.character,
+          },
+        });
+      });
+    } else if (starters && typeof starters === "object") {
       for (const starter of Object.values(starters)) {
         choices.push({
           label: starter.label,
@@ -327,46 +354,4 @@
         const fallback = romance.fallback;
         reactionText = fallback?.text ?? "";
         delta = _safeNumber(fallback?.delta, 0);
-      } else {
-        reactionText = reaction.text ?? "";
-        delta = _safeNumber(reaction.delta, 0);
-      }
-    }
-
-    if (window.HP_STATE) {
-      if (typeof window.HP_STATE.modifyAffinity === "function") {
-        window.HP_STATE.modifyAffinity(characterId, delta);
-      } else if (window.HP_STATE.affinity) {
-        window.HP_STATE.affinity[characterId] = (window.HP_STATE.affinity[characterId] ?? 0) + delta;
-      }
-      if (typeof window.HP_STATE.incrementInteractions === "function") {
-        window.HP_STATE.incrementInteractions(characterId);
-      }
-    }
-
-    _state.ctx.interactions += 1;
-    _state.ctx.affinity += delta;
-
-    const scene = buildHubScene();
-    scene.text = reactionText || scene.text;
-
-    if (window.StoryEngine?.scenes) {
-      window.StoryEngine.scenes[HUB_SCENE_ID] = scene;
-    }
-    if (window.HP_STATE) {
-      window.HP_STATE.currentSceneId = HUB_SCENE_ID;
-    }
-
-    return HUB_SCENE_ID;
-  }
-
-  // Public API
-  window.HubEngine = {
-    HUB_SCENE_ID,
-    setContext,
-    getContext,
-    buildHubScene,
-    enter,
-    applyChoice,
-  };
-})();
+ 
