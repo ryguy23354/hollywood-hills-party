@@ -6,7 +6,7 @@
     {
       "min_affinity": -10,
       "max_affinity": -1,
-      "text": "Mara is half-turned toward the window, wine glass held loosely. She notices you but doesn't move toward you — just watches with that quiet, patient look of someone who has learned not to rush anything."
+      "text": "Mara is half-turned toward the window, wine glass held loosely. She notices you but doesn't move toward you \u2014 just watches with that quiet, patient look of someone who has learned not to rush anything."
     },
     {
       "min_affinity": 0,
@@ -16,7 +16,7 @@
     {
       "min_affinity": 4,
       "max_affinity": 20,
-      "text": "Mara's expression opens the moment she sees you — a small, private smile that she makes no effort to hide. She shifts to face you fully, like you are the only interesting thing in the room. \"Hi,\" she says simply. The word carries more than it should."
+      "text": "Mara's expression opens the moment she sees you \u2014 a small, private smile that she makes no effort to hide. She shifts to face you fully, like you are the only interesting thing in the room. \"Hi,\" she says simply. The word carries more than it should."
     }
   ],
   "opening_moves": [
@@ -44,19 +44,19 @@
           "min_affinity": -10,
           "max_affinity": -1,
           "text": "You close the gap a little too quickly. Mara's lips curve in a polite, amused smile as she takes half a breath to recalibrate. \"You are very direct,\" she says gently. \"I am still catching up.\"",
-          "delta": 1
+          "delta": -2
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You move closer in a way that is confident but not aggressive, letting her decide if she meets you. She does, gaze dipping briefly to your mouth before returning to your eyes. \"That is better,\" she murmurs. \"I like steady boldness.\"",
-          "delta": 2
+          "delta": -1
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "You let the silence between you thicken just enough to feel like a promise. Mara's hand brushes your arm, fingers lingering. \"You know,\" she says, voice barely above a whisper, \"you make it very easy to forget there is a whole party behind us.\"",
-          "delta": 3
+          "delta": 0
         }
       ]
     },
@@ -90,24 +90,24 @@
           "min_affinity": -10,
           "max_affinity": -1,
           "text": "You try a light tease that comes out a little awkward. Mara covers it with a quiet laugh and a reassuring touch to your forearm. \"It is okay,\" she says. \"I like awkward. It means you care.\"",
-          "delta": 1
+          "delta": 0
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You slip a soft, clever joke into the space between you. Mara's eyes brighten with quiet delight. \"There it is,\" she smiles. \"I knew you had a little trouble in you.\"",
-          "delta": 2
+          "delta": 0
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "You tease her in a way that is gentle but undeniably suggestive, then watch for her reaction. Mara's lips curve into a small, knowing smirk. \"You are very good at pretending you are not flirting,\" she murmurs. \"I promise I noticed.\"",
-          "delta": 2
+          "delta": 1
         }
       ]
     },
     "slow": {
-      "label": "Let her set the pace — follow her rhythm",
+      "label": "Let her set the pace \u2014 follow her rhythm",
       "reactions": [
         {
           "min_affinity": -10,
