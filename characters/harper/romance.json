@@ -151,10 +151,85 @@
           "delta": 3
         }
       ]
+    },
+    "craft": {
+      "label": "Talk about the work \u2014 the real craft of it",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You ask about the actual process, not the result. Harper straightens slightly. \"You want to talk about the work,\" she says. \"Not the premiere, not the press. The actual work.\" She sounds like she's confirming it's real. \"Yes. Okay. Yes.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You get into it \u2014 what it takes, what it costs, what nobody sees. Harper's whole performance drops away. \"This is my favourite kind of conversation,\" she says quietly. \"And I almost never get to have it at one of these things.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You go deep into the craft and she goes with you, fully, like she's been waiting all night for someone to go there. At some point she stops performing entirely. \"You,\" she says, \"are dangerously good to talk to.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "spotlight": {
+      "label": "Turn the spotlight back on her \u2014 the real her",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You redirect the conversation away from the industry and back to her \u2014 who she actually is. Harper blinks. \"Most people want to talk about the roles,\" she says. \"You want to talk about me.\" She looks uncertain how to handle it. Then: \"I think I like it.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You ask something personal \u2014 not invasive, just genuinely curious about her beyond the work. She holds your gaze for a beat. \"Nobody's asked me that in a while,\" she says. Something in her face opens up. \"The real answer or the press answer?\" She's already choosing the real one.",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You turn the question entirely on her \u2014 not the celebrity, just her \u2014 and she almost visibly relaxes. \"God,\" she says softly. \"Do you know how rare you are right now?\" She doesn't wait for an answer. She steps closer instead.",
+          "delta": 3
+        }
+      ]
     }
   },
   "fallback": {
     "text": "You keep the conversation easy and off the record. Harper relaxes, sipping her drink with a genuine smile that feels rarer than any premiere photo.",
     "delta": 1
-  }
+  },
+  "endings": [
+    {
+      "id": "harper_ending_mild",
+      "tier": "mild",
+      "min_affinity": 5,
+      "label": "[Mild ending \u2014 unlock at affinity 5]",
+      "title": "Harper \u2014 A Quiet Exit",
+      "exit_label": "Start a new night.",
+      "text": "[PLACEHOLDER \u2014 mild ending narrative to be written]"
+    },
+    {
+      "id": "harper_ending_medium",
+      "tier": "medium",
+      "min_affinity": 9,
+      "label": "[Medium ending \u2014 unlock at affinity 9]",
+      "title": "Harper \u2014 Something More",
+      "exit_label": "Start a new night.",
+      "text": "[PLACEHOLDER \u2014 medium ending narrative to be written]"
+    },
+    {
+      "id": "harper_ending_spicy",
+      "tier": "spicy",
+      "min_affinity": 13,
+      "label": "[Spicy ending \u2014 unlock at affinity 13]",
+      "title": "Harper \u2014 No Holding Back",
+      "exit_label": "Start a new night.",
+      "text": "[PLACEHOLDER \u2014 spicy ending narrative to be written]"
+    }
+  ]
 }
