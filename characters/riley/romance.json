@@ -197,6 +197,75 @@
           "delta": 3
         }
       ]
+    },
+    "compete": {
+      "label": "Turn something ordinary into a competition",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "The challenge is a bit forced but she grins anyway. \"I see what you're doing,\" she says. \"It's not subtle. I kind of love that it's not subtle.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You turn the smallest thing into a contest and she lights up immediately. \"Now we're talking,\" she says, stepping closer. \"What are the stakes?\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You make a game of something ridiculous and she's in before you finish the sentence. \"You,\" she says, laughing, \"are my exact kind of problem.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "acknowledge": {
+      "label": "Give her credit for something most people overlook",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You name the thing nobody notices and she goes still. \"You did your homework,\" she says carefully. \"Or you actually pay attention.\" She's deciding which.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You call out the specific, unglamorous thing she worked hardest for. Riley's whole face shifts. \"That's the part I'm actually proud of,\" she says quietly. \"Almost nobody mentions that.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "She grabs your arm. \"Okay \u2014 how. How do you know that?\" She's beaming, off-balance in the best way. \"You see the actual work. Do you know how rare that is?\"",
+          "delta": 3
+        }
+      ]
+    },
+    "curious": {
+      "label": "Ask what she's actually thinking right now",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "The directness catches her mid-performance. She blinks. \"Honestly? That you might be more interesting than I gave you credit for.\" She looks like that surprised her too.",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "She goes quiet for a second \u2014 actually checking. \"Right now? I'm thinking this is the most interesting conversation I've had all night.\" She says it plainly, no spin. \"Don't ruin it.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "She laughs, then stops, then actually answers. \"Right now I'm thinking I don't want this to be a party thing,\" she says. \"That's what I'm actually thinking.\" She holds your gaze steadily.",
+          "delta": 3
+        }
+      ]
     }
   },
   "fallback": {

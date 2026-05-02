@@ -197,6 +197,75 @@
           "delta": 3
         }
       ]
+    },
+    "mirror": {
+      "label": "Reflect something back she didn't say out loud",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You name the thing under the surface and she goes very still. \"You picked that up,\" she says. Not quite a question. She looks at you like something has shifted.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You say the thing she was feeling but hadn't put into words. Luna exhales slowly. \"How did you \u2014\" She stops. \"That was exactly it,\" she says quietly. \"That was the exact thing.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "She turns to look at you fully, something almost startled in her expression. \"You see people,\" she says softly. \"Actually see them. That's not common.\" She doesn't step away. She steps closer.",
+          "delta": 3
+        }
+      ]
+    },
+    "drift": {
+      "label": "Follow where the conversation wants to go",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You stop steering and just let it move. Luna notices the shift \u2014 her posture loosens slightly. \"You're not trying to go anywhere specific,\" she observes. \"That's refreshing.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You let the conversation wander without trying to land it anywhere. Luna drifts with it, and somewhere in the middle she says something she clearly hadn't planned to. She seems pleased about that.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You give up the wheel entirely and let her take it wherever it goes. Luna leads you somewhere unexpected \u2014 a tangent, a memory, a quiet confession. \"I don't do this with most people,\" she murmurs. \"Talk like this.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "notice": {
+      "label": "Name something beautiful you've both been ignoring",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You point out something in the room or the night that nobody else has mentioned. Luna looks. \"I had been looking at that,\" she says. \"I didn't think anyone else was.\" A quiet bridge forms.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You name the thing that's been there the whole time. Luna turns to look, then turns back to you. \"You see things in the background,\" she says. \"I do that too. It's a lonely habit.\" She doesn't sound lonely when she says it.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You draw her attention to something small and lit and she looks, then looks back at you with an expression you can't entirely read. \"The fact that you noticed that,\" she says softly, \"tells me everything I needed to know about you.\"",
+          "delta": 3
+        }
+      ]
     }
   },
   "fallback": {

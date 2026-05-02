@@ -19,6 +19,7 @@
       location: null,
       affinity: 0,
       interactions: 0,
+      lastStyle: null,
     },
   };
 
@@ -52,6 +53,7 @@
     if (!_state.ctx) return;
     _state.ctx.interactions += 1;
     _state.ctx.affinity += delta;
+    _state.ctx.lastStyle = styleKey;
   }
 
   function setContext(partial) {
@@ -61,6 +63,7 @@
       location: partial.location ?? _state.ctx.location,
       affinity: _safeNumber(partial.affinity ?? _state.ctx.affinity, 0),
       interactions: _safeNumber(partial.interactions ?? _state.ctx.interactions, 0),
+      lastStyle: "lastStyle" in partial ? partial.lastStyle : _state.ctx.lastStyle,
     };
   }
 
@@ -202,6 +205,7 @@
 
       const fullPool = Object.entries(styles)
         .filter(([styleKey]) => !openingStyleKeys.has(styleKey))
+        .filter(([styleKey]) => styleKey !== ctx.lastStyle)  // no repeat picks
         .map(([styleKey, styleData]) => {
         const baseLabel = styleData.label || styleKey;
         let label = baseLabel;
@@ -340,7 +344,7 @@
    */
   function enter(characterId, locationId) {
     const affinity = _getAffinity(characterId);
-    setContext({ character: characterId, location: locationId, affinity, interactions: 0 });
+    setContext({ character: characterId, location: locationId, affinity, interactions: 0, lastStyle: null });
 
     try {
       const scene = buildHubScene();
@@ -412,6 +416,7 @@
 
     _state.ctx.interactions += 1;
     _state.ctx.affinity += delta;
+    _state.ctx.lastStyle = styleKey;
 
     const scene = buildHubScene();
     scene.text = reactionText || scene.text;
