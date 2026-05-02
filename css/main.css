@@ -76,18 +76,20 @@
    /* main.css */
 	#sceneImage {
 	  width: 100%;
-	  height: auto;
+	  height: 100%;
 	  display: block;
+	  object-fit: cover;
+	  object-position: center top; /* favour faces/upper body over cropping the top */
 	  border-radius: 14px;
 	}
 
 	/* this is the section to scale the scene images */
 	#sceneImageContainer {
 	  width: 100%;
-	  max-width: 1200px; /* keep if you want column control */
+	  max-width: 1200px;
+	  max-height: 42vh;   /* cap height so choices are always visible without scrolling */
 	  margin: 0 auto 20px auto;
-
-	  /* IMPORTANT: allow image to define height */
+	  overflow: hidden;
 	  border-radius: 14px;
 	}
 
@@ -276,11 +278,4 @@
       right: 14px;
       font-size: 1.4rem;
       background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      opacity: 0.75;
-    }
-    .modal-close:hover {
-      opacity: 1;
-    }
+      border
