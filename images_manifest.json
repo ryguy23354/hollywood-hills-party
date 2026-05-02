@@ -25,7 +25,6 @@
             "images/sienna_pool_02.jpg"
         ]
     },
-
     "harper": {
         "bar": [
             "images/harper_bar_01.jpg",
@@ -52,7 +51,6 @@
             "images/harper_pool_02.jpg"
         ]
     },
-
     "luna": {
         "bar": [
             "images/luna_bar_01.jpg",
@@ -80,7 +78,6 @@
             "images/luna_pool_03.jpg"
         ]
     },
-
     "mara": {
         "bar": [
             "images/mara_bar_01.jpg",
@@ -106,7 +103,6 @@
             "images/mara_pool_01.jpg"
         ]
     },
-
     "riley": {
         "bar": [
             "images/riley_bar_01.jpg",
@@ -114,4 +110,24 @@
             "images/riley_bar_03.jpg"
         ],
         "balcony": [
-            "images/riley_balcony
+            "images/riley_balcony_01.jpg",
+            "images/riley_balcony_02.jpg",
+            "images/riley_balcony_03.jpg"
+        ],
+        "lounge": [
+            "images/riley_lounge_01.jpg",
+            "images/riley_lounge_02.jpg",
+            "images/riley_lounge_03.jpg"
+        ],
+        "gameloft": [
+            "images/riley_gameloft_01.jpg",
+            "images/riley_gameloft_02.jpg",
+            "images/riley_gameloft_03.jpg"
+        ],
+        "pool": [
+            "images/riley_pool_01.jpg",
+            "images/riley_pool_02.jpg",
+            "images/riley_pool_03.jpg"
+        ]
+    }
+}

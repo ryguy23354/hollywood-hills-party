@@ -311,8 +311,8 @@
     if (!image && ctx.character && ctx.location) {
       const manifestPool = window.HP_STATE?.images?.[ctx.character]?.[ctx.location];
       if (Array.isArray(manifestPool) && manifestPool.length > 0) {
-        // Use the path exactly as stored in the manifest (already includes "images/" prefix)
-        image = manifestPool[Math.floor(Math.random() * manifestPool.length)];
+        const picked = manifestPool[Math.floor(Math.random() * manifestPool.length)];
+        image = picked; // keep full "images/" prefix from manifest
       } else {
         image = `images/${ctx.character}_${ctx.location}_01.jpg`;
       }
@@ -422,4 +422,8 @@
     HUB_SCENE_ID,
     setContext,
     getContext,
-    bu
+    buildHubScene,
+    enter,
+    applyChoice,
+  };
+})();
