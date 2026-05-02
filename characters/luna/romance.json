@@ -151,10 +151,85 @@
           "delta": 3
         }
       ]
+    },
+    "memory": {
+      "label": "Share something you've been quietly holding onto",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You offer up something small and personal, unprompted. Luna's eyes shift \u2014 a flicker of real attention where there was only polite distance before. \"You carry that with you,\" she says softly. \"I can tell.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You say the quiet thing out loud. Luna stills completely. Then, slowly, she turns toward you. \"That's not what most people lead with,\" she murmurs. \"I'm glad you did.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You offer the thing you don't usually say and she receives it like something fragile and important. Her hand finds your sleeve, barely touching. \"Thank you for that,\" she says. \"I mean it.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "question": {
+      "label": "Ask her something no one else would think to ask",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "The question is unexpected enough that she has to actually pause. Luna tilts her head, looking at you differently. \"That's a strange thing to ask,\" she says. \"In a good way. I don't have a rehearsed answer.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "The question lands somewhere she wasn't prepared for. Luna is quiet for a moment \u2014 genuinely thinking. \"Nobody asks that,\" she says at last. \"I don't know if I have a real answer yet. Stay while I find one.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You ask the thing she's been waiting for someone to ask without knowing it. Luna breathes out slowly, eyes soft. \"You did that on purpose,\" she says. It's not a complaint. She moves close enough that the world narrows to just the two of you.",
+          "delta": 3
+        }
+      ]
     }
   },
   "fallback": {
     "text": "You let a comfortable silence settle, sharing the view rather than filling the air. Luna does not step away; if anything, she drifts half a step closer.",
     "delta": 1
-  }
+  },
+  "endings": [
+    {
+      "id": "luna_ending_mild",
+      "tier": "mild",
+      "min_affinity": 5,
+      "label": "[Mild ending \u2014 unlock at affinity 5]",
+      "title": "Luna \u2014 A Quiet Exit",
+      "exit_label": "Start a new night.",
+      "text": "[PLACEHOLDER \u2014 mild ending narrative to be written]"
+    },
+    {
+      "id": "luna_ending_medium",
+      "tier": "medium",
+      "min_affinity": 9,
+      "label": "[Medium ending \u2014 unlock at affinity 9]",
+      "title": "Luna \u2014 Something More",
+      "exit_label": "Start a new night.",
+      "text": "[PLACEHOLDER \u2014 medium ending narrative to be written]"
+    },
+    {
+      "id": "luna_ending_spicy",
+      "tier": "spicy",
+      "min_affinity": 13,
+      "label": "[Spicy ending \u2014 unlock at affinity 13]",
+      "title": "Luna \u2014 No Holding Back",
+      "exit_label": "Start a new night.",
+      "text": "[PLACEHOLDER \u2014 spicy ending narrative to be written]"
+    }
+  ]
 }

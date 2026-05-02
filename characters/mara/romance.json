@@ -151,10 +151,85 @@
           "delta": 3
         }
       ]
+    },
+    "listen": {
+      "label": "Let her fill the silence \u2014 just listen",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You stop filling the space and just let her. Mara notices. \"You're actually listening,\" she says after a moment, like it surprised her. \"Not waiting to talk. Listening.\" She settles into it.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You give her the room to go wherever she wants to go. Mara speaks slowly at first, then more freely. When she finishes she looks at you with quiet wonder. \"Thank you,\" she says. \"I didn't know I needed to say all of that.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You hold the space entirely open for her and she fills it in a way that feels like trust. When she trails off she reaches for your hand without looking. \"I feel like I've known you a long time,\" she murmurs. \"How is that possible?\"",
+          "delta": 3
+        }
+      ]
+    },
+    "confide": {
+      "label": "Say the thing you've been holding back",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You say it before you've fully decided to. Mara's expression softens immediately. \"That took something,\" she says gently. \"I'm glad you said it.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You let the held-back thing through and she receives it with both hands. \"You didn't have to tell me that,\" she says. \"That means you wanted to.\" Her voice is warm and very certain. \"I'm glad you did.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You say it and she looks at you like you just handed her something rare. \"Keep going,\" she whispers. \"Whatever you were about to say next. Keep going.\"",
+          "delta": 3
+        }
+      ]
     }
   },
   "fallback": {
     "text": "You keep things easy and let Mara guide the pace. She seems content to stand close, sharing a quiet pocket of calm in the middle of the party.",
     "delta": 1
-  }
+  },
+  "endings": [
+    {
+      "id": "mara_ending_mild",
+      "tier": "mild",
+      "min_affinity": 5,
+      "label": "[Mild ending \u2014 unlock at affinity 5]",
+      "title": "Mara \u2014 A Quiet Exit",
+      "exit_label": "Start a new night.",
+      "text": "[PLACEHOLDER \u2014 mild ending narrative to be written]"
+    },
+    {
+      "id": "mara_ending_medium",
+      "tier": "medium",
+      "min_affinity": 9,
+      "label": "[Medium ending \u2014 unlock at affinity 9]",
+      "title": "Mara \u2014 Something More",
+      "exit_label": "Start a new night.",
+      "text": "[PLACEHOLDER \u2014 medium ending narrative to be written]"
+    },
+    {
+      "id": "mara_ending_spicy",
+      "tier": "spicy",
+      "min_affinity": 13,
+      "label": "[Spicy ending \u2014 unlock at affinity 13]",
+      "title": "Mara \u2014 No Holding Back",
+      "exit_label": "Start a new night.",
+      "text": "[PLACEHOLDER \u2014 spicy ending narrative to be written]"
+    }
+  ]
 }
