@@ -6,7 +6,7 @@
     {
       "min_affinity": -10,
       "max_affinity": -1,
-      "text": "Luna is watching the room from its edge, drink untouched. She glances at you without hurry — a slow, assessing look that gives nothing away. The air around her has a particular stillness to it."
+      "text": "Luna is watching the room from its edge, drink untouched. She glances at you without hurry \u2014 a slow, assessing look that gives nothing away. The air around her has a particular stillness to it."
     },
     {
       "min_affinity": 0,
@@ -16,7 +16,7 @@
     {
       "min_affinity": 4,
       "max_affinity": 20,
-      "text": "Luna turns before you fully arrive, like she felt you coming. Her expression is open in a way she doesn't usually let it be in public. She doesn't say anything at first — just makes room for you in the quiet she carries around her."
+      "text": "Luna turns before you fully arrive, like she felt you coming. Her expression is open in a way she doesn't usually let it be in public. She doesn't say anything at first \u2014 just makes room for you in the quiet she carries around her."
     }
   ],
   "opening_moves": [
@@ -44,19 +44,19 @@
           "min_affinity": -10,
           "max_affinity": -1,
           "text": "You hold her eyes a little too firmly at first. Luna tilts her head, unreadable. After a beat, a small smile curves her lips. \"You do not flinch easily,\" she murmurs. \"I am still deciding if that is dangerous or intriguing.\"",
-          "delta": 1
+          "delta": 0
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You let silence do some of the talking, meeting her gaze without looking away. Luna's lashes lower, expression softening. \"Better,\" she says quietly. \"You understand stillness.\"",
-          "delta": 2
+          "delta": 0
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "You step into her orbit with slow, deliberate confidence, as if this has all the time in the world. Luna's fingers brush your wrist in a ghost of a touch. \"Stay right here,\" she whispers. \"You feel like a calm I have been missing.\"",
-          "delta": 3
+          "delta": 1
         }
       ]
     },
@@ -90,19 +90,19 @@
           "min_affinity": -10,
           "max_affinity": -1,
           "text": "You attempt a joke that is a bit louder than her mood. Luna's mouth twitches, and she rescues you with a small smile. \"You are sweet,\" she says. \"Just soften the edges.\"",
-          "delta": 1
+          "delta": -2
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You tease her in a hushed tone, keeping it gentle and almost conspiratorial. Her smile deepens, eyes fluttering briefly closed. \"That is better,\" she murmurs. \"You sound like you belong in this volume.\"",
-          "delta": 2
+          "delta": -1
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "You offer a whisper-light tease that lands as something between humor and intimacy. Luna's hand finds your forearm for just a moment. \"You are very good at this,\" she says. \"Dangerously so.\"",
-          "delta": 2
+          "delta": 0
         }
       ]
     },
@@ -130,7 +130,7 @@
       ]
     },
     "depth": {
-      "label": "Ask about her work — genuinely",
+      "label": "Ask about her work \u2014 genuinely",
       "reactions": [
         {
           "min_affinity": -10,

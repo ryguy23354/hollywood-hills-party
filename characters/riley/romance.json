@@ -6,7 +6,7 @@
     {
       "min_affinity": -10,
       "max_affinity": -1,
-      "text": "Riley is still moving even while standing still — weight shifting, eyes scanning the room. She glances at you with a quick, appraising look. The energy is there but it isn't aimed at you yet."
+      "text": "Riley is still moving even while standing still \u2014 weight shifting, eyes scanning the room. She glances at you with a quick, appraising look. The energy is there but it isn't aimed at you yet."
     },
     {
       "min_affinity": 0,
@@ -16,7 +16,7 @@
     {
       "min_affinity": 4,
       "max_affinity": 20,
-      "text": "Riley's whole posture opens up when she sees you coming. The restless energy she usually keeps pointed at the room shifts — suddenly it is all pointed at you. \"Hey,\" she says, like she's been waiting."
+      "text": "Riley's whole posture opens up when she sees you coming. The restless energy she usually keeps pointed at the room shifts \u2014 suddenly it is all pointed at you. \"Hey,\" she says, like she's been waiting."
     }
   ],
   "opening_moves": [
@@ -44,19 +44,19 @@
           "min_affinity": -10,
           "max_affinity": -1,
           "text": "You try to match her pace and overshoot a little. Riley laughs and taps your chest with the back of her hand. \"Easy, hotshot. I like chaos, not crash landings.\"",
-          "delta": 1
+          "delta": -2
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You toss out a daring line and step closer like it is the most natural thing in the world. Riley's eyes spark. \"Okay, you are fun,\" she grins. \"Do not slow down now.\"",
-          "delta": 2
+          "delta": -1
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "You lean in with a challenge that feels like the start of a game only the two of you know the rules to. Riley bites her lower lip, delighted. \"There it is,\" she says. \"That is the energy I train for.\"",
-          "delta": 3
+          "delta": 0
         }
       ]
     },
@@ -90,19 +90,19 @@
           "min_affinity": -10,
           "max_affinity": -1,
           "text": "You suggest a small challenge, but your wording comes out a bit tangled. Riley grins anyway. \"The pitch was messy, but I am listening,\" she teases. \"Try again.\"",
-          "delta": 1
+          "delta": 0
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You turn the moment into a playful bet with a simple, flirty prize. Riley lights up. \"Now we are talking,\" she laughs. \"I love a stake that matters.\"",
-          "delta": 2
+          "delta": 0
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "You raise the stakes on the game in a way that is still light but charged. Riley steps in so close that her laugh brushes your neck. \"You keep making it very hard for me to focus on anything else tonight.\"",
-          "delta": 2
+          "delta": 1
         }
       ]
     },
@@ -112,7 +112,7 @@
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You clock a small detail — the tape on her wrist, a chalk mark she missed — and mention it. Riley's brow goes up. \"You actually look,\" she says, pleasantly surprised. \"I appreciate that.\"",
+          "text": "You clock a small detail \u2014 the tape on her wrist, a chalk mark she missed \u2014 and mention it. Riley's brow goes up. \"You actually look,\" she says, pleasantly surprised. \"I appreciate that.\"",
           "delta": 2
         },
         {

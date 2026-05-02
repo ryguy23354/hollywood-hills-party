@@ -6,7 +6,7 @@
     {
       "min_affinity": -10,
       "max_affinity": -1,
-      "text": "Harper has the practiced ease of someone who has worked every room she has ever been in. She glances at you — a quick, professional read — and waits to see if you are worth the scene."
+      "text": "Harper has the practiced ease of someone who has worked every room she has ever been in. She glances at you \u2014 a quick, professional read \u2014 and waits to see if you are worth the scene."
     },
     {
       "min_affinity": 0,
@@ -16,7 +16,7 @@
     {
       "min_affinity": 4,
       "max_affinity": 20,
-      "text": "Harper's whole performance drops a notch when she sees you — the practiced smile gives way to something real. She raises her glass slightly. \"There you are,\" she says. Like she has been saving that line for you specifically."
+      "text": "Harper's whole performance drops a notch when she sees you \u2014 the practiced smile gives way to something real. She raises her glass slightly. \"There you are,\" she says. Like she has been saving that line for you specifically."
     }
   ],
   "opening_moves": [
@@ -44,19 +44,19 @@
           "min_affinity": -10,
           "max_affinity": -1,
           "text": "You swing for something sharp and it lands a little crooked. Harper smirks anyway. \"We will call that a rehearsal take,\" she says. \"You have presence. We just need a cleaner line.\"",
-          "delta": 1
+          "delta": 0
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You throw out a line that meets her edge instead of folding under it. Her smile widens, eyes bright. \"There you are,\" she murmurs. \"I was hoping you were not another background extra.\"",
-          "delta": 2
+          "delta": 0
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "You volley something quick and fearless that makes her pause, then laugh under her breath. Harper steps into your space, lowering her voice. \"Careful,\" she says. \"I fall for good dialogue way too easily.\"",
-          "delta": 3
+          "delta": 1
         }
       ]
     },
@@ -90,19 +90,19 @@
           "min_affinity": -10,
           "max_affinity": -1,
           "text": "You tease her lightly about her main character energy and stumble just enough that it could misfire. Harper rescues the line with a laugh. \"Relax,\" she says. \"I like it better when people forget to be perfect around me.\"",
-          "delta": 1
+          "delta": -2
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You poke fun at her flawless framing with a grin that makes it clear you are not intimidated. Her eyes narrow in pleased challenge. \"Careful,\" she drawls. \"Keep that up and I might start taking you very seriously.\"",
-          "delta": 2
+          "delta": -1
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "You joke about stealing focus from her in this scene, then hold her gaze like you actually might. Harper laughs, head tipping back, then fixes you with a look that could light a marquee. \"You and I are a problem the room is not ready for.\"",
-          "delta": 2
+          "delta": 0
         }
       ]
     },
@@ -112,7 +112,7 @@
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You share something small but real and she blinks. \"That was not in the script,\" she says. A smile surfaces — not performed. Actually surprised.",
+          "text": "You share something small but real and she blinks. \"That was not in the script,\" she says. A smile surfaces \u2014 not performed. Actually surprised.",
           "delta": 2
         },
         {
@@ -141,7 +141,7 @@
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "You drop the act and say the thing directly. Harper laughs — caught out in a good way. \"You skipped like four scenes,\" she says. \"I respect the economy.\"",
+          "text": "You drop the act and say the thing directly. Harper laughs \u2014 caught out in a good way. \"You skipped like four scenes,\" she says. \"I respect the economy.\"",
           "delta": 2
         },
         {
