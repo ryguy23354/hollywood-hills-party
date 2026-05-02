@@ -75,21 +75,19 @@
 
    /* main.css */
 	#sceneImage {
-	  width: 100%;
-	  height: 100%;
 	  display: block;
-	  object-fit: cover;
-	  object-position: center top; /* favour faces/upper body over cropping the top */
+	  width: auto;
+	  max-width: 100%;
+	  max-height: 42vh;   /* scale down proportionally — no cropping */
+	  margin: 0 auto;
 	  border-radius: 14px;
 	}
 
 	/* this is the section to scale the scene images */
 	#sceneImageContainer {
 	  width: 100%;
-	  max-width: 1200px;
-	  max-height: 42vh;   /* cap height so choices are always visible without scrolling */
 	  margin: 0 auto 20px auto;
-	  overflow: hidden;
+	  text-align: center;  /* centres the auto-width image */
 	  border-radius: 14px;
 	}
 
@@ -278,4 +276,9 @@
       right: 14px;
       font-size: 1.4rem;
       background: none;
-      border
+      border: none;
+      color: white;
+      cursor: pointer;
+      opacity: 0.75;
+    }
+    .mo
