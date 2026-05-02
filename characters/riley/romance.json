@@ -2,6 +2,40 @@
   "character": "riley",
   "display_name": "Riley Storm",
   "prompt": "Riley bounces on her heels, red dress catching the light. She watches you like she is waiting for you to call the next move.",
+  "context_states": [
+    {
+      "min_affinity": -10,
+      "max_affinity": -1,
+      "text": "Riley is still moving even while standing still — weight shifting, eyes scanning the room. She glances at you with a quick, appraising look. The energy is there but it isn't aimed at you yet."
+    },
+    {
+      "min_affinity": 0,
+      "max_affinity": 3,
+      "text": "Riley bounces on her heels, red dress catching the light. She watches you like she is waiting for you to call the next move."
+    },
+    {
+      "min_affinity": 4,
+      "max_affinity": 20,
+      "text": "Riley's whole posture opens up when she sees you coming. The restless energy she usually keeps pointed at the room shifts — suddenly it is all pointed at you. \"Hey,\" she says, like she's been waiting."
+    }
+  ],
+  "opening_moves": [
+    {
+      "tier": "positive",
+      "label": "Ask what keeps her going when no one's watching",
+      "romance_style": "warm"
+    },
+    {
+      "tier": "neutral",
+      "label": "Throw out a light challenge and see if she bites",
+      "romance_style": "playful"
+    },
+    {
+      "tier": "negative",
+      "label": "Try to match her energy right out of the gate",
+      "romance_style": "bold"
+    }
+  ],
   "styles": {
     "bold": {
       "label": "Match her high energy",
@@ -15,7 +49,7 @@
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "You toss out a daring line and step closer like it is the most natural thing in the world. Riley’s eyes spark. \"Okay, you are fun,\" she grins. \"Do not slow down now.\"",
+          "text": "You toss out a daring line and step closer like it is the most natural thing in the world. Riley's eyes spark. \"Okay, you are fun,\" she grins. \"Do not slow down now.\"",
           "delta": 2
         },
         {
@@ -69,6 +103,52 @@
           "max_affinity": 20,
           "text": "You raise the stakes on the game in a way that is still light but charged. Riley steps in so close that her laugh brushes your neck. \"You keep making it very hard for me to focus on anything else tonight.\"",
           "delta": 2
+        }
+      ]
+    },
+    "observe": {
+      "label": "Point out something real you noticed about her",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You clock a small detail — the tape on her wrist, a chalk mark she missed — and mention it. Riley's brow goes up. \"You actually look,\" she says, pleasantly surprised. \"I appreciate that.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You name something specific only someone paying close attention would catch. Riley grins wide. \"I didn't think anyone noticed that,\" she says. \"You win this round.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You zero in on a detail that had nothing to do with the show. Riley grabs your arm to steady herself from laughing. \"Okay, you see everything. That is terrifying. I love it.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "direct": {
+      "label": "Tell her exactly why you came over",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You say it plainly and she tilts her head, caught off-guard in a good way. \"Points for honesty,\" she says. \"Keep that energy.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You lay it out without dressing it up and she relaxes into a wide smile. \"That is the most honest thing anyone has said to me tonight,\" she says. \"Stay.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You tell her flat out and she looks at you for a long second, then laughs. \"You are not allowed to be that direct,\" she says. \"It makes everything else feel like a waste of time.\"",
+          "delta": 3
         }
       ]
     }
