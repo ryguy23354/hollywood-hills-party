@@ -197,6 +197,75 @@
           "delta": 3
         }
       ]
+    },
+    "subtext": {
+      "label": "Say the thing that's been sitting between the lines",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You say the implied thing out loud and she pauses. \"You skipped the setup,\" she says. \"Bold.\" Her eyes are sharper now. More interested.",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You name the subtext directly and she laughs \u2014 caught, and genuinely delighted about it. \"I spend so much time in subtext,\" she says. \"It's disorienting when someone just says the thing.\" She sounds like that's a compliment.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You say the thing that's been living between every line of the conversation and she goes quiet for a beat. Then: \"I was hoping you were going to say that,\" she murmurs. \"I just didn't think you'd actually say it.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "scene": {
+      "label": "Play into the moment like you're both in a scene",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You lean into the theatricality and she grins, surprised. \"You know how to play,\" she says. \"The line was a little broad but the commitment was there.\" She files you away as interesting.",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You match her energy and play the bit all the way through. Harper's eyes light up. \"Yes,\" she says. \"That's exactly \u2014 yes. You understand scene work.\" She's laughing. She sounds like she means it as the highest praise.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You play the scene with her and she plays back, fully committed, until it tips over into something that isn't a scene anymore. She breaks character first, laughing. \"Okay,\" she says. \"That stopped being a bit somewhere in the middle.\" She doesn't seem to mind.",
+          "delta": 3
+        }
+      ]
+    },
+    "offscript": {
+      "label": "Drop the wit and say something completely unscripted",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You set the performance down and just talk. Harper tilts her head. \"That was real,\" she says. \"You didn't shape it at all.\" She looks like she's tallying something up in your favor.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "The unscripted thing lands differently than anything clever could. Harper goes quiet for a moment. \"I do this all day,\" she says. \"Write things to feel real. You just \u2014 said a real thing. That's harder.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You drop every performance and say the true, unpolished thing. Harper looks at you for a long moment. \"That is going to stay with me,\" she says finally. Her hand finds your arm. \"I don't say that lightly.\"",
+          "delta": 3
+        }
+      ]
     }
   },
   "fallback": {

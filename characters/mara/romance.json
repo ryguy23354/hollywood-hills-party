@@ -197,6 +197,75 @@
           "delta": 3
         }
       ]
+    },
+    "notice": {
+      "label": "Name something specific you noticed about her",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You name the detail and she blinks. \"You noticed that,\" she says softly. \"Most people are too busy performing to actually look.\" She seems genuinely touched.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "The specific observation catches her. \"That's very particular,\" she says. \"You were paying attention.\" There's a warmth in the way she says it \u2014 like being noticed is something she's learned not to expect.",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You name the small, specific thing and she looks at you with unmistakable affection. \"I can't decide if that's the sweetest thing or the most dangerous thing,\" she murmurs. \"Someone who actually looks.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "stay": {
+      "label": "Tell her you're not in a hurry to go anywhere",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You say it and she exhales \u2014 small, almost imperceptible. \"Thank you for that,\" she says. \"I always feel like I'm keeping people.\" She settles in a fraction more.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "The absence of urgency seems to be exactly what she needed. Mara's shoulders drop. \"Good,\" she says quietly. \"I don't want to rush this either.\" She says it like a small confession.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You tell her there's nowhere else you'd rather be and she looks at you steadily for a moment. \"You mean that,\" she says. Not asking. She takes your hand lightly. \"Then stay.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "ask": {
+      "label": "Ask what she actually wants from tonight",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "The directness catches her off guard. She considers it carefully. \"Honestly? To feel something real,\" she says. \"In a room full of people trying very hard to seem interesting.\" She glances at you. \"You asked an honest question.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "She pauses, really thinking about it. \"Something that matters,\" she says finally. \"A conversation that doesn't feel like performance.\" She looks at you. \"This might be it.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "She smiles slowly. \"You,\" she says, and then laughs softly at herself for saying it. \"I mean \u2014 I wanted something true. And then you showed up.\" She doesn't look away.",
+          "delta": 3
+        }
+      ]
     }
   },
   "fallback": {
