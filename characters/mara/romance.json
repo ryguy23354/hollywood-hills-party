@@ -1,7 +1,41 @@
 {
   "character": "mara",
   "display_name": "Mara Quinn",
-  "prompt": "Mara’s voice stays soft and low, but her eyes track every small choice you make. There is a quiet warmth to her that feels like an invitation to lean in.",
+  "prompt": "Mara's voice stays soft and low, but her eyes track every small choice you make. There is a quiet warmth to her that feels like an invitation to lean in.",
+  "context_states": [
+    {
+      "min_affinity": -10,
+      "max_affinity": -1,
+      "text": "Mara is half-turned toward the window, wine glass held loosely. She notices you but doesn't move toward you — just watches with that quiet, patient look of someone who has learned not to rush anything."
+    },
+    {
+      "min_affinity": 0,
+      "max_affinity": 3,
+      "text": "Mara's voice stays soft and low, but her eyes track every small choice you make. There is a quiet warmth to her that feels like an invitation to lean in."
+    },
+    {
+      "min_affinity": 4,
+      "max_affinity": 20,
+      "text": "Mara's expression opens the moment she sees you — a small, private smile that she makes no effort to hide. She shifts to face you fully, like you are the only interesting thing in the room. \"Hi,\" she says simply. The word carries more than it should."
+    }
+  ],
+  "opening_moves": [
+    {
+      "tier": "positive",
+      "label": "Ask how she's actually doing in all this noise",
+      "romance_style": "warm"
+    },
+    {
+      "tier": "neutral",
+      "label": "Let a little mischief peek through your smile",
+      "romance_style": "playful"
+    },
+    {
+      "tier": "negative",
+      "label": "Close the gap and let the tension do the talking",
+      "romance_style": "bold"
+    }
+  ],
   "styles": {
     "bold": {
       "label": "Step closer and let the tension rise",
@@ -9,7 +43,7 @@
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You close the gap a little too quickly. Mara’s lips curve in a polite, amused smile as she takes half a breath to recalibrate. \"You are very direct,\" she says gently. \"I am still catching up.\"",
+          "text": "You close the gap a little too quickly. Mara's lips curve in a polite, amused smile as she takes half a breath to recalibrate. \"You are very direct,\" she says gently. \"I am still catching up.\"",
           "delta": 1
         },
         {
@@ -21,7 +55,7 @@
         {
           "min_affinity": 4,
           "max_affinity": 20,
-          "text": "You let the silence between you thicken just enough to feel like a promise. Mara’s hand brushes your arm, fingers lingering. \"You know,\" she says, voice barely above a whisper, \"you make it very easy to forget there is a whole party behind us.\"",
+          "text": "You let the silence between you thicken just enough to feel like a promise. Mara's hand brushes your arm, fingers lingering. \"You know,\" she says, voice barely above a whisper, \"you make it very easy to forget there is a whole party behind us.\"",
           "delta": 3
         }
       ]
@@ -32,19 +66,19 @@
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You ask a small, sincere question about how she is actually doing tonight. Mara’s shoulders ease. \"That is a surprisingly kind question for a loud room,\" she says, sounding pleased.",
+          "text": "You ask a small, sincere question about how she is actually doing tonight. Mara's shoulders ease. \"That is a surprisingly kind question for a loud room,\" she says, sounding pleased.",
           "delta": 2
         },
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "You share a gentle truth about why you walked over to her specifically. Something in her expression melts. \"Thank you,\" she says softly. \"That feels… safe in a way I was not expecting tonight.\"",
+          "text": "You share a gentle truth about why you walked over to her specifically. Something in her expression melts. \"Thank you,\" she says softly. \"That feels safe in a way I was not expecting tonight.\"",
           "delta": 3
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
-          "text": "You let a small, vulnerable detail slip about the kind of connection you are secretly hoping to find. Mara’s gaze softens with unmistakable affection. \"Be careful,\" she murmurs. \"I am very good at giving people exactly that.\"",
+          "text": "You let a small, vulnerable detail slip about the kind of connection you are secretly hoping to find. Mara's gaze softens with unmistakable affection. \"Be careful,\" she murmurs. \"I am very good at giving people exactly that.\"",
           "delta": 3
         }
       ]
@@ -61,14 +95,60 @@
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "You slip a soft, clever joke into the space between you. Mara’s eyes brighten with quiet delight. \"There it is,\" she smiles. \"I knew you had a little trouble in you.\"",
+          "text": "You slip a soft, clever joke into the space between you. Mara's eyes brighten with quiet delight. \"There it is,\" she smiles. \"I knew you had a little trouble in you.\"",
           "delta": 2
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
-          "text": "You tease her in a way that is gentle but undeniably suggestive, then watch for her reaction. Mara’s lips curve into a small, knowing smirk. \"You are very good at pretending you are not flirting,\" she murmurs. \"I promise I noticed.\"",
+          "text": "You tease her in a way that is gentle but undeniably suggestive, then watch for her reaction. Mara's lips curve into a small, knowing smirk. \"You are very good at pretending you are not flirting,\" she murmurs. \"I promise I noticed.\"",
           "delta": 2
+        }
+      ]
+    },
+    "slow": {
+      "label": "Let her set the pace — follow her rhythm",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You match her pace instead of setting your own. Mara notices immediately. \"You are easy to be near,\" she says, surprised by it. \"That does not happen as often as it should.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You defer to her rhythm entirely and she softens into it. \"Thank you for that,\" she murmurs. \"I rarely get to go at my own speed.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You follow where she leads without needing to know where that is. Mara's fingers find yours in the space between you. \"You feel safe,\" she whispers. \"Like somewhere I could actually rest.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "honest": {
+      "label": "Share something unexpectedly true",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You say something genuinely true about yourself without dressing it up. Mara's face opens. \"That was brave,\" she says. \"I like brave things from people who look a little nervous.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You let something real slip without pre-editing it. Mara looks at you with quiet certainty. \"That is the truth, isn't it,\" she says. \"Not performance. Just you.\" She seems genuinely pleased.",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You share something that took trust to say. Mara holds your gaze, eyes soft and certain. \"I am going to be very bad at being casual with you,\" she says. \"I just need you to know that.\"",
+          "delta": 3
         }
       ]
     }

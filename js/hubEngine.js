@@ -193,7 +193,16 @@
         });
       }
     } else if (styles && typeof styles === "object") {
-      const fullPool = Object.entries(styles).map(([styleKey, styleData]) => {
+      // Exclude any styles used in opening_moves — those are first-approach only
+      const openingStyleKeys = new Set(
+        Array.isArray(romance?.opening_moves)
+          ? romance.opening_moves.map(m => m.romance_style)
+          : []
+      );
+
+      const fullPool = Object.entries(styles)
+        .filter(([styleKey]) => !openingStyleKeys.has(styleKey))
+        .map(([styleKey, styleData]) => {
         const baseLabel = styleData.label || styleKey;
         let label = baseLabel;
         if (_isDebug()) {
