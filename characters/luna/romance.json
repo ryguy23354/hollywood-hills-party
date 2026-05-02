@@ -6,7 +6,7 @@
     {
       "min_affinity": -10,
       "max_affinity": -1,
-      "text": "Luna is watching the room from its edge, drink untouched. She glances at you without hurry \u2014 a slow, assessing look that gives nothing away. The air around her has a particular stillness to it."
+      "text": "Luna is watching the room from its edge, drink untouched. She glances at you without hurry — a slow, assessing look that gives nothing away. The air around her has a particular stillness to it."
     },
     {
       "min_affinity": 0,
@@ -16,7 +16,7 @@
     {
       "min_affinity": 4,
       "max_affinity": 20,
-      "text": "Luna turns before you fully arrive, like she felt you coming. Her expression is open in a way she doesn't usually let it be in public. She doesn't say anything at first \u2014 just makes room for you in the quiet she carries around her."
+      "text": "Luna turns before you fully arrive, like she felt you coming. Her expression is open in a way she doesn't usually let it be in public. She doesn't say anything at first — just makes room for you in the quiet she carries around her."
     }
   ],
   "opening_moves": [
@@ -130,7 +130,7 @@
       ]
     },
     "depth": {
-      "label": "Ask about her work \u2014 genuinely",
+      "label": "Ask about her work — genuinely",
       "reactions": [
         {
           "min_affinity": -10,
@@ -158,7 +158,7 @@
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You offer up something small and personal, unprompted. Luna's eyes shift \u2014 a flicker of real attention where there was only polite distance before. \"You carry that with you,\" she says softly. \"I can tell.\"",
+          "text": "You offer up something small and personal, unprompted. Luna's eyes shift — a flicker of real attention where there was only polite distance before. \"You carry that with you,\" she says softly. \"I can tell.\"",
           "delta": 2
         },
         {
@@ -187,7 +187,7 @@
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "The question lands somewhere she wasn't prepared for. Luna is quiet for a moment \u2014 genuinely thinking. \"Nobody asks that,\" she says at last. \"I don't know if I have a real answer yet. Stay while I find one.\"",
+          "text": "The question lands somewhere she wasn't prepared for. Luna is quiet for a moment — genuinely thinking. \"Nobody asks that,\" she says at last. \"I don't know if I have a real answer yet. Stay while I find one.\"",
           "delta": 3
         },
         {
@@ -210,7 +210,7 @@
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "You say the thing she was feeling but hadn't put into words. Luna exhales slowly. \"How did you \u2014\" She stops. \"That was exactly it,\" she says quietly. \"That was the exact thing.\"",
+          "text": "You say the thing she was feeling but hadn't put into words. Luna exhales slowly. \"How did you —\" She stops. \"That was exactly it,\" she says quietly. \"That was the exact thing.\"",
           "delta": 3
         },
         {
@@ -227,7 +227,7 @@
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You stop steering and just let it move. Luna notices the shift \u2014 her posture loosens slightly. \"You're not trying to go anywhere specific,\" she observes. \"That's refreshing.\"",
+          "text": "You stop steering and just let it move. Luna notices the shift — her posture loosens slightly. \"You're not trying to go anywhere specific,\" she observes. \"That's refreshing.\"",
           "delta": 1
         },
         {
@@ -239,7 +239,7 @@
         {
           "min_affinity": 4,
           "max_affinity": 20,
-          "text": "You give up the wheel entirely and let her take it wherever it goes. Luna leads you somewhere unexpected \u2014 a tangent, a memory, a quiet confession. \"I don't do this with most people,\" she murmurs. \"Talk like this.\"",
+          "text": "You give up the wheel entirely and let her take it wherever it goes. Luna leads you somewhere unexpected — a tangent, a memory, a quiet confession. \"I don't do this with most people,\" she murmurs. \"Talk like this.\"",
           "delta": 3
         }
       ]
@@ -266,6 +266,138 @@
           "delta": 3
         }
       ]
+    },
+    "loc_bar_a": {
+      "label": "[bar] Ask what she sees when she looks at the crowd",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "She takes a slow look around. \"Performances,\" she says. \"Every single one of them.\" She glances at you. \"Present company... mostly excluded.\"",
+          "delta": 2
+        }
+      ]
+    },
+    "loc_bar_b": {
+      "label": "[bar] Tell her she notices things other people miss",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "She's quiet for a moment. \"Most people don't notice that I notice.\" She turns to face you properly for the first time tonight, like she's reassessing.",
+          "delta": 3
+        }
+      ]
+    },
+    "loc_pool_a": {
+      "label": "[pool] Sit at the edge and let the silence settle",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "You sit. She doesn't fill the space. It's not uncomfortable — it's the opposite. Like you both know something that doesn't need saying.",
+          "delta": 1
+        }
+      ]
+    },
+    "loc_pool_b": {
+      "label": "[pool] Ask if water helps her think or helps her stop thinking",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "She looks at the surface for a long moment. \"Both. Depending on the water.\" She glances at you. \"This pool? Tonight? Somewhere between.\"",
+          "delta": 2
+        }
+      ]
+    },
+    "loc_pool_c": {
+      "label": "[pool] Float beside her without saying anything",
+      "reactions": [
+        {
+          "min_affinity": 9,
+          "max_affinity": 99,
+          "text": "You drift close enough that you're parallel, watching the same ceiling of stars. She exhales slowly. After a while: \"This is better than talking.\" You agree.",
+          "delta": 3
+        }
+      ]
+    },
+    "loc_lounge_a": {
+      "label": "[lounge] Ask what she'd rather be doing right now",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "She almost laughs. \"Reading. Or painting. Or somewhere the music isn't so loud I can't hear myself.\" She pauses. \"But this has gotten more interesting.\"",
+          "delta": 1
+        }
+      ]
+    },
+    "loc_lounge_b": {
+      "label": "[lounge] Tell her this is the most comfortable you've felt all night",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "She absorbs that. Doesn't deflect or fill the space. \"Me too,\" she says eventually, like it surprised her to realize it.",
+          "delta": 2
+        }
+      ]
+    },
+    "loc_balcony_a": {
+      "label": "[balcony] Stand beside her and look at what she's looking at",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "You don't ask what she sees. You just look. After a while you start to see it too — something in the way the light breaks over the roof line. \"You got it,\" she says quietly.",
+          "delta": 1
+        }
+      ]
+    },
+    "loc_balcony_b": {
+      "label": "[balcony] Ask if she finds parties like this lonely or just loud",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "\"Usually both,\" she says. \"Tonight's different.\" She doesn't explain. She doesn't need to.",
+          "delta": 3
+        }
+      ]
+    },
+    "loc_balcony_c": {
+      "label": "[balcony] Say her name quietly and wait",
+      "reactions": [
+        {
+          "min_affinity": 9,
+          "max_affinity": 99,
+          "text": "She turns. Slowly. Something shifts in her expression — not a reaction, a recognition. Like she's been waiting for someone to just say it like that. No performance. Just her name.",
+          "delta": 3
+        }
+      ]
+    },
+    "loc_gameloft_a": {
+      "label": "[gameloft] Ask if she's here ironically or if she actually enjoys this",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "\"Both can be true,\" she says. She's actually pretty focused on the screen. \"There's something meditative about it. Don't tell anyone.\"",
+          "delta": 2
+        }
+      ]
+    },
+    "loc_gameloft_b": {
+      "label": "[gameloft] Play beside her without making it a competition",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "You play your own game. She plays hers. At some point your timings sync up without trying. She notices. \"That doesn't usually happen,\" she says, and she's not talking about the game.",
+          "delta": 2
+        }
+      ]
     }
   },
   "fallback": {
@@ -277,28 +409,100 @@
       "id": "luna_ending_mild",
       "tier": "mild",
       "min_affinity": 5,
-      "label": "[Mild ending \u2014 unlock at affinity 5]",
-      "title": "Luna \u2014 A Quiet Exit",
+      "label": "[Mild ending — unlock at affinity 5]",
+      "title": "Luna — A Quiet Exit",
       "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER \u2014 mild ending narrative to be written]"
+      "text": "[PLACEHOLDER — mild ending narrative to be written]"
     },
     {
       "id": "luna_ending_medium",
       "tier": "medium",
       "min_affinity": 9,
-      "label": "[Medium ending \u2014 unlock at affinity 9]",
-      "title": "Luna \u2014 Something More",
+      "label": "[Medium ending — unlock at affinity 9]",
+      "title": "Luna — Something More",
       "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER \u2014 medium ending narrative to be written]"
+      "text": "[PLACEHOLDER — medium ending narrative to be written]"
     },
     {
       "id": "luna_ending_spicy",
       "tier": "spicy",
       "min_affinity": 13,
-      "label": "[Spicy ending \u2014 unlock at affinity 13]",
-      "title": "Luna \u2014 No Holding Back",
+      "label": "[Spicy ending — unlock at affinity 13]",
+      "title": "Luna — No Holding Back",
       "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER \u2014 spicy ending narrative to be written]"
+      "text": "[PLACEHOLDER — spicy ending narrative to be written]"
     }
-  ]
+  ],
+  "location_specials": {
+    "bar": [
+      {
+        "style_key": "loc_bar_a",
+        "label": "Ask what she sees when she looks at the crowd",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_bar_b",
+        "label": "Tell her she notices things other people miss",
+        "min_affinity": 6
+      }
+    ],
+    "pool": [
+      {
+        "style_key": "loc_pool_a",
+        "label": "Sit at the edge and let the silence settle between you",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_pool_b",
+        "label": "Ask if water helps her think or helps her stop thinking",
+        "min_affinity": 6
+      },
+      {
+        "style_key": "loc_pool_c",
+        "label": "Float beside her without saying anything",
+        "min_affinity": 9
+      }
+    ],
+    "lounge": [
+      {
+        "style_key": "loc_lounge_a",
+        "label": "Ask what she'd rather be doing right now",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_lounge_b",
+        "label": "Tell her this is the most comfortable you've felt all night",
+        "min_affinity": 6
+      }
+    ],
+    "balcony": [
+      {
+        "style_key": "loc_balcony_a",
+        "label": "Stand beside her and look at what she's looking at",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_balcony_b",
+        "label": "Ask if she finds parties like this lonely or just loud",
+        "min_affinity": 6
+      },
+      {
+        "style_key": "loc_balcony_c",
+        "label": "Say her name quietly and wait",
+        "min_affinity": 9
+      }
+    ],
+    "gameloft": [
+      {
+        "style_key": "loc_gameloft_a",
+        "label": "Ask if she's here ironically or actually enjoys this",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_gameloft_b",
+        "label": "Play beside her without making it a competition",
+        "min_affinity": 6
+      }
+    ]
+  }
 }

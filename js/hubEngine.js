@@ -234,6 +234,33 @@
       shuffled.slice(0, Math.min(3, shuffled.length)).forEach(c => choices.push(c));
     }
 
+    // Location specials — 25% chance to appear as an additional choice.
+    // Only eligible entries (currentAffinity >= min_affinity) are considered;
+    // no baseline-or-negative-tier specials exist by design.
+    const locationSpecials = romance?.location_specials?.[ctx.location];
+    if (Array.isArray(locationSpecials) && locationSpecials.length > 0 && Math.random() < 0.25) {
+      const eligible = locationSpecials.filter(
+        s => currentAffinity >= _safeNumber(s.min_affinity, Infinity)
+      );
+      if (eligible.length > 0) {
+        const special = eligible[Math.floor(Math.random() * eligible.length)];
+        const baseLabel = special.label;
+        let label = baseLabel;
+        if (_isDebug()) {
+          const d = _peekDelta(romance, special.style_key, currentAffinity);
+          label = `${baseLabel}  [${d >= 0 ? "+" : ""}${d}] {loc}`;
+        }
+        choices.push({
+          label,
+          target: {
+            type: "romance",
+            romance_style: special.style_key,
+            character: ctx.character,
+          },
+        });
+      }
+    }
+
     // Unlocked endings — injected as extra choices above "Return to party".
     // Exit buttons use _fullReset as a function target so the renderer triggers
     // a complete game reset instead of a soft scene navigation.
