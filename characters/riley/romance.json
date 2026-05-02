@@ -151,10 +151,85 @@
           "delta": 3
         }
       ]
+    },
+    "sincere": {
+      "label": "Admit something you don't usually say out loud",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You let something real slip and she blinks, recalibrating. \"Okay, I did not see that coming,\" she says. \"But I respect it.\" She shifts her weight toward you slightly.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You say the unguarded thing and she goes still for just a second. Then a slow, genuine smile. \"That's the realest thing anyone's said to me tonight,\" she says quietly. \"I like that.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You drop something honest into the space between you and she doesn't deflect it \u2014 she catches it. \"You keep doing that,\" she says softly, eyes bright. \"Just saying the real thing. I can't decide if it's brave or if you just don't know how good it is.\"",
+          "delta": 3
+        }
+      ]
+    },
+    "raise_stakes": {
+      "label": "Raise the stakes on whatever game you're playing",
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You push the bet higher before you've fully earned it. Riley grins, but it's the testing kind. \"Bold for someone still proving themselves,\" she says. \"I respect the audacity though.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You up the ante in a way that feels less like competition and more like invitation. Riley's eyes light up. \"Now we're getting somewhere,\" she says. \"You actually want to play.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 20,
+          "text": "You raise the stakes and she doesn't even hesitate \u2014 she matches you and goes one further. Her laugh is low and conspiratorial. \"You realise we're both going to lose on purpose just to keep this going,\" she says. Her hand is still on your arm.",
+          "delta": 3
+        }
+      ]
     }
   },
   "fallback": {
     "text": "You keep things breezy, tossing her an easy joke and a smile. Riley bumps her shoulder lightly into yours, clearly not ready to let you disappear yet.",
     "delta": 1
-  }
+  },
+  "endings": [
+    {
+      "id": "riley_ending_mild",
+      "tier": "mild",
+      "min_affinity": 5,
+      "label": "Challenge her to one last bet \u2014 winner picks what's next",
+      "title": "Riley \u2014 Your Move",
+      "exit_label": "You take her up on it.",
+      "text": "She doesn't hesitate. \"One more,\" she says, holding up a finger. \"Winner calls the next move.\"\n\nYou play. It doesn't matter who wins \u2014 you both know that by the time it's over. The score is close enough that calling it feels arbitrary.\n\nRiley tilts her head, studying you with that look she saves for things that actually interest her. \"Okay,\" she says finally. \"You're not what I expected.\"\n\nShe leans in until her shoulder bumps yours. \"Winner calls it. I say we get out of here and find somewhere with fewer witnesses.\"\n\nShe's already moving before you answer. You follow."
+    },
+    {
+      "id": "riley_ending_medium",
+      "tier": "medium",
+      "min_affinity": 9,
+      "label": "Tell her tonight feels like the start of something",
+      "title": "Riley \u2014 Past the Finish Line",
+      "exit_label": "Some nights don't need a finish line.",
+      "text": "She goes quiet when you say it \u2014 which, for Riley, is saying something.\n\nThen she laughs, but it's the soft kind. \"I don't usually do 'start of something',\" she says. \"I usually do 'this is a great night, let's not overthink it'.\"\n\nA beat.\n\n\"But you're making it very hard to not overthink it.\"\n\nShe takes your hand. Not to lead you anywhere \u2014 just takes it, fingers lacing through yours like that was always the plan. \"Come on,\" she says. \"Let's go find somewhere I can actually hear you.\"\n\nThe party keeps moving behind you. Neither of you look back."
+    },
+    {
+      "id": "riley_ending_spicy",
+      "tier": "spicy",
+      "min_affinity": 13,
+      "label": "Dare her to stop pretending this is just a game",
+      "title": "Riley \u2014 No More Rules",
+      "exit_label": "Best two out of three.",
+      "text": "The dare lands and she doesn't deflect it \u2014 she holds your eyes for a long beat instead, like she's deciding something.\n\n\"Fine,\" she says. \"No more rules.\"\n\nShe takes your hand and walks. Not toward the party. Away from it \u2014 down a corridor, through a door that opens onto a private terrace, warm and quiet above the city. She kicks off her shoes on the way in, the red dress catching the light as she turns.\n\n\"You kept up with me all night,\" she says, voice lower now. \"That's rare.\"\n\nShe closes the distance without pretense \u2014 her mouth finds yours and she kisses the way she does everything else, direct and fully committed, hands gripping the front of your shirt. When she pulls back her breathing is unsteady and she looks almost surprised at herself.\n\n\"Don't make it weird,\" she says, grinning.\n\nThen she kisses you again, longer this time, and whatever was left of the game dissolves entirely."
+    }
+  ]
 }
