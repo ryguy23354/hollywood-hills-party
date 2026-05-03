@@ -54,6 +54,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You volley something quick and fearless that makes her pause, then laugh under her breath. Harper steps into your space, lowering her voice. \"Careful,\" she says. \"I fall for good dialogue way too easily.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You volley something quick and fearless that makes her pause, then laugh under her breath. Harper steps into your space, lowering her voice. \"Careful,\" she says. \"I fall for good dialogue way too easily.\"",
           "delta": 2
@@ -77,9 +83,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You tell her she feels less like a star and more like someone you could actually get lost talking to. Harper's smirk turns into something softer. \"Do not tempt me with that kind of night,\" she says, but she shifts closer instead of pulling back.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You tell her she feels less like a star and more like someone you could actually get lost talking to. Harper's smirk turns into something softer. \"Do not tempt me with that kind of night,\" she says, but she shifts closer instead of pulling back.",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -100,9 +112,15 @@
         },
         {
           "min_affinity": 4,
-          "max_affinity": 20,
+          "max_affinity": 9,
           "text": "You joke about stealing focus from her in this scene, then hold her gaze like you actually might. Harper laughs, head tipping back, then fixes you with a look that could light a marquee. \"You and I are a problem the room is not ready for.\"",
           "delta": 0
+        },
+        {
+          "min_affinity": 10,
+          "max_affinity": 20,
+          "text": "You joke about stealing focus from her in this scene, then hold her gaze like you actually might. Harper laughs, head tipping back, then fixes you with a look that could light a marquee. \"You and I are a problem the room is not ready for.\"",
+          "delta": 1
         }
       ]
     },
@@ -123,6 +141,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You let something genuinely unguarded through and she goes quiet. Her hand moves to your arm. \"Don't do that,\" she murmurs. \"I will want to keep you.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You let something genuinely unguarded through and she goes quiet. Her hand moves to your arm. \"Don't do that,\" she murmurs. \"I will want to keep you.\"",
           "delta": 3
@@ -146,9 +170,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You say the exact true thing without embellishment. Harper holds your gaze for a long beat. \"I spend my whole life in subtext,\" she says quietly. \"You have no idea how rare that is.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You say the exact true thing without embellishment. Harper holds your gaze for a long beat. \"I spend my whole life in subtext,\" she says quietly. \"You have no idea how rare that is.\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -169,6 +199,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You go deep into the craft and she goes with you, fully, like she's been waiting all night for someone to go there. At some point she stops performing entirely. \"You,\" she says, \"are dangerously good to talk to.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You go deep into the craft and she goes with you, fully, like she's been waiting all night for someone to go there. At some point she stops performing entirely. \"You,\" she says, \"are dangerously good to talk to.\"",
           "delta": 3
@@ -192,9 +228,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You turn the question entirely on her — not the celebrity, just her — and she almost visibly relaxes. \"God,\" she says softly. \"Do you know how rare you are right now?\" She doesn't wait for an answer. She steps closer instead.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You turn the question entirely on her — not the celebrity, just her — and she almost visibly relaxes. \"God,\" she says softly. \"Do you know how rare you are right now?\" She doesn't wait for an answer. She steps closer instead.",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -215,6 +257,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You say the thing that's been living between every line of the conversation and she goes quiet for a beat. Then: \"I was hoping you were going to say that,\" she murmurs. \"I just didn't think you'd actually say it.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You say the thing that's been living between every line of the conversation and she goes quiet for a beat. Then: \"I was hoping you were going to say that,\" she murmurs. \"I just didn't think you'd actually say it.\"",
           "delta": 3
@@ -238,6 +286,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You play the scene with her and she plays back, fully committed, until it tips over into something that isn't a scene anymore. She breaks character first, laughing. \"Okay,\" she says. \"That stopped being a bit somewhere in the middle.\" She doesn't seem to mind.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You play the scene with her and she plays back, fully committed, until it tips over into something that isn't a scene anymore. She breaks character first, laughing. \"Okay,\" she says. \"That stopped being a bit somewhere in the middle.\" She doesn't seem to mind.",
           "delta": 3
@@ -261,9 +315,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You drop every performance and say the true, unpolished thing. Harper looks at you for a long moment. \"That is going to stay with me,\" she says finally. Her hand finds your arm. \"I don't say that lightly.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You drop every performance and say the true, unpolished thing. Harper looks at you for a long moment. \"That is going to stay with me,\" she says finally. Her hand finds your arm. \"I don't say that lightly.\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -457,7 +517,7 @@
       "text": "[PLACEHOLDER — spicy ending narrative to be written]"
     }
   ],
-  "location_specials":   {
+  "location_specials": {
     "bar": [
       {
         "style_key": "loc_bar_a",

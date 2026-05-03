@@ -59,6 +59,12 @@
         },
         {
           "min_affinity": 7,
+          "max_affinity": 11,
+          "text": "You go for it without hedging and she matches it instantly, a laugh catching in her throat. She tilts her chin up and holds the eye contact on purpose. \"That should not work on me as well as it does,\" she says, not quite keeping the smile down. She sets her drink somewhere without looking. \"Okay. You have my full attention.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
           "max_affinity": 20,
           "text": "You go for it without hedging and she matches it instantly, a laugh catching in her throat. She tilts her chin up and holds the eye contact on purpose. \"That should not work on me as well as it does,\" she says, not quite keeping the smile down. She sets her drink somewhere without looking. \"Okay. You have my full attention.\"",
           "delta": 2
@@ -94,6 +100,12 @@
         },
         {
           "min_affinity": 7,
+          "max_affinity": 11,
+          "text": "She doesn't let you finish. Her hand finds your arm lightly. \"Stop,\" she says, half-laughing and half-something else entirely. \"You cannot just say things like that.\" Her green eyes search yours for a moment, checking if you mean it. The answer is all over you. She exhales slowly. \"I am in so much trouble.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
           "max_affinity": 20,
           "text": "She doesn't let you finish. Her hand finds your arm lightly. \"Stop,\" she says, half-laughing and half-something else entirely. \"You cannot just say things like that.\" Her green eyes search yours for a moment, checking if you mean it. The answer is all over you. She exhales slowly. \"I am in so much trouble.\"",
           "delta": 3
@@ -129,6 +141,12 @@
         },
         {
           "min_affinity": 7,
+          "max_affinity": 11,
+          "text": "You're already past teasing and into something more like play-fighting over the same joke — both of you talking over each other and laughing. She grabs your arm to steady herself. \"Stop,\" she says, still laughing. \"I cannot be this charmed in public, there are people watching.\" She doesn't let go of your arm.",
+          "delta": 1
+        },
+        {
+          "min_affinity": 12,
           "max_affinity": 20,
           "text": "You're already past teasing and into something more like play-fighting over the same joke — both of you talking over each other and laughing. She grabs your arm to steady herself. \"Stop,\" she says, still laughing. \"I cannot be this charmed in public, there are people watching.\" She doesn't let go of your arm.",
           "delta": 2
@@ -164,9 +182,15 @@
         },
         {
           "min_affinity": 7,
+          "max_affinity": 11,
+          "text": "You hold the eye contact and she tries to outlast you and doesn't come close. She blinks first, laughs, drops her chin. \"Unfair,\" she says, shaking her head. When she looks back up her eyes are bright and her cheeks are faintly flushed. \"You play for keeps.\" The way she says it makes clear that's the most appealing thing she can imagine.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
           "max_affinity": 20,
           "text": "You hold the eye contact and she tries to outlast you and doesn't come close. She blinks first, laughs, drops her chin. \"Unfair,\" she says, shaking her head. When she looks back up her eyes are bright and her cheeks are faintly flushed. \"You play for keeps.\" The way she says it makes clear that's the most appealing thing she can imagine.",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -200,6 +224,12 @@
         },
         {
           "min_affinity": 7,
+          "max_affinity": 11,
+          "text": "She's already leaning toward you before you've fully crossed the space. Her eyes are unhurried and very direct. Whatever you were going to say isn't necessary — she puts her hand flat on your arm and closes the remaining distance. \"Don't talk,\" she murmurs, barely audible. \"Just stay here for a second.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 12,
           "max_affinity": 20,
           "text": "She's already leaning toward you before you've fully crossed the space. Her eyes are unhurried and very direct. Whatever you were going to say isn't necessary — she puts her hand flat on your arm and closes the remaining distance. \"Don't talk,\" she murmurs, barely audible. \"Just stay here for a second.\"",
           "delta": 3
@@ -235,6 +265,12 @@
         },
         {
           "min_affinity": 7,
+          "max_affinity": 11,
+          "text": "She leans in and her voice drops to something private and warm. \"The song I'm working on right now — I've only played it for my producer and my sister.\" A pause. \"It's about that exact second right before you decide to let someone in.\" Her eyes stay on yours, still and very bright. \"I don't know why I'm telling you that.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
           "max_affinity": 20,
           "text": "She leans in and her voice drops to something private and warm. \"The song I'm working on right now — I've only played it for my producer and my sister.\" A pause. \"It's about that exact second right before you decide to let someone in.\" Her eyes stay on yours, still and very bright. \"I don't know why I'm telling you that.\"",
           "delta": 3
@@ -306,9 +342,15 @@
         },
         {
           "min_affinity": 7,
+          "max_affinity": 11,
+          "text": "She covers her face with one hand for a second, laughing. \"You are not allowed to say things like that,\" she says. \"I have nowhere to put that.\" She's still smiling when she looks back up, eyes bright and helpless.",
+          "delta": 1
+        },
+        {
+          "min_affinity": 12,
           "max_affinity": 20,
           "text": "She covers her face with one hand for a second, laughing. \"You are not allowed to say things like that,\" she says. \"I have nowhere to put that.\" She's still smiling when she looks back up, eyes bright and helpless.",
-          "delta": 2
+          "delta": 1
         }
       ]
     },
@@ -341,9 +383,15 @@
         },
         {
           "min_affinity": 7,
+          "max_affinity": 11,
+          "text": "She stops mid-sentence and grabs your arm. \"Wait — you caught that? I said that in passing.\" Her eyes are vivid and delighted. \"You listen differently than other people.\" She sounds like she's just figured something important out.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
           "max_affinity": 20,
           "text": "She stops mid-sentence and grabs your arm. \"Wait — you caught that? I said that in passing.\" Her eyes are vivid and delighted. \"You listen differently than other people.\" She sounds like she's just figured something important out.",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -376,6 +424,12 @@
         },
         {
           "min_affinity": 7,
+          "max_affinity": 11,
+          "text": "For one unguarded second she just stares at you, delighted. Then she shakes her head. \"I genuinely don't know how to follow that,\" she says. \"And I am a professional.\" She's already reaching for your hand.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
           "max_affinity": 20,
           "text": "For one unguarded second she just stares at you, delighted. Then she shakes her head. \"I genuinely don't know how to follow that,\" she says. \"And I am a professional.\" She's already reaching for your hand.",
           "delta": 2
@@ -598,7 +652,7 @@
       "text": "The door clicks shut, and the muffled pulse of the Hollywood party fades. Sienna doesn't just walk toward you; she prowls, her emerald-green dress shimmering under the dim master suite lights. She stops just inches away, her breath warm against your neck, smelling of sweet cranberry and expensive perfume.\n\n\"Everyone out there thinks they know me because they've seen me on stage,\" she whispers, her melodic voice dropping into a husky, intimate register. \"But they don't get this. They don't get the parts of me that aren't for the cameras.\"\n\nShe reaches behind her, and with a slow, dramatic tug, the zipper of her dress gives way. She doesn't let the fabric fall yet; instead, she uses her hands to hike the low-cut neckline even lower, exposing the heavy, pale curves of her chest. She begins to knead her own soft skin, her eyes locked on yours, watching you watch her. She lets out a long, shaky moan as she rolls her nipples between her fingers, her fair skin flushing a deep, beautiful pink.\n\n\"I know what you're looking at,\" she pants, a proud, fiery smirk playing on her lips. \"I've seen the way your eyes track them every time I breathe. So don't just stand there. I want to feel how much you want them.\"\n\nShe pulls your hands to her, guiding your palms over her voluptuous curves. She's surprisingly firm but soft to the touch, her heart drumming a frantic rhythm against your fingertips. She leans back, arching her spine to offer herself up, her vibrant red waves cascading down her back.\n\nShe lets out a low, hungry sound as she feels the heat radiating from you, her green eyes dropping. With an impulsive, dramatic flair, she sinks to her knees on the dark wood floor. Her fingers are nimble but urgent as she undoes your belt, releasing your length into the cool air of the suite.\n\nSienna's breath hitches — a genuine, melodic gasp. \"Oh... wow,\" she whispers, her eyes blowing wide. \"I knew you'd be a lot to handle, but this?\" She reaches out, her fair hand wrapping around your cock to test the weight, her thumb tracing the crown. \"This is a headliner.\"\n\nShe leans in, her vibrant red hair brushing your thighs, and darts her tongue out for a slow lick from base to tip. She hums against your skin — a deep, vibrating note of approval — and pulls back with a filthy grin. \"I love the way you taste,\" she rasps. \"Sweet and heavy. I'm going to make sure every inch of me gets a turn with this.\"\n\nShe stands just enough to press her firm tits together with her slim arms, creating a tight, humid channel. She watches with predatory intensity as you slide between them, letting out rhythmic, musical gasps. \"Yeah, fuck... look at that,\" she murmurs. \"You're going to make such a mess of me, aren't you?\"\n\nShe slides back to her knees, lips hovering inches from the head of your cock.\n\n\"I want to hear you,\" she whispers. \"I want to hear exactly what I'm doing to you.\"\n\nShe takes you in all at once — her mouth hot and impossibly wet. Her singer's lung capacity means she takes your full length with a deep, effortless swallow that makes your toes curl. She hums as she works, a low resonant vibration that travels directly through your shaft. Her tongue swirls around the sensitive rim while her free hand kneads her own heavy tits, thumb flicking over her nipples, heightening herself as she works you. The suction is relentless, her cheeks hollow as she draws you toward the edge.\n\nJust as you're about to lose it, she pulls away with a wet, satisfied pop. She stands, breathing in jagged, melodic pants, and pushes you back onto the silk sheets.\n\n\"Not yet,\" she rasps. \"I want to feel you pulsing inside me when I hit that high note.\"\n\nShe straddles you, her inner thighs hot and slick, and guides you inside her pussy with a sharp, triumphant cry that echoes off the walls. She rides you with the same passion she puts into a stadium anthem — loud, vocal, completely unrestrained. Her heavy boobs sway with every powerful thrust and she occasionally reaches down to squeeze them, her eyes rolling back. \"Tell me how good I feel,\" she cries out, her voice a mix of sob and laugh. \"Tell me!\"\n\nShe hits her peak first — a violent, full-body convulsion that has her clinging to your shoulders, nails digging in as she screams. Her pussy grips you in desperate, rhythmic waves, making it impossible to hold back.\n\nJust as you erupt, she pushes off you, drops between your legs, and cups her tits together one last time. \"Finish for me,\" she commands, green eyes wide and shimmering. \"I want to wear it.\"\n\nYou come across the pale, flushed curves of her chest. Sienna watches with a dazed, satisfied grin, breathing in jagged gulps. When it's over, she leans forward, licks a stray drop from her own collarbone, and looks up at you through her lashes.\n\n\"Consider that,\" she whispers, collapsing onto your chest, \"my favorite encore.\""
     }
   ],
-  "location_specials":   {
+  "location_specials": {
     "bar": [
       {
         "style_key": "loc_bar_a",

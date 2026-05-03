@@ -54,9 +54,15 @@
         },
         {
           "min_affinity": 4,
-          "max_affinity": 20,
+          "max_affinity": 9,
           "text": "You let the silence between you thicken just enough to feel like a promise. Mara's hand brushes your arm, fingers lingering. \"You know,\" she says, voice barely above a whisper, \"you make it very easy to forget there is a whole party behind us.\"",
           "delta": 0
+        },
+        {
+          "min_affinity": 10,
+          "max_affinity": 20,
+          "text": "You let the silence between you thicken just enough to feel like a promise. Mara's hand brushes your arm, fingers lingering. \"You know,\" she says, voice barely above a whisper, \"you make it very easy to forget there is a whole party behind us.\"",
+          "delta": 1
         }
       ]
     },
@@ -77,9 +83,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You let a small, vulnerable detail slip about the kind of connection you are secretly hoping to find. Mara's gaze softens with unmistakable affection. \"Be careful,\" she murmurs. \"I am very good at giving people exactly that.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You let a small, vulnerable detail slip about the kind of connection you are secretly hoping to find. Mara's gaze softens with unmistakable affection. \"Be careful,\" she murmurs. \"I am very good at giving people exactly that.\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -100,6 +112,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You tease her in a way that is gentle but undeniably suggestive, then watch for her reaction. Mara's lips curve into a small, knowing smirk. \"You are very good at pretending you are not flirting,\" she murmurs. \"I promise I noticed.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You tease her in a way that is gentle but undeniably suggestive, then watch for her reaction. Mara's lips curve into a small, knowing smirk. \"You are very good at pretending you are not flirting,\" she murmurs. \"I promise I noticed.\"",
           "delta": 1
@@ -123,9 +141,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You follow where she leads without needing to know where that is. Mara's fingers find yours in the space between you. \"You feel safe,\" she whispers. \"Like somewhere I could actually rest.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You follow where she leads without needing to know where that is. Mara's fingers find yours in the space between you. \"You feel safe,\" she whispers. \"Like somewhere I could actually rest.\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -146,6 +170,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You share something that took trust to say. Mara holds your gaze, eyes soft and certain. \"I am going to be very bad at being casual with you,\" she says. \"I just need you to know that.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You share something that took trust to say. Mara holds your gaze, eyes soft and certain. \"I am going to be very bad at being casual with you,\" she says. \"I just need you to know that.\"",
           "delta": 3
@@ -169,6 +199,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You hold the space entirely open for her and she fills it in a way that feels like trust. When she trails off she reaches for your hand without looking. \"I feel like I've known you a long time,\" she murmurs. \"How is that possible?\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You hold the space entirely open for her and she fills it in a way that feels like trust. When she trails off she reaches for your hand without looking. \"I feel like I've known you a long time,\" she murmurs. \"How is that possible?\"",
           "delta": 3
@@ -192,6 +228,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You say it and she looks at you like you just handed her something rare. \"Keep going,\" she whispers. \"Whatever you were about to say next. Keep going.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You say it and she looks at you like you just handed her something rare. \"Keep going,\" she whispers. \"Whatever you were about to say next. Keep going.\"",
           "delta": 3
@@ -215,9 +257,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You name the small, specific thing and she looks at you with unmistakable affection. \"I can't decide if that's the sweetest thing or the most dangerous thing,\" she murmurs. \"Someone who actually looks.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You name the small, specific thing and she looks at you with unmistakable affection. \"I can't decide if that's the sweetest thing or the most dangerous thing,\" she murmurs. \"Someone who actually looks.\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -238,6 +286,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You tell her there's nowhere else you'd rather be and she looks at you steadily for a moment. \"You mean that,\" she says. Not asking. She takes your hand lightly. \"Then stay.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You tell her there's nowhere else you'd rather be and she looks at you steadily for a moment. \"You mean that,\" she says. Not asking. She takes your hand lightly. \"Then stay.\"",
           "delta": 3
@@ -261,9 +315,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "She smiles slowly. \"You,\" she says, and then laughs softly at herself for saying it. \"I mean — I wanted something true. And then you showed up.\" She doesn't look away.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "She smiles slowly. \"You,\" she says, and then laughs softly at herself for saying it. \"I mean — I wanted something true. And then you showed up.\" She doesn't look away.",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -446,7 +506,7 @@
       "text": "[PLACEHOLDER — spicy ending narrative to be written]"
     }
   ],
-  "location_specials":   {
+  "location_specials": {
     "bar": [
       {
         "style_key": "loc_bar_a",

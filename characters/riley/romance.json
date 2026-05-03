@@ -54,9 +54,15 @@
         },
         {
           "min_affinity": 4,
-          "max_affinity": 20,
+          "max_affinity": 9,
           "text": "You lean in with a challenge that feels like the start of a game only the two of you know the rules to. Riley bites her lower lip, delighted. \"There it is,\" she says. \"That is the energy I train for.\"",
           "delta": 0
+        },
+        {
+          "min_affinity": 10,
+          "max_affinity": 20,
+          "text": "You lean in with a challenge that feels like the start of a game only the two of you know the rules to. Riley bites her lower lip, delighted. \"There it is,\" she says. \"That is the energy I train for.\"",
+          "delta": 1
         }
       ]
     },
@@ -77,9 +83,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You admit that watching her move makes you feel safe and excited at the same time. Riley exhales a breathy little laugh, stepping so close your shoulders touch. \"You are kind of perfect trouble, you know that?\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You admit that watching her move makes you feel safe and excited at the same time. Riley exhales a breathy little laugh, stepping so close your shoulders touch. \"You are kind of perfect trouble, you know that?\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -100,6 +112,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You raise the stakes on the game in a way that is still light but charged. Riley steps in so close that her laugh brushes your neck. \"You keep making it very hard for me to focus on anything else tonight.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You raise the stakes on the game in a way that is still light but charged. Riley steps in so close that her laugh brushes your neck. \"You keep making it very hard for me to focus on anything else tonight.\"",
           "delta": 1
@@ -123,9 +141,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You zero in on a detail that had nothing to do with the show. Riley grabs your arm to steady herself from laughing. \"Okay, you see everything. That is terrifying. I love it.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You zero in on a detail that had nothing to do with the show. Riley grabs your arm to steady herself from laughing. \"Okay, you see everything. That is terrifying. I love it.\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -146,6 +170,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You tell her flat out and she looks at you for a long second, then laughs. \"You are not allowed to be that direct,\" she says. \"It makes everything else feel like a waste of time.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You tell her flat out and she looks at you for a long second, then laughs. \"You are not allowed to be that direct,\" she says. \"It makes everything else feel like a waste of time.\"",
           "delta": 3
@@ -169,6 +199,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You drop something honest into the space between you and she doesn't deflect it — she catches it. \"You keep doing that,\" she says softly, eyes bright. \"Just saying the real thing. I can't decide if it's brave or if you just don't know how good it is.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You drop something honest into the space between you and she doesn't deflect it — she catches it. \"You keep doing that,\" she says softly, eyes bright. \"Just saying the real thing. I can't decide if it's brave or if you just don't know how good it is.\"",
           "delta": 3
@@ -192,6 +228,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You raise the stakes and she doesn't even hesitate — she matches you and goes one further. Her laugh is low and conspiratorial. \"You realise we're both going to lose on purpose just to keep this going,\" she says. Her hand is still on your arm.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You raise the stakes and she doesn't even hesitate — she matches you and goes one further. Her laugh is low and conspiratorial. \"You realise we're both going to lose on purpose just to keep this going,\" she says. Her hand is still on your arm.",
           "delta": 3
@@ -215,9 +257,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You make a game of something ridiculous and she's in before you finish the sentence. \"You,\" she says, laughing, \"are my exact kind of problem.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You make a game of something ridiculous and she's in before you finish the sentence. \"You,\" she says, laughing, \"are my exact kind of problem.\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -238,9 +286,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "She grabs your arm. \"Okay — how. How do you know that?\" She's beaming, off-balance in the best way. \"You see the actual work. Do you know how rare that is?\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "She grabs your arm. \"Okay — how. How do you know that?\" She's beaming, off-balance in the best way. \"You see the actual work. Do you know how rare that is?\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -261,9 +315,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "She laughs, then stops, then actually answers. \"Right now I'm thinking I don't want this to be a party thing,\" she says. \"That's what I'm actually thinking.\" She holds your gaze steadily.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "She laughs, then stops, then actually answers. \"Right now I'm thinking I don't want this to be a party thing,\" she says. \"That's what I'm actually thinking.\" She holds your gaze steadily.",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -457,7 +517,7 @@
       "text": "The dare lands and she doesn't deflect it — she holds your eyes for a long beat instead, like she's deciding something.\n\n\"Fine,\" she says. \"No more rules.\"\n\nShe takes your hand and walks. Not toward the party. Away from it — down a corridor, through a door that opens onto a private terrace, warm and quiet above the city. She kicks off her shoes on the way in, the red dress catching the light as she turns.\n\n\"You kept up with me all night,\" she says, voice lower now. \"That's rare.\"\n\nShe closes the distance without pretense — her mouth finds yours and she kisses the way she does everything else, direct and fully committed, hands gripping the front of your shirt. When she pulls back her breathing is unsteady and she looks almost surprised at herself.\n\n\"Don't make it weird,\" she says, grinning.\n\nThen she kisses you again, longer this time, and whatever was left of the game dissolves entirely."
     }
   ],
-  "location_specials":   {
+  "location_specials": {
     "bar": [
       {
         "style_key": "loc_bar_a",

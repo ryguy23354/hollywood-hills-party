@@ -54,6 +54,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You step into her orbit with slow, deliberate confidence, as if this has all the time in the world. Luna's fingers brush your wrist in a ghost of a touch. \"Stay right here,\" she whispers. \"You feel like a calm I have been missing.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You step into her orbit with slow, deliberate confidence, as if this has all the time in the world. Luna's fingers brush your wrist in a ghost of a touch. \"Stay right here,\" she whispers. \"You feel like a calm I have been missing.\"",
           "delta": 1
@@ -77,9 +83,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You admit that being near her feels strangely grounding, like stepping out of the noise without leaving the party. Luna moves half a step closer until your shoulders almost touch. \"Stay with me a little longer,\" she whispers. \"I like how the world sounds when you are this close.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You admit that being near her feels strangely grounding, like stepping out of the noise without leaving the party. Luna moves half a step closer until your shoulders almost touch. \"Stay with me a little longer,\" she whispers. \"I like how the world sounds when you are this close.\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -100,9 +112,15 @@
         },
         {
           "min_affinity": 4,
-          "max_affinity": 20,
+          "max_affinity": 9,
           "text": "You offer a whisper-light tease that lands as something between humor and intimacy. Luna's hand finds your forearm for just a moment. \"You are very good at this,\" she says. \"Dangerously so.\"",
           "delta": 0
+        },
+        {
+          "min_affinity": 10,
+          "max_affinity": 20,
+          "text": "You offer a whisper-light tease that lands as something between humor and intimacy. Luna's hand finds your forearm for just a moment. \"You are very good at this,\" she says. \"Dangerously so.\"",
+          "delta": 1
         }
       ]
     },
@@ -123,6 +141,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You stay close and let the world go on without you. Luna drifts until your shoulders touch. \"I keep expecting people to fill this up,\" she murmurs. \"You never do.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You stay close and let the world go on without you. Luna drifts until your shoulders touch. \"I keep expecting people to fill this up,\" she murmurs. \"You never do.\"",
           "delta": 3
@@ -146,6 +170,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "Your question lands somewhere she wasn't expecting. Luna turns slowly toward you, expression open in a way she rarely lets it be in public. \"How did you know to ask that?\" she says quietly.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "Your question lands somewhere she wasn't expecting. Luna turns slowly toward you, expression open in a way she rarely lets it be in public. \"How did you know to ask that?\" she says quietly.",
           "delta": 3
@@ -169,6 +199,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You offer the thing you don't usually say and she receives it like something fragile and important. Her hand finds your sleeve, barely touching. \"Thank you for that,\" she says. \"I mean it.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You offer the thing you don't usually say and she receives it like something fragile and important. Her hand finds your sleeve, barely touching. \"Thank you for that,\" she says. \"I mean it.\"",
           "delta": 3
@@ -192,9 +228,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You ask the thing she's been waiting for someone to ask without knowing it. Luna breathes out slowly, eyes soft. \"You did that on purpose,\" she says. It's not a complaint. She moves close enough that the world narrows to just the two of you.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You ask the thing she's been waiting for someone to ask without knowing it. Luna breathes out slowly, eyes soft. \"You did that on purpose,\" she says. It's not a complaint. She moves close enough that the world narrows to just the two of you.",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -215,6 +257,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "She turns to look at you fully, something almost startled in her expression. \"You see people,\" she says softly. \"Actually see them. That's not common.\" She doesn't step away. She steps closer.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "She turns to look at you fully, something almost startled in her expression. \"You see people,\" she says softly. \"Actually see them. That's not common.\" She doesn't step away. She steps closer.",
           "delta": 3
@@ -238,6 +286,12 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You give up the wheel entirely and let her take it wherever it goes. Luna leads you somewhere unexpected — a tangent, a memory, a quiet confession. \"I don't do this with most people,\" she murmurs. \"Talk like this.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You give up the wheel entirely and let her take it wherever it goes. Luna leads you somewhere unexpected — a tangent, a memory, a quiet confession. \"I don't do this with most people,\" she murmurs. \"Talk like this.\"",
           "delta": 2
@@ -261,9 +315,15 @@
         },
         {
           "min_affinity": 4,
+          "max_affinity": 9,
+          "text": "You draw her attention to something small and lit and she looks, then looks back at you with an expression you can't entirely read. \"The fact that you noticed that,\" she says softly, \"tells me everything I needed to know about you.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 10,
           "max_affinity": 20,
           "text": "You draw her attention to something small and lit and she looks, then looks back at you with an expression you can't entirely read. \"The fact that you noticed that,\" she says softly, \"tells me everything I needed to know about you.\"",
-          "delta": 3
+          "delta": 2
         }
       ]
     },
@@ -457,7 +517,7 @@
       "text": "[PLACEHOLDER — spicy ending narrative to be written]"
     }
   ],
-  "location_specials":   {
+  "location_specials": {
     "bar": [
       {
         "style_key": "loc_bar_a",
