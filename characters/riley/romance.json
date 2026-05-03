@@ -142,7 +142,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You lay it out without dressing it up and she relaxes into a wide smile. \"That is the most honest thing anyone has said to me tonight,\" she says. \"Stay.\"",
-          "delta": 2
+          "delta": 1
         },
         {
           "min_affinity": 4,
@@ -165,7 +165,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You say the unguarded thing and she goes still for just a second. Then a slow, genuine smile. \"That's the realest thing anyone's said to me tonight,\" she says quietly. \"I like that.\"",
-          "delta": 3
+          "delta": 2
         },
         {
           "min_affinity": 4,
@@ -188,7 +188,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You up the ante in a way that feels less like competition and more like invitation. Riley's eyes light up. \"Now we're getting somewhere,\" she says. \"You actually want to play.\"",
-          "delta": 2
+          "delta": 1
         },
         {
           "min_affinity": 4,
@@ -257,13 +257,37 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "She goes quiet for a second — actually checking. \"Right now? I'm thinking this is the most interesting conversation I've had all night.\" She says it plainly, no spin. \"Don't ruin it.\"",
-          "delta": 2
+          "delta": 1
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "She laughs, then stops, then actually answers. \"Right now I'm thinking I don't want this to be a party thing,\" she says. \"That's what I'm actually thinking.\" She holds your gaze steadily.",
           "delta": 3
+        }
+      ]
+    },
+    "self_promote": {
+      "label": "Talk yourself up to match her energy",
+      "max_affinity": 8,
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You try to match her frequency by listing what you've got going on. Riley's attention migrates. \"Cool,\" she says, tapping her foot. There's no follow-up question. You had the floor and lost it.",
+          "delta": -2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You lean into your own highlights, hoping it reads as confidence. Riley nods along with polite, fading interest. \"Nice,\" she says. \"So, that bet —\" She redirects. You lost her for a second.",
+          "delta": -1
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 8,
+          "text": "You drift into talking about yourself and she lets you finish. When you're done she tilts her head. \"I like you better when you're asking me things,\" she says, matter-of-fact. \"Just so you know.\"",
+          "delta": -1
         }
       ]
     },
@@ -408,7 +432,7 @@
     {
       "id": "riley_ending_mild",
       "tier": "mild",
-      "min_affinity": 5,
+      "min_affinity": 7,
       "label": "Challenge her to one last bet — winner picks what's next",
       "title": "Riley — Your Move",
       "exit_label": "You take her up on it.",
@@ -417,7 +441,7 @@
     {
       "id": "riley_ending_medium",
       "tier": "medium",
-      "min_affinity": 9,
+      "min_affinity": 12,
       "label": "Tell her tonight feels like the start of something",
       "title": "Riley — Past the Finish Line",
       "exit_label": "Some nights don't need a finish line.",
@@ -426,14 +450,14 @@
     {
       "id": "riley_ending_spicy",
       "tier": "spicy",
-      "min_affinity": 13,
+      "min_affinity": 18,
       "label": "Dare her to stop pretending this is just a game",
       "title": "Riley — No More Rules",
       "exit_label": "Best two out of three.",
       "text": "The dare lands and she doesn't deflect it — she holds your eyes for a long beat instead, like she's deciding something.\n\n\"Fine,\" she says. \"No more rules.\"\n\nShe takes your hand and walks. Not toward the party. Away from it — down a corridor, through a door that opens onto a private terrace, warm and quiet above the city. She kicks off her shoes on the way in, the red dress catching the light as she turns.\n\n\"You kept up with me all night,\" she says, voice lower now. \"That's rare.\"\n\nShe closes the distance without pretense — her mouth finds yours and she kisses the way she does everything else, direct and fully committed, hands gripping the front of your shirt. When she pulls back her breathing is unsteady and she looks almost surprised at herself.\n\n\"Don't make it weird,\" she says, grinning.\n\nThen she kisses you again, longer this time, and whatever was left of the game dissolves entirely."
     }
   ],
-  "location_specials": {
+  "location_specials":   {
     "bar": [
       {
         "style_key": "loc_bar_a",

@@ -56,7 +56,7 @@
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "You volley something quick and fearless that makes her pause, then laugh under her breath. Harper steps into your space, lowering her voice. \"Careful,\" she says. \"I fall for good dialogue way too easily.\"",
-          "delta": 1
+          "delta": 2
         }
       ]
     },
@@ -119,7 +119,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You drop the game for a beat and say something unpolished. Harper's expression shifts entirely. \"There you are,\" she says softly. \"I was wondering when you would show up.\"",
-          "delta": 3
+          "delta": 2
         },
         {
           "min_affinity": 4,
@@ -165,7 +165,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You get into it — what it takes, what it costs, what nobody sees. Harper's whole performance drops away. \"This is my favourite kind of conversation,\" she says quietly. \"And I almost never get to have it at one of these things.\"",
-          "delta": 3
+          "delta": 2
         },
         {
           "min_affinity": 4,
@@ -188,7 +188,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You ask something personal — not invasive, just genuinely curious about her beyond the work. She holds your gaze for a beat. \"Nobody's asked me that in a while,\" she says. Something in her face opens up. \"The real answer or the press answer?\" She's already choosing the real one.",
-          "delta": 3
+          "delta": 2
         },
         {
           "min_affinity": 4,
@@ -211,7 +211,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You name the subtext directly and she laughs — caught, and genuinely delighted about it. \"I spend so much time in subtext,\" she says. \"It's disorienting when someone just says the thing.\" She sounds like that's a compliment.",
-          "delta": 2
+          "delta": 1
         },
         {
           "min_affinity": 4,
@@ -264,6 +264,30 @@
           "max_affinity": 20,
           "text": "You drop every performance and say the true, unpolished thing. Harper looks at you for a long moment. \"That is going to stay with me,\" she says finally. Her hand finds your arm. \"I don't say that lightly.\"",
           "delta": 3
+        }
+      ]
+    },
+    "fan_moment": {
+      "label": "Bring up the role that made you a fan",
+      "max_affinity": 8,
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You name the role and she does the smile — the one she's done ten thousand times. \"Thank you,\" she says, automatic as a receipt. The real Harper left the building the second you said it.",
+          "delta": -1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "You go fan for a second and she goes fully professional in return. \"That one was fun,\" she says, switching to press-conference mode. \"The cast was great.\" You are now a journalist. She is now a star. Not what you wanted.",
+          "delta": -2
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 8,
+          "text": "You bring it up and she almost winces. \"I knew this was too good to last,\" she says — half-joking. Half. \"Can we go back to the part where you weren't doing that?\"",
+          "delta": -1
         }
       ]
     },
@@ -408,7 +432,7 @@
     {
       "id": "harper_ending_mild",
       "tier": "mild",
-      "min_affinity": 5,
+      "min_affinity": 7,
       "label": "[Mild ending — unlock at affinity 5]",
       "title": "Harper — A Quiet Exit",
       "exit_label": "Start a new night.",
@@ -417,7 +441,7 @@
     {
       "id": "harper_ending_medium",
       "tier": "medium",
-      "min_affinity": 9,
+      "min_affinity": 12,
       "label": "[Medium ending — unlock at affinity 9]",
       "title": "Harper — Something More",
       "exit_label": "Start a new night.",
@@ -426,14 +450,14 @@
     {
       "id": "harper_ending_spicy",
       "tier": "spicy",
-      "min_affinity": 13,
+      "min_affinity": 18,
       "label": "[Spicy ending — unlock at affinity 13]",
       "title": "Harper — No Holding Back",
       "exit_label": "Start a new night.",
       "text": "[PLACEHOLDER — spicy ending narrative to be written]"
     }
   ],
-  "location_specials": {
+  "location_specials":   {
     "bar": [
       {
         "style_key": "loc_bar_a",
