@@ -205,6 +205,7 @@
 
       const fullPool = Object.entries(styles)
         .filter(([styleKey]) => !openingStyleKeys.has(styleKey))
+        .filter(([styleKey]) => !styleKey.startsWith("loc_"))   // location specials only via location_specials block
         .filter(([styleKey]) => styleKey !== ctx.lastStyle)  // no repeat picks
         .map(([styleKey, styleData]) => {
         const baseLabel = styleData.label || styleKey;
@@ -241,6 +242,7 @@
     if (Array.isArray(locationSpecials) && locationSpecials.length > 0 && Math.random() < 0.25) {
       const eligible = locationSpecials.filter(
         s => currentAffinity >= _safeNumber(s.min_affinity, Infinity)
+          && s.style_key !== ctx.lastStyle  // no repeat picks for loc specials either
       );
       if (eligible.length > 0) {
         const special = eligible[Math.floor(Math.random() * eligible.length)];
