@@ -5,16 +5,26 @@
   "context_states": [
     {
       "min_affinity": -10,
+      "max_affinity": -3,
+      "text": "Luna is at the room's edge, watching something no one else is watching. She doesn't look at you. The stillness around her has a particular quality — not invitation, not rejection. Just complete self-containment."
+    },
+    {
+      "min_affinity": -2,
       "max_affinity": -1,
       "text": "Luna is watching the room from its edge, drink untouched. She glances at you without hurry — a slow, assessing look that gives nothing away. The air around her has a particular stillness to it."
     },
     {
       "min_affinity": 0,
-      "max_affinity": 6,
+      "max_affinity": 4,
       "text": "The world seems quieter around Luna. Storm-gray eyes study you with slow, drifting interest, as if she is waiting to see which version of you steps forward."
     },
     {
-      "min_affinity": 4,
+      "min_affinity": 5,
+      "max_affinity": 8,
+      "text": "Luna's gaze finds you before you've fully arrived. Something in her expression is slightly more open than her usual — she isn't performing the distance anymore. She makes room in her quiet without making a show of it."
+    },
+    {
+      "min_affinity": 9,
       "max_affinity": 20,
       "text": "Luna turns before you fully arrive, like she felt you coming. Her expression is open in a way she doesn't usually let it be in public. She doesn't say anything at first — just makes room for you in the quiet she carries around her."
     }
@@ -32,8 +42,8 @@
     },
     {
       "tier": "negative",
-      "label": "Lighten the mood with something clever",
-      "romance_style": "playful"
+      "label": "Bring the energy up — get the room going",
+      "romance_style": "perform"
     }
   ],
   "styles": {
@@ -42,26 +52,38 @@
       "reactions": [
         {
           "min_affinity": -10,
+          "max_affinity": -3,
+          "text": "You hold the moment with more weight than you've earned yet. Luna tilts her head slowly, unreadable, then lets her gaze drift away. Not unkind. Just already somewhere else.",
+          "delta": 0
+        },
+        {
+          "min_affinity": -2,
           "max_affinity": -1,
-          "text": "You hold her eyes a little too firmly at first. Luna tilts her head, unreadable. After a beat, a small smile curves her lips. \"You do not flinch easily,\" she murmurs. \"I am still deciding if that is dangerous or intriguing.\"",
+          "text": "You hold the look with quiet intention. Luna notices — her eyes stay on yours a beat longer than necessary before moving on. Something registered. What, exactly, she isn't saying.",
           "delta": 0
         },
         {
           "min_affinity": 0,
-          "max_affinity": 6,
+          "max_affinity": 4,
           "text": "You let silence do some of the talking, meeting her gaze without looking away. Luna's lashes lower, expression softening. \"Better,\" she says quietly. \"You understand stillness.\"",
           "delta": 0
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You meet her eyes without pressure and hold them. Luna holds yours back, unhurried, like there's no clock anywhere in the room. \"You don't rush things,\" she murmurs. \"I noticed that first.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
-          "text": "You step into her orbit with slow, deliberate confidence, as if this has all the time in the world. Luna's fingers brush your wrist in a ghost of a touch. \"Stay right here,\" she whispers. \"You feel like a calm I have been missing.\"",
+          "text": "You step into her orbit with slow, deliberate ease, as if this has all the time in the world. Luna's fingers brush your wrist in a ghost of a touch. \"Stay right here,\" she whispers. \"You feel like a calm I have been missing.\"",
           "delta": 1
         },
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "You step into her orbit with slow, deliberate confidence, as if this has all the time in the world. Luna's fingers brush your wrist in a ghost of a touch. \"Stay right here,\" she whispers. \"You feel like a calm I have been missing.\"",
+          "text": "Your eyes find hers across the space and neither of you looks away. The room keeps happening somewhere behind you. Luna breathes slowly. \"You're still here,\" she says finally, like she's been waiting to say it.",
           "delta": 1
         }
       ]
@@ -71,18 +93,30 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You ask about her work in a way that is more curious than impressed. Luna's shoulders loosen by a fraction. \"You are not chasing a story,\" she says. \"You are just curious. That is rare.\"",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You say something quietly genuine — not practiced, just true — and her posture shifts. \"You mean that,\" she says, almost to herself. She hadn't expected to believe it.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 6,
+          "max_affinity": 4,
           "text": "You share a quiet, honest thought about how the night feels to you. Luna listens with her whole attention, eyes soft. \"You notice texture,\" she murmurs. \"I like that.\"",
           "delta": 3
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You offer something real without performing the offering. Luna absorbs it slowly. \"Most people dress things up,\" she says. \"You don't.\" She says it like it's the best thing she's learned tonight.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
           "text": "You admit that being near her feels strangely grounding, like stepping out of the noise without leaving the party. Luna moves half a step closer until your shoulders almost touch. \"Stay with me a little longer,\" she whispers. \"I like how the world sounds when you are this close.\"",
           "delta": 2
@@ -90,7 +124,7 @@
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "You admit that being near her feels strangely grounding, like stepping out of the noise without leaving the party. Luna moves half a step closer until your shoulders almost touch. \"Stay with me a little longer,\" she whispers. \"I like how the world sounds when you are this close.\"",
+          "text": "You say the simple, true thing. Luna is quiet for a long moment after, eyes very still. \"I forget people can be like this,\" she says softly. \"Just... kind. Without a reason.\"",
           "delta": 2
         }
       ]
@@ -100,26 +134,38 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
-          "text": "You attempt a joke that is a bit louder than her mood. Luna's mouth twitches, and she rescues you with a small smile. \"You are sweet,\" she says. \"Just soften the edges.\"",
+          "max_affinity": -3,
+          "text": "You attempt something light and it lands in the wrong register — a little too loud for where she is. Luna's mouth twitches, rescuing you with a small smile. \"You are sweet,\" she says. \"Just soften the edges.\"",
           "delta": -2
         },
         {
-          "min_affinity": 0,
-          "max_affinity": 6,
-          "text": "You tease her in a hushed tone, keeping it gentle and almost conspiratorial. Her smile deepens, eyes fluttering briefly closed. \"That is better,\" she murmurs. \"You sound like you belong in this volume.\"",
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "The tease is a touch too bright for her current frequency. She doesn't dismiss it, but she doesn't open to it either. \"A little,\" she says, in a tone that means not quite.",
           "delta": -1
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 0,
+          "max_affinity": 4,
+          "text": "You tease her in a hushed tone, keeping it gentle and almost conspiratorial. Her smile deepens slightly, eyes drifting closed for a moment. \"Better,\" she murmurs. \"You sound like you belong in this volume.\"",
+          "delta": -1
+        },
+        {
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You go soft with the tease — barely a whisper of humor — and she receives it. Her lips curve just slightly. \"You've been practicing,\" she says. She sounds genuinely pleased.",
+          "delta": 0
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
-          "text": "You offer a whisper-light tease that lands as something between humor and intimacy. Luna's hand finds your forearm for just a moment. \"You are very good at this,\" she says. \"Dangerously so.\"",
+          "text": "You offer a whisper-light tease and she meets it. Luna's hand finds your forearm for just a moment. \"You are very good at this,\" she says. \"Dangerously so.\"",
           "delta": 0
         },
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "You offer a whisper-light tease that lands as something between humor and intimacy. Luna's hand finds your forearm for just a moment. \"You are very good at this,\" she says. \"Dangerously so.\"",
+          "text": "Your tease lands as something between humor and intimacy and she knows exactly what you meant by it. Her eyes are slow and warm. \"I see you,\" she says quietly. That's all. It's everything.",
           "delta": 1
         }
       ]
@@ -129,18 +175,30 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You don't push to fill the silence. Luna glances sideways at you. \"Good,\" she murmurs. \"You understand that quiet isn't something to fix.\" A thread of warmth moves through her expression.",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You simply stay. No agenda in it. Luna's breath steadies slightly — you can see it. \"You're still here,\" she says, as though checking.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 6,
+          "max_affinity": 4,
           "text": "You simply exist beside her, close and unhurried. Luna's breath steadies. \"Stay,\" she says softly, as if the word costs something.",
           "delta": 2
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You stay close without needing anything from the moment. Luna doesn't fill the space either — she just drifts a little closer without seeming to choose it. \"You're easy to be near,\" she says quietly.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
           "text": "You stay close and let the world go on without you. Luna drifts until your shoulders touch. \"I keep expecting people to fill this up,\" she murmurs. \"You never do.\"",
           "delta": 2
@@ -148,7 +206,7 @@
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "You stay close and let the world go on without you. Luna drifts until your shoulders touch. \"I keep expecting people to fill this up,\" she murmurs. \"You never do.\"",
+          "text": "You exist beside her with such unhurried calm that the space between you feels entirely different from the rest of the party. Luna turns her face toward you slowly. \"I think I've been looking for someone with your exact frequency,\" she says. She doesn't seem to mind having said it aloud.",
           "delta": 3
         }
       ]
@@ -158,18 +216,30 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You ask a real question about her current project. Luna's eyes focus sharply. \"You have actually seen it,\" she says, more statement than question. \"Ask what you really want to ask.\"",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "The question is specific enough that she can't give the rehearsed answer. Luna pauses. \"That takes some thought,\" she says. She doesn't sound annoyed. She sounds like she's deciding something.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 6,
-          "text": "You go past the surface into something that takes thought to answer. Luna is quiet for a moment. \"That is a real question,\" she says finally. \"Most people don't ask real questions.\"",
+          "max_affinity": 4,
+          "text": "You go past the surface into something that takes real thought to answer. Luna is quiet for a moment. \"That is a real question,\" she says finally. \"Most people don't ask real questions.\"",
           "delta": 3
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You ask the thing behind the thing. Luna turns slightly more toward you, like a plant finding light. \"No one's gone past the obvious before,\" she says. \"Not like that.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
           "text": "Your question lands somewhere she wasn't expecting. Luna turns slowly toward you, expression open in a way she rarely lets it be in public. \"How did you know to ask that?\" she says quietly.",
           "delta": 2
@@ -177,7 +247,7 @@
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "Your question lands somewhere she wasn't expecting. Luna turns slowly toward you, expression open in a way she rarely lets it be in public. \"How did you know to ask that?\" she says quietly.",
+          "text": "You ask the question that gets all the way in. Luna is still for a long moment. Then she tells you something she hasn't told many people. Her voice is barely there. \"I don't know why I'm saying this,\" she says. \"I just want to.\"",
           "delta": 3
         }
       ]
@@ -187,18 +257,30 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You offer up something small and personal, unprompted. Luna's eyes shift — a flicker of real attention where there was only polite distance before. \"You carry that with you,\" she says softly. \"I can tell.\"",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You say the quiet thing unprompted, and she reassesses you in real time. \"You share without being asked,\" she says. \"That's rare.\" She means it.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 6,
+          "max_affinity": 4,
           "text": "You say the quiet thing out loud. Luna stills completely. Then, slowly, she turns toward you. \"That's not what most people lead with,\" she murmurs. \"I'm glad you did.\"",
           "delta": 3
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You hand her something you don't usually show people and she holds it carefully. \"You trust easily,\" she says — not as a criticism. \"Or you trust the right things.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
           "text": "You offer the thing you don't usually say and she receives it like something fragile and important. Her hand finds your sleeve, barely touching. \"Thank you for that,\" she says. \"I mean it.\"",
           "delta": 2
@@ -206,7 +288,7 @@
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "You offer the thing you don't usually say and she receives it like something fragile and important. Her hand finds your sleeve, barely touching. \"Thank you for that,\" she says. \"I mean it.\"",
+          "text": "You say the vulnerable thing and she looks at you the way people look at something they didn't know they needed. \"I want to remember everything you say tonight,\" she says quietly. She already is.",
           "delta": 3
         }
       ]
@@ -216,18 +298,30 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "The question is unexpected enough that she has to actually pause. Luna tilts her head, looking at you differently. \"That's a strange thing to ask,\" she says. \"In a good way. I don't have a rehearsed answer.\"",
           "delta": 2
         },
         {
-          "min_affinity": 0,
-          "max_affinity": 6,
-          "text": "The question lands somewhere she wasn't prepared for. Luna is quiet for a moment — genuinely thinking. \"Nobody asks that,\" she says at last. \"I don't know if I have a real answer yet. Stay while I find one.\"",
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "She stops — actually processes rather than reaching for a practiced answer. \"Nobody has asked that,\" she says after a moment. Something opened a crack.",
           "delta": 2
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 0,
+          "max_affinity": 4,
+          "text": "The question lands somewhere she wasn't prepared for. Luna is quiet — genuinely thinking. \"Nobody asks that,\" she says at last. \"I don't know if I have a real answer yet. Stay while I find one.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You ask something she's never been asked and she looks at you for a long beat before answering. Whatever she says, it isn't the polished version. \"You got the real one,\" she says. \"I don't always give out the real ones.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
           "text": "You ask the thing she's been waiting for someone to ask without knowing it. Luna breathes out slowly, eyes soft. \"You did that on purpose,\" she says. It's not a complaint. She moves close enough that the world narrows to just the two of you.",
           "delta": 2
@@ -235,7 +329,7 @@
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "You ask the thing she's been waiting for someone to ask without knowing it. Luna breathes out slowly, eyes soft. \"You did that on purpose,\" she says. It's not a complaint. She moves close enough that the world narrows to just the two of you.",
+          "text": "The question gets all the way in without trying. Luna holds your gaze for a long, slow moment. \"Nobody asks me things like that,\" she says finally. \"How do you know to ask things like that?\"",
           "delta": 2
         }
       ]
@@ -245,18 +339,30 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You name the thing under the surface and she goes very still. \"You picked that up,\" she says. Not quite a question. She looks at you like something has shifted.",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You reflect back the thing she was feeling but hadn't said. She blinks. \"How —\" She doesn't finish. But she's looking at you properly for the first time.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 6,
+          "max_affinity": 4,
           "text": "You say the thing she was feeling but hadn't put into words. Luna exhales slowly. \"How did you —\" She stops. \"That was exactly it,\" she says quietly. \"That was the exact thing.\"",
           "delta": 2
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You name something she's been quietly holding and she receives it like a gift she'd been too proud to ask for. \"You see things,\" she says. \"Not many people do.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
           "text": "She turns to look at you fully, something almost startled in her expression. \"You see people,\" she says softly. \"Actually see them. That's not common.\" She doesn't step away. She steps closer.",
           "delta": 2
@@ -264,7 +370,7 @@
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "She turns to look at you fully, something almost startled in her expression. \"You see people,\" she says softly. \"Actually see them. That's not common.\" She doesn't step away. She steps closer.",
+          "text": "You reflect the thing back and she goes somewhere very quiet inside herself. When she comes back her eyes are soft and very present. \"That's the most seen I have felt in a long time,\" she says. Her voice is nearly gone.",
           "delta": 3
         }
       ]
@@ -274,18 +380,30 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You stop steering and just let it move. Luna notices the shift — her posture loosens slightly. \"You're not trying to go anywhere specific,\" she observes. \"That's refreshing.\"",
           "delta": 1
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You give up the direction entirely and just follow. She leads it somewhere unexpected — somewhere she probably meant to avoid. She doesn't seem to mind.",
+          "delta": 1
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 6,
+          "max_affinity": 4,
           "text": "You let the conversation wander without trying to land it anywhere. Luna drifts with it, and somewhere in the middle she says something she clearly hadn't planned to. She seems pleased about that.",
           "delta": 1
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You follow where she leads without needing to redirect it. The conversation goes somewhere neither of you expected. Luna speaks slowly, like she's discovering what she thinks as she says it. \"You make it easy to go places,\" she says.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
           "text": "You give up the wheel entirely and let her take it wherever it goes. Luna leads you somewhere unexpected — a tangent, a memory, a quiet confession. \"I don't do this with most people,\" she murmurs. \"Talk like this.\"",
           "delta": 2
@@ -293,7 +411,7 @@
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "You give up the wheel entirely and let her take it wherever it goes. Luna leads you somewhere unexpected — a tangent, a memory, a quiet confession. \"I don't do this with most people,\" she murmurs. \"Talk like this.\"",
+          "text": "You follow her all the way in, no questions, no steering. Luna goes somewhere very quiet and real. \"You don't try to make this anything,\" she says. \"You just let it be what it is.\" She sounds like she's in love with that.",
           "delta": 2
         }
       ]
@@ -303,18 +421,30 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You point out something in the room or the night that nobody else has mentioned. Luna looks. \"I had been looking at that,\" she says. \"I didn't think anyone else was.\" A quiet bridge forms.",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You draw her attention to the overlooked thing. She follows your gaze. \"Yes,\" she says. Just that. But she's leaning toward you now in a way she wasn't a minute ago.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 6,
+          "max_affinity": 4,
           "text": "You name the thing that's been there the whole time. Luna turns to look, then turns back to you. \"You see things in the background,\" she says. \"I do that too. It's a lonely habit.\" She doesn't sound lonely when she says it.",
           "delta": 2
         },
         {
-          "min_affinity": 7,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You catch something subtle — the way the light falls, the quality of a sound — and name it out loud. Luna's attention becomes fully present. \"You're always half looking,\" she says. \"Aren't you?\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
           "max_affinity": 11,
           "text": "You draw her attention to something small and lit and she looks, then looks back at you with an expression you can't entirely read. \"The fact that you noticed that,\" she says softly, \"tells me everything I needed to know about you.\"",
           "delta": 2
@@ -322,30 +452,102 @@
         {
           "min_affinity": 12,
           "max_affinity": 20,
-          "text": "You draw her attention to something small and lit and she looks, then looks back at you with an expression you can't entirely read. \"The fact that you noticed that,\" she says softly, \"tells me everything I needed to know about you.\"",
+          "text": "You name something no one else in the room has seen. Luna looks for a long moment, then turns to you slowly. \"We've been seeing the same things all night,\" she says. \"Without knowing it.\" She says it like a realization. Like something just aligned.",
           "delta": 2
+        }
+      ]
+    },
+    "perform": {
+      "label": "Bring the energy up — get the room going",
+      "max_affinity": 2,
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -3,
+          "text": "You try to lift the energy and she watches the effort from somewhere very still. \"I see what you're doing,\" she says carefully. \"It's just not where I am.\" She doesn't follow where you're trying to take it.",
+          "delta": -2
+        },
+        {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You raise the room's frequency, or try to. Luna doesn't ride the wave. She holds her stillness like something she worked for. \"Too loud,\" she says, very quietly. For her, that's a complete sentence.",
+          "delta": -2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 2,
+          "text": "You bring energy into her space and she doesn't recoil — she just doesn't match it. She waits for it to settle. \"I liked the other version,\" she says. \"The quieter one.\" She means it as guidance, not criticism.",
+          "delta": -1
+        }
+      ]
+    },
+    "touch": {
+      "label": "Reach out and lightly touch her arm",
+      "min_affinity": 5,
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -3,
+          "text": "You reach before you've earned it. Luna doesn't flinch, but she holds very still — the quality of stillness that means wait. \"Not yet,\" she says, barely audible.",
+          "delta": -1
+        },
+        {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You move to touch her arm and she goes still in a way that tells you it's too soon. \"Slowly,\" she says. Just that.",
+          "delta": -1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 4,
+          "text": "You reach out and she allows the contact — holds the ground, doesn't meet it. Not a no, not a yes. A quiet deferral.",
+          "delta": 0
+        },
+        {
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You reach out and brush her arm lightly — barely contact — and she lets it land. Doesn't move toward or away. After a beat: \"That was okay,\" she says. \"You can do that.\" Quiet permission.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
+          "text": "You touch her arm with deliberate gentleness and she turns toward it — actually moves into the contact, just slightly. Her eyes find yours. \"I was hoping you'd do that,\" she murmurs.",
+          "delta": 3
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You reach for her and she's already there, meeting your hand before you've fully committed. Her fingers are cool and she holds them against yours without pressing. \"Stay,\" she says. One word.",
+          "delta": 3
         }
       ]
     },
     "overfill": {
       "label": "Keep things moving — fill the silence before it gets awkward",
-      "max_affinity": 9,
+      "max_affinity": 8,
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You rush to fill the quiet and she watches with patient, slightly sad attention. \"You don't have to do that,\" she says gently. \"Silence isn't something that needs fixing.\" She turns back to the room.",
           "delta": -2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "The noise you make to fill the space lands a touch too loud for where she is. Luna's expression doesn't change, but something closes slightly. \"Easy,\" she says softly. \"We had something nice there.\"",
+          "delta": -2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 6,
+          "max_affinity": 4,
           "text": "You talk past the pause and she blinks. The thread you'd been building goes slack. \"It was nice, just then,\" she says quietly. \"Before you spoke.\" It isn't unkind. It still lands like it's supposed to.",
           "delta": -2
         },
         {
-          "min_affinity": 7,
-          "max_affinity": 9,
+          "min_affinity": 5,
+          "max_affinity": 8,
           "text": "You fill a silence she was holding on purpose. Luna closes slightly — not cold, just a fraction more contained. \"You're doing it again,\" she murmurs. \"Filling things up.\" She doesn't sound angry. Just a little away.",
           "delta": -1
         }
@@ -493,28 +695,28 @@
       "id": "luna_ending_mild",
       "tier": "mild",
       "min_affinity": 7,
-      "label": "[Mild ending — unlock at affinity 5]",
+      "label": "Suggest stepping somewhere quieter",
       "title": "Luna — A Quiet Exit",
-      "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER — mild ending narrative to be written]"
+      "exit_label": "Some nights find their own quiet.",
+      "text": "You don't say it loudly. You don't have to.\n\nLuna hears it — the suggestion — and something in her face settles. A decision, made very quietly, without fanfare.\n\n\"Yes,\" she says. Just that.\n\nShe sets her drink down and moves toward the edge of the room, unhurried, and you follow. She doesn't check to see if you're behind her. She knows.\n\nYou find a balcony corner the party has forgotten, or a hallway that nobody's using. The music becomes distant — there but not here. The air is cooler and the city is spread out below like a thing left on to keep the dark away.\n\nShe turns and looks at you in the particular way she has — like she's seeing more than the surface. A small smile, barely there.\n\n\"Better,\" she says softly. \"This is the right volume.\"\n\nShe settles into the quiet like it's something she's been waiting for all night. Like you gave it to her. She leans back against the railing, shoulder almost touching yours, and watches the lights below.\n\nNeither of you feels the need to say anything else. It turns out that's exactly enough."
     },
     {
       "id": "luna_ending_medium",
       "tier": "medium",
       "min_affinity": 12,
-      "label": "[Medium ending — unlock at affinity 9]",
+      "label": "Tell her you don't want this night to end",
       "title": "Luna — Something More",
-      "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER — medium ending narrative to be written]"
+      "exit_label": "Follow wherever this is going.",
+      "text": "She goes still when you say it.\n\nThen, very slowly, she exhales. Luna looks at you for a long moment — not performing looking, just looking. Really there.\n\n\"Most nights I can't wait for them to be over,\" she says. \"I spend the whole time waiting to be somewhere quieter.\"\n\nShe reaches out and lightly touches the back of your hand with two fingers. Barely contact. She leaves them there.\n\n\"Tonight has been different.\"\n\nShe doesn't elaborate. In the quiet that follows she turns her hand over, slowly, until her fingers are threading through yours. Her grip is soft but deliberate.\n\n\"Come find me somewhere the lights are lower,\" she says. \"I want to keep going wherever this is going.\"\n\nShe leads and you follow and the party falls away behind you like a sound going out of range. Wherever she takes you — a quiet room, a lit corridor, a door she opens without hesitation — the world is smaller there. Just the two of you and the particular stillness she carries everywhere she goes.\n\nShe looks at you in the low light with those storm-gray eyes and something in her expression has opened all the way. No performance. No distance.\n\n\"Stay,\" she says quietly.\n\nYou do."
     },
     {
       "id": "luna_ending_spicy",
       "tier": "spicy",
       "min_affinity": 18,
-      "label": "[Spicy ending — unlock at affinity 13]",
-      "title": "Luna — No Holding Back",
-      "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER — spicy ending narrative to be written]"
+      "label": "Whisper that you're not done with her yet",
+      "title": "Luna — The Quiet Unraveling",
+      "exit_label": "Some silences speak for themselves.",
+      "text": "She hears it and goes still in the particular way that means everything.\n\nThe door closes behind you and the party becomes a memory. The room is dim and cool and the city lights filter through gauze curtains, turning everything silver. Luna stands in the middle of it like something that was placed there deliberately — pale dress, dark hair, gray eyes that have stopped being careful.\n\n\"I knew this was where tonight was going,\" she says. Her voice is barely there. \"I just didn't want to assume.\"\n\nShe doesn't move toward you. She waits, which is its own kind of invitation — the kind that puts everything in your hands.\n\nYou cross the room and she watches you come without retreating an inch. When you reach her you lift her chin with two fingers and she lets you, completely, eyes going heavy-lidded and soft. Her breath comes out in a long, slow exhale.\n\n\"Yes,\" she says, to nothing specific. To everything.\n\nYou kiss her slowly and she melts into it rather than meeting it — not passive, just surrendering the direction entirely, letting you set the pace and the depth and the shape of it. Her hands find your shoulders and hold without guiding. She's giving you everything and keeping nothing back.\n\nYou walk her back to the edge of the bed and she sits, looking up at you with those storm-gray eyes wide and very dark. There's no performance left in her. The model, the public presence, the careful distance — all of it is completely gone. What's underneath is quieter and more devastating.\n\n\"Tell me what you want,\" she says softly. \"I want to give you everything.\"\n\nYou reach for the thin strap of her dress and she helps you without hesitation — lifts her arms, tilts her chin, moves exactly how you need her to move. When the dress falls she sits very still in the low light, skin pale as ivory, breathing slowly.\n\n\"Is this okay?\" you ask.\n\n\"Everything you do is okay,\" she says. She means it absolutely.\n\nShe is entirely present and entirely given over — her body responding to every touch with small, soft sounds, quiet gasps that she doesn't attempt to muffle or perform. When you lay her back she goes willingly, arms loose at her sides, letting you arrange her the way you want. Her eyes stay on you the entire time, open and unhurried.\n\nThe world outside exists in theory. In practice there is only this room, this light, her voice barely there and her body completely open. She follows every movement you make with the same fluid ease she carries into everything — soft, unhurried, utterly without resistance.\n\nWhen she finally falls apart it happens almost silently — a held breath, a shiver that moves through her whole body, her fingers gripping the sheets without tightening. Her eyes close for the first time. She makes one small sound, barely audible.\n\nAfterward she turns toward you in the dim light, her breath steady and slow, and rests her forehead against your chest. Her hand finds yours.\n\n\"I don't usually —\" she starts, then stops. \"I don't usually let myself.\"\n\nA long pause.\n\n\"Thank you for making it safe to.\""
     }
   ],
   "location_specials": {
