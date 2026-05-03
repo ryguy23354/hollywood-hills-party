@@ -142,7 +142,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You let something real slip without pre-editing it. Mara looks at you with quiet certainty. \"That is the truth, isn't it,\" she says. \"Not performance. Just you.\" She seems genuinely pleased.",
-          "delta": 3
+          "delta": 2
         },
         {
           "min_affinity": 4,
@@ -188,7 +188,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "You let the held-back thing through and she receives it with both hands. \"You didn't have to tell me that,\" she says. \"That means you wanted to.\" Her voice is warm and very certain. \"I'm glad you did.\"",
-          "delta": 3
+          "delta": 2
         },
         {
           "min_affinity": 4,
@@ -234,7 +234,7 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "The absence of urgency seems to be exactly what she needed. Mara's shoulders drop. \"Good,\" she says quietly. \"I don't want to rush this either.\" She says it like a small confession.",
-          "delta": 2
+          "delta": 1
         },
         {
           "min_affinity": 4,
@@ -257,13 +257,37 @@
           "min_affinity": 0,
           "max_affinity": 3,
           "text": "She pauses, really thinking about it. \"Something that matters,\" she says finally. \"A conversation that doesn't feel like performance.\" She looks at you. \"This might be it.\"",
-          "delta": 3
+          "delta": 2
         },
         {
           "min_affinity": 4,
           "max_affinity": 20,
           "text": "She smiles slowly. \"You,\" she says, and then laughs softly at herself for saying it. \"I mean — I wanted something true. And then you showed up.\" She doesn't look away.",
           "delta": 3
+        }
+      ]
+    },
+    "name_drop": {
+      "label": "Casually mention someone impressive you know",
+      "max_affinity": 6,
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -1,
+          "text": "You drop the name and she tracks it — and then tracks you. \"Hm,\" she says after a moment. Her warmth is still there but something careful has moved in behind her eyes.",
+          "delta": -2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 3,
+          "text": "The name lands and she smiles politely. \"That's nice,\" she says. Something shifted while you were talking and you're not quite sure what. She's still here, but a door quietly closed.",
+          "delta": -1
+        },
+        {
+          "min_affinity": 4,
+          "max_affinity": 6,
+          "text": "You let something impressive slip and she tilts her head. \"You do that sometimes,\" she says gently. \"Just... check in, okay? I'm not keeping score.\" It's a soft correction. It still stings a little.",
+          "delta": -1
         }
       ]
     },
@@ -397,7 +421,7 @@
     {
       "id": "mara_ending_mild",
       "tier": "mild",
-      "min_affinity": 5,
+      "min_affinity": 7,
       "label": "[Mild ending — unlock at affinity 5]",
       "title": "Mara — A Quiet Exit",
       "exit_label": "Start a new night.",
@@ -406,7 +430,7 @@
     {
       "id": "mara_ending_medium",
       "tier": "medium",
-      "min_affinity": 9,
+      "min_affinity": 12,
       "label": "[Medium ending — unlock at affinity 9]",
       "title": "Mara — Something More",
       "exit_label": "Start a new night.",
@@ -415,14 +439,14 @@
     {
       "id": "mara_ending_spicy",
       "tier": "spicy",
-      "min_affinity": 13,
+      "min_affinity": 18,
       "label": "[Spicy ending — unlock at affinity 13]",
       "title": "Mara — No Holding Back",
       "exit_label": "Start a new night.",
       "text": "[PLACEHOLDER — spicy ending narrative to be written]"
     }
   ],
-  "location_specials": {
+  "location_specials":   {
     "bar": [
       {
         "style_key": "loc_bar_a",

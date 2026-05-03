@@ -296,13 +296,13 @@
           "min_affinity": 0,
           "max_affinity": 2,
           "text": "You name the specific thing and she feels the difference immediately — this isn't general praise, it's attention. Her smile shifts into something warmer and more real. \"Most people don't go that specific,\" she says. \"I appreciate it.\"",
-          "delta": 2
+          "delta": 1
         },
         {
           "min_affinity": 3,
           "max_affinity": 6,
           "text": "She laughs softly, pleased and a little flustered by it. \"Stop,\" she says. \"You can't just — \" She pauses, composing herself. \"That was very good. You know it was very good.\"",
-          "delta": 2
+          "delta": 1
         },
         {
           "min_affinity": 7,
@@ -366,7 +366,7 @@
           "min_affinity": 0,
           "max_affinity": 2,
           "text": "She blinks. Recalibrates. Then laughs — genuinely caught out. \"Okay, I did not have a prepared response for that,\" she says. \"That's rare. Points.\"",
-          "delta": 2
+          "delta": 1
         },
         {
           "min_affinity": 3,
@@ -379,6 +379,36 @@
           "max_affinity": 20,
           "text": "For one unguarded second she just stares at you, delighted. Then she shakes her head. \"I genuinely don't know how to follow that,\" she says. \"And I am a professional.\" She's already reaching for your hand.",
           "delta": 2
+        }
+      ]
+    },
+    "compare": {
+      "label": "Tell her she reminds you of another artist you love",
+      "max_affinity": 8,
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -3,
+          "text": "The comparison lands exactly as wrong as it is. Sienna's expression goes flat. \"I'm not her,\" she says. Not loud. Final. She picks up her drink and doesn't look back for a moment.",
+          "delta": -2
+        },
+        {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You mean it as a compliment and she hears it as a category. \"I get that a lot,\" she says, voice gone professional. \"I'm working on sounding like myself, actually.\" She says it with her teeth barely apart.",
+          "delta": -1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 2,
+          "text": "She blinks. \"I love them,\" she says carefully. \"But that's not — I don't really think I sound like them.\" Something of the warmth has cooled. She's thinking about the comparison now instead of you.",
+          "delta": -1
+        },
+        {
+          "min_affinity": 3,
+          "max_affinity": 8,
+          "text": "The comparison lands and she flinches — not dramatically, but you see it. \"You were doing so well,\" she says quietly. \"That was the one thing.\" She shakes her head. She's not gone. But you stepped on something real.",
+          "delta": -2
         }
       ]
     },
@@ -540,7 +570,7 @@
     {
       "id": "sienna_ending_mild",
       "tier": "mild",
-      "min_affinity": 5,
+      "min_affinity": 7,
       "label": "Suggest finding somewhere quieter",
       "title": "Sienna — Just the Two of You",
       "exit_label": "You smile and don't lose her number.",
@@ -550,7 +580,7 @@
     {
       "id": "sienna_ending_medium",
       "tier": "medium",
-      "min_affinity": 9,
+      "min_affinity": 12,
       "label": "Tell her you don't want this night to end",
       "title": "Sienna — Something That Started Tonight",
       "exit_label": "The night is just beginning.",
@@ -560,7 +590,7 @@
     {
       "id": "sienna_ending_spicy",
       "tier": "spicy",
-      "min_affinity": 13,
+      "min_affinity": 18,
       "label": "Pull her close and tell her you want all of her",
       "title": "Sienna — The Private Show",
       "exit_label": "Consider that your favorite encore.",
@@ -568,7 +598,7 @@
       "text": "The door clicks shut, and the muffled pulse of the Hollywood party fades. Sienna doesn't just walk toward you; she prowls, her emerald-green dress shimmering under the dim master suite lights. She stops just inches away, her breath warm against your neck, smelling of sweet cranberry and expensive perfume.\n\n\"Everyone out there thinks they know me because they've seen me on stage,\" she whispers, her melodic voice dropping into a husky, intimate register. \"But they don't get this. They don't get the parts of me that aren't for the cameras.\"\n\nShe reaches behind her, and with a slow, dramatic tug, the zipper of her dress gives way. She doesn't let the fabric fall yet; instead, she uses her hands to hike the low-cut neckline even lower, exposing the heavy, pale curves of her chest. She begins to knead her own soft skin, her eyes locked on yours, watching you watch her. She lets out a long, shaky moan as she rolls her nipples between her fingers, her fair skin flushing a deep, beautiful pink.\n\n\"I know what you're looking at,\" she pants, a proud, fiery smirk playing on her lips. \"I've seen the way your eyes track them every time I breathe. So don't just stand there. I want to feel how much you want them.\"\n\nShe pulls your hands to her, guiding your palms over her voluptuous curves. She's surprisingly firm but soft to the touch, her heart drumming a frantic rhythm against your fingertips. She leans back, arching her spine to offer herself up, her vibrant red waves cascading down her back.\n\nShe lets out a low, hungry sound as she feels the heat radiating from you, her green eyes dropping. With an impulsive, dramatic flair, she sinks to her knees on the dark wood floor. Her fingers are nimble but urgent as she undoes your belt, releasing your length into the cool air of the suite.\n\nSienna's breath hitches — a genuine, melodic gasp. \"Oh... wow,\" she whispers, her eyes blowing wide. \"I knew you'd be a lot to handle, but this?\" She reaches out, her fair hand wrapping around your cock to test the weight, her thumb tracing the crown. \"This is a headliner.\"\n\nShe leans in, her vibrant red hair brushing your thighs, and darts her tongue out for a slow lick from base to tip. She hums against your skin — a deep, vibrating note of approval — and pulls back with a filthy grin. \"I love the way you taste,\" she rasps. \"Sweet and heavy. I'm going to make sure every inch of me gets a turn with this.\"\n\nShe stands just enough to press her firm tits together with her slim arms, creating a tight, humid channel. She watches with predatory intensity as you slide between them, letting out rhythmic, musical gasps. \"Yeah, fuck... look at that,\" she murmurs. \"You're going to make such a mess of me, aren't you?\"\n\nShe slides back to her knees, lips hovering inches from the head of your cock.\n\n\"I want to hear you,\" she whispers. \"I want to hear exactly what I'm doing to you.\"\n\nShe takes you in all at once — her mouth hot and impossibly wet. Her singer's lung capacity means she takes your full length with a deep, effortless swallow that makes your toes curl. She hums as she works, a low resonant vibration that travels directly through your shaft. Her tongue swirls around the sensitive rim while her free hand kneads her own heavy tits, thumb flicking over her nipples, heightening herself as she works you. The suction is relentless, her cheeks hollow as she draws you toward the edge.\n\nJust as you're about to lose it, she pulls away with a wet, satisfied pop. She stands, breathing in jagged, melodic pants, and pushes you back onto the silk sheets.\n\n\"Not yet,\" she rasps. \"I want to feel you pulsing inside me when I hit that high note.\"\n\nShe straddles you, her inner thighs hot and slick, and guides you inside her pussy with a sharp, triumphant cry that echoes off the walls. She rides you with the same passion she puts into a stadium anthem — loud, vocal, completely unrestrained. Her heavy boobs sway with every powerful thrust and she occasionally reaches down to squeeze them, her eyes rolling back. \"Tell me how good I feel,\" she cries out, her voice a mix of sob and laugh. \"Tell me!\"\n\nShe hits her peak first — a violent, full-body convulsion that has her clinging to your shoulders, nails digging in as she screams. Her pussy grips you in desperate, rhythmic waves, making it impossible to hold back.\n\nJust as you erupt, she pushes off you, drops between your legs, and cups her tits together one last time. \"Finish for me,\" she commands, green eyes wide and shimmering. \"I want to wear it.\"\n\nYou come across the pale, flushed curves of her chest. Sienna watches with a dazed, satisfied grin, breathing in jagged gulps. When it's over, she leans forward, licks a stray drop from her own collarbone, and looks up at you through her lashes.\n\n\"Consider that,\" she whispers, collapsing onto your chest, \"my favorite encore.\""
     }
   ],
-  "location_specials": {
+  "location_specials":   {
     "bar": [
       {
         "style_key": "loc_bar_a",
