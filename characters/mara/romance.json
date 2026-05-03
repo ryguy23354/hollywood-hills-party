@@ -6,7 +6,7 @@
     {
       "min_affinity": -10,
       "max_affinity": -1,
-      "text": "Mara is half-turned toward the window, wine glass held loosely. She notices you but doesn't move toward you \u2014 just watches with that quiet, patient look of someone who has learned not to rush anything."
+      "text": "Mara is half-turned toward the window, wine glass held loosely. She notices you but doesn't move toward you — just watches with that quiet, patient look of someone who has learned not to rush anything."
     },
     {
       "min_affinity": 0,
@@ -16,7 +16,7 @@
     {
       "min_affinity": 4,
       "max_affinity": 20,
-      "text": "Mara's expression opens the moment she sees you \u2014 a small, private smile that she makes no effort to hide. She shifts to face you fully, like you are the only interesting thing in the room. \"Hi,\" she says simply. The word carries more than it should."
+      "text": "Mara's expression opens the moment she sees you — a small, private smile that she makes no effort to hide. She shifts to face you fully, like you are the only interesting thing in the room. \"Hi,\" she says simply. The word carries more than it should."
     }
   ],
   "opening_moves": [
@@ -107,7 +107,7 @@
       ]
     },
     "slow": {
-      "label": "Let her set the pace \u2014 follow her rhythm",
+      "label": "Let her set the pace — follow her rhythm",
       "reactions": [
         {
           "min_affinity": -10,
@@ -153,7 +153,7 @@
       ]
     },
     "listen": {
-      "label": "Let her fill the silence \u2014 just listen",
+      "label": "Let her fill the silence — just listen",
       "reactions": [
         {
           "min_affinity": -10,
@@ -210,7 +210,7 @@
         {
           "min_affinity": 0,
           "max_affinity": 3,
-          "text": "The specific observation catches her. \"That's very particular,\" she says. \"You were paying attention.\" There's a warmth in the way she says it \u2014 like being noticed is something she's learned not to expect.",
+          "text": "The specific observation catches her. \"That's very particular,\" she says. \"You were paying attention.\" There's a warmth in the way she says it — like being noticed is something she's learned not to expect.",
           "delta": 3
         },
         {
@@ -227,7 +227,7 @@
         {
           "min_affinity": -10,
           "max_affinity": -1,
-          "text": "You say it and she exhales \u2014 small, almost imperceptible. \"Thank you for that,\" she says. \"I always feel like I'm keeping people.\" She settles in a fraction more.",
+          "text": "You say it and she exhales — small, almost imperceptible. \"Thank you for that,\" she says. \"I always feel like I'm keeping people.\" She settles in a fraction more.",
           "delta": 2
         },
         {
@@ -262,8 +262,129 @@
         {
           "min_affinity": 4,
           "max_affinity": 20,
-          "text": "She smiles slowly. \"You,\" she says, and then laughs softly at herself for saying it. \"I mean \u2014 I wanted something true. And then you showed up.\" She doesn't look away.",
+          "text": "She smiles slowly. \"You,\" she says, and then laughs softly at herself for saying it. \"I mean — I wanted something true. And then you showed up.\" She doesn't look away.",
           "delta": 3
+        }
+      ]
+    },
+    "loc_bar_a": {
+      "label": "[bar] Ask if she's found anything worth photographing tonight",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "She smiles — small, genuine. \"A few things.\" She doesn't show you her phone. That feels like the right call. \"People don't usually ask that,\" she adds.",
+          "delta": 2
+        }
+      ]
+    },
+    "loc_bar_b": {
+      "label": "[bar] Tell her you'd sit here all night if she keeps talking",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "She looks at you for a moment, checking if you mean it. Then: \"That's either very sweet or very strange.\" She picks up her drink. \"Maybe both. Stay anyway.\"",
+          "delta": 2
+        }
+      ]
+    },
+    "loc_pool_a": {
+      "label": "[pool] Sit near her and say nothing — let her break the silence",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "The silence holds for a while. Then she says something small — an observation about the way the light moves on the water. You understand that she's been waiting for someone who wouldn't rush her.",
+          "delta": 1
+        }
+      ]
+    },
+    "loc_pool_b": {
+      "label": "[pool] Ask what draws her to the pool over the rest of the party",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "\"Everyone here performs,\" she says. \"But the water doesn't care.\" She trails her fingers along the surface. \"It's honest. I like honest.\" She looks at you with that last word.",
+          "delta": 2
+        }
+      ]
+    },
+    "loc_lounge_a": {
+      "label": "[lounge] Ask what she's thinking about and actually listen",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "She starts with something small and you don't interrupt. The sentence grows. She looks up partway through and something in her relaxes — you're actually listening. Not waiting to talk. Listening.",
+          "delta": 1
+        }
+      ]
+    },
+    "loc_lounge_b": {
+      "label": "[lounge] Tell her she's the most interesting person in any room she's in",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "She looks down for a moment. \"I don't think you know me well enough to say that.\" Pause. \"But I think you're trying to, and that's... actually kind of nice.\"",
+          "delta": 2
+        }
+      ]
+    },
+    "loc_lounge_c": {
+      "label": "[lounge] Admit you've been looking for an excuse to talk to her all night",
+      "reactions": [
+        {
+          "min_affinity": 9,
+          "max_affinity": 99,
+          "text": "She's quiet. Then: \"You didn't need one.\" She says it so simply. \"You could have just... come over.\" Like it was always that easy.",
+          "delta": 3
+        }
+      ]
+    },
+    "loc_balcony_a": {
+      "label": "[balcony] Ask what she'd photograph out here if she had her camera",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "Her eyes sweep the space. \"That.\" She points to where two people are laughing without realizing their reflection shows in the glass door. \"Moments people don't know they're having.\"",
+          "delta": 2
+        }
+      ]
+    },
+    "loc_balcony_b": {
+      "label": "[balcony] Stand close enough that your arms almost touch",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "She doesn't move away. After a moment, almost imperceptibly, she leans the tiniest fraction closer. She's watching the city. You're watching her watch the city. Neither of you says anything. It's enough.",
+          "delta": 3
+        }
+      ]
+    },
+    "loc_gameloft_a": {
+      "label": "[gameloft] Ask if she'd rather be behind the screen than in the room",
+      "reactions": [
+        {
+          "min_affinity": 3,
+          "max_affinity": 99,
+          "text": "\"Usually, yes.\" She says it without apology. \"Less pressure to be anything in particular when you're playing.\" She glances over. \"Though the room is getting better.\"",
+          "delta": 1
+        }
+      ]
+    },
+    "loc_gameloft_b": {
+      "label": "[gameloft] Tell her watching her focus on something is its own kind of thing",
+      "reactions": [
+        {
+          "min_affinity": 6,
+          "max_affinity": 99,
+          "text": "She pauses the game. Looks at you properly. \"That's a very specific thing to notice.\" Her voice is soft. \"Most people don't see me when I'm not looking back at them.\"",
+          "delta": 2
         }
       ]
     }
@@ -277,28 +398,95 @@
       "id": "mara_ending_mild",
       "tier": "mild",
       "min_affinity": 5,
-      "label": "[Mild ending \u2014 unlock at affinity 5]",
-      "title": "Mara \u2014 A Quiet Exit",
+      "label": "[Mild ending — unlock at affinity 5]",
+      "title": "Mara — A Quiet Exit",
       "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER \u2014 mild ending narrative to be written]"
+      "text": "[PLACEHOLDER — mild ending narrative to be written]"
     },
     {
       "id": "mara_ending_medium",
       "tier": "medium",
       "min_affinity": 9,
-      "label": "[Medium ending \u2014 unlock at affinity 9]",
-      "title": "Mara \u2014 Something More",
+      "label": "[Medium ending — unlock at affinity 9]",
+      "title": "Mara — Something More",
       "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER \u2014 medium ending narrative to be written]"
+      "text": "[PLACEHOLDER — medium ending narrative to be written]"
     },
     {
       "id": "mara_ending_spicy",
       "tier": "spicy",
       "min_affinity": 13,
-      "label": "[Spicy ending \u2014 unlock at affinity 13]",
-      "title": "Mara \u2014 No Holding Back",
+      "label": "[Spicy ending — unlock at affinity 13]",
+      "title": "Mara — No Holding Back",
       "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER \u2014 spicy ending narrative to be written]"
+      "text": "[PLACEHOLDER — spicy ending narrative to be written]"
     }
-  ]
+  ],
+  "location_specials": {
+    "bar": [
+      {
+        "style_key": "loc_bar_a",
+        "label": "Ask if she's found anything worth photographing tonight",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_bar_b",
+        "label": "Tell her you'd sit here all night if she keeps talking",
+        "min_affinity": 6
+      }
+    ],
+    "pool": [
+      {
+        "style_key": "loc_pool_a",
+        "label": "Sit near her and say nothing — let her break the silence",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_pool_b",
+        "label": "Ask what draws her to the pool over the rest of the party",
+        "min_affinity": 6
+      }
+    ],
+    "lounge": [
+      {
+        "style_key": "loc_lounge_a",
+        "label": "Ask what she's thinking about and actually listen",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_lounge_b",
+        "label": "Tell her she's the most interesting person in any room she's in",
+        "min_affinity": 6
+      },
+      {
+        "style_key": "loc_lounge_c",
+        "label": "Admit you've been looking for an excuse to talk to her all night",
+        "min_affinity": 9
+      }
+    ],
+    "balcony": [
+      {
+        "style_key": "loc_balcony_a",
+        "label": "Ask what she'd photograph out here if she had her camera",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_balcony_b",
+        "label": "Stand close enough that your arms almost touch",
+        "min_affinity": 6
+      }
+    ],
+    "gameloft": [
+      {
+        "style_key": "loc_gameloft_a",
+        "label": "Ask if she'd rather be behind the screen than in the room",
+        "min_affinity": 3
+      },
+      {
+        "style_key": "loc_gameloft_b",
+        "label": "Tell her watching her focus on something is its own kind of thing",
+        "min_affinity": 6
+      }
+    ]
+  }
 }
