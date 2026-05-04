@@ -669,6 +669,15 @@
   },
   "endings": [
     {
+      "id": "mara_ending_negative",
+      "tier": "negative",
+      "max_affinity": -7,
+      "label": "She closes the door quietly.",
+      "title": "Mara — The Door Closes",
+      "exit_label": "Start a new night.",
+      "text": "Mara holds her wine glass in both hands, the way she does when she's deciding something.\n\n\"I want to be honest with you,\" she says softly. \"Because I think you deserve that.\"\n\nShe doesn't look angry. She looks sad — the quiet, certain kind that doesn't need your sympathy.\n\n\"I give people a lot of chances,\" she says. \"It's maybe a flaw of mine. I keep believing the next moment will be different.\" A small exhale. \"This one isn't going to be.\"\n\nShe meets your eyes.\n\n\"You've been somewhere else tonight. And I kept trying to pull you back, and I kept —\" She stops. \"I'm not able to keep doing that. I need someone who shows up without me having to ask.\"\n\nShe sets her glass down on a nearby table with the quiet finality of someone who has made a decision they won't unmake.\n\n\"I hope your night gets better,\" she says. \"I'm going to go find something true.\"\n\nShe walks away slowly, unhurried, and that's somehow worse than any dramatic exit — the calm certainty of someone who was hurt and chose grace anyway.\n\nYou didn't deserve the grace. You both know it."
+    },
+    {
       "id": "mara_ending_mild",
       "tier": "mild",
       "min_affinity": 7,

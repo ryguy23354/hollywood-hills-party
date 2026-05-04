@@ -228,6 +228,38 @@
     const currentAffinity = _getAffinity(ctx.character);
     const isFirstApproach = ctx.interactions === 0 && currentAffinity === 0;
     const openingMoves = romance?.opening_moves;
+    const endings = romance?.endings;
+
+    // ── Forced negative ending ──────────────────────────────────────────────────
+    // If any ending carries tier:"negative" + max_affinity, and currentAffinity
+    // has dropped to or below that threshold, the player has no choices left —
+    // only the single forced scene. No pool, no "Return to party".
+    const forcedNeg = Array.isArray(endings)
+      ? endings.find(
+          e =>
+            e.tier === "negative" &&
+            typeof e.max_affinity === "number" &&
+            currentAffinity <= e.max_affinity
+        )
+      : null;
+    if (forcedNeg) {
+      if (window.StoryEngine?.scenes) {
+        window.StoryEngine.scenes[forcedNeg.id] = {
+          title: forcedNeg.title || "The End",
+          text: forcedNeg.text || "",
+          image:
+            forcedNeg.image ||
+            (ctx.character && ctx.location
+              ? `images/${ctx.character}_${ctx.location}_01.jpg`
+              : null),
+          choices: [
+            { label: forcedNeg.exit_label || "Start a new night.", target: _fullReset },
+          ],
+        };
+      }
+      return [{ label: forcedNeg.label || "The night is over.", target: forcedNeg.id }];
+    }
+    // ────────────────────────────────────────────────────────────────────────────
 
     if (isFirstApproach && Array.isArray(openingMoves) && openingMoves.length > 0) {
       // Fixed opening triple — guaranteed positive / neutral / negative variety.
@@ -331,7 +363,6 @@
     // Unlocked endings — injected as extra choices above "Return to party".
     // Exit buttons use _fullReset as a function target so the renderer triggers
     // a complete game reset instead of a soft scene navigation.
-    const endings = romance?.endings;
     if (Array.isArray(endings) && endings.length > 0) {
       endings.forEach(ending => {
         const threshold = _safeNumber(ending.min_affinity, Infinity);
