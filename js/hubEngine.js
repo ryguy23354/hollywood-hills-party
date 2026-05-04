@@ -483,3 +483,86 @@
       console.error("HubEngine.enter failed:", e);
     }
 
+    return HUB_SCENE_ID;
+  }
+
+  /**
+   * applyChoice — wires a player style pick through the full reaction/delta pipeline.
+   */
+  function applyChoice(characterId, styleKey) {
+    const romance = _getRomanceConfig(characterId);
+
+    if (!romance) {
+      console.warn("[HubEngine.applyChoice] No romance config found for:", characterId);
+      return HUB_SCENE_ID;
+    }
+
+    const style = romance.styles?.[styleKey];
+    let reactionText = "";
+    let delta = 0;
+
+    if (!style) {
+      const fallback = romance.fallback;
+      reactionText = fallback?.text ?? "";
+      delta = _safeNumber(fallback?.delta, 0);
+    } else {
+      const affinity = _getAffinity(characterId);
+
+      let reaction = null;
+      if (Array.isArray(style.reactions)) {
+        reaction = style.reactions.find(
+          r =>
+            affinity >= _safeNumber(r.min_affinity, -Infinity) &&
+            affinity <= _safeNumber(r.max_affinity, Infinity)
+        );
+        if (!reaction) reaction = style.reactions[0];
+      }
+
+      if (!reaction) {
+        const fallback = romance.fallback;
+        reactionText = fallback?.text ?? "";
+        delta = _safeNumber(fallback?.delta, 0);
+      } else {
+        reactionText = reaction.text ?? "";
+        delta = _safeNumber(reaction.delta, 0);
+      }
+    }
+
+    if (window.HP_STATE) {
+      if (typeof window.HP_STATE.modifyAffinity === "function") {
+        window.HP_STATE.modifyAffinity(characterId, delta);
+      } else if (window.HP_STATE.affinity) {
+        window.HP_STATE.affinity[characterId] = (window.HP_STATE.affinity[characterId] ?? 0) + delta;
+      }
+      if (typeof window.HP_STATE.incrementInteractions === "function") {
+        window.HP_STATE.incrementInteractions(characterId);
+      }
+    }
+
+    _state.ctx.interactions += 1;
+    _state.ctx.affinity += delta;
+    _state.ctx.lastStyle = styleKey;
+
+    const scene = buildHubScene();
+    scene.text = reactionText || scene.text;
+
+    if (window.StoryEngine?.scenes) {
+      window.StoryEngine.scenes[HUB_SCENE_ID] = scene;
+    }
+    if (window.HP_STATE) {
+      window.HP_STATE.currentSceneId = HUB_SCENE_ID;
+    }
+
+    return HUB_SCENE_ID;
+  }
+
+  // Public API
+  window.HubEngine = {
+    HUB_SCENE_ID,
+    setContext,
+    getContext,
+    buildHubScene,
+    enter,
+    applyChoice,
+  };
+})();
