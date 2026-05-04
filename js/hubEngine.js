@@ -142,6 +142,71 @@
   }
 
   /**
+   * Select `count` styles from the pool, guaranteeing delta diversity.
+   *
+   * Rules:
+   *  - Always include at least 1 pick from the highest-delta bucket.
+   *  - Always include at least 1 pick from a lower-delta bucket (maximum contrast).
+   *  - Fill remaining slots randomly from the shuffled pool.
+   *  - Re-shuffle the final selection so position isn't predictable.
+   *  - Edge case: if the entire pool shares one delta value, fall back to plain shuffle.
+   */
+  function _selectDiverse(pool, romance, affinity, count) {
+    if (pool.length <= count) return pool;
+
+    // Shuffle first so ties within a delta group are broken randomly
+    const shuffled = pool.slice().sort(() => Math.random() - 0.5);
+
+    // Annotate each candidate with its effective delta at current affinity
+    const annotated = shuffled.map(s => ({
+      ...s,
+      _delta: _peekDelta(romance, s.target.romance_style, affinity),
+    }));
+
+    // Group by delta, sorted high→low
+    const byDelta = new Map();
+    annotated.forEach(s => {
+      if (!byDelta.has(s._delta)) byDelta.set(s._delta, []);
+      byDelta.get(s._delta).push(s);
+    });
+    const deltasSorted = [...byDelta.keys()].sort((a, b) => b - a);
+
+    // Only one delta value in pool — can't diversify, just take first N
+    if (deltasSorted.length === 1) return annotated.slice(0, count);
+
+    const result = [];
+    const used = new Set();
+
+    // 1. One from peak delta bucket
+    const peakPick = byDelta.get(deltasSorted[0])[0];
+    result.push(peakPick);
+    used.add(peakPick.target.romance_style);
+
+    // 2. One from the lowest available delta bucket (maximum contrast)
+    for (let i = deltasSorted.length - 1; i >= 1; i--) {
+      const candidate = byDelta.get(deltasSorted[i])
+        .find(s => !used.has(s.target.romance_style));
+      if (candidate) {
+        result.push(candidate);
+        used.add(candidate.target.romance_style);
+        break;
+      }
+    }
+
+    // 3. Fill remaining slots from shuffled pool
+    for (const s of annotated) {
+      if (result.length >= count) break;
+      if (!used.has(s.target.romance_style)) {
+        result.push(s);
+        used.add(s.target.romance_style);
+      }
+    }
+
+    // Re-shuffle so the peak pick isn't always in position 0
+    return result.sort(() => Math.random() - 0.5);
+  }
+
+  /**
    * Build choices from romance config.
    *
    * interactions === 0 AND affinity === 0 (genuine first approach):
@@ -231,8 +296,8 @@
       );
       if (pool.length === 0) pool = fullPool;
 
-      const shuffled = pool.slice().sort(() => Math.random() - 0.5);
-      shuffled.slice(0, Math.min(3, shuffled.length)).forEach(c => choices.push(c));
+      const selected = _selectDiverse(pool, romance, currentAffinity, Math.min(3, pool.length));
+      selected.forEach(c => choices.push(c));
     }
 
     // Location specials — 25% chance to appear as an additional choice.
@@ -387,86 +452,3 @@
       console.error("HubEngine.enter failed:", e);
     }
 
-    return HUB_SCENE_ID;
-  }
-
-  /**
-   * applyChoice — wires a player style pick through the full reaction/delta pipeline.
-   */
-  function applyChoice(characterId, styleKey) {
-    const romance = _getRomanceConfig(characterId);
-
-    if (!romance) {
-      console.warn("[HubEngine.applyChoice] No romance config found for:", characterId);
-      return HUB_SCENE_ID;
-    }
-
-    const style = romance.styles?.[styleKey];
-    let reactionText = "";
-    let delta = 0;
-
-    if (!style) {
-      const fallback = romance.fallback;
-      reactionText = fallback?.text ?? "";
-      delta = _safeNumber(fallback?.delta, 0);
-    } else {
-      const affinity = _getAffinity(characterId);
-
-      let reaction = null;
-      if (Array.isArray(style.reactions)) {
-        reaction = style.reactions.find(
-          r =>
-            affinity >= _safeNumber(r.min_affinity, -Infinity) &&
-            affinity <= _safeNumber(r.max_affinity, Infinity)
-        );
-        if (!reaction) reaction = style.reactions[0];
-      }
-
-      if (!reaction) {
-        const fallback = romance.fallback;
-        reactionText = fallback?.text ?? "";
-        delta = _safeNumber(fallback?.delta, 0);
-      } else {
-        reactionText = reaction.text ?? "";
-        delta = _safeNumber(reaction.delta, 0);
-      }
-    }
-
-    if (window.HP_STATE) {
-      if (typeof window.HP_STATE.modifyAffinity === "function") {
-        window.HP_STATE.modifyAffinity(characterId, delta);
-      } else if (window.HP_STATE.affinity) {
-        window.HP_STATE.affinity[characterId] = (window.HP_STATE.affinity[characterId] ?? 0) + delta;
-      }
-      if (typeof window.HP_STATE.incrementInteractions === "function") {
-        window.HP_STATE.incrementInteractions(characterId);
-      }
-    }
-
-    _state.ctx.interactions += 1;
-    _state.ctx.affinity += delta;
-    _state.ctx.lastStyle = styleKey;
-
-    const scene = buildHubScene();
-    scene.text = reactionText || scene.text;
-
-    if (window.StoryEngine?.scenes) {
-      window.StoryEngine.scenes[HUB_SCENE_ID] = scene;
-    }
-    if (window.HP_STATE) {
-      window.HP_STATE.currentSceneId = HUB_SCENE_ID;
-    }
-
-    return HUB_SCENE_ID;
-  }
-
-  // Public API
-  window.HubEngine = {
-    HUB_SCENE_ID,
-    setContext,
-    getContext,
-    buildHubScene,
-    enter,
-    applyChoice,
-  };
-})();

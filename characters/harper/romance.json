@@ -5,16 +5,26 @@
   "context_states": [
     {
       "min_affinity": -10,
-      "max_affinity": -1,
+      "max_affinity": -3,
       "text": "Harper has the practiced ease of someone who has worked every room she has ever been in. She glances at you — a quick, professional read — and waits to see if you are worth the scene."
     },
     {
+      "min_affinity": -2,
+      "max_affinity": -1,
+      "text": "Harper's attention is technically on you but the armor is still up. She is measuring the gap between what you say and what you mean."
+    },
+    {
       "min_affinity": 0,
-      "max_affinity": 3,
+      "max_affinity": 4,
       "text": "Harper rests one hip against a nearby surface, Old Fashioned in hand, eyes sharp and amused. She looks at you like you might be her next favorite scene partner."
     },
     {
-      "min_affinity": 4,
+      "min_affinity": 5,
+      "max_affinity": 8,
+      "text": "The practiced polish is still there but she is not deploying it against you anymore. Harper is actually enjoying the conversation, which is rarer than she makes it look."
+    },
+    {
+      "min_affinity": 9,
       "max_affinity": 20,
       "text": "Harper's whole performance drops a notch when she sees you — the practiced smile gives way to something real. She raises her glass slightly. \"There you are,\" she says. Like she has been saving that line for you specifically."
     }
@@ -32,8 +42,8 @@
     },
     {
       "tier": "negative",
-      "label": "Bring up your favorite thing she's been in",
-      "romance_style": "playful"
+      "label": "Step back and let her take the lead",
+      "romance_style": "defer"
     }
   ],
   "styles": {
@@ -42,21 +52,39 @@
       "reactions": [
         {
           "min_affinity": -10,
+          "max_affinity": -3,
+          "text": "You swing for something sharp and she catches it in one hand. \"Not bad,\" Harper says, like a director marking an audition tape. \"Let's see what else you've got.\" She goes back to her drink. Noted, filed, undecided.",
+          "delta": 0
+        },
+        {
+          "min_affinity": -2,
           "max_affinity": -1,
-          "text": "You swing for something sharp and it lands a little crooked. Harper smirks anyway. \"We will call that a rehearsal take,\" she says. \"You have presence. We just need a cleaner line.\"",
+          "text": "The line lands cleanly and she acknowledges it with a minimal nod. \"Decent delivery,\" she says. Her attention is a little more present than it was a second ago.",
           "delta": 0
         },
         {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "You throw out a line that meets her edge instead of folding under it. Her smile widens, eyes bright. \"There you are,\" she murmurs. \"I was hoping you were not another background extra.\"",
           "delta": 0
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You match her cadence perfectly and she laughs. \"You've got the timing down,\" she says. \"That's not nothing.\" She tilts her glass toward you in a small, genuine acknowledgment.",
+          "delta": 1
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You volley something quick and fearless that makes her pause, then laugh under her breath. Harper steps into your space, lowering her voice. \"Careful,\" she says. \"I fall for good dialogue way too easily.\"",
-          "delta": 2
+          "delta": 1
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You toss something sharp into the space between you and she catches it with a grin that's mostly teeth. \"There it is,\" she says. \"Even now, you've still got it.\" She leans in like the game just got better.",
+          "delta": 1
         }
       ]
     },
@@ -65,21 +93,39 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You drop the performance and say something simply kind. Harper's brows lift, surprised. \"Wow,\" she says softly. \"That was unexpectedly real.\"",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You mean it and she can tell. The practiced politeness softens into something more honest. \"You're not doing the thing,\" she says. \"Most people do the thing. I appreciate that.\"",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "You admit that you like her work but care more about who she is off camera. Some of the practiced polish slips away. \"Dangerous answer,\" she murmurs. \"That is exactly what I want people to say.\"",
           "delta": 3
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You cut to the real thing and she lets you. No performance required. \"I forget this is possible,\" she says, almost to herself. \"Conversation that just — lands.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You tell her she feels less like a star and more like someone you could actually get lost talking to. Harper's smirk turns into something softer. \"Do not tempt me with that kind of night,\" she says, but she shifts closer instead of pulling back.",
-          "delta": 3
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You say something genuine and she receives it without deflection, without wit — just takes it in. She looks at you the way she probably looks at a scene that finally works. \"Yeah,\" she says quietly. \"I know.\"",
+          "delta": 2
         }
       ]
     },
@@ -88,21 +134,39 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You tease her lightly about her main character energy and stumble just enough that it could misfire. Harper rescues the line with a laugh. \"Relax,\" she says. \"I like it better when people forget to be perfect around me.\"",
-          "delta": -2
-        },
-        {
-          "min_affinity": 0,
-          "max_affinity": 3,
-          "text": "You poke fun at her flawless framing with a grin that makes it clear you are not intimidated. Her eyes narrow in pleased challenge. \"Careful,\" she drawls. \"Keep that up and I might start taking you very seriously.\"",
           "delta": -1
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
-          "text": "You joke about stealing focus from her in this scene, then hold her gaze like you actually might. Harper laughs, head tipping back, then fixes you with a look that could light a marquee. \"You and I are a problem the room is not ready for.\"",
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You poke at her image lightly and she deflects with practiced charm. \"I've heard better,\" she says, but her mouth is doing something that isn't quite not a smile.",
+          "delta": -1
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 4,
+          "text": "You poke fun at her flawless framing with a grin that makes it clear you are not intimidated. Her eyes narrow in pleased challenge. \"Careful,\" she drawls. \"Keep that up and I might start taking you very seriously.\"",
           "delta": 0
+        },
+        {
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "The tease lands because she knows you're not afraid of her. She rolls her eyes in a way that functions as approval. \"You're terrible,\" she says. It's not a complaint.",
+          "delta": 0
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
+          "text": "You joke about stealing focus from her in this scene, then hold her gaze like you actually might. Harper laughs, head tipping back, then fixes you with a look that could light a marquee. \"You and I are a problem the room is not ready for.\"",
+          "delta": 1
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You tease her and she fires back immediately, no hesitation. The volley goes on a few rounds too long to pretend it's just small talk. She's grinning now. \"I love this,\" she says. \"Don't stop.\"",
+          "delta": 1
         }
       ]
     },
@@ -111,21 +175,39 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You share something small but real and she blinks. \"That was not in the script,\" she says. A smile surfaces — not performed. Actually surprised.",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You let something real through and she shifts, just slightly. \"Okay,\" she says quietly. \"I was not expecting that.\" She's filing it away. Favorably.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "You drop the game for a beat and say something unpolished. Harper's expression shifts entirely. \"There you are,\" she says softly. \"I was wondering when you would show up.\"",
           "delta": 2
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You let something unguarded through and she matches it — just a little, just enough. \"That took something,\" she says. \"I notice when it takes something.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You let something genuinely unguarded through and she goes quiet. Her hand moves to your arm. \"Don't do that,\" she murmurs. \"I will want to keep you.\"",
-          "delta": 3
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You say the real thing and she meets it with absolute stillness. Then she exhales. \"At this point I don't know why I'm surprised by you,\" she says. \"But I still am. Every time.\" She holds your gaze.",
+          "delta": 2
         }
       ]
     },
@@ -134,20 +216,38 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You cut through the subtext and say it plain. Harper tilts her head. \"That is either brave or unhinged,\" she says. \"Either way, you have my attention.\"",
           "delta": 1
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You say the direct thing and she pauses. Most people don't do that with her. \"Points for economy,\" she says. Something in her expression opens up.",
+          "delta": 1
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "You drop the act and say the thing directly. Harper laughs — caught out in a good way. \"You skipped like four scenes,\" she says. \"I respect the economy.\"",
           "delta": 2
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You say it plainly and she doesn't deflect. \"I appreciate that,\" she says, and she means it as the highest form of praise from someone who lives in subtext. \"You never make me guess.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You say the exact true thing without embellishment. Harper holds your gaze for a long beat. \"I spend my whole life in subtext,\" she says quietly. \"You have no idea how rare that is.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You say it plainly, no preamble. She absorbs it. \"You know what I love about you?\" she says. \"You never make me decode you.\" She says it like that's the most intimate thing she can imagine.",
           "delta": 3
         }
       ]
@@ -157,20 +257,38 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You ask about the actual process, not the result. Harper straightens slightly. \"You want to talk about the work,\" she says. \"Not the premiere, not the press. The actual work.\" She sounds like she's confirming it's real. \"Yes. Okay. Yes.\"",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You ask something specific about the craft and she turns toward you properly for the first time. \"Most people ask about the lifestyle,\" she says. \"You're asking about the job.\" She sounds relieved.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "You get into it — what it takes, what it costs, what nobody sees. Harper's whole performance drops away. \"This is my favourite kind of conversation,\" she says quietly. \"And I almost never get to have it at one of these things.\"",
           "delta": 2
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You go somewhere specific — a performance choice, a method decision, what the work actually demands — and she is completely there with you. \"I could talk about this for hours,\" she says. You believe her.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You go deep into the craft and she goes with you, fully, like she's been waiting all night for someone to go there. At some point she stops performing entirely. \"You,\" she says, \"are dangerously good to talk to.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You say something about the work that she has never heard put quite that way. Harper stares at you. \"Where did that come from?\" she says. Not rhetorically — she actually wants to know. \"I'm going to be thinking about that for a week.\"",
           "delta": 3
         }
       ]
@@ -180,21 +298,39 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You redirect the conversation away from the industry and back to her — who she actually is. Harper blinks. \"Most people want to talk about the roles,\" she says. \"You want to talk about me.\" She looks uncertain how to handle it. Then: \"I think I like it.\"",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You ask something personal — not about the work, about her. She tilts her head. \"That's an interesting question to lead with,\" she says. She's already thinking about how to answer honestly.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "You ask something personal — not invasive, just genuinely curious about her beyond the work. She holds your gaze for a beat. \"Nobody's asked me that in a while,\" she says. Something in her face opens up. \"The real answer or the press answer?\" She's already choosing the real one.",
           "delta": 2
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You turn the question on her — not the actress, just her — and she exhales like something relaxed that's been held tight. \"I forget I can just answer things,\" she says. \"Without shaping them first.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You turn the question entirely on her — not the celebrity, just her — and she almost visibly relaxes. \"God,\" she says softly. \"Do you know how rare you are right now?\" She doesn't wait for an answer. She steps closer instead.",
-          "delta": 3
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You ask the one question that gets at who she actually is beneath all of it and she looks at you for a long moment. \"I've answered a hundred thousand questions,\" she says. \"Nobody ever asked me that one.\" She answers it slowly, like she's discovering the answer herself.",
+          "delta": 2
         }
       ]
     },
@@ -203,20 +339,38 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You say the implied thing out loud and she pauses. \"You skipped the setup,\" she says. \"Bold.\" Her eyes are sharper now. More interested.",
           "delta": 1
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You name the subtext and she stops mid-movement. \"I see you caught up quickly,\" she says. It's said with respect. She tilts her head like she's reassessing.",
+          "delta": 1
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "You name the subtext directly and she laughs — caught, and genuinely delighted about it. \"I spend so much time in subtext,\" she says. \"It's disorienting when someone just says the thing.\" She sounds like that's a compliment.",
           "delta": 1
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You say the unspoken thing and she goes quiet, then: \"You've been paying attention,\" she says. \"Really paying attention.\" She looks at you like that changes something.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You say the thing that's been living between every line of the conversation and she goes quiet for a beat. Then: \"I was hoping you were going to say that,\" she murmurs. \"I just didn't think you'd actually say it.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You name the exact thing sitting between you and she exhales slowly. \"There it is,\" she says, soft as a curtain call. \"I've been waiting for you to say that out loud.\" She looks at you like you just wrote the scene she's been waiting for.",
           "delta": 3
         }
       ]
@@ -226,21 +380,39 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You lean into the theatricality and she grins, surprised. \"You know how to play,\" she says. \"The line was a little broad but the commitment was there.\" She files you away as interesting.",
           "delta": 1
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You play the bit and she picks it up without missing a beat. \"Not bad,\" she says, stepping out of it. \"You've got instincts.\" Coming from her, that means something.",
+          "delta": 1
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "You match her energy and play the bit all the way through. Harper's eyes light up. \"Yes,\" she says. \"That's exactly — yes. You understand scene work.\" She's laughing. She sounds like she means it as the highest praise.",
           "delta": 2
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You lean fully into the scene with her and she goes all in. It goes on longer than it needs to. She breaks character laughing. \"That was good,\" she says. \"That was genuinely good.\"",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You play the scene with her and she plays back, fully committed, until it tips over into something that isn't a scene anymore. She breaks character first, laughing. \"Okay,\" she says. \"That stopped being a bit somewhere in the middle.\" She doesn't seem to mind.",
-          "delta": 3
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You play into it and so does she, except at some point the game becomes the realest thing in the room. She holds the moment, then steps out of it. \"I keep forgetting we're not actually—\" she starts. Then doesn't finish. She just looks at you.",
+          "delta": 2
         }
       ]
     },
@@ -249,45 +421,123 @@
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You set the performance down and just talk. Harper tilts her head. \"That was real,\" she says. \"You didn't shape it at all.\" She looks like she's tallying something up in your favor.",
           "delta": 2
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You say the unscripted thing and she blinks. \"That came out of nowhere,\" she says, but in the tone of someone who liked where it came from. She looks at you differently now.",
+          "delta": 2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "The unscripted thing lands differently than anything clever could. Harper goes quiet for a moment. \"I do this all day,\" she says. \"Write things to feel real. You just — said a real thing. That's harder.\"",
           "delta": 3
         },
         {
-          "min_affinity": 4,
-          "max_affinity": 20,
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You drop all pretense and just say what's true. She absorbs it. \"Most people can't do that,\" she says. \"They're too worried about the impression.\" She sounds like she finds this relieving.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You drop every performance and say the true, unpolished thing. Harper looks at you for a long moment. \"That is going to stay with me,\" she says finally. Her hand finds your arm. \"I don't say that lightly.\"",
-          "delta": 3
+          "delta": 2
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You say the thing with no shape on it at all. Just true. Harper looks at you for a long moment. \"I've been performing since I was seven years old,\" she says quietly. \"And you make me want to stop.\" She holds your gaze like that's the most honest thing she's ever said.",
+          "delta": 2
         }
       ]
     },
     "fan_moment": {
       "label": "Bring up the role that made you a fan",
-      "max_affinity": 8,
+      "max_affinity": 11,
       "reactions": [
         {
           "min_affinity": -10,
-          "max_affinity": -1,
+          "max_affinity": -3,
           "text": "You name the role and she does the smile — the one she's done ten thousand times. \"Thank you,\" she says, automatic as a receipt. The real Harper left the building the second you said it.",
           "delta": -1
         },
         {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You go fan and she goes fully professional in return — warm, gracious, completely shuttered. \"It was a wonderful project,\" she says. You are now an interviewer. She is now a subject. Not what either of you wanted.",
+          "delta": -2
+        },
+        {
           "min_affinity": 0,
-          "max_affinity": 3,
+          "max_affinity": 4,
           "text": "You go fan for a second and she goes fully professional in return. \"That one was fun,\" she says, switching to press-conference mode. \"The cast was great.\" You are now a journalist. She is now a star. Not what you wanted.",
           "delta": -2
         },
         {
-          "min_affinity": 4,
+          "min_affinity": 5,
           "max_affinity": 8,
+          "text": "You bring up the role and she almost winces before catching herself. \"We were doing so well,\" she says, half joking. Half not. \"Can we pretend you didn't just do that?\"",
+          "delta": -1
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
           "text": "You bring it up and she almost winces. \"I knew this was too good to last,\" she says — half-joking. Half. \"Can we go back to the part where you weren't doing that?\"",
           "delta": -1
+        }
+      ]
+    },
+    "defer": {
+      "label": "Step back and let her lead the conversation",
+      "max_affinity": 2,
+      "reactions": [
+        {
+          "min_affinity": -10,
+          "max_affinity": -3,
+          "text": "You hang back and let her fill the silence. Harper does — she's good at it — but you can tell from the slight dip at the corner of her mouth that this wasn't what she was hoping for. She wanted someone to hold the other end of the scene.",
+          "delta": -2
+        },
+        {
+          "min_affinity": -2,
+          "max_affinity": -1,
+          "text": "You defer to her completely and she takes the wheel, smooth as always. But at some point she tilts her head. \"You're very agreeable,\" she says. It doesn't sound like a compliment.",
+          "delta": -2
+        },
+        {
+          "min_affinity": 0,
+          "max_affinity": 4,
+          "text": "You let her have the whole conversation and she uses it expertly — but at some point she tilts her head. \"You're not going to push back?\" she asks. It sounds like she's disappointed you didn't.",
+          "delta": -1
+        }
+      ]
+    },
+    "chemistry": {
+      "label": "Acknowledge the chemistry between you",
+      "min_affinity": 5,
+      "reactions": [
+        {
+          "min_affinity": 5,
+          "max_affinity": 8,
+          "text": "You name what's happening between you — plainly, without drama. Harper goes very still. Then: \"Well,\" she says. \"I wasn't expecting you to actually say it.\" She doesn't look away.",
+          "delta": 2
+        },
+        {
+          "min_affinity": 9,
+          "max_affinity": 11,
+          "text": "You say the quiet part out loud and she laughs — low, genuinely surprised. \"I've been waiting to see if you'd go there,\" she says. She moves closer. \"I'm glad you did.\"",
+          "delta": 3
+        },
+        {
+          "min_affinity": 12,
+          "max_affinity": 20,
+          "text": "You say it directly — what this is, what you both know. Harper's eyes hold yours. She sets down her glass. \"I've been in a lot of scenes,\" she says quietly. \"This one is different.\" She means it.",
+          "delta": 3
         }
       ]
     },
@@ -433,31 +683,31 @@
       "id": "harper_ending_mild",
       "tier": "mild",
       "min_affinity": 7,
-      "label": "[Mild ending — unlock at affinity 5]",
-      "title": "Harper — A Quiet Exit",
+      "label": "The Scene Ends Well",
+      "title": "Harper — The Scene Ends Well",
       "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER — mild ending narrative to be written]"
+      "text": "Harper sets her glass down with the kind of deliberate care that means she is thinking about something. She looks at you — really looks, the way directors say they're looking for and audiences almost never see.\n\n\"Walk me out,\" she says.\n\nIt's not a question. It doesn't need to be.\n\nOutside, the air is cooler and the noise of the party recedes into background. You stand there for a moment, the city spread out below, the two of you just standing in it.\n\n\"That was a good scene,\" Harper says. And somehow you know she doesn't mean a scene. She means tonight. She means you.\n\nShe turns to go. Then back.\n\n\"Next time,\" she says — the smirk returns, but softer — \"bring the same energy. I'll be expecting it now.\"\n\nShe walks inside without looking back. Which means she trusts you'll watch her go."
     },
     {
       "id": "harper_ending_medium",
       "tier": "medium",
       "min_affinity": 12,
-      "label": "[Medium ending — unlock at affinity 9]",
-      "title": "Harper — Something More",
+      "label": "Off Script",
+      "title": "Harper — Off Script",
       "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER — medium ending narrative to be written]"
+      "text": "\"Come with me,\" Harper says. Just like that. No preamble, no look over her shoulder.\n\nShe leads you through a side door, away from the noise, into a quieter corridor where the music is just a vibration through the walls. She stops and turns, and the version of her that does interviews and walks red carpets has quietly excused herself.\n\nThe woman in front of you is calmer. More still. Actually present in a way she has been carefully guarding all evening.\n\n\"This is the part,\" she says, \"where I'd normally get clever.\" She doesn't sound like she's going to. \"I don't want to be clever right now.\"\n\nShe steps forward. Her hand finds the side of your face. Her eyes stay open until the last second, like she wants to see the whole thing.\n\nThe next few minutes are hers and yours. No audience. No angles. No performance required. Just the real thing, finally, in a hallway with the party on the other side of the wall."
     },
     {
       "id": "harper_ending_spicy",
       "tier": "spicy",
       "min_affinity": 18,
-      "label": "[Spicy ending — unlock at affinity 13]",
-      "title": "Harper — No Holding Back",
+      "label": "The Refined Breakdown",
+      "title": "Harper — The Refined Breakdown",
       "exit_label": "Start a new night.",
-      "text": "[PLACEHOLDER — spicy ending narrative to be written]"
+      "text": "The composed architecture of Harper Vale does not come apart all at once.\n\nIt happens in stages.\n\nThe measured voice. The careful laugh. The practiced way she holds a room — and then the moment, quiet as a switch being flipped, when she stops holding the room and starts holding on to you.\n\nShe says your name. Not in the way she says anything else. In the way that means the lines are gone, the script is gone, the actress is gone, and what's left is just her — unperformed, unedited, making sounds she would never let a camera catch.\n\nAt some point she stops trying for composure entirely. The effort falls away. What's left underneath is raw and unguarded and nothing like what she puts in front of the world.\n\nShe says things she will never quote. Does things she will never confirm. Her whole carefully constructed image dissolves in real time, piece by piece, until there's nothing left but the person — the actual, breathing, completely present person — who built it.\n\nLater, she will be immaculate again.\n\nBut you were here for this. And she knows it. And she chose it.\n\nThat is the only version of her that no one else has ever seen."
     }
   ],
-  "location_specials":   {
+  "location_specials": {
     "bar": [
       {
         "style_key": "loc_bar_a",
