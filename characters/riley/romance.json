@@ -686,6 +686,15 @@
   },
   "endings": [
     {
+      "id": "riley_ending_negative",
+      "tier": "negative",
+      "max_affinity": -7,
+      "label": "She calls the final score.",
+      "title": "Riley — That's the Buzzer",
+      "exit_label": "Start a new night.",
+      "text": "Riley watches you for a moment — the same sharp, measuring look she uses to size up a competitor right before the event. Then she breathes out through her nose, something between a laugh and a decision.\n\n\"Okay. I'm gonna be honest with you.\" She turns to face you fully, one hand on her hip. \"That was rough.\"\n\nShe's not mean about it. That almost makes it worse.\n\n\"I gave this a real shot. Like — actually tried.\" She glances down, then back up, and there's nothing left of the playfulness that was there before. Just clarity. \"And you kept leaving the court. Every time I came in, you were already backing up.\"\n\nA beat.\n\n\"I'm not built for that. I need somebody who meets me. And you...\" She tilts her head. \"You weren't it tonight.\"\n\nShe taps the bar lightly with her knuckle — the kind of gesture that says that's that — and then she picks up her drink, and she's already half-turned back toward the party.\n\n\"Go have a good night though,\" she says. \"Seriously.\"\n\nShe means it. That doesn't help."
+    },
+    {
       "id": "riley_ending_mild",
       "tier": "mild",
       "min_affinity": 7,

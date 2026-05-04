@@ -692,6 +692,15 @@
   },
   "endings": [
     {
+      "id": "luna_ending_negative",
+      "tier": "negative",
+      "max_affinity": -7,
+      "label": "She names exactly what happened.",
+      "title": "Luna — The Last Observation",
+      "exit_label": "Start a new night.",
+      "text": "Luna has been watching you for most of the conversation. That's how she operates — listening, observing, catching the things other people perform over.\n\nTonight she caught something she didn't want to catch.\n\nShe doesn't raise her voice. That's not how she works.\n\n\"I've been thinking,\" she says, \"about the gap between what someone says and what they're actually doing.\" She's looking at the middle distance. \"It's usually more interesting than the words.\"\n\nShe looks at you.\n\n\"You were going through motions,\" she says. \"I'm not saying that to be unkind. I just — I notice things. And what I noticed was that you weren't really trying to find me. You were trying to perform the version of yourself that finds someone.\"\n\nA small pause.\n\n\"That's not the same thing. I can feel the difference.\"\n\nShe shifts slightly, angling just a degree away from you.\n\n\"I hope you find a night that feels real to you,\" she says. \"I'm going to go find mine.\"\n\nShe drifts away. Not dramatically. Just quietly, the way she does most things — and somehow you understand that she saw this coming from the second interaction."
+    },
+    {
       "id": "luna_ending_mild",
       "tier": "mild",
       "min_affinity": 7,

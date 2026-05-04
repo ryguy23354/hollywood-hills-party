@@ -680,6 +680,15 @@
   },
   "endings": [
     {
+      "id": "harper_ending_negative",
+      "tier": "negative",
+      "max_affinity": -7,
+      "label": "She gives you the final note.",
+      "title": "Harper — That's a Wrap",
+      "exit_label": "Start a new night.",
+      "text": "Harper has been in hundreds of scenes. She knows when one isn't working.\n\nShe turns to you with an expression that's almost kind — the kind of kindness that comes from not needing to pretend anymore.\n\n\"Okay,\" she says. \"I'm going to give you the honest note, because I think you can handle it.\"\n\nShe sets her glass down with deliberate precision.\n\n\"You came in with the lines but not the intent. And I can always tell.\" She tilts her head. \"I've read enough scripts to know when someone's hitting marks versus actually playing the scene. You were hitting marks.\"\n\nShe's not cruel. She's almost worse than cruel — she's accurate.\n\n\"And I don't need a scene partner who's just going through the blocking. I've got directors for that.\" A small, not-unkind smile. \"You've got presence. You've got the vocabulary. But you weren't in the scene with me. You were performing near me. There's a difference.\"\n\nShe picks up her glass.\n\n\"Go find someone where you're actually in it,\" she says. \"You'll do better. I promise.\"\n\nShe turns. The scene is over. Except — and this is the part that stings — you realize the only performance was yours."
+    },
+    {
       "id": "harper_ending_mild",
       "tier": "mild",
       "min_affinity": 7,

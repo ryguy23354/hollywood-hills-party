@@ -622,6 +622,15 @@
   },
   "endings": [
     {
+      "id": "sienna_ending_negative",
+      "tier": "negative",
+      "max_affinity": -7,
+      "label": "She's done reaching.",
+      "title": "Sienna — The Wrong Note",
+      "exit_label": "Start a new night.",
+      "text": "Sienna goes quiet. That's the first sign — she's been expressive, animated, impossible to miss, and now she's very, very still.\n\n\"I want to ask you something,\" she says finally. Her voice is lower than usual. Not cold — she doesn't do cold — but careful. \"And I want you to actually answer it.\"\n\nShe looks at you. Those bright green eyes don't miss anything.\n\n\"Were you ever actually here?\"\n\nThe question sits in the air.\n\n\"Because I was.\" She shifts her weight. \"The whole time. I was right here. I kept reaching and you kept... I don't know. Being somewhere else.\" She shakes her head slightly. \"I can feel that. I always feel that.\"\n\nShe sets her drink down.\n\n\"I like connection. I need it — like, that's not a secret about me. And this...\" She gestures between you, once. \"This wasn't that.\"\n\nHer voice doesn't waver but her eyes go glassy for just a second.\n\n\"I hope you find whatever you're actually looking for tonight,\" she says. \"I mean that.\" She picks up her glass and walks back into the party with her chin up and her hair moving like a flag.\n\nYou watch her go. She doesn't look back."
+    },
+    {
       "id": "sienna_ending_mild",
       "tier": "mild",
       "min_affinity": 7,
