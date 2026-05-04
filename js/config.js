@@ -59,6 +59,17 @@
       luna:   "characters/luna/romance.json",
       harper: "characters/harper/romance.json",
       mara:   "characters/mara/romance.json"
-    }
+    },
+
+    // Named affinity tiers used for tier-aware image selection.
+    // Ranges mirror Sienna's context_states bands and serve as global defaults.
+    // Order matters: first matching tier wins.
+    AFFINITY_TIERS: [
+      { name: "frosty",   min: -Infinity, max: -3 },
+      { name: "cool",     min: -2,        max: -1 },
+      { name: "neutral",  min: 0,         max: 4  },
+      { name: "warm",     min: 5,         max: 8  },
+      { name: "electric", min: 9,         max: Infinity }
+    ]
   };
 })();
