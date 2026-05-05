@@ -118,6 +118,70 @@
   }
 
   /**
+   * Returns the name of the affinity tier the given affinity score falls into,
+   * using HP_CONFIG.AFFINITY_TIERS. Falls back to "default" if tiers are
+   * not configured or the score matches nothing.
+   */
+  function _getAffinityTierName(affinity) {
+    const tiers = window.HP_CONFIG?.AFFINITY_TIERS;
+    if (!Array.isArray(tiers)) return "default";
+    const match = tiers.find(
+      t => affinity >= _safeNumber(t.min, -Infinity) && affinity <= _safeNumber(t.max, Infinity)
+    );
+    return match?.name ?? "default";
+  }
+
+  /**
+   * Pick a random image from a manifest entry, with affinity-tier awareness.
+   *
+   * Manifest entry shapes:
+   *   - Array (legacy flat pool) → random pick from pool; all tiers treated the same.
+   *   - Object (tiered format)   → lookup order:
+   *       1. manifestEntry[tierName]  — exact tier pool
+   *       2. manifestEntry["default"] — catch-all pool
+   *       3. All arrays in the object combined — last-resort fallback
+   *
+   * Returns null if no image can be resolved.
+   */
+  function _pickImageForAffinity(manifestEntry, affinity) {
+    if (!manifestEntry) return null;
+
+    // Legacy: flat array — random pick (tier-agnostic)
+    if (Array.isArray(manifestEntry)) {
+      return manifestEntry.length > 0
+        ? manifestEntry[Math.floor(Math.random() * manifestEntry.length)]
+        : null;
+    }
+
+    if (typeof manifestEntry === "object") {
+      const tierName = _getAffinityTierName(affinity);
+
+      // 1. Exact tier pool
+      const tierPool = manifestEntry[tierName];
+      if (Array.isArray(tierPool) && tierPool.length > 0) {
+        return tierPool[Math.floor(Math.random() * tierPool.length)];
+      }
+
+      // 2. Default pool
+      const defaultPool = manifestEntry["default"];
+      if (Array.isArray(defaultPool) && defaultPool.length > 0) {
+        return defaultPool[Math.floor(Math.random() * defaultPool.length)];
+      }
+
+      // 3. Combine all arrays in the object (last resort)
+      const allImages = Object.values(manifestEntry)
+        .filter(Array.isArray)
+        .flat()
+        .filter(v => typeof v === "string");
+      if (allImages.length > 0) {
+        return allImages[Math.floor(Math.random() * allImages.length)];
+      }
+    }
+
+    return null;
+  }
+
+  /**
    * Full game reset: wipe all affinity and interaction counters, then restart.
    * Used as the function target on ending exit buttons so the renderer can
    * call it directly without needing a special scene ID.
@@ -447,13 +511,10 @@
 
     let image = romance?.images?.[ctx.location] || romance?.image || null;
     if (!image && ctx.character && ctx.location) {
-      const manifestPool = window.HP_STATE?.images?.[ctx.character]?.[ctx.location];
-      if (Array.isArray(manifestPool) && manifestPool.length > 0) {
-        const picked = manifestPool[Math.floor(Math.random() * manifestPool.length)];
-        image = picked; // keep full "images/" prefix from manifest
-      } else {
-        image = `images/${ctx.character}_${ctx.location}_01.jpg`;
-      }
+      const manifestEntry = window.HP_STATE?.images?.[ctx.character]?.[ctx.location];
+      image =
+        _pickImageForAffinity(manifestEntry, affinity) ||
+        `images/${ctx.character}_${ctx.location}_01.jpg`;
     }
 
     return {
@@ -564,5 +625,4 @@
     buildHubScene,
     enter,
     applyChoice,
-  };
-})();
+    getAffi

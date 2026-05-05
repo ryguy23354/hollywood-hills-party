@@ -59,6 +59,20 @@
       luna:   "characters/luna/romance.json",
       harper: "characters/harper/romance.json",
       mara:   "characters/mara/romance.json"
-    }
+    },
+
+    // Named affinity tiers used for tier-aware image selection.
+    // 6 bands matching the style reaction bands used across all characters.
+    // Note: context_states collapse "close" and "intimate" into one band (9-20)
+    // but the reaction system and endings treat them as distinct — so we do too.
+    // Order matters: first matching tier wins.
+    AFFINITY_TIERS: [
+      { name: "distant",  min: -Infinity, max: -3  },
+      { name: "guarded",  min: -2,        max: -1  },
+      { name: "open",     min: 0,         max: 4   },
+      { name: "warm",     min: 5,         max: 8   },
+      { name: "close",    min: 9,         max: 11  },
+      { name: "intimate", min: 12,        max: Infinity }
+    ]
   };
 })();
