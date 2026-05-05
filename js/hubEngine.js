@@ -313,6 +313,9 @@
           text: forcedNeg.text || "",
           image:
             forcedNeg.image ||
+            (ctx.character && forcedNeg.tier
+              ? `images/${ctx.character}_ending_${forcedNeg.tier}_01.jpg`
+              : null) ||
             (ctx.character && ctx.location
               ? `images/${ctx.character}_${ctx.location}_01.jpg`
               : null),
@@ -436,6 +439,9 @@
               title: ending.title || ending.label || "The End",
               text: ending.text || "",
               image: ending.image ||
+                (ctx.character && ending.tier
+                  ? `images/${ctx.character}_ending_${ending.tier}_01.jpg`
+                  : null) ||
                 (ctx.character && ctx.location
                   ? `images/${ctx.character}_${ctx.location}_01.jpg`
                   : null),
