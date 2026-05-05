@@ -625,4 +625,7 @@
     buildHubScene,
     enter,
     applyChoice,
-    getAffi
+    getAffinityTierName: _getAffinityTierName,
+    pickImageForAffinity: _pickImageForAffinity,
+  };
+})();
