@@ -42,23 +42,31 @@ async function hpDiscoverImages(onPool) {
   const tiers = (HP_CONFIG.AFFINITY_TIERS || []).map(t => t.name);
   const dir = HP_CONFIG.IMAGE_DIR || "images";
   const maxVariants = HP_CONFIG.IMAGE_MAX_VARIANTS || 20;
+  // Only a few checks at a time, so the game's own requests are never stuck
+  // behind hundreds of image checks on slower connections.
+  const concurrency = HP_CONFIG.IMAGE_DISCOVERY_CONCURRENCY || 4;
 
-  let total = 0;
-  const jobs = [];
+  const tasks = [];
   for (const c of chars) {
     for (const l of locs) {
       for (const key of ["default", ...tiers]) {
         const prefix = key === "default" ? `${dir}/${c}_${l}` : `${dir}/${c}_${l}_${key}`;
-        jobs.push(
-          hpProbeImagePool(prefix, maxVariants).then(pool => {
-            total += pool.length;
-            onPool(c, l, key, pool);
-          })
-        );
+        tasks.push({ c, l, key, prefix });
       }
     }
   }
-  await Promise.all(jobs);
+
+  let total = 0;
+  let next = 0;
+  async function worker() {
+    while (next < tasks.length) {
+      const t = tasks[next++];
+      const pool = await hpProbeImagePool(t.prefix, maxVariants);
+      total += pool.length;
+      onPool(t.c, t.l, t.key, pool);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, tasks.length) }, worker));
   console.info(`storyLoader: discovered ${total} character images in ${dir}/`);
 }
 
@@ -94,16 +102,6 @@ async function hpLoadAllScenes() {
     }
   }
 
-  // Discover character images directly from the images folder, so new files
-  // show up without editing the manifest. Runs in the background so the game
-  // starts immediately; each pool is updated as soon as it has been checked.
-  if (HP_CONFIG.IMAGE_DISCOVERY !== false) {
-    HP_STATE.imagesDiscovered = false;
-    HP_STATE.imagesReady = hpDiscoverImages(hpApplyDiscoveredPool)
-      .then(() => { HP_STATE.imagesDiscovered = true; })
-      .catch(e => console.error("storyLoader: image discovery failed, using manifest only:", e));
-  }
-
   // Load romance configs into HP_STATE.romance so HubEngine can find them
   if (HP_CONFIG.ROMANCE_FILES && typeof HP_CONFIG.ROMANCE_FILES === "object") {
     HP_STATE.romance = {};
@@ -114,6 +112,17 @@ async function hpLoadAllScenes() {
         console.error(`storyLoader: failed to load romance config for ${charKey}:`, e);
       }
     }
+  }
+
+  // Discover character images directly from the images folder, so new files
+  // show up without editing the manifest. Started last and run in the background
+  // (a few checks at a time) so the game starts immediately; each pool is
+  // updated as soon as it has been checked.
+  if (HP_CONFIG.IMAGE_DISCOVERY !== false) {
+    HP_STATE.imagesDiscovered = false;
+    HP_STATE.imagesReady = hpDiscoverImages(hpApplyDiscoveredPool)
+      .then(() => { HP_STATE.imagesDiscovered = true; })
+      .catch(e => console.error("storyLoader: image discovery failed, using manifest only:", e));
   }
 
   const statusEl = document.getElementById("jsonStatus");
