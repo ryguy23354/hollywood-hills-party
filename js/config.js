@@ -51,7 +51,12 @@
 
     GLOBAL_FALLBACK_IMAGE: "scene_00_intro.jpg",
 
+    // Character images are discovered from the folder at startup (see storyLoader.js).
+    // The manifest is now only a fallback and can be removed once discovery is confirmed.
     IMAGE_MANIFEST_FILE: "images_manifest.json",
+    IMAGE_DISCOVERY: true,
+    IMAGE_DIR: "images",
+    IMAGE_MAX_VARIANTS: 20,
 
     ROMANCE_FILES: {
       sienna: "characters/sienna/romance.json",
