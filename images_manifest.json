@@ -226,7 +226,8 @@
                 "images/harper_pool_02.jpg"
             ],
             "distant": [
-                "images/harper_pool_distant_01.jpg"
+                "images/harper_pool_distant_01.jpg",
+                "images/harper_pool_distant_02.jpg"
             ],
             "guarded": [
                 "images/harper_pool_guarded_01.jpg"

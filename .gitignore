@@ -1,0 +1,9 @@
+# Local secrets — never commit
+.secrets
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Image-generation working files (prompts, checklists) — not part of the game
+_image_gen/
