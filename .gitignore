@@ -7,3 +7,10 @@ Thumbs.db
 
 # Image-generation working files (prompts, checklists) — not part of the game
 _image_gen/
+
+# Design docs and working files - not part of the game
+*.docx
+_story/
+images_manifest_backup.json
+js/randomizer_deterministic.js
+placeholder_image_checklist.md

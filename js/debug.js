@@ -15,11 +15,11 @@
       d = document.createElement("div");
       d.id = "hp-debug";
       d.style.cssText = [
-        "position:fixed", "top:10px", "right:10px",
+        "position:fixed", "top:100px", "right:10px",  // below the header buttons
         "background:rgba(0,0,0,0.75)", "color:#0f0",
         "padding:10px 12px", "font-size:11px", "z-index:9999",
         "white-space:pre", "font-family:monospace",
-        "max-width:240px", "border:1px solid #0f0",
+        "max-width:320px", "border:1px solid #0f0",
         "border-radius:6px", "line-height:1.5",
         "pointer-events:none"
       ].join(";");
@@ -61,7 +61,14 @@
       s += "Char:   " + activeChar + "\n";
       s += "Aff:    " + aff + "\n";
       s += "Turns:  " + ints + "\n";
+      const tiers = window.HP_CONFIG?.AFFINITY_TIERS || [];
+      const tier = tiers.find(t => aff >= (t.min ?? -Infinity) && aff <= (t.max ?? Infinity));
+      s += "Tier:   " + (tier ? tier.name : "default") + "\n";
     }
+
+    // Image currently shown in the scene
+    const imgSrc = document.querySelector("#sceneImageContainer img")?.getAttribute("src");
+    if (imgSrc) s += "Image:  " + imgSrc.split("/").pop() + "\n";
 
     const entries = Object.entries(affinities);
     if (entries.length > 0) {
